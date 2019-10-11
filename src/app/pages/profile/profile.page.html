@@ -1,0 +1,75 @@
+<ion-header no-border class="animated fadeInDown">
+  <ion-toolbar color='dark' mode="ios">
+    <ion-title>My Profile</ion-title>
+    <ion-buttons slot="start">
+        <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+  
+<ion-content class="ion-padding profilepage animated bounceInLeft slow">
+
+  <!-- Profile picture -->
+  <!-- <div class="ion-text-center">
+    <img [src]="profileimg" class="edit-avatar" alt="">
+    <p class="change-text">Change Photo</p>
+  </div> -->
+  <!-- Profile picture -->
+
+  <!-- Form -->
+  <form (ngSubmit)="saveProfile()" #saveForm="ngForm" >
+    <div class="ion-margin-top ion-padding-top">
+      <h4 class="info-text no-margin no-padding">Basic Information</h4>
+      <hr class="custom-hr" color="gray">
+    </div>
+
+    <ion-item>
+      <ion-label> 
+        <ion-icon name="person" color="medium"></ion-icon>
+      </ion-label>
+      <ion-input type="text" mode="md" [(ngModel)]="name" clearInput name="name" placeholder="Name*"></ion-input>
+    </ion-item>
+    
+    <ion-input type="hidden" [(ngModel)]="id" name="id"></ion-input>
+
+    <!-- Private information form -->
+    <div class="ion-margin-top ion-padding-top">
+      <h4 class="info-text no-margin no-padding">Private Information</h4>
+      <hr class="custom-hr" color="gray">
+    </div>
+    
+    <ion-item>
+      <ion-label>
+        <ion-icon name="globe" color="medium"></ion-icon>
+      </ion-label>
+      <ion-textarea autoGrow=true placeholder="Address" mode="md" clearInput name="address" [(ngModel)]="address" placeholder="Address*"></ion-textarea>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label> 
+        <ion-icon name="phone-portrait" color="medium"></ion-icon>
+      </ion-label>
+      <ion-input type="tel" name="phone" mode="md" mask="00000 00000" [(ngModel)]="phone" placeholder="Phone" readonly style="pointer-events: none;"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label> 
+        <ion-icon name="clipboard" color="medium"></ion-icon>
+      </ion-label>
+      <ion-input type="text" clearInput mode="md" name="gst" maxLength="15" [(ngModel)]="gst" placeholder="GSTIN*" style="text-transform: uppercase;"></ion-input>
+    </ion-item>
+    <!-- Private information form -->
+    <ion-row style="margin-top: 25px;">
+      <ion-label color="danger" mode="ios" position="stacked">
+        <h6>*YOU NEED TO SUBMIT ALL ABOVE DETAILS BEFORE ORDER</h6>
+      </ion-label>
+    </ion-row>
+    
+    <ion-row>
+      <ion-col class="signup-col">
+        <ion-button color='dark' class='savebtn' expand="block" fill="outline" type="submit">SAVE PROFILE</ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
+  <!-- Form -->
+</ion-content>

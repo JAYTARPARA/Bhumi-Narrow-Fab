@@ -1,0 +1,42 @@
+ion-toolbar {
+    --background: transparent;
+    --ion-color-base: transparent !important;
+    color: black;
+}
+
+.loginimage {
+    // margin: auto;
+    width: 80px; 
+    height: 80px;
+    margin-top: 10%;
+}
+
+.otpinput, .mobilenumber {
+    margin: 15px 0 15px 0;
+    padding-left: 10px;
+    --background: #ffffff;
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+
+.continuebtn {
+    margin-top: 15px;
+    height: 40px;
+}
+
+.otpinput {
+    letter-spacing: 38px;
+    -webkit-padding-end: 0;
+    --padding-end: 0;
+    font-size: 30px;
+    border: none;
+    background: white;
+}
+
+.OTP-border {
+    ion-col {
+      div {
+        border-bottom: 1px solid;
+      }
+    }
+}

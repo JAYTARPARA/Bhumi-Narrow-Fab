@@ -1,0 +1,35 @@
+<ion-header no-border class="animated fadeInDown">
+  <ion-toolbar color='primary' mode="ios">
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="home"></ion-back-button>
+      </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div id="recaptcha-container"></div>
+  <ion-img class='loginimage animated bounceInLeft slow' src='./assets/images/login_page_user.png'></ion-img>
+  <div class="animated bounceInRight slow">
+    <h1>Hello there!</h1>
+    <h6>Signin to continue with your mobile number</h6>
+    <ion-label color="danger" mode="ios" position="stacked"><h6>PLEASE PROVIDE YOUR WHATSAPP NUMBER</h6></ion-label>
+    <ion-input class="mobilenumber" type="tel" prefix="(+91) " mask="00000-00000" placeholder="(+91) 12345-67890" [(ngModel)]="phone"></ion-input>
+    <ion-label class="ion-text-wrap" color="medium" mode="ios">
+      A 6 digits OTP will be sent via SMS to verify your mobile number!
+    </ion-label>
+    <ion-button color='dark' class="continuebtn" expand="block" fill="outline" (click)="sendotp(this.phone)">CONTINUE</ion-button>
+  </div>
+  <br/>
+  <div *ngIf="showOTPInput" class="animated bounceInRight slow">
+    <ion-label color="dark" position="stacked">OTP</ion-label>
+    <div style="border-bottom: 1px solid;">
+      <ion-input class="otpinput" type="tel" mask="000000" [(ngModel)]="OTP" class="otpinput"></ion-input>
+    </div>
+    <ion-row>
+      <ion-col>
+        <ion-text class="small">{{ OTPmessage }}</ion-text>
+      </ion-col>
+    </ion-row>
+    <ion-button color='dark' class="continuebtn" expand="block" fill="outline" (click)="confirmUser()">VERIFY</ion-button>
+  </div>
+</ion-content>
