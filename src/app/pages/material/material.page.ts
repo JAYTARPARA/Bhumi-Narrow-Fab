@@ -186,6 +186,7 @@ export class MaterialPage implements OnInit {
       const alert = await this.alertCtrl.create({
         header: 'Confirm Order!',
         subHeader: 'Confirm your order?',
+        message: 'Please click send button in whatsapp otherwise your order will not send to the owner',
         mode: 'ios',
         buttons: [
           {
@@ -199,21 +200,24 @@ export class MaterialPage implements OnInit {
           }, {
             text: 'YES',
             handler: () => {
-              this.auth.sendOrder(this.userArray, this.materialArray);
-              // setTimeout(() => {
-              //   this.loadingController.dismiss();
-              // }, 1500);
-              // this.loadingController.create({
-              //   message: 'Sending your order',
-              //   mode: 'ios'
-              // }).then((res) => {
-              //   res.present();
-              //   res.onDidDismiss().then((dis) => {
-              //     this.auth.presentToast('Order Placed', false, 'bottom', 1500, 'success');
-              //     this.quantity[key] = '';
-              //     this.sample[key] = false;
-              //   });
-              // });
+              this.loadingController.create({
+                message: 'Saving your order',
+                mode: 'ios'
+              }).then((res) => {
+                res.present();
+                res.onDidDismiss().then((dis) => {
+                });
+              });
+              this.auth.sendOrder(this.userArray, this.materialArray).then(response => {
+                if (response['success'] == 1) {
+                  this.auth.presentToast(response['message'], false, 'bottom', 1500, 'success');
+                  this.sample[key] = false;
+                  this.quantity[key] = '';
+                } else {
+                  this.auth.presentToast(response['message'], false, 'bottom', 1500, 'danger');
+                }
+                this.loadingController.dismiss();
+              });
             }
           }
         ]

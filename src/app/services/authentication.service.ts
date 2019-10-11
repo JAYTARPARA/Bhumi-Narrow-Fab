@@ -168,57 +168,78 @@ export class AuthenticationService {
   }
 
   sendOrder(userArr, orderArr) {
-  const user_id = userArr[0]['id'];
-  const user_mobile = userArr[0]['mobile'];
-  const user_name = userArr[0]['name'];
-  const user_gst = userArr[0]['gst'];
-  const user_address = userArr[0]['address'];
+    const user_id = userArr[0]['id'];
+    const user_mobile = userArr[0]['mobile'];
+    const user_name = userArr[0]['name'];
+    const user_gst = userArr[0]['gst'];
+    const user_address = userArr[0]['address'];
 
-  const material_primary_id = orderArr[0]['id'];
-  const material_image = orderArr[0]['imageurl'];
-  const material_id = orderArr[0]['material_id'];
-  const material_name = orderArr[0]['name'];
-  const material_price = orderArr[0]['price'];
-  const material_quantity = orderArr[0]['quantity'];
-  let material_sample = orderArr[0]['sample'];
+    const material_primary_id = orderArr[0]['id'];
+    const material_image = orderArr[0]['imageurl'];
+    const material_id = orderArr[0]['material_id'];
+    const material_name = orderArr[0]['name'];
+    const material_price = orderArr[0]['price'];
+    const material_quantity = orderArr[0]['quantity'];
+    let material_sample = orderArr[0]['sample'];
+    let matsample = orderArr[0]['sample'];
 
-  if (material_sample) {
-    material_sample = 'Yes';
-  } else {
-    material_sample = 'No';
+    if (material_sample) {
+      material_sample = 'Yes';
+    } else {
+      matsample = 0;
+      material_sample = 'No';
+    }
+
+    let message = '*Here is a new order and details are as below* \r\n\r\n';
+    message = message + '*User Details:* \r\n';
+    message = message + '*Name:* ' + user_name + '\r\n';
+    message = message + '*Mobile:* ' + user_mobile + '\r\n';
+    message = message + '*GST:* ' + user_gst + '\r\n';
+    message = message + '*Address:* ' + user_address + '\r\n\r\n';
+    message = message + '*Order Details:* \r\n';
+    message = message + '*Material ID:* ' + material_id + '\r\n';
+    message = message + '*Material Name:* ' + material_name + '\r\n';
+    message = message + '*Material Price:* ' + material_price + '\r\n';
+    message = message + '*Quantity Ordered:* ' + material_quantity + ' M' + '\r\n';
+    message = message + '*Sample Requested:* ' + material_sample + '\r\n';
+    message = message + '*Material Image:* ' + material_image + '\r\n';
+
+    const link = material_image;
+
+    if (this.plt.is('cordova')) {
+      return this.socialSharing.shareViaWhatsAppToReceiver('+919824868568', message, '', '').then((res) => {
+        // Success
+        this.saveOrder(user_id, user_mobile, material_primary_id, material_quantity, matsample).then((response) => {
+          console.log(response);
+          // return response;
+        });
+      }).catch((e) => {
+        // Error!
+        return e;
+      });
+    }
   }
 
-  let message = '*Here is a new order and details are as below* \r\n\r\n';
-  message = message + '*User Details:* \r\n';
-  message = message + 'Name: ' + user_name + '\r\n';
-  message = message + 'Mobile: ' + user_mobile + '\r\n';
-  message = message + 'GST: ' + user_gst + '\r\n';
-  message = message + 'Address: ' + user_address + '\r\n\r\n';
-  message = message + '*Order Details:* \r\n';
-  message = message + 'Material ID: ' + material_id + '\r\n';
-  message = message + 'Material Name: ' + material_name + '\r\n';
-  message = message + 'Material Price: ' + material_price + '\r\n';
-  message = message + 'Quantity Ordered: ' + material_quantity + '\r\n';
-  message = message + 'Sample Requested: ' + material_sample + '\r\n';
-  message = message + 'Material Image: ' + material_image + '\r\n';
-
-  const link = material_image;
-
-  window.open('https://api.whatsapp.com/send?phone=+919824868568&text=' + message);
-
-  if (this.plt.is('cordova')) {
-    this.socialSharing.shareViaWhatsApp(message, link, link).then((res) => {
-      // Success
-    }).catch((e) => {
-      // Error!
-      this.presentToast(e, false, 'bottom', 1500, 'danger');
+  saveOrder(userid, usermobile, materialprimaryid, materialquantity, matsample) {
+    if (this.plt.is('cordova')) {
+      return new Promise(resolve => {
+      // tslint:disable-next-line:max-line-length
+      from(this.nativeHttp.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=saveOrder&userid=${userid}&usermobile=${usermobile}&materialprimaryid=${materialprimaryid}&materialquantity=${materialquantity}&matsample=${matsample}`, { 'Content-Type': 'application/json' }, {}))
+      .subscribe(
+        data => {
+          resolve(JSON.parse(data.data));
+      });
     });
-  }
-    // window.plugins.socialsharing.shareViaWhatsApp(message, '', link, () => {
-    //   console.log('share ok');
-    // }, (errormsg) => {
-    //   this.presentToast(errormsg, false, 'bottom', 1500, 'danger');
-    // });
-  // }
+    } else {
+      return new Promise(resolve => {
+        // tslint:disable-next-line:max-line-length
+        this.http.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=saveOrder&userid=${userid}&usermobile=${usermobile}&materialprimaryid=${materialprimaryid}&materialquantity=${materialquantity}&matsample=${matsample}`)
+        .pipe(
+          map(results => results)
+        ).subscribe(data => {
+          resolve(data);
+        });
+      });
+    }
   }
 }
