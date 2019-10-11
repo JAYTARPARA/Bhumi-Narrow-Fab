@@ -19,7 +19,7 @@ import { AngularFireModule } from '@angular/fire';
 import { HttpClientModule } from '@angular/common/http';
 import { HTTP } from '@ionic-native/http/ngx';
 
-// import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 
 firebase.initializeApp({
   apiKey: 'AIzaSyBA6WJFcR_c13T9Q-hIdwXRV5GC59OdPmg',
@@ -58,7 +58,7 @@ providers: [
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     HTTP,
-    // SocialSharing
+    SocialSharing
   ],
   bootstrap: [AppComponent]
 })

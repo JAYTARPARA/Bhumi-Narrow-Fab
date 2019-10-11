@@ -5,7 +5,7 @@ import { from } from 'rxjs';
 import { Platform, ToastController } from '@ionic/angular';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-// import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +17,7 @@ export class AuthenticationService {
     private nativeHttp: HTTP,
     private plt: Platform,
     private toastCtrl: ToastController,
-    // private socialSharing: SocialSharing
+    private socialSharing: SocialSharing
   ) { }
 
   async presentToast(message, showbutton, position, duration, color) {
@@ -206,13 +206,14 @@ export class AuthenticationService {
 
   window.open('https://api.whatsapp.com/send?phone=+919824868568&text=' + message);
 
-  // if (this.plt.is('cordova')) {
-  // this.socialSharing.shareViaWhatsApp(message, link, link).then((res) => {
-  //   // Success
-  // }).catch((e) => {
-  //   // Error!
-  //   this.presentToast(e, false, 'bottom', 1500, 'danger');
-  // });
+  if (this.plt.is('cordova')) {
+    this.socialSharing.shareViaWhatsApp(message, link, link).then((res) => {
+      // Success
+    }).catch((e) => {
+      // Error!
+      this.presentToast(e, false, 'bottom', 1500, 'danger');
+    });
+  }
     // window.plugins.socialsharing.shareViaWhatsApp(message, '', link, () => {
     //   console.log('share ok');
     // }, (errormsg) => {
