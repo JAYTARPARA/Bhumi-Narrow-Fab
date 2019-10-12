@@ -2,12 +2,24 @@
   <ion-toolbar color='dark' mode="ios">
     <ion-title>My Orders</ion-title>
     <ion-buttons slot="start">
-        <ion-menu-button autoHide="false"></ion-menu-button>
-      </ion-buttons>
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
+    <!-- <ion-buttons slot="end">
+      <ion-button (click)="ionViewWillEnter(1, $event)"><ion-icon name="refresh"></ion-icon></ion-button>
+    </ion-buttons> -->
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding card-background-page">
+
+  <ion-refresher slot="fixed" (ionRefresh)="ionViewWillEnter(1, $event)" pullFactor="0.5" pullMin="50" pullMax="100">
+      <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing orders...">
+    </ion-refresher-content>
+  </ion-refresher>
 
   <ion-label color="danger" [hidden]=showNoData class="ion-text-center"><h1>No Data Found. Please order materials from here</h1></ion-label>
 
@@ -35,10 +47,7 @@
     </ion-card-content>
   </ion-card>
 
-  <ion-infinite-scroll (ionInfinite)="loadMore($event)">
-    <ion-infinite-scroll-content
-    loadingSpinner="bubbles"
-    loadingText="Loading more materials...">
-  </ion-infinite-scroll-content>
+  <ion-infinite-scroll *ngIf="!noMoreData"  (ionInfinite)="loadMore($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more orders..."></ion-infinite-scroll-content>
   </ion-infinite-scroll>
 </ion-content>

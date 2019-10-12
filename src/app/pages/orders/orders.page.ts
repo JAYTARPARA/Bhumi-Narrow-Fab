@@ -5,7 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { AngularFireAuth } from '@angular/fire/auth';
 
-import { Platform, ToastController, LoadingController } from '@ionic/angular';
+import { Platform, ToastController, LoadingController, NavController } from '@ionic/angular';
 
 import { AuthenticationService } from './../../services/authentication.service';
 
@@ -31,6 +31,7 @@ export class OrdersPage implements OnInit {
   showNoData = true;
   lastid = 0;
   latestResults = 5;
+  noMoreData = 0;
 
   constructor(
     private fireAuth: AngularFireAuth,
@@ -40,9 +41,22 @@ export class OrdersPage implements OnInit {
     public auth: AuthenticationService,
     private toastCtrl: ToastController,
     public loadingController: LoadingController,
+    private navCtrl: NavController
   ) { }
 
   ngOnInit() {
+  }
+
+  ionViewWillEnter(callit?, infiniteScroll?) {
+    this.orders = [];
+    this.page = 1;
+    if (callit) {
+      // infiniteScroll.target.disabled = false;
+      console.log(infiniteScroll);
+      this.noMoreData = 0;
+      infiniteScroll.target.complete();
+      this.ionViewDidEnter();
+    }
   }
 
   ionViewDidEnter() {
@@ -81,11 +95,10 @@ export class OrdersPage implements OnInit {
 
   loadOrders(infiniteScroll?) {
     this.auth.getOrders(this.results, this.page, this.phone).then(response => {
+      console.log(response);
       if (response['success'] == 1) {
-        console.log(response);
         this.orders = this.orders.concat(response['orders']);
         this.maximumPages = Math.ceil(response['total'] / this.results);
-        console.log('Max Page: ' + this.maximumPages);
         console.log(this.orders);
         if (infiniteScroll) {
           infiniteScroll.target.complete();
@@ -107,7 +120,8 @@ export class OrdersPage implements OnInit {
     }
 
     if (this.page === this.maximumPages) {
-      infiniteScroll.target.disabled = true;
+      // infiniteScroll.target.disabled = true;
+      this.noMoreData = 1;
     }
   }
 

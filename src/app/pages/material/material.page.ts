@@ -37,6 +37,7 @@ export class MaterialPage implements OnInit {
   userArray = [];
   materialArray = [];
   totalValue = [];
+  noMoreData = 0;
 
   constructor(
     private fireAuth: AngularFireAuth,
@@ -51,6 +52,18 @@ export class MaterialPage implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  ionViewWillEnter(callit?, infiniteScroll?) {
+    this.materials = [];
+    this.page = 1;
+    if (callit) {
+      // infiniteScroll.target.disabled = false;
+      console.log(infiniteScroll);
+      this.noMoreData = 0;
+      infiniteScroll.target.complete();
+      this.ionViewDidEnter();
+    }
   }
 
   ionViewDidEnter() {
@@ -93,12 +106,8 @@ export class MaterialPage implements OnInit {
   loadMaterials(infiniteScroll?) {
     this.auth.getMaterials(this.results, this.page).then(response => {
       if (response['success'] == 1) {
-        if (this.lastid == 0) {
-          this.lastid = response['materials'][0]['id'];
-        }
         this.materials = this.materials.concat(response['materials']);
         this.maximumPages = Math.ceil(response['total'] / this.results);
-        console.log('Max Page: ' + this.maximumPages);
         console.log(this.materials);
         if (infiniteScroll) {
           infiniteScroll.target.complete();
@@ -111,33 +120,10 @@ export class MaterialPage implements OnInit {
     });
   }
 
-  getLatestData(lastid) {
-    console.log('Last ID: ' + lastid);
-    this.loadingController.create({
-      message: 'checking for new data',
-      mode: 'ios'
-    }).then((res) => {
-      res.present();
-      res.onDidDismiss().then((dis) => {
-      });
-    });
-    this.auth.getLatestMaterials(this.latestResults, lastid).then(response => {
-      if (response['success'] == 1) {
-        this.materials = this.materials.concat(response['materials']);
-        this.lastid = response['materials'][0]['id'];
-        this.loadingController.dismiss();
-        this.content.scrollToBottom(1500);
-      } else {
-        this.auth.presentToast('No new data found', false, 'bottom', 1000, 'dark');
-      }
-    });
-  }
-
   async loadMore(infiniteScroll) {
     this.page++;
-    console.log('infiniteScroll: ' + infiniteScroll);
-    console.log('page: ' + this.page);
-    console.log('maximumPages: ' + this.maximumPages);
+    console.log('Page: ' + this.page);
+    console.log('Max Page: ' + this.maximumPages);
 
     if (this.page <= this.maximumPages) {
       await this.wait(1000);
@@ -145,7 +131,8 @@ export class MaterialPage implements OnInit {
     }
 
     if (this.page === this.maximumPages) {
-      infiniteScroll.target.disabled = true;
+      // infiniteScroll.target.disabled = true;
+      this.noMoreData = 1;
     }
   }
 
