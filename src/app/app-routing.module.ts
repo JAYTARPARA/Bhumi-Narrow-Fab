@@ -9,6 +9,8 @@ const routes: Routes = [
   { path: 'profile/:type/:id', loadChildren: './pages/profile/profile.module#ProfilePageModule' },
   { path: 'orders/:type/:id', loadChildren: './pages/orders/orders.module#OrdersPageModule' },
   { path: 'material/:type/:id', loadChildren: './pages/material/material.module#MaterialPageModule' },
+  // tslint:disable-next-line:max-line-length
+  { path: 'order-details/:orderid', loadChildren: './pages/order-details/order-details.module#OrderDetailsPageModule' },
 ];
 
 @NgModule({

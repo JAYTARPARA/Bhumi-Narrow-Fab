@@ -17,7 +17,7 @@ export class AuthenticationService {
     private nativeHttp: HTTP,
     private plt: Platform,
     private toastCtrl: ToastController,
-    private socialSharing: SocialSharing
+    private socialSharing: SocialSharing,
   ) { }
 
   async presentToast(message, showbutton, position, duration, color) {
@@ -167,7 +167,7 @@ export class AuthenticationService {
     }
   }
 
-  sendOrder(userArr, orderArr) {
+  async sendOrder(userArr, orderArr) {
     const user_id = userArr[0]['id'];
     const user_mobile = userArr[0]['mobile'];
     const user_name = userArr[0]['name'];
@@ -207,11 +207,15 @@ export class AuthenticationService {
     const link = material_image;
 
     if (this.plt.is('cordova')) {
-      return this.socialSharing.shareViaWhatsAppToReceiver('+919824868568', message, '', '').then((res) => {
+      return this.socialSharing.shareViaWhatsAppToReceiver('+919824868568', message, '', '').then(async (res) => {
         // Success
-        this.saveOrder(user_id, user_mobile, material_primary_id, material_quantity, matsample).then((response) => {
-          console.log(response);
-          // return response;
+        await this.saveOrder(user_id, user_mobile, material_primary_id, material_quantity, matsample).then((response) => {
+          if (response['success'] == 1) {
+            this.presentToast(response['message'], false, 'bottom', 1500, 'success');
+          } else {
+            this.presentToast(response['message'], false, 'bottom', 1500, 'danger');
+          }
+          return response;
         });
       }).catch((e) => {
         // Error!
@@ -221,10 +225,15 @@ export class AuthenticationService {
   }
 
   saveOrder(userid, usermobile, materialprimaryid, materialquantity, matsample) {
+    const date = new Date();
+    // tslint:disable-next-line:max-line-length
+    const orderDate = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2) + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+
+    // tslint:disable-next-line:max-line-length
     if (this.plt.is('cordova')) {
       return new Promise(resolve => {
       // tslint:disable-next-line:max-line-length
-      from(this.nativeHttp.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=saveOrder&userid=${userid}&usermobile=${usermobile}&materialprimaryid=${materialprimaryid}&materialquantity=${materialquantity}&matsample=${matsample}`, { 'Content-Type': 'application/json' }, {}))
+      from(this.nativeHttp.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=saveOrder&userid=${userid}&usermobile=${usermobile}&materialprimaryid=${materialprimaryid}&materialquantity=${materialquantity}&matsample=${matsample}&orderdate=${orderDate}`, { 'Content-Type': 'application/json' }, {}))
       .subscribe(
         data => {
           resolve(JSON.parse(data.data));
@@ -233,7 +242,77 @@ export class AuthenticationService {
     } else {
       return new Promise(resolve => {
         // tslint:disable-next-line:max-line-length
-        this.http.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=saveOrder&userid=${userid}&usermobile=${usermobile}&materialprimaryid=${materialprimaryid}&materialquantity=${materialquantity}&matsample=${matsample}`)
+        this.http.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=saveOrder&userid=${userid}&usermobile=${usermobile}&materialprimaryid=${materialprimaryid}&materialquantity=${materialquantity}&matsample=${matsample}&orderdate=${orderDate}`)
+        .pipe(
+          map(results => results)
+        ).subscribe(data => {
+          resolve(data);
+        });
+      });
+    }
+  }
+
+  getOrders(results, page, mobile) {
+    if (this.plt.is('cordova')) {
+      return new Promise(resolve => {
+      // tslint:disable-next-line:max-line-length
+      from(this.nativeHttp.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getOrders&results=${results}&page=${page}&mobile=${mobile}`, { 'Content-Type': 'application/json' }, {}))
+      .subscribe(
+        data => {
+          resolve(JSON.parse(data.data));
+      });
+    });
+    } else {
+      return new Promise(resolve => {
+        // tslint:disable-next-line:max-line-length
+        this.http.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getOrders&results=${results}&page=${page}&mobile=${mobile}`)
+        .pipe(
+          map(results => results)
+        ).subscribe(data => {
+          resolve(data);
+        });
+      });
+    }
+  }
+
+  getOrderByID(orderid) {
+    if (this.plt.is('cordova')) {
+      return new Promise(resolve => {
+      // tslint:disable-next-line:max-line-length
+      from(this.nativeHttp.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getOrderByID&orderid=${orderid}`, { 'Content-Type': 'application/json' }, {}))
+      .subscribe(
+        data => {
+          resolve(JSON.parse(data.data));
+      });
+    });
+    } else {
+      return new Promise(resolve => {
+        // tslint:disable-next-line:max-line-length
+        this.http.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getOrderByID&orderid=${orderid}`)
+        .pipe(
+          map(results => results)
+        ).subscribe(data => {
+          resolve(data);
+        });
+      });
+    }
+  }
+
+  getTotalOrders(mobile) {
+    console.log(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getTotalOrders&mobile=${mobile}`);
+    if (this.plt.is('cordova')) {
+      return new Promise(resolve => {
+      // tslint:disable-next-line:max-line-length
+      from(this.nativeHttp.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getTotalOrders&mobile=${mobile}`, { 'Content-Type': 'application/json' }, {}))
+      .subscribe(
+        data => {
+          resolve(JSON.parse(data.data));
+      });
+    });
+    } else {
+      return new Promise(resolve => {
+        // tslint:disable-next-line:max-line-length
+        this.http.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getTotalOrders&mobile=${mobile}`)
         .pipe(
           map(results => results)
         ).subscribe(data => {

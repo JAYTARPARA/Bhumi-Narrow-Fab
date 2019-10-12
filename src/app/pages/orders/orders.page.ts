@@ -24,6 +24,13 @@ export class OrdersPage implements OnInit {
   address: any;
   gst: any;
   id: any;
+  orders = [];
+  page = 1;
+  maximumPages: any;
+  results = 5;
+  showNoData = true;
+  lastid = 0;
+  latestResults = 5;
 
   constructor(
     private fireAuth: AngularFireAuth,
@@ -53,13 +60,62 @@ export class OrdersPage implements OnInit {
       this.name = response['name'];
       this.address = response['address'];
       this.gst = response['gst'];
+      this.phone = response['mobile'];
       this.loadingController.dismiss();
       if (this.name == "" || this.address == "" || this.gst == "") {
         this.auth.presentToast('Please provide all details', false, 'bottom', 2500, 'danger');
         this.router.navigate(['/profile/mobile/' + value]);
+      } else {
+        this.loadingController.create({
+          message: 'loading your orders',
+          mode: 'ios'
+        }).then((ress) => {
+          ress.present();
+        });
+        this.loadOrders();
       }
     }).catch((err) => {
       this.loadingController.dismiss();
+    });
+  }
+
+  loadOrders(infiniteScroll?) {
+    this.auth.getOrders(this.results, this.page, this.phone).then(response => {
+      if (response['success'] == 1) {
+        console.log(response);
+        this.orders = this.orders.concat(response['orders']);
+        this.maximumPages = Math.ceil(response['total'] / this.results);
+        console.log('Max Page: ' + this.maximumPages);
+        console.log(this.orders);
+        if (infiniteScroll) {
+          infiniteScroll.target.complete();
+        } else {
+          this.loadingController.dismiss();
+        }
+      } else {
+        this.showNoData = false;
+      }
+    });
+  }
+
+  async loadMore(infiniteScroll) {
+    this.page++;
+
+    if (this.page <= this.maximumPages) {
+      await this.wait(1000);
+      this.loadOrders(infiniteScroll);
+    }
+
+    if (this.page === this.maximumPages) {
+      infiniteScroll.target.disabled = true;
+    }
+  }
+
+  wait(time) {
+    return new Promise(resolve => {
+      setTimeout(() => {
+        resolve();
+      }, time);
     });
   }
 

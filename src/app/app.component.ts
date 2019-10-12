@@ -8,6 +8,8 @@ import { AngularFireAuth } from '@angular/fire/auth';
 
 import { MenuController, Platform, LoadingController, AlertController } from '@ionic/angular';
 
+import { AuthenticationService } from './services/authentication.service';
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -18,6 +20,7 @@ export class AppComponent {
   showMenu = false;
   subscribe: any;
   mobile: any;
+  totalOrders = 0;
 
   constructor(
     private platform: Platform,
@@ -28,11 +31,20 @@ export class AppComponent {
     private menu: MenuController,
     public loadingController: LoadingController,
     public alertCtrl: AlertController,
+    public auth: AuthenticationService,
   ) {
     this.fireAuth.auth.onAuthStateChanged(user => {
       if (user) {
         this.showMenu = true;
         this.mobile = user.phoneNumber.replace('+91', '');
+        this.auth.getTotalOrders(this.mobile).then(response => {
+          console.log(response);
+          if (response['success']) {
+            this.totalOrders = response['total'];
+          } else {
+            this.totalOrders = 0;
+          }
+        });
         this.sideMenu();
       }
     });
@@ -59,7 +71,7 @@ export class AppComponent {
         title : 'My Orders',
         url   : '/orders/mobile/' + this.mobile,
         icon  : 'wallet',
-        number : 99
+        number : 1
       },
       {
         title : 'All Materials',

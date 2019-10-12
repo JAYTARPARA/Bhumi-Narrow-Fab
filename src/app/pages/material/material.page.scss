@@ -1,0 +1,12 @@
+.totalval:before {
+    content: "₹";
+    // color: #9c9c9c;
+    color: red;
+    font-weight: 500;
+}
+
+.totalval, .totalvallabel {
+    color: red;
+    pointer-events: none;
+    font-weight: 500;
+}

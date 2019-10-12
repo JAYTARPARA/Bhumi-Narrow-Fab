@@ -36,6 +36,7 @@ export class MaterialPage implements OnInit {
   sample = [];
   userArray = [];
   materialArray = [];
+  totalValue = [];
 
   constructor(
     private fireAuth: AngularFireAuth,
@@ -77,7 +78,7 @@ export class MaterialPage implements OnInit {
         this.router.navigate(['/profile/mobile/' + value]);
       } else {
         this.loadingController.create({
-          message: 'loding material data',
+          message: 'loading material data',
           mode: 'ios'
         }).then((ress) => {
           ress.present();
@@ -184,8 +185,7 @@ export class MaterialPage implements OnInit {
       this.auth.presentToast('Minimum quantity to order is ' + minquantity + ' Meter', false, 'bottom', 1500, 'danger');
     } else {
       const alert = await this.alertCtrl.create({
-        header: 'Confirm Order!',
-        subHeader: 'Confirm your order?',
+        header: 'Confirm your order!',
         message: 'Please click send button in whatsapp otherwise your order will not send to the owner',
         mode: 'ios',
         buttons: [
@@ -209,14 +209,18 @@ export class MaterialPage implements OnInit {
                 });
               });
               this.auth.sendOrder(this.userArray, this.materialArray).then(response => {
-                if (response['success'] == 1) {
-                  this.auth.presentToast(response['message'], false, 'bottom', 1500, 'success');
-                  this.sample[key] = false;
-                  this.quantity[key] = '';
-                } else {
-                  this.auth.presentToast(response['message'], false, 'bottom', 1500, 'danger');
-                }
+                console.log('Material File');
+                console.log(response);
                 this.loadingController.dismiss();
+                this.sample[key] = false;
+                this.quantity[key] = '';
+                // if (response['success'] == 1) {
+                //   this.auth.presentToast(response['message'], false, 'bottom', 1500, 'success');
+                //   this.sample[key] = false;
+                //   this.quantity[key] = '';
+                // } else {
+                //   this.auth.presentToast(response['message'], false, 'bottom', 1500, 'danger');
+                // }
               });
             }
           }
@@ -225,5 +229,14 @@ export class MaterialPage implements OnInit {
 
       await alert.present();
     }
+  }
+
+  calculateTotal(quantity, key, price) {
+    const pricesplit = price.split('/');
+    const unitprice = pricesplit[0];
+    const unitsplit = pricesplit[1].split('M');
+    const unit = unitsplit[0];
+
+    this.totalValue[key] =  Math.round((quantity * unitprice) / unit);
   }
 }

@@ -35,7 +35,11 @@
         </ion-item>
         <ion-item>
           <ion-label position="floating">Quantity (Meter)</ion-label>
-          <ion-input type="number" clearInput name="quantity" placeholder="125" [(ngModel)]="quantity[i]"></ion-input>
+          <ion-input type="number" name="quantity" placeholder="125" [(ngModel)]="quantity[i]" (keyup)="calculateTotal(quantity[i], i, material.price)"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label color="danger" position="stacked" class="totalvallabel">Total Price</ion-label>
+          <ion-input type="text" name="quantity" [(ngModel)]="totalValue[i]" placeholder="0" class="totalval"></ion-input>
         </ion-item>
       </ion-list>
       <ion-button class="loginbtn" color='dark' expand="block" fill="outline" (click)="materialOrder(material.id, material.price, material.name, material.material_id, material.image, quantity, sample, i)">ORDER NOW</ion-button>
