@@ -5,12 +5,14 @@ const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)},
   { path: 'login', loadChildren: './pages/login/login.module#LoginPageModule' },
-  { path: 'dashboard', loadChildren: './pages/dashboard/dashboard.module#DashboardPageModule' },
   { path: 'profile/:type/:id', loadChildren: './pages/profile/profile.module#ProfilePageModule' },
   { path: 'orders/:type/:id', loadChildren: './pages/orders/orders.module#OrdersPageModule' },
   { path: 'material/:type/:id', loadChildren: './pages/material/material.module#MaterialPageModule' },
-  // tslint:disable-next-line:max-line-length
   { path: 'order-details/:orderid', loadChildren: './pages/order-details/order-details.module#OrderDetailsPageModule' },
+  { path: 'upload-materials', loadChildren: './pages/admin/upload-materials/upload-materials.module#UploadMaterialsPageModule' },
+  { path: 'all-orders', loadChildren: './pages/admin/all-orders/all-orders.module#AllOrdersPageModule' },
+  { path: 'all-users', loadChildren: './pages/admin/all-users/all-users.module#AllUsersPageModule' },
+  { path: 'admin-order-details', loadChildren: './pages/admin/admin-order-details/admin-order-details.module#AdminOrderDetailsPageModule' },
 ];
 
 @NgModule({

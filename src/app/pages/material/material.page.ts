@@ -15,7 +15,8 @@ import { AuthenticationService } from './../../services/authentication.service';
   styleUrls: ['./material.page.scss'],
 })
 export class MaterialPage implements OnInit {
-  @ViewChild(IonContent, { static: false }) content: IonContent;
+  @ViewChild(IonContent, {static: false}) content: IonContent;
+
   phone: any;
   uid: any;
   lastSignIn: any;
@@ -58,11 +59,11 @@ export class MaterialPage implements OnInit {
     this.materials = [];
     this.page = 1;
     if (callit) {
-      // infiniteScroll.target.disabled = false;
-      console.log(infiniteScroll);
-      this.noMoreData = 0;
-      infiniteScroll.target.complete();
-      this.ionViewDidEnter();
+      this.content.scrollToTop(1500);
+      setTimeout(() => {
+        this.noMoreData = 0;
+        this.ionViewDidEnter();
+      }, 100);
     }
   }
 
@@ -90,6 +91,13 @@ export class MaterialPage implements OnInit {
         this.auth.presentToast('Please provide all details', false, 'bottom', 2500, 'danger');
         this.router.navigate(['/profile/mobile/' + value]);
       } else {
+        this.auth.getTotalOrders(this.phone).then(msg => {
+          if (msg['success']) {
+            this.auth.totalOrders = msg['total'];
+          } else {
+            this.auth.totalOrders = 0;
+          }
+        });
         this.loadingController.create({
           message: 'loading material data',
           mode: 'ios'
@@ -116,6 +124,7 @@ export class MaterialPage implements OnInit {
         }
       } else {
         this.showNoData = false;
+        this.loadingController.dismiss();
       }
     });
   }
@@ -201,6 +210,7 @@ export class MaterialPage implements OnInit {
                 this.loadingController.dismiss();
                 this.sample[key] = false;
                 this.quantity[key] = '';
+                this.auth.totalOrders++;
                 // if (response['success'] == 1) {
                 //   this.auth.presentToast(response['message'], false, 'bottom', 1500, 'success');
                 //   this.sample[key] = false;

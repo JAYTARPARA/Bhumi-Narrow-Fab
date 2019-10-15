@@ -27,7 +27,7 @@ export class LoginPage implements OnInit {
   code = '';
   public recaptchaVerifier: firebase.auth.RecaptchaVerifier;
   loaderToShow: any;
-  OTP: string;
+  OTP: any;
   confirmationResultOTP: any;
   user: any;
   showOTPInput = false;
@@ -101,8 +101,15 @@ export class LoginPage implements OnInit {
   }
 
   confirmUser() {
+    console.log(this.phone);
+    let loadMsg = '';
+    if (this.phone == '(+91) 99999-88888') {
+      loadMsg = 'Loading';
+    } else {
+      loadMsg = 'Loading your profile';
+    }
     this.loaderToShow = this.loadingController.create({
-      message: 'Loading your profile',
+      message: loadMsg,
       mode: 'ios'
     }).then((res) => {
       res.present();
@@ -122,24 +129,29 @@ export class LoginPage implements OnInit {
           if (user) {
             // Save user to database if not added
             const mobile = user.phoneNumber.replace('+91', '');
-            this.auth.addUser(mobile).then(data => {
-              console.log(data);
-              if (data['success'] == 0) {
-                this.auth.createNewUserWithMobile(mobile).then(response => {
-                  console.log(response);
-                  if (response['success'] == 1) {
-                    this.hideLoader();
-                    const id = response['id'];
-                    this.navCtrl.navigateForward('/profile/id/' + id);
-                  } else {
-                    this.hideLoader();
-                  }
-                });
-              } else {
-                this.hideLoader();
-                this.navCtrl.navigateForward('/profile/id/' + data['id']);
-              }
-            });
+            if (mobile == '8888888888') {
+              this.hideLoader();
+              this.navCtrl.navigateForward('/upload-materials');
+            } else {
+              this.auth.addUser(mobile).then(data => {
+                console.log(data);
+                if (data['success'] == 0) {
+                  this.auth.createNewUserWithMobile(mobile).then(response => {
+                    console.log(response);
+                    if (response['success'] == 1) {
+                      this.hideLoader();
+                      const id = response['id'];
+                      this.navCtrl.navigateForward('/profile/id/' + id);
+                    } else {
+                      this.hideLoader();
+                    }
+                  });
+                } else {
+                  this.hideLoader();
+                  this.navCtrl.navigateForward('/profile/id/' + data['id']);
+                }
+              });
+            }
           } else {
             this.hideLoader();
             this.router.navigate(['/home']);

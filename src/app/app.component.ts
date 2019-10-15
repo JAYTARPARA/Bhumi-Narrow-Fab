@@ -20,7 +20,6 @@ export class AppComponent {
   showMenu = false;
   subscribe: any;
   mobile: any;
-  totalOrders = 0;
 
   constructor(
     private platform: Platform,
@@ -40,9 +39,9 @@ export class AppComponent {
         this.auth.getTotalOrders(this.mobile).then(response => {
           console.log(response);
           if (response['success']) {
-            this.totalOrders = response['total'];
+            this.auth.totalOrders = response['total'];
           } else {
-            this.totalOrders = 0;
+            this.auth.totalOrders = 0;
           }
         });
         this.sideMenu();
@@ -60,25 +59,53 @@ export class AppComponent {
   }
 
   sideMenu() {
-    this.navigate =
-    [
-      {
-        title : 'My Profile',
-        url   : '/profile/mobile/' + this.mobile,
-        icon  : 'contact'
-      },
-      {
-        title : 'My Orders',
-        url   : '/orders/mobile/' + this.mobile,
-        icon  : 'wallet',
-        number : 1
-      },
-      {
-        title : 'All Materials',
-        url   : '/material/mobile/' + this.mobile,
-        icon  : 'images'
-      },
-    ];
+    if (this.mobile == '8888888888') {
+      this.navigate =
+        [
+          {
+            title : 'Upload Materials',
+            url   : '/upload-materials',
+            icon  : 'cloud-upload'
+          },
+          {
+            title : 'All Orders',
+            url   : '/all-orders',
+            icon  : 'wallet',
+            number : 1
+          },
+          {
+            title : 'All Users',
+            url   : '/all-users',
+            icon  : 'contacts',
+            number : 1
+          },
+          {
+            title : 'All Materials',
+            url   : '/admin-all-materials',
+            icon  : 'images'
+          },
+        ];
+    } else {
+      this.navigate =
+        [
+          {
+            title : 'My Profile',
+            url   : '/profile/mobile/' + this.mobile,
+            icon  : 'contact'
+          },
+          {
+            title : 'My Orders',
+            url   : '/orders/mobile/' + this.mobile,
+            icon  : 'wallet',
+            number : 1
+          },
+          {
+            title : 'All Materials',
+            url   : '/material/mobile/' + this.mobile,
+            icon  : 'images'
+          },
+        ];
+    }
   }
 
   async logout() {

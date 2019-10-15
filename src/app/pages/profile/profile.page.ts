@@ -54,6 +54,13 @@ export class ProfilePage implements OnInit {
         this.created = user.metadata.creationTime;
         const value = this.activatedRoute.snapshot.paramMap.get('id');
         const type = this.activatedRoute.snapshot.paramMap.get('type');
+        this.auth.getTotalOrders(this.phone).then(msg => {
+          if (msg['success']) {
+            this.auth.totalOrders = msg['total'];
+          } else {
+            this.auth.totalOrders = 0;
+          }
+        });
         this.auth.getUser(value, type).then(response => {
           console.log(response);
           this.id = value;
@@ -102,6 +109,5 @@ export class ProfilePage implements OnInit {
         });
       });
     }
-
   }
 }

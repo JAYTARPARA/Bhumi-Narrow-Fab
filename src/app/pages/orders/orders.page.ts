@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import * as firebase from 'firebase';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { AngularFireAuth } from '@angular/fire/auth';
 
-import { Platform, ToastController, LoadingController, NavController } from '@ionic/angular';
+import { Platform, ToastController, LoadingController, NavController, IonContent } from '@ionic/angular';
 
 import { AuthenticationService } from './../../services/authentication.service';
 
@@ -15,6 +15,8 @@ import { AuthenticationService } from './../../services/authentication.service';
   styleUrls: ['./orders.page.scss'],
 })
 export class OrdersPage implements OnInit {
+  @ViewChild(IonContent, {static: false}) content: IonContent;
+
   phone: any;
   uid: any;
   lastSignIn: any;
@@ -51,11 +53,11 @@ export class OrdersPage implements OnInit {
     this.orders = [];
     this.page = 1;
     if (callit) {
-      // infiniteScroll.target.disabled = false;
-      console.log(infiniteScroll);
-      this.noMoreData = 0;
-      infiniteScroll.target.complete();
-      this.ionViewDidEnter();
+      this.content.scrollToTop(1500);
+      setTimeout(() => {
+        this.noMoreData = 0;
+        this.ionViewDidEnter();
+      }, 100);
     }
   }
 
@@ -80,6 +82,13 @@ export class OrdersPage implements OnInit {
         this.auth.presentToast('Please provide all details', false, 'bottom', 2500, 'danger');
         this.router.navigate(['/profile/mobile/' + value]);
       } else {
+        this.auth.getTotalOrders(this.phone).then(msg => {
+          if (msg['success']) {
+            this.auth.totalOrders = msg['total'];
+          } else {
+            this.auth.totalOrders = 0;
+          }
+        });
         this.loadingController.create({
           message: 'loading your orders',
           mode: 'ios'
@@ -107,6 +116,7 @@ export class OrdersPage implements OnInit {
         }
       } else {
         this.showNoData = false;
+        this.loadingController.dismiss();
       }
     });
   }

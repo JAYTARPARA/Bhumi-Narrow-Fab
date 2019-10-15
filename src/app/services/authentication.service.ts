@@ -12,6 +12,8 @@ import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 })
 export class AuthenticationService {
 
+  totalOrders = 0;
+
   constructor(
     private http: HttpClient,
     private nativeHttp: HTTP,
@@ -220,6 +222,15 @@ export class AuthenticationService {
       }).catch((e) => {
         // Error!
         return e;
+      });
+    } else {
+      await this.saveOrder(user_id, user_mobile, material_primary_id, material_quantity, matsample).then((response) => {
+        if (response['success'] == 1) {
+          this.presentToast(response['message'], false, 'bottom', 1500, 'success');
+        } else {
+          this.presentToast(response['message'], false, 'bottom', 1500, 'danger');
+        }
+        return response;
       });
     }
   }

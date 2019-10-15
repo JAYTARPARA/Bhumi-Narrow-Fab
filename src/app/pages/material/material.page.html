@@ -4,24 +4,15 @@
     <ion-buttons slot="start">
         <ion-menu-button autoHide="false"></ion-menu-button>
       </ion-buttons>
-      <!-- <ion-buttons slot="end">
-        <ion-button (click)="ionViewWillEnter(1)"><ion-icon name="refresh"></ion-icon></ion-button>
-      </ion-buttons> -->
+      <ion-buttons slot="end">
+        <ion-button (click)="ionViewWillEnter(1, $event)"><ion-icon name="refresh"></ion-icon></ion-button>
+      </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding card-background-page">
 
-  <ion-refresher slot="fixed" (ionRefresh)="ionViewWillEnter(1, $event)" pullFactor="0.5" pullMin="50" pullMax="100">
-      <ion-refresher-content
-      pullingIcon="arrow-dropdown"
-      pullingText="Pull to refresh"
-      refreshingSpinner="circles"
-      refreshingText="Refreshing materials...">
-    </ion-refresher-content>
-  </ion-refresher>
-
-  <ion-label color="danger" [hidden]=showNoData class="ion-text-center"><h1>No Data Found. Please come back later</h1></ion-label>
+  <ion-label color="danger" [hidden]=showNoData class="ion-text-center"><h2><b>Materials not available. Please check after sometime</b></h2></ion-label>
 
   <ion-card *ngFor="let material of materials; let i = index" class="animated bounceInLeft slow">
     <ion-card-content>
@@ -46,7 +37,7 @@
         </ion-item>
         <ion-item>
           <ion-label position="floating">Quantity (Meter)</ion-label>
-          <ion-input type="number" name="quantity" placeholder="125" [(ngModel)]="quantity[i]" (keyup)="calculateTotal(quantity[i], i, material.price)"></ion-input>
+          <ion-input type="number" name="quantity" placeholder="125" [(ngModel)]="quantity[i]" (ionChange)="calculateTotal(quantity[i], i, material.price)"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label color="danger" position="stacked" class="totalvallabel">Total Price</ion-label>

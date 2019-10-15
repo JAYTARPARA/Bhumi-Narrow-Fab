@@ -25,17 +25,27 @@ export class HomePage implements OnInit, OnDestroy, AfterViewInit {
     public alertCtrl: AlertController,
   ) {
     this.fireAuth.auth.onAuthStateChanged(user => {
+      const chkadmin = user.phoneNumber.replace('+91', '');
       if (user) {
         setTimeout(() => {
           this.loadingController.dismiss();
         }, 1500);
+        let loadMsg = '';
+        let redirectUrl = '';
+        if (chkadmin == '8888888888') {
+          loadMsg = 'Loading';
+          redirectUrl = '/upload-materials';
+        } else {
+          loadMsg = 'Loading your profile';
+          redirectUrl = '/profile/mobile/' + user.phoneNumber.replace('+91', '');
+        }
         this.loadingController.create({
-          message: 'Loading your profile',
+          message: loadMsg,
           mode: 'ios'
         }).then((res) => {
           res.present();
           res.onDidDismiss().then((dis) => {
-            this.router.navigate(['/profile/mobile/' + user.phoneNumber.replace('+91', '')]);
+            this.router.navigate([redirectUrl]);
           });
         });
       }
