@@ -55,7 +55,7 @@ export class OrderDetailsPage implements OnInit {
         this.material_id = this.orderdetail.material_id;
         this.mobile = this.orderdetail.mobile;
         this.name = this.orderdetail.name;
-        this.price = this.orderdetail.price;
+        this.price = this.orderdetail.originalprice;
         this.quantity = this.orderdetail.quantity;
         this.sample = this.orderdetail.sample;
         this.status = this.orderdetail.status;

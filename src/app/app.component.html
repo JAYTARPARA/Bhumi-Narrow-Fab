@@ -11,8 +11,8 @@
         <ion-item [routerLink]="pages.url" routerDirection="forward" mode="ios">
           <ion-icon [name]="pages.icon" slot="start"></ion-icon>
             {{ pages.title }} 
-            <ion-chip *ngIf=pages.number mode="ios">
-              <ion-label>{{ auth.totalOrders }}</ion-label>
+            <ion-chip *ngIf=pages.showNum mode="ios">
+              <ion-label>{{ pages.number }}</ion-label>
             </ion-chip>
           </ion-item>
         </ion-menu-toggle>

@@ -5,16 +5,16 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { AngularFireAuth } from '@angular/fire/auth';
 
-import { Platform, ToastController, LoadingController, NavController, IonContent } from '@ionic/angular';
+import { Platform, ToastController, LoadingController, IonContent, AlertController } from '@ionic/angular';
 
-import { AuthenticationService } from './../../services/authentication.service';
+import { AuthenticationService } from './../../../services/authentication.service';
 
 @Component({
-  selector: 'app-orders',
-  templateUrl: './orders.page.html',
-  styleUrls: ['./orders.page.scss'],
+  selector: 'app-all-materials',
+  templateUrl: './all-materials.page.html',
+  styleUrls: ['./all-materials.page.scss'],
 })
-export class OrdersPage implements OnInit {
+export class AllMaterialsPage implements OnInit {
   @ViewChild(IonContent, {static: false}) content: IonContent;
 
   phone: any;
@@ -26,13 +26,18 @@ export class OrdersPage implements OnInit {
   address: any;
   gst: any;
   id: any;
-  orders = [];
+  materials = [];
   page = 1;
   maximumPages: any;
   results = 5;
   showNoData = true;
   lastid = 0;
   latestResults = 5;
+  quantity = [];
+  sample = [];
+  userArray = [];
+  materialArray = [];
+  totalValue = [];
   noMoreData = 0;
 
   constructor(
@@ -43,14 +48,15 @@ export class OrdersPage implements OnInit {
     public auth: AuthenticationService,
     private toastCtrl: ToastController,
     public loadingController: LoadingController,
-    private navCtrl: NavController
-  ) { }
+    public alertCtrl: AlertController
+  ) {
+  }
 
   ngOnInit() {
   }
 
   ionViewWillEnter(callit?, infiniteScroll?) {
-    this.orders = [];
+    this.materials = [];
     this.page = 1;
     if (callit) {
       this.content.scrollToTop(1500);
@@ -62,53 +68,38 @@ export class OrdersPage implements OnInit {
   }
 
   ionViewDidEnter() {
-    this.loadingController.create({
-      message: 'checking your data',
-      mode: 'ios'
-    }).then((res) => {
-      res.present();
-    });
     const value = this.activatedRoute.snapshot.paramMap.get('id');
     const type = this.activatedRoute.snapshot.paramMap.get('type');
     this.auth.getUser(value, type).then(response => {
-      console.log(response);
-      this.id = value;
-      this.name = response['name'];
-      this.address = response['address'];
-      this.gst = response['gst'];
-      this.phone = response['mobile'];
-      this.loadingController.dismiss();
-      if (this.name == "" || this.address == "" || this.gst == "") {
-        this.auth.presentToast('Please provide all details', false, 'bottom', 2500, 'danger');
-        this.router.navigate(['/profile/mobile/' + value]);
-      } else {
-        this.auth.getTotalOrders(this.phone).then(msg => {
-          if (msg['success']) {
-            this.auth.totalOrders = msg['total'];
-          } else {
-            this.auth.totalOrders = 0;
-          }
-        });
-        this.loadingController.create({
-          message: 'loading your orders',
-          mode: 'ios'
-        }).then((ress) => {
-          ress.present();
-        });
-        this.loadOrders();
-      }
+      this.auth.getAdminAllTotal().then(res => {
+        if (res['success']) {
+          this.auth.adminTotalOrders = res['totalOrders'];
+          this.auth.adminTotalUsers = res['totalUsers'];
+          this.auth.adminTotalMaterials = res['totalMaterials'];
+        } else {
+          this.auth.adminTotalOrders = 0;
+          this.auth.adminTotalUsers = 0;
+          this.auth.adminTotalMaterials = 0;
+        }
+      });
+      this.loadingController.create({
+        message: 'loading materials',
+        mode: 'ios'
+      }).then((ress) => {
+        ress.present();
+      });
+      this.loadMaterials();
     }).catch((err) => {
       this.loadingController.dismiss();
     });
   }
 
-  loadOrders(infiniteScroll?) {
-    this.auth.getOrders(this.results, this.page, this.phone).then(response => {
-      console.log(response);
+  loadMaterials(infiniteScroll?) {
+    this.auth.getMaterials(this.results, this.page).then(response => {
       if (response['success'] == 1) {
-        this.orders = this.orders.concat(response['orders']);
+        this.materials = this.materials.concat(response['materials']);
         this.maximumPages = Math.ceil(response['total'] / this.results);
-        console.log(this.orders);
+        console.log(this.materials);
         if (response['total'] <= this.results ) {
           this.noMoreData = 1;
         }
@@ -129,11 +120,10 @@ export class OrdersPage implements OnInit {
 
     if (this.page <= this.maximumPages) {
       await this.wait(1000);
-      this.loadOrders(infiniteScroll);
+      this.loadMaterials(infiniteScroll);
     }
 
     if (this.page === this.maximumPages) {
-      // infiniteScroll.target.disabled = true;
       this.noMoreData = 1;
     }
   }
@@ -145,5 +135,4 @@ export class OrdersPage implements OnInit {
       }, time);
     });
   }
-
 }

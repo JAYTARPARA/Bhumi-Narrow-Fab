@@ -13,6 +13,9 @@ const routes: Routes = [
   { path: 'all-orders', loadChildren: './pages/admin/all-orders/all-orders.module#AllOrdersPageModule' },
   { path: 'all-users', loadChildren: './pages/admin/all-users/all-users.module#AllUsersPageModule' },
   { path: 'admin-order-details', loadChildren: './pages/admin/admin-order-details/admin-order-details.module#AdminOrderDetailsPageModule' },
+  { path: 'all-materials', loadChildren: './pages/admin/all-materials/all-materials.module#AllMaterialsPageModule' },
+  // tslint:disable-next-line:max-line-length
+  { path: 'admin-material-details/:id', loadChildren: './pages/admin/admin-material-details/admin-material-details.module#AdminMaterialDetailsPageModule' },
 ];
 
 @NgModule({

@@ -117,6 +117,9 @@ export class MaterialPage implements OnInit {
         this.materials = this.materials.concat(response['materials']);
         this.maximumPages = Math.ceil(response['total'] / this.results);
         console.log(this.materials);
+        if (response['total'] <= this.results ) {
+          this.noMoreData = 1;
+        }
         if (infiniteScroll) {
           infiniteScroll.target.complete();
         } else {
@@ -205,19 +208,10 @@ export class MaterialPage implements OnInit {
                 });
               });
               this.auth.sendOrder(this.userArray, this.materialArray).then(response => {
-                console.log('Material File');
-                console.log(response);
                 this.loadingController.dismiss();
                 this.sample[key] = false;
                 this.quantity[key] = '';
                 this.auth.totalOrders++;
-                // if (response['success'] == 1) {
-                //   this.auth.presentToast(response['message'], false, 'bottom', 1500, 'success');
-                //   this.sample[key] = false;
-                //   this.quantity[key] = '';
-                // } else {
-                //   this.auth.presentToast(response['message'], false, 'bottom', 1500, 'danger');
-                // }
               });
             }
           }

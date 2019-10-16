@@ -103,7 +103,7 @@ export class LoginPage implements OnInit {
   confirmUser() {
     console.log(this.phone);
     let loadMsg = '';
-    if (this.phone == '(+91) 99999-88888') {
+    if (this.phone == '(+91) 88888-88888') {
       loadMsg = 'Loading';
     } else {
       loadMsg = 'Loading your profile';

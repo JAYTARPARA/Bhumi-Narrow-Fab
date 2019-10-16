@@ -11,8 +11,11 @@ import { SocialSharing } from '@ionic-native/social-sharing/ngx';
   providedIn: 'root'
 })
 export class AuthenticationService {
-
+  base64img = '';
   totalOrders = 0;
+  adminTotalOrders = 0;
+  adminTotalUsers = 0;
+  adminTotalMaterials = 0;
 
   constructor(
     private http: HttpClient,
@@ -211,7 +214,7 @@ export class AuthenticationService {
     if (this.plt.is('cordova')) {
       return this.socialSharing.shareViaWhatsAppToReceiver('+919824868568', message, '', '').then(async (res) => {
         // Success
-        await this.saveOrder(user_id, user_mobile, material_primary_id, material_quantity, matsample).then((response) => {
+        await this.saveOrder(user_id, user_mobile, material_primary_id, material_quantity, matsample, material_price).then((response) => {
           if (response['success'] == 1) {
             this.presentToast(response['message'], false, 'bottom', 1500, 'success');
           } else {
@@ -224,7 +227,7 @@ export class AuthenticationService {
         return e;
       });
     } else {
-      await this.saveOrder(user_id, user_mobile, material_primary_id, material_quantity, matsample).then((response) => {
+      await this.saveOrder(user_id, user_mobile, material_primary_id, material_quantity, matsample, material_price).then((response) => {
         if (response['success'] == 1) {
           this.presentToast(response['message'], false, 'bottom', 1500, 'success');
         } else {
@@ -235,7 +238,7 @@ export class AuthenticationService {
     }
   }
 
-  saveOrder(userid, usermobile, materialprimaryid, materialquantity, matsample) {
+  saveOrder(userid, usermobile, materialprimaryid, materialquantity, matsample, materialprice) {
     const date = new Date();
     // tslint:disable-next-line:max-line-length
     const orderDate = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2) + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
@@ -244,7 +247,7 @@ export class AuthenticationService {
     if (this.plt.is('cordova')) {
       return new Promise(resolve => {
       // tslint:disable-next-line:max-line-length
-      from(this.nativeHttp.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=saveOrder&userid=${userid}&usermobile=${usermobile}&materialprimaryid=${materialprimaryid}&materialquantity=${materialquantity}&matsample=${matsample}&orderdate=${orderDate}`, { 'Content-Type': 'application/json' }, {}))
+      from(this.nativeHttp.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=saveOrder&userid=${userid}&usermobile=${usermobile}&materialprimaryid=${materialprimaryid}&materialquantity=${materialquantity}&matsample=${matsample}&orderdate=${orderDate}&materialprice=${materialprice}`, { 'Content-Type': 'application/json' }, {}))
       .subscribe(
         data => {
           resolve(JSON.parse(data.data));
@@ -253,7 +256,7 @@ export class AuthenticationService {
     } else {
       return new Promise(resolve => {
         // tslint:disable-next-line:max-line-length
-        this.http.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=saveOrder&userid=${userid}&usermobile=${usermobile}&materialprimaryid=${materialprimaryid}&materialquantity=${materialquantity}&matsample=${matsample}&orderdate=${orderDate}`)
+        this.http.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=saveOrder&userid=${userid}&usermobile=${usermobile}&materialprimaryid=${materialprimaryid}&materialquantity=${materialquantity}&matsample=${matsample}&orderdate=${orderDate}&materialprice=${materialprice}`)
         .pipe(
           map(results => results)
         ).subscribe(data => {
@@ -310,7 +313,6 @@ export class AuthenticationService {
   }
 
   getTotalOrders(mobile) {
-    console.log(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getTotalOrders&mobile=${mobile}`);
     if (this.plt.is('cordova')) {
       return new Promise(resolve => {
       // tslint:disable-next-line:max-line-length
@@ -332,4 +334,121 @@ export class AuthenticationService {
       });
     }
   }
+
+  uploadMaterial(data) {
+    if (this.plt.is('cordova')) {
+      return new Promise(resolve => {
+      // tslint:disable-next-line:max-line-length
+      from(this.nativeHttp.post(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=uploadMaterial`, data, { 'Content-Type': 'application/json' }))
+      .subscribe(results => {
+          // resolve(JSON.parse(results.data));
+          console.log('Auth File');
+          console.log(results);
+      });
+    });
+    } else {
+      return new Promise(resolve => {
+        // tslint:disable-next-line:max-line-length
+        this.http.post(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=uploadMaterial`, data)
+        .pipe(
+          map(results => results)
+        ).subscribe(response => {
+          resolve(response);
+        });
+      });
+    }
+  }
+
+  getAdminAllTotal() {
+    if (this.plt.is('cordova')) {
+      return new Promise(resolve => {
+      // tslint:disable-next-line:max-line-length
+      from(this.nativeHttp.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getAdminAllTotal`, { 'Content-Type': 'application/json' }, {}))
+      .subscribe(
+        data => {
+          resolve(JSON.parse(data.data));
+      });
+    });
+    } else {
+      return new Promise(resolve => {
+        // tslint:disable-next-line:max-line-length
+        this.http.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getAdminAllTotal`)
+        .pipe(
+          map(results => results)
+        ).subscribe(data => {
+          resolve(data);
+        });
+      });
+    }
+  }
+
+  getMaterialDetails(materialid) {
+    if (this.plt.is('cordova')) {
+      return new Promise(resolve => {
+      // tslint:disable-next-line:max-line-length
+      from(this.nativeHttp.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getMaterialByID&materialid=${materialid}`, { 'Content-Type': 'application/json' }, {}))
+      .subscribe(
+        data => {
+          resolve(JSON.parse(data.data));
+      });
+    });
+    } else {
+      return new Promise(resolve => {
+        // tslint:disable-next-line:max-line-length
+        this.http.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getMaterialByID&materialid=${materialid}`)
+        .pipe(
+          map(results => results)
+        ).subscribe(data => {
+          resolve(data);
+        });
+      });
+    }
+  }
+
+  updateMaterialDetailOnly(id, name, mid, price) {
+    if (this.plt.is('cordova')) {
+      return new Promise(resolve => {
+      // tslint:disable-next-line:max-line-length
+      from(this.nativeHttp.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=updateMaterialDetailOnly&id=${id}&name=${name}&mid=${mid}&price=${price}`, { 'Content-Type': 'application/json' }, {}))
+      .subscribe(
+        data => {
+          resolve(JSON.parse(data.data));
+      });
+    });
+    } else {
+      return new Promise(resolve => {
+        // tslint:disable-next-line:max-line-length
+        this.http.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=updateMaterialDetailOnly&id=${id}&name=${name}&mid=${mid}&price=${price}`)
+        .pipe(
+          map(results => results)
+        ).subscribe(data => {
+          resolve(data);
+        });
+      });
+    }
+  }
+
+  deleteMaterial(id) {
+    if (this.plt.is('cordova')) {
+      return new Promise(resolve => {
+      // tslint:disable-next-line:max-line-length
+      from(this.nativeHttp.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=deleteMaterial&id=${id}`, { 'Content-Type': 'application/json' }, {}))
+      .subscribe(
+        data => {
+          resolve(JSON.parse(data.data));
+      });
+    });
+    } else {
+      return new Promise(resolve => {
+        // tslint:disable-next-line:max-line-length
+        this.http.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=deleteMaterial&id=${id}`)
+        .pipe(
+          map(results => results)
+        ).subscribe(data => {
+          resolve(data);
+        });
+      });
+    }
+  }
+
 }

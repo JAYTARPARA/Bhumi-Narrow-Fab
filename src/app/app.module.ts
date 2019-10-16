@@ -21,6 +21,11 @@ import { HTTP } from '@ionic-native/http/ngx';
 
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 
+import { Camera } from '@ionic-native/camera/ngx';
+
+import { FileTransfer } from '@ionic-native/file-transfer/ngx';
+import { File } from '@ionic-native/file/ngx';
+
 firebase.initializeApp({
   apiKey: 'AIzaSyBA6WJFcR_c13T9Q-hIdwXRV5GC59OdPmg',
   authDomain: 'bhumi-narrow-fab.firebaseapp.com',
@@ -58,7 +63,10 @@ providers: [
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     HTTP,
-    SocialSharing
+    SocialSharing,
+    Camera,
+    FileTransfer,
+    File,
   ],
   bootstrap: [AppComponent]
 })

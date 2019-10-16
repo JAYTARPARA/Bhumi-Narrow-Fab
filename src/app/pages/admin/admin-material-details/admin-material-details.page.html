@@ -1,8 +1,11 @@
 <ion-header no-border class="animated fadeInDown">
   <ion-toolbar color='dark' mode="ios">
-    <ion-title>Upload Materials</ion-title>
+    <ion-title>Material Detail</ion-title>
     <ion-buttons slot="start">
         <ion-menu-button autoHide="false"></ion-menu-button>
+      </ion-buttons>
+      <ion-buttons slot="end">
+        <ion-button href="all-materials"><ion-icon name="close"></ion-icon></ion-button>
       </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -55,7 +58,9 @@
           </ion-button>
       </ion-col>
     </ion-row>
-    <ion-img [src]='base64Image' *ngIf='base64Image'></ion-img>
-    <ion-button color='dark' class="uploadbtn" *ngIf='base64Image' (click)='upload()' expand="block" fill="outline" type="submit">UPLOAD MATERIAL</ion-button>
+    <ion-img [src]='base64Image' *ngIf='base64Image && !base64ImageUpdate'></ion-img>
+    <ion-img [src]='base64ImageUpdate' *ngIf='base64ImageUpdate'></ion-img>
+    <ion-button color='dark' class="uploadbtn" (click)='update()' expand="block" fill="outline" type="submit">UPDATE MATERIAL</ion-button>
+    <ion-button color='danger' class="uploadbtn" (click)='delete()' expand="block" fill="outline">DELETE MATERIAL</ion-button>
   </form>
 </ion-content>

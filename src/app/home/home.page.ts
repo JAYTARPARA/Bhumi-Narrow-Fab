@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import * as firebase from 'firebase';
 
 import { AngularFireAuth } from '@angular/fire/auth';
-import { LoadingController, Platform, AlertController } from '@ionic/angular';
+import { LoadingController, Platform, AlertController, ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -23,17 +23,18 @@ export class HomePage implements OnInit, OnDestroy, AfterViewInit {
     private fireAuth: AngularFireAuth,
     public loadingController: LoadingController,
     public alertCtrl: AlertController,
+    public toast: ToastController
   ) {
     this.fireAuth.auth.onAuthStateChanged(user => {
       const chkadmin = user.phoneNumber.replace('+91', '');
       if (user) {
         setTimeout(() => {
           this.loadingController.dismiss();
-        }, 1500);
+        }, 2000);
         let loadMsg = '';
         let redirectUrl = '';
         if (chkadmin == '8888888888') {
-          loadMsg = 'Loading';
+          loadMsg = 'Loading admin area';
           redirectUrl = '/upload-materials';
         } else {
           loadMsg = 'Loading your profile';
@@ -53,11 +54,13 @@ export class HomePage implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit() { }
+
   ngAfterViewInit() {
     this.backButtonSubscription = this.platform.backButton.subscribeWithPriority(999999, () => {
       this.presentAlertConfirm();
     });
   }
+
   ngOnDestroy() {
     this.backButtonSubscription.unsubscribe();
   }

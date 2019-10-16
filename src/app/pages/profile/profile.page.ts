@@ -94,7 +94,6 @@ export class ProfilePage implements OnInit {
           message: 'Saving your data',
           mode: 'ios'
         }).then((res) => {
-          res.present();
           console.log(response);
           if (response['success'] == 1) {
             this.loadingController.dismiss();
@@ -103,6 +102,7 @@ export class ProfilePage implements OnInit {
             this.loadingController.dismiss();
             this.auth.presentToast(response['message'], false, 'bottom', 1000, 'danger');
           }
+          res.present();
           res.onDidDismiss().then((dis) => {
 
           });
