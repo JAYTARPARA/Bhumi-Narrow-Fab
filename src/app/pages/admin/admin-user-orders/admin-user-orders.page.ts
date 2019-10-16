@@ -1,21 +1,18 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-
-import { AngularFireAuth } from '@angular/fire/auth';
-
-import { Platform, ToastController, LoadingController, IonContent, AlertController } from '@ionic/angular';
-
+import { Platform, ToastController, LoadingController, NavController, IonContent } from '@ionic/angular';
 import { AuthenticationService } from './../../../services/authentication.service';
 
 @Component({
-  selector: 'app-all-users',
-  templateUrl: './all-users.page.html',
-  styleUrls: ['./all-users.page.scss'],
+  selector: 'app-admin-user-orders',
+  templateUrl: './admin-user-orders.page.html',
+  styleUrls: ['./admin-user-orders.page.scss'],
 })
-export class AllUsersPage implements OnInit {
+export class AdminUserOrdersPage implements OnInit {
   @ViewChild(IonContent, {static: false}) content: IonContent;
 
-  users = [];
+  phone: any;
+  orders = [];
   page = 1;
   maximumPages: any;
   results = 5;
@@ -23,22 +20,23 @@ export class AllUsersPage implements OnInit {
   noMoreData = 0;
   searchKey: any;
   showNoDataForSearch = true;
+  name: any;
 
   constructor(
-    private fireAuth: AngularFireAuth,
     private router: Router,
     private platform: Platform,
     private activatedRoute: ActivatedRoute,
     public auth: AuthenticationService,
     private toastCtrl: ToastController,
     public loadingController: LoadingController,
-    public alertCtrl: AlertController
+    private navCtrl: NavController
   ) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+  }
 
   ionViewWillEnter(callit?, infiniteScroll?) {
-    this.users = [];
+    this.orders = [];
     this.page = 1;
     if (callit) {
       this.content.scrollToTop(1500);
@@ -50,6 +48,8 @@ export class AllUsersPage implements OnInit {
   }
 
   ionViewDidEnter() {
+    this.phone = this.activatedRoute.snapshot.paramMap.get('mobile');
+    this.name = this.activatedRoute.snapshot.paramMap.get('name');
     this.auth.getAdminAllTotal().then(res => {
       if (res['success']) {
         this.auth.adminTotalOrders = res['totalOrders'];
@@ -62,25 +62,22 @@ export class AllUsersPage implements OnInit {
       }
     });
     this.loadingController.create({
-      message: 'loading users',
+      message: 'loading users orders',
       mode: 'ios'
     }).then((ress) => {
       ress.present();
     });
     this.showNoDataForSearch = true;
-    this.loadUsers();
+    this.loadOrders();
   }
 
-  loadUsers(infiniteScroll?) {
-    if (this.searchKey == undefined) {
-      this.searchKey = '';
-    }
-
-    this.auth.getUsers(this.results, this.page, this.searchKey).then(response => {
+  loadOrders(infiniteScroll?) {
+    this.auth.getOrders(this.results, this.page, this.phone, this.searchKey).then(response => {
+      console.log(response);
       if (response['success'] == 1) {
-        this.users = this.users.concat(response['users']);
+        this.orders = this.orders.concat(response['orders']);
         this.maximumPages = Math.ceil(response['total'] / this.results);
-        console.log(this.users);
+        console.log(this.orders);
         if (response['total'] <= this.results ) {
           this.noMoreData = 1;
         }
@@ -105,10 +102,11 @@ export class AllUsersPage implements OnInit {
 
     if (this.page <= this.maximumPages) {
       await this.wait(1000);
-      this.loadUsers(infiniteScroll);
+      this.loadOrders(infiniteScroll);
     }
 
     if (this.page === this.maximumPages) {
+      // infiniteScroll.target.disabled = true;
       this.noMoreData = 1;
     }
   }
