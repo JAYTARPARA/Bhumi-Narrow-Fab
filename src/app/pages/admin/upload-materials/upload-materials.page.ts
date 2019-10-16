@@ -93,6 +93,7 @@ export class UploadMaterialsPage implements OnInit {
         this.loadingController.dismiss();
 
         if (JSON.parse(JSON.parse(JSON.stringify(result.response)))['success'] == 1) {
+          this.auth.adminTotalMaterials++;
           this.auth.presentToast(JSON.parse(JSON.parse(JSON.stringify(result.response)))['message'], false, 'bottom', 1000, 'success');
         } else {
           this.auth.presentToast(JSON.parse(JSON.parse(JSON.stringify(result.response)))['message'], false, 'bottom', 1000, 'danger');

@@ -8,12 +8,14 @@
         <ion-button (click)="ionViewWillEnter(1, $event)"><ion-icon name="refresh"></ion-icon></ion-button>
       </ion-buttons>
   </ion-toolbar>
+  <ion-searchbar mode="ios" [hidden]=!showNoData debounce="700" placeholder="Search Materials"  [(ngModel)]="searchKey" (ionChange)="ionViewWillEnter(1, '')" showCancelButton="always" clearIcon=false class="animated bounceInLeft slow"></ion-searchbar>
 </ion-header>
 
 <ion-content class="ion-padding card-background-page">
-
   <ion-label color="danger" [hidden]=showNoData class="ion-text-center"><h2><b>Materials not available.</b></h2></ion-label>
   <ion-button class="loginbtn" [hidden]=showNoData color='dark' expand="block" fill="outline" [routerLink]="['/', 'upload-materials']">PLEASE ADD MATERIALS</ion-button>
+
+  <ion-label color="danger" [hidden]=showNoDataForSearch class="ion-text-center"><h2><b>No material found.</b></h2></ion-label>
 
   <ion-card *ngFor="let material of materials; let i = index" class="animated bounceInLeft slow">
     <ion-card-content>

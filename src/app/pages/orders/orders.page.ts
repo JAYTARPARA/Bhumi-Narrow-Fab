@@ -34,6 +34,8 @@ export class OrdersPage implements OnInit {
   lastid = 0;
   latestResults = 5;
   noMoreData = 0;
+  searchKey: any;
+  showNoDataForSearch = true;
 
   constructor(
     private fireAuth: AngularFireAuth,
@@ -95,6 +97,7 @@ export class OrdersPage implements OnInit {
         }).then((ress) => {
           ress.present();
         });
+        this.showNoDataForSearch = true;
         this.loadOrders();
       }
     }).catch((err) => {
@@ -103,7 +106,7 @@ export class OrdersPage implements OnInit {
   }
 
   loadOrders(infiniteScroll?) {
-    this.auth.getOrders(this.results, this.page, this.phone).then(response => {
+    this.auth.getOrders(this.results, this.page, this.phone, this.searchKey).then(response => {
       console.log(response);
       if (response['success'] == 1) {
         this.orders = this.orders.concat(response['orders']);
@@ -118,7 +121,11 @@ export class OrdersPage implements OnInit {
           this.loadingController.dismiss();
         }
       } else {
-        this.showNoData = false;
+        if (this.searchKey == '') {
+          this.showNoData = false;
+        } else {
+          this.showNoDataForSearch = false;
+        }
         this.loadingController.dismiss();
       }
     });

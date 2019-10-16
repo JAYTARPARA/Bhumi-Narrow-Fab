@@ -39,6 +39,8 @@ export class AllMaterialsPage implements OnInit {
   materialArray = [];
   totalValue = [];
   noMoreData = 0;
+  searchKey: any;
+  showNoDataForSearch = true;
 
   constructor(
     private fireAuth: AngularFireAuth,
@@ -88,6 +90,7 @@ export class AllMaterialsPage implements OnInit {
       }).then((ress) => {
         ress.present();
       });
+      this.showNoDataForSearch = true;
       this.loadMaterials();
     }).catch((err) => {
       this.loadingController.dismiss();
@@ -95,7 +98,11 @@ export class AllMaterialsPage implements OnInit {
   }
 
   loadMaterials(infiniteScroll?) {
-    this.auth.getMaterials(this.results, this.page).then(response => {
+    if (this.searchKey == undefined) {
+      this.searchKey = '';
+    }
+    console.log('searchKey: ' + this.searchKey);
+    this.auth.getMaterials(this.results, this.page, this.searchKey).then(response => {
       if (response['success'] == 1) {
         this.materials = this.materials.concat(response['materials']);
         this.maximumPages = Math.ceil(response['total'] / this.results);
@@ -109,7 +116,11 @@ export class AllMaterialsPage implements OnInit {
           this.loadingController.dismiss();
         }
       } else {
-        this.showNoData = false;
+        if (this.searchKey == '') {
+          this.showNoData = false;
+        } else {
+          this.showNoDataForSearch = false;
+        }
         this.loadingController.dismiss();
       }
     });
