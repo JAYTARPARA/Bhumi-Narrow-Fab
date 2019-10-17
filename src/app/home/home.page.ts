@@ -35,7 +35,7 @@ export class HomePage implements OnInit, OnDestroy, AfterViewInit {
         let redirectUrl = '';
         if (chkadmin == '8888888888') {
           loadMsg = 'Loading admin area';
-          redirectUrl = '/upload-materials';
+          redirectUrl = '/all-materials';
         } else {
           loadMsg = 'Loading your profile';
           redirectUrl = '/profile/mobile/' + user.phoneNumber.replace('+91', '');

@@ -80,10 +80,11 @@ export class AppComponent {
       this.navigate =
         [
           {
-            title : 'Upload Materials',
-            url   : '/upload-materials',
-            icon  : 'cloud-upload',
-            showNum : 0
+            title : 'All Materials',
+            url   : '/all-materials',
+            icon  : 'images',
+            number : this.auth.adminTotalMaterials,
+            showNum : 1
           },
           {
             title : 'All Orders',
@@ -100,12 +101,11 @@ export class AppComponent {
             showNum : 1
           },
           {
-            title : 'All Materials',
-            url   : '/all-materials',
-            icon  : 'images',
-            number : this.auth.adminTotalMaterials,
-            showNum : 1
-          },
+            title : 'Upload Materials',
+            url   : '/upload-materials',
+            icon  : 'cloud-upload',
+            showNum : 0
+          }
         ];
     } else {
       this.navigate =
