@@ -270,14 +270,17 @@ export class AuthenticationService {
     }
   }
 
-  getOrders(results, page, mobile, searchKey?) {
+  getOrders(results, page, mobile, searchKey?, searchstatus?) {
     if (!searchKey) {
       searchKey = '';
+    }
+    if (!searchstatus) {
+      searchKey = 'All';
     }
     if (this.plt.is('cordova')) {
       return new Promise(resolve => {
       // tslint:disable-next-line:max-line-length
-      from(this.nativeHttp.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getOrders&results=${results}&page=${page}&mobile=${mobile}&searchKey=${searchKey}`, { 'Content-Type': 'application/json' }, {}))
+      from(this.nativeHttp.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getOrders&results=${results}&page=${page}&mobile=${mobile}&searchKey=${searchKey}&searchstatus=${searchstatus}`, { 'Content-Type': 'application/json' }, {}))
       .subscribe(
         data => {
           resolve(JSON.parse(data.data));
@@ -286,7 +289,7 @@ export class AuthenticationService {
     } else {
       return new Promise(resolve => {
         // tslint:disable-next-line:max-line-length
-        this.http.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getOrders&results=${results}&page=${page}&mobile=${mobile}&searchKey=${searchKey}`)
+        this.http.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getOrders&results=${results}&page=${page}&mobile=${mobile}&searchKey=${searchKey}&searchstatus=${searchstatus}`)
         .pipe(
           map(results => results)
         ).subscribe(data => {
@@ -475,6 +478,68 @@ export class AuthenticationService {
       return new Promise(resolve => {
         // tslint:disable-next-line:max-line-length
         this.http.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getUsers&results=${results}&page=${page}&searchKey=${searchKey}`)
+        .pipe(
+          map(results => results)
+        ).subscribe(data => {
+          resolve(data);
+        });
+      });
+    }
+  }
+
+  updateOrderStatus(id, status) {
+    if (status == 'Pending') {
+      status = 0;
+    } else if (status == 'Confirmed') {
+      status = 1;
+    } else if (status == 'Delivered') {
+      status = 2;
+    } else if (status == 'Rejected') {
+      status = 3;
+    }
+    // tslint:disable-next-line:max-line-length
+    const apiCall = encodeURI(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=updateOrderStatus&id=${id}&status=${status}`);
+    if (this.plt.is('cordova')) {
+      return new Promise(resolve => {
+        // tslint:disable-next-line:max-line-length
+      from(this.nativeHttp.get(apiCall, { 'Content-Type': 'application/json' }, {}))
+      .subscribe(
+        data => {
+          resolve(JSON.parse(data.data));
+      });
+    });
+    } else {
+      return new Promise(resolve => {
+        this.http.get(apiCall)
+        .pipe(
+          map(results => results)
+        ).subscribe(data => {
+          resolve(data);
+        });
+      });
+    }
+  }
+
+  getAllOrders(results, page, searchKey?, searchstatus?) {
+    if (!searchKey) {
+      searchKey = '';
+    }
+    if (!searchstatus) {
+      searchKey = 'All';
+    }
+    if (this.plt.is('cordova')) {
+      return new Promise(resolve => {
+      // tslint:disable-next-line:max-line-length
+      from(this.nativeHttp.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getAllOrders&results=${results}&page=${page}&searchKey=${searchKey}&searchstatus=${searchstatus}`, { 'Content-Type': 'application/json' }, {}))
+      .subscribe(
+        data => {
+          resolve(JSON.parse(data.data));
+      });
+    });
+    } else {
+      return new Promise(resolve => {
+        // tslint:disable-next-line:max-line-length
+        this.http.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getAllOrders&results=${results}&page=${page}&searchKey=${searchKey}&searchstatus=${searchstatus}`)
         .pipe(
           map(results => results)
         ).subscribe(data => {

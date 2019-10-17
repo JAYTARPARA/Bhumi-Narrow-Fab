@@ -1,9 +1,68 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>admin-order-details</ion-title>
+<ion-header no-border class="animated fadeInDown">
+  <ion-toolbar color='{{color}}' mode="ios">
+    <ion-title>ID: {{ order_id }}</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-back-button defaultHref="all-orders"></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding card-background-page">
+  <ion-card class="animated bounceInLeft slow">
+    <ion-card-content>
+      <ion-chip color="{{color}}">
+        <ion-icon name="{{icon}}"></ion-icon>
+        <ion-label>Order is {{ status }}</ion-label>
+      </ion-chip>
+      <ion-row class="ion-text-left">
+        <ion-col col-12>
+          <ion-card-title>Order ID: {{ order_id }}</ion-card-title>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <img src="https://bhuminarrowfab.000webhostapp.com/images/materials/{{image}}">
+      </ion-row>
+      <ion-row class="ion-text-left">
+        <ion-col col-12>
+          <ion-card-title><b><u>Material Details</u></b></ion-card-title>
+          <ion-card-content>
+            <b>Material Name: </b>{{ name }}
+            <br/>
+            <b>Material ID: </b>{{ material_id }}
+            <br/>
+            <b>Material Price: </b>{{ price }}
+            <br/>
+            <b>Ordered at: </b>{{ created_at }}
+          </ion-card-content>
 
+          <ion-card-title><b><u>Order Details</u></b></ion-card-title>
+          <ion-card-content>
+              <b>Name: </b>{{ username }}
+              <br/>
+              <b>Mobile: </b>{{ mobile }}
+              <br/>
+              <b>Address: </b>{{ address }}
+              <br/>
+              <b>Quantity Ordered: </b>{{ quantity }}
+              <br/>
+              <b>Sample Requested: </b>{{ sample }}
+              <br/>
+              <b>Order Total: </b>&#8377;{{ totalprice }}
+            </ion-card-content>
+        </ion-col>
+      </ion-row>
+      <ion-item>
+        <ion-label>Order Status</ion-label>
+        <ion-select mode="ios" interface="action-sheet" placeholder="Select Status" [selectedText]="status" [(ngModel)]="status">
+          <ion-select-option *ngFor="let ostatus of orderStatus" value="{{ostatus.name}}">
+            {{ostatus.name}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-button color='dark' class="uploadbtn" (click)='updateStatus()' expand="block" fill="outline">UPDATE STATUS</ion-button>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

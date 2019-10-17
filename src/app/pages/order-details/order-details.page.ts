@@ -44,7 +44,9 @@ export class OrderDetailsPage implements OnInit {
     });
     this.auth.getOrderByID(this.order_id).then(response => {
       if (response['success'] == 1) {
-        this.loadingController.dismiss();
+        setTimeout(() => {
+          this.loadingController.dismiss();
+        }, 1000);
         this.orderdetail = response['order'][0];
         console.log(this.orderdetail);
         this.address = this.orderdetail.address;

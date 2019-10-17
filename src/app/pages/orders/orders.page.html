@@ -9,6 +9,14 @@
     </ion-buttons>
   </ion-toolbar>
   <ion-searchbar mode="ios" [hidden]=!showNoData debounce="700" placeholder="Search Order"  [(ngModel)]="searchKey" (ionChange)="ionViewWillEnter(1, '')" showCancelButton="always" clearIcon=false class="animated bounceInLeft slow"></ion-searchbar>
+  <ion-item class="animated bounceInLeft slow">
+    <ion-label>Search by order status</ion-label>
+    <ion-select mode="ios" interface="action-sheet" placeholder="Select Status" [selectedText]="searchstatus" [(ngModel)]="searchstatus" (ionChange)="ionViewWillEnter(1, '')">
+      <ion-select-option *ngFor="let ostatus of orderStatus" value="{{ostatus.name}}">
+        {{ostatus.name}}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
 </ion-header>
 
 <ion-content class="ion-padding card-background-page">

@@ -26,6 +26,8 @@ import { Camera } from '@ionic-native/camera/ngx';
 import { FileTransfer } from '@ionic-native/file-transfer/ngx';
 import { File } from '@ionic-native/file/ngx';
 
+import { CallNumber } from '@ionic-native/call-number/ngx';
+
 firebase.initializeApp({
   apiKey: 'AIzaSyBA6WJFcR_c13T9Q-hIdwXRV5GC59OdPmg',
   authDomain: 'bhumi-narrow-fab.firebaseapp.com',
@@ -67,6 +69,7 @@ providers: [
     Camera,
     FileTransfer,
     File,
+    CallNumber
   ],
   bootstrap: [AppComponent]
 })

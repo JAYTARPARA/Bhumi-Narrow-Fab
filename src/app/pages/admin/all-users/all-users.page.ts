@@ -1,11 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-
 import { AngularFireAuth } from '@angular/fire/auth';
-
 import { Platform, ToastController, LoadingController, IonContent, AlertController } from '@ionic/angular';
-
 import { AuthenticationService } from './../../../services/authentication.service';
+import { CallNumber } from '@ionic-native/call-number/ngx';
 
 @Component({
   selector: 'app-all-users',
@@ -23,6 +21,7 @@ export class AllUsersPage implements OnInit {
   noMoreData = 0;
   searchKey: any;
   showNoDataForSearch = true;
+  number: any;
 
   constructor(
     private fireAuth: AngularFireAuth,
@@ -32,7 +31,8 @@ export class AllUsersPage implements OnInit {
     public auth: AuthenticationService,
     private toastCtrl: ToastController,
     public loadingController: LoadingController,
-    public alertCtrl: AlertController
+    public alertCtrl: AlertController,
+    private callNumber: CallNumber
   ) { }
 
   ngOnInit() { }
@@ -119,6 +119,16 @@ export class AllUsersPage implements OnInit {
         resolve();
       }, time);
     });
+  }
+
+  callMe(number) {
+    this.callNumber.callNumber(number, true)
+    .then(res =>
+      console.log('Launched dialer!', res)
+    )
+    .catch(err =>
+      console.log('Error launching dialer', err)
+    );
   }
 
 }

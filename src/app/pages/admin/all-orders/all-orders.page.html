@@ -1,9 +1,57 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>all-orders</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-
-</ion-content>
+<ion-header no-border class="animated fadeInDown">
+    <ion-toolbar color='dark' mode="ios">
+      <ion-title>All Orders</ion-title>
+      <ion-buttons slot="start">
+        <ion-menu-button autoHide="false"></ion-menu-button>
+      </ion-buttons>
+      <ion-buttons slot="end">
+        <ion-button (click)="ionViewWillEnter(1, $event)"><ion-icon name="refresh"></ion-icon></ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+    <ion-searchbar mode="ios" [hidden]=!showNoData debounce="700" placeholder="Search Order"  [(ngModel)]="searchKey" (ionChange)="ionViewWillEnter(1, '')" showCancelButton="always" clearIcon=false class="animated bounceInLeft slow"></ion-searchbar>
+    <ion-item class="animated bounceInLeft slow">
+      <ion-label>Search by order status</ion-label>
+      <ion-select mode="ios" interface="action-sheet" placeholder="Select Status" [selectedText]="searchstatus" [(ngModel)]="searchstatus" (ionChange)="ionViewWillEnter(1, '')">
+        <ion-select-option *ngFor="let ostatus of orderStatus" value="{{ostatus.name}}">
+          {{ostatus.name}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-header>
+  
+  <ion-content class="ion-padding card-background-page">
+  
+    <ion-label color="danger" [hidden]=showNoData class="ion-text-center"><h2><b>No Order Found.</b></h2></ion-label>
+  
+    <ion-label color="danger" [hidden]=showNoDataForSearch class="ion-text-center"><h2><b>No order found.</b></h2></ion-label>
+  
+    <ion-card *ngFor="let order of orders; let i = index" class="animated bounceInLeft slow">
+      <ion-card-content>
+        <ion-chip color="{{order.color}}">
+          <ion-icon name="{{order.icon}}"></ion-icon>
+          <ion-label>Order is {{ order.status }}</ion-label>
+        </ion-chip>
+        <ion-row class="ion-text-left">
+          <ion-col col-12>
+            <ion-card-title>{{ order.name }}</ion-card-title>
+            <ion-card-subtitle style="font-size: 20px;">Ordered at: {{ order.created_at }}</ion-card-subtitle>
+            <ion-label color="{{order.color}}">ID: {{ order.order_id }}</ion-label>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <img src="https://bhuminarrowfab.000webhostapp.com/images/materials/{{order.image}}">
+        </ion-row>
+        <ion-row>
+          <ion-col class="ion-text-left">
+            <div class="card-price" style="font-size: 20px;">Order total: &#8377;{{ order.totalprice }}</div>
+          </ion-col>
+        </ion-row>
+        <ion-button class="loginbtn" color='dark' expand="block" fill="outline" [routerLink]="['/', 'admin-order-details', order.order_id]">ORDER DETAIL</ion-button>
+      </ion-card-content>
+    </ion-card>
+  
+    <ion-infinite-scroll *ngIf="!noMoreData"  (ionInfinite)="loadMore($event)">
+      <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more orders..."></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </ion-content>
+  

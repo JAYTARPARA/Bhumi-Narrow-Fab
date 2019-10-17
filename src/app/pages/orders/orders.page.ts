@@ -36,6 +36,25 @@ export class OrdersPage implements OnInit {
   noMoreData = 0;
   searchKey: any;
   showNoDataForSearch = true;
+  searchstatus = 'All';
+
+  orderStatus: any[] = [
+    {
+      name : 'All',
+    },
+    {
+      name : 'Rejected',
+    },
+    {
+      name : 'Pending',
+    },
+    {
+      name: 'Confirmed',
+    },
+    {
+      name: 'Delivered'
+    }
+  ];
 
   constructor(
     private fireAuth: AngularFireAuth,
@@ -106,7 +125,7 @@ export class OrdersPage implements OnInit {
   }
 
   loadOrders(infiniteScroll?) {
-    this.auth.getOrders(this.results, this.page, this.phone, this.searchKey).then(response => {
+    this.auth.getOrders(this.results, this.page, this.phone, this.searchKey, this.searchstatus).then(response => {
       console.log(response);
       if (response['success'] == 1) {
         this.orders = this.orders.concat(response['orders']);

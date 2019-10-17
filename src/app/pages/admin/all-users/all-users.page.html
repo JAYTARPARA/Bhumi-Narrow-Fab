@@ -29,6 +29,7 @@
         <ion-icon name="phone-portrait" color="medium"></ion-icon>
       </ion-label>
       <ion-input type="tel" mode="md" value={{user.mobile}} readonly style="pointer-events: none;"></ion-input>
+      <ion-button class="loginbtn" color='dark' expand="block" fill="outline" (click)="callMe(user.mobile)">CALL NOW</ion-button>
     </ion-item>
     
     <ion-item>
