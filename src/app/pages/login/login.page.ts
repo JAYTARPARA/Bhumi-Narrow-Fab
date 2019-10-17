@@ -131,7 +131,7 @@ export class LoginPage implements OnInit {
             const mobile = user.phoneNumber.replace('+91', '');
             if (mobile == '8888888888') {
               this.hideLoader();
-              this.navCtrl.navigateForward('/upload-materials');
+              this.navCtrl.navigateForward('/all-materials');
             } else {
               this.auth.addUser(mobile).then(data => {
                 console.log(data);

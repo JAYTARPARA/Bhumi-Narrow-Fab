@@ -2,11 +2,11 @@
   <ion-toolbar color='dark' mode="ios">
     <ion-title>All Materials</ion-title>
     <ion-buttons slot="start">
-        <ion-menu-button autoHide="false"></ion-menu-button>
-      </ion-buttons>
-      <ion-buttons slot="end">
-        <ion-button (click)="ionViewWillEnter(1, $event)"><ion-icon name="refresh"></ion-icon></ion-button>
-      </ion-buttons>
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="ionViewWillEnter(1, $event)"><ion-icon name="refresh"></ion-icon></ion-button>
+    </ion-buttons>
   </ion-toolbar>
   <ion-searchbar mode="ios" [hidden]=!showNoData debounce="700" placeholder="Search Materials"  [(ngModel)]="searchKey" (ionChange)="ionViewWillEnter(1, '')" showCancelButton="always" clearIcon=false class="animated bounceInLeft slow"></ion-searchbar>
 </ion-header>

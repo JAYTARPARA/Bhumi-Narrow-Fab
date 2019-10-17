@@ -70,31 +70,25 @@ export class AllMaterialsPage implements OnInit {
   }
 
   ionViewDidEnter() {
-    const value = this.activatedRoute.snapshot.paramMap.get('id');
-    const type = this.activatedRoute.snapshot.paramMap.get('type');
-    this.auth.getUser(value, type).then(response => {
-      this.auth.getAdminAllTotal().then(res => {
-        if (res['success']) {
-          this.auth.adminTotalOrders = res['totalOrders'];
-          this.auth.adminTotalUsers = res['totalUsers'];
-          this.auth.adminTotalMaterials = res['totalMaterials'];
-        } else {
-          this.auth.adminTotalOrders = 0;
-          this.auth.adminTotalUsers = 0;
-          this.auth.adminTotalMaterials = 0;
-        }
-      });
-      this.loadingController.create({
-        message: 'loading materials',
-        mode: 'ios'
-      }).then((ress) => {
-        ress.present();
-      });
-      this.showNoDataForSearch = true;
-      this.loadMaterials();
-    }).catch((err) => {
-      this.loadingController.dismiss();
+    this.auth.getAdminAllTotal().then(res => {
+      if (res['success']) {
+        this.auth.adminTotalOrders = res['totalOrders'];
+        this.auth.adminTotalUsers = res['totalUsers'];
+        this.auth.adminTotalMaterials = res['totalMaterials'];
+      } else {
+        this.auth.adminTotalOrders = 0;
+        this.auth.adminTotalUsers = 0;
+        this.auth.adminTotalMaterials = 0;
+      }
     });
+    this.loadingController.create({
+      message: 'loading materials',
+      mode: 'ios'
+    }).then((ress) => {
+      ress.present();
+    });
+    this.showNoDataForSearch = true;
+    this.loadMaterials();
   }
 
   loadMaterials(infiniteScroll?) {
