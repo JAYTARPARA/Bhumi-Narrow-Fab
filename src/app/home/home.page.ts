@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import * as firebase from 'firebase';
 
 import { AngularFireAuth } from '@angular/fire/auth';
-import { LoadingController, Platform, AlertController, ToastController } from '@ionic/angular';
+import { LoadingController, Platform, AlertController, ToastController, MenuController } from '@ionic/angular';
 import { AuthenticationService } from './../services/authentication.service';
 
 @Component({
@@ -25,11 +25,12 @@ export class HomePage implements OnInit, OnDestroy, AfterViewInit {
     public loadingController: LoadingController,
     public alertCtrl: AlertController,
     public toast: ToastController,
-    public auth: AuthenticationService
+    public auth: AuthenticationService,
+    private menu: MenuController
   ) {
     this.fireAuth.auth.onAuthStateChanged(user => {
-      const chkadmin = user.phoneNumber.replace('+91', '');
       if (user) {
+        const chkadmin = user.phoneNumber.replace('+91', '');
         setTimeout(() => {
           this.loadingController.dismiss();
         }, 2000);
@@ -55,7 +56,9 @@ export class HomePage implements OnInit, OnDestroy, AfterViewInit {
     });
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.menu.enable(false);
+  }
 
   ngAfterViewInit() {
     this.backButtonSubscription = this.platform.backButton.subscribeWithPriority(999999, () => {

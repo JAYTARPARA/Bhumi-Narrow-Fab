@@ -32,6 +32,11 @@ export class AppComponent {
     public alertCtrl: AlertController,
     public auth: AuthenticationService,
   ) {
+    this.fireAuth.auth.onAuthStateChanged(user => {
+      if (user) {
+        this.auth.usermobile = user.phoneNumber.replace('+91', '');
+      }
+    });
     this.auth.getAdminAllTotal().then(response => {
       if (response['success']) {
         console.log(response);

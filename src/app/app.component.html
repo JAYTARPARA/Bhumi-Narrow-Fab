@@ -8,7 +8,7 @@
       <ion-content>
         <ion-list lines="none">
           <ion-menu-toggle auto-hide="true">
-            <ion-item routerLink="/profile/mobile/{{mobile}}" routerDirection="forward" mode="ios">
+            <ion-item routerLink="/profile/mobile/{{auth.usermobile}}" routerDirection="forward" mode="ios">
               <ion-icon name="contact" slot="start"></ion-icon>
                 My Profile
             </ion-item>
@@ -16,7 +16,7 @@
         </ion-list>
         <ion-list lines="none">
           <ion-menu-toggle auto-hide="true">
-            <ion-item routerLink="/orders/mobile/{{mobile}}" routerDirection="forward" mode="ios">
+            <ion-item routerLink="/orders/mobile/{{auth.usermobile}}" routerDirection="forward" mode="ios">
               <ion-icon name="wallet" slot="start"></ion-icon>
                 My Orders
                 <ion-chip mode="ios">
@@ -27,7 +27,7 @@
         </ion-list>
         <ion-list lines="none">
           <ion-menu-toggle auto-hide="true">
-            <ion-item routerLink="/material/mobile/{{mobile}}" routerDirection="forward" mode="ios">
+            <ion-item routerLink="/material/mobile/{{auth.usermobile}}" routerDirection="forward" mode="ios">
               <ion-icon name="images" slot="start"></ion-icon>
                 All Materials
               </ion-item>

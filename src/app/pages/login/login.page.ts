@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, NavController, LoadingController, ToastController, Platform } from '@ionic/angular';
+import { AlertController, NavController, LoadingController, ToastController, Platform, MenuController } from '@ionic/angular';
 import { Router } from '@angular/router';
 
 import * as firebase from 'firebase';
@@ -46,10 +46,12 @@ export class LoginPage implements OnInit {
     private http: HttpClient,
     private nativeHttp: HTTP,
     private plt: Platform,
-    public auth: AuthenticationService
+    public auth: AuthenticationService,
+    private menu: MenuController
   ) { }
 
   ngOnInit() {
+    this.menu.enable(false);
     this.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', { size: 'invisible' });
   }
 
@@ -163,48 +165,6 @@ export class LoginPage implements OnInit {
         this.hideLoader();
         this.showAlertForError(error.message);
       });
-  }
-
-  async showAlertForCode(confirmationResult, receivedOTP) {
-    const prompt = await this.alertCtrl.create({
-      header: 'OTP Verification',
-      subHeader: 'Enter OTP to verify',
-      inputs: [{ name: 'confirmationCode', placeholder: 'OTP', type: 'number', value: receivedOTP}],
-      mode: 'ios',
-      backdropDismiss: false,
-      buttons: [
-        {
-          text: 'CANCEL',
-          handler: data => { console.log('Cancel clicked'); }
-        },
-        {
-          text: 'LOGIN',
-          handler: data => {
-            // Here we need to handle the confirmation code
-          confirmationResult
-            .confirm(data.confirmationCode)
-            .then( (result) => {
-              // User signed in successfully.
-              console.log(result.user);
-              firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
-              // Redirect to the dashboard with details
-              this.fireAuth.auth.onAuthStateChanged(user => {
-                if (user) {
-                  this.navCtrl.navigateForward('/profile');
-                } else {
-                  this.router.navigate(['/home']);
-                }
-              });
-            })
-            .catch( (error) => {
-              // User couldn't sign in (bad verification code?)
-              this.showAlertForError(error.message);
-            });
-          }
-        }
-      ]
-    });
-    await prompt.present();
   }
 
   showLoader() {
