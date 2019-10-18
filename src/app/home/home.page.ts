@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { Router } from '@angular/router';
 
@@ -13,7 +13,7 @@ import { AuthenticationService } from './../services/authentication.service';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage implements OnInit, OnDestroy, AfterViewInit {
+export class HomePage implements OnInit, OnDestroy {
 
   subscribe: any;
   backButtonSubscription: any;
@@ -28,12 +28,16 @@ export class HomePage implements OnInit, OnDestroy, AfterViewInit {
     public auth: AuthenticationService,
     private menu: MenuController
   ) {
+    this.backButtonSubscription = this.platform.backButton.subscribeWithPriority(999999, () => {
+      this.presentAlertConfirm();
+    });
+
     this.fireAuth.auth.onAuthStateChanged(user => {
       if (user) {
         const chkadmin = user.phoneNumber.replace('+91', '');
         setTimeout(() => {
           this.loadingController.dismiss();
-        }, 2000);
+        }, 1000);
         let loadMsg = '';
         let redirectUrl = '';
         if (chkadmin == '8888888888') {
@@ -58,12 +62,6 @@ export class HomePage implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit() {
     this.menu.enable(false);
-  }
-
-  ngAfterViewInit() {
-    this.backButtonSubscription = this.platform.backButton.subscribeWithPriority(999999, () => {
-      this.presentAlertConfirm();
-    });
   }
 
   ngOnDestroy() {
