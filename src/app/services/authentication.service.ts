@@ -209,7 +209,7 @@ export class AuthenticationService {
     message = message + '*GST:* ' + user_gst + '\r\n';
     message = message + '*Address:* ' + user_address + '\r\n\r\n';
     message = message + '*Order Details:* \r\n';
-    message = message + '*Material ID:* ' + material_id + '\r\n';
+    message = message + '*Design Number:* ' + material_id + '\r\n';
     message = message + '*Material Name:* ' + material_name + '\r\n';
     message = message + '*Material Price:* ' + material_price + '\r\n';
     message = message + '*Quantity Ordered:* ' + material_quantity + ' M' + '\r\n';
