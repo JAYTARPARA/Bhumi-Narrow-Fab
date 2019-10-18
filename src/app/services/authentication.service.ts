@@ -18,6 +18,7 @@ export class AuthenticationService {
   adminTotalMaterials = 0;
   usermobile: any;
   userProfileDone = true;
+  serverErrorMsg = 'Server issue! Please try after sometime';
 
   constructor(
     private http: HttpClient,
@@ -47,6 +48,8 @@ export class AuthenticationService {
       .subscribe(
         data => {
           resolve(JSON.parse(data.data));
+      }, error => {
+        resolve({success: 2, message: this.serverErrorMsg});
       });
     });
     } else {
@@ -56,6 +59,8 @@ export class AuthenticationService {
           map(results => results)
         ).subscribe(data => {
           resolve(data);
+        }, error => {
+          resolve({success: 2, message: this.serverErrorMsg});
         });
       });
     }
@@ -69,6 +74,8 @@ export class AuthenticationService {
       .subscribe(
         data => {
           resolve(JSON.parse(data.data));
+      }, error => {
+        resolve({success: 2, message: this.serverErrorMsg});
       });
     });
     } else {
@@ -78,6 +85,8 @@ export class AuthenticationService {
           map(results => results)
         ).subscribe(data => {
           resolve(data);
+        }, error => {
+          resolve({success: 2, message: this.serverErrorMsg});
         });
       });
     }
@@ -91,6 +100,8 @@ export class AuthenticationService {
       .subscribe(
         data => {
           resolve(JSON.parse(data.data));
+      }, error => {
+        resolve({success: 2, message: this.serverErrorMsg});
       });
     });
     } else {
@@ -100,6 +111,8 @@ export class AuthenticationService {
           map(results => results)
         ).subscribe(data => {
           resolve(data);
+        }, error => {
+          resolve({success: 2, message: this.serverErrorMsg});
         });
       });
     }
@@ -115,6 +128,8 @@ export class AuthenticationService {
       .subscribe(
         data => {
           resolve(JSON.parse(data.data));
+      }, error => {
+        resolve({success: 2, message: this.serverErrorMsg});
       });
     });
     } else {
@@ -124,6 +139,8 @@ export class AuthenticationService {
           map(results => results)
         ).subscribe(data => {
           resolve(data);
+        }, error => {
+          resolve({success: 2, message: this.serverErrorMsg});
         });
       });
     }
@@ -140,6 +157,8 @@ export class AuthenticationService {
       .subscribe(
         data => {
           resolve(JSON.parse(data.data));
+      }, error => {
+        resolve({success: 2, message: this.serverErrorMsg});
       });
     });
     } else {
@@ -150,6 +169,8 @@ export class AuthenticationService {
           map(results => results)
         ).subscribe(data => {
           resolve(data);
+        }, error => {
+          resolve({success: 2, message: this.serverErrorMsg});
         });
       });
     }
@@ -244,6 +265,8 @@ export class AuthenticationService {
       await this.saveOrder(user_id, user_mobile, material_primary_id, material_quantity, matsample, material_price).then((response) => {
         if (response['success'] == 1) {
           this.presentToast(response['message'], false, 'bottom', 1500, 'success');
+        } else if (response['success'] == 2) {
+          this.presentToast(response['message'], false, 'bottom', 2500, 'danger');
         } else {
           this.presentToast(response['message'], false, 'bottom', 1500, 'danger');
         }
@@ -265,6 +288,8 @@ export class AuthenticationService {
       .subscribe(
         data => {
           resolve(JSON.parse(data.data));
+      }, error => {
+        resolve({success: 2, message: this.serverErrorMsg});
       });
     });
     } else {
@@ -275,6 +300,8 @@ export class AuthenticationService {
           map(results => results)
         ).subscribe(data => {
           resolve(data);
+        }, error => {
+          resolve({success: 2, message: this.serverErrorMsg});
         });
       });
     }
@@ -294,6 +321,8 @@ export class AuthenticationService {
       .subscribe(
         data => {
           resolve(JSON.parse(data.data));
+      }, error => {
+        resolve({success: 2, message: this.serverErrorMsg});
       });
     });
     } else {
@@ -304,6 +333,8 @@ export class AuthenticationService {
           map(results => results)
         ).subscribe(data => {
           resolve(data);
+        }, error => {
+          resolve({success: 2, message: this.serverErrorMsg});
         });
       });
     }
@@ -317,6 +348,8 @@ export class AuthenticationService {
       .subscribe(
         data => {
           resolve(JSON.parse(data.data));
+      }, error => {
+        resolve({success: 2, message: this.serverErrorMsg});
       });
     });
     } else {
@@ -327,6 +360,8 @@ export class AuthenticationService {
           map(results => results)
         ).subscribe(data => {
           resolve(data);
+        }, error => {
+          resolve({success: 2, message: this.serverErrorMsg});
         });
       });
     }
@@ -340,6 +375,8 @@ export class AuthenticationService {
       .subscribe(
         data => {
           resolve(JSON.parse(data.data));
+      }, error => {
+        resolve({success: 2, message: this.serverErrorMsg});
       });
     });
     } else {
@@ -350,6 +387,8 @@ export class AuthenticationService {
           map(results => results)
         ).subscribe(data => {
           resolve(data);
+        }, error => {
+          resolve({success: 2, message: this.serverErrorMsg});
         });
       });
     }
@@ -361,9 +400,9 @@ export class AuthenticationService {
       // tslint:disable-next-line:max-line-length
       from(this.nativeHttp.post(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=uploadMaterial`, data, { 'Content-Type': 'application/json' }))
       .subscribe(results => {
-          // resolve(JSON.parse(results.data));
-          console.log('Auth File');
-          console.log(results);
+        resolve(JSON.parse(results.data));
+      }, error => {
+        resolve({success: 2, message: this.serverErrorMsg});
       });
     });
     } else {
@@ -374,6 +413,8 @@ export class AuthenticationService {
           map(results => results)
         ).subscribe(response => {
           resolve(response);
+        }, error => {
+          resolve({success: 2, message: this.serverErrorMsg});
         });
       });
     }
@@ -410,6 +451,8 @@ export class AuthenticationService {
       .subscribe(
         data => {
           resolve(JSON.parse(data.data));
+      }, error => {
+        resolve({success: 2, message: this.serverErrorMsg});
       });
     });
     } else {
@@ -420,6 +463,8 @@ export class AuthenticationService {
           map(results => results)
         ).subscribe(data => {
           resolve(data);
+        }, error => {
+          resolve({success: 2, message: this.serverErrorMsg});
         });
       });
     }
@@ -433,6 +478,8 @@ export class AuthenticationService {
       .subscribe(
         data => {
           resolve(JSON.parse(data.data));
+      }, error => {
+        resolve({success: 2, message: this.serverErrorMsg});
       });
     });
     } else {
@@ -443,6 +490,8 @@ export class AuthenticationService {
           map(results => results)
         ).subscribe(data => {
           resolve(data);
+        }, error => {
+          resolve({success: 2, message: this.serverErrorMsg});
         });
       });
     }
@@ -456,6 +505,8 @@ export class AuthenticationService {
       .subscribe(
         data => {
           resolve(JSON.parse(data.data));
+      }, error => {
+        resolve({success: 2, message: this.serverErrorMsg});
       });
     });
     } else {
@@ -466,6 +517,8 @@ export class AuthenticationService {
           map(results => results)
         ).subscribe(data => {
           resolve(data);
+        }, error => {
+          resolve({success: 2, message: this.serverErrorMsg});
         });
       });
     }
@@ -482,6 +535,8 @@ export class AuthenticationService {
       .subscribe(
         data => {
           resolve(JSON.parse(data.data));
+      }, error => {
+        resolve({success: 2, message: this.serverErrorMsg});
       });
     });
     } else {
@@ -492,6 +547,8 @@ export class AuthenticationService {
           map(results => results)
         ).subscribe(data => {
           resolve(data);
+        }, error => {
+          resolve({success: 2, message: this.serverErrorMsg});
         });
       });
     }
@@ -516,6 +573,8 @@ export class AuthenticationService {
       .subscribe(
         data => {
           resolve(JSON.parse(data.data));
+      }, error => {
+        resolve({success: 2, message: this.serverErrorMsg});
       });
     });
     } else {
@@ -525,6 +584,8 @@ export class AuthenticationService {
           map(results => results)
         ).subscribe(data => {
           resolve(data);
+        }, error => {
+          resolve({success: 2, message: this.serverErrorMsg});
         });
       });
     }
@@ -544,6 +605,8 @@ export class AuthenticationService {
       .subscribe(
         data => {
           resolve(JSON.parse(data.data));
+      }, error => {
+        resolve({success: 2, message: this.serverErrorMsg});
       });
     });
     } else {
@@ -554,6 +617,8 @@ export class AuthenticationService {
           map(results => results)
         ).subscribe(data => {
           resolve(data);
+        }, error => {
+          resolve({success: 2, message: this.serverErrorMsg});
         });
       });
     }

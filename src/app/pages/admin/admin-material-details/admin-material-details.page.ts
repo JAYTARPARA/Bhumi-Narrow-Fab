@@ -58,13 +58,20 @@ export class AdminMaterialDetailsPage implements OnInit {
     });
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
     this.auth.getMaterialDetails(this.id).then(response => {
-      this.material = response['material'][0];
-      console.log(this.material);
-      this.name = this.material['name'];
-      this.mid = this.material['material_id'];
-      this.price = this.material['price'].slice(0, this.material['price'].length - 1);
-      this.base64Image = 'https://bhuminarrowfab.000webhostapp.com/images/materials/' + this.material['image'];
-      this.loadingController.dismiss();
+      if (response['success'] == 1) {
+        this.material = response['material'][0];
+        console.log(this.material);
+        this.name = this.material['name'];
+        this.mid = this.material['material_id'];
+        this.price = this.material['price'].slice(0, this.material['price'].length - 1);
+        this.base64Image = 'https://bhuminarrowfab.000webhostapp.com/images/materials/' + this.material['image'];
+        this.loadingController.dismiss();
+      } else if (response['success'] == 2) {
+        this.loadingController.dismiss();
+        this.auth.presentToast(response['message'], false, 'bottom', 2500, 'danger');
+      } else {
+        this.loadingController.dismiss();
+      }
     }).catch((err) => {
       this.loadingController.dismiss();
     });
@@ -143,6 +150,9 @@ export class AdminMaterialDetailsPage implements OnInit {
           this.loadingController.dismiss();
           if (response['success'] == 1) {
             this.auth.presentToast(response['message'], false, 'bottom', 1000, 'success');
+          } else if (response['success'] == 2) {
+            this.loadingController.dismiss();
+            this.auth.presentToast(response['message'], false, 'bottom', 2500, 'danger');
           } else {
             this.auth.presentToast(response['message'], false, 'bottom', 1000, 'danger');
           }
@@ -178,6 +188,9 @@ export class AdminMaterialDetailsPage implements OnInit {
               if (response['success'] == 1) {
                 this.auth.presentToast(response['message'], false, 'bottom', 1000, 'success');
                 this.auth.adminTotalMaterials--;
+              } else if (response['success'] == 2) {
+                this.loadingController.dismiss();
+                this.auth.presentToast(response['message'], false, 'bottom', 2500, 'danger');
               } else {
                 this.auth.presentToast(response['message'], false, 'bottom', 1000, 'danger');
               }

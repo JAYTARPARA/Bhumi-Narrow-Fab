@@ -65,6 +65,9 @@ export class OrderDetailsPage implements OnInit {
         this.status = this.orderdetail.status;
         this.totalprice = this.orderdetail.totalprice;
         this.username = this.orderdetail.username;
+      } else if (response['success'] == 2) {
+        this.loadingController.dismiss();
+        this.auth.presentToast(response['message'], false, 'bottom', 2500, 'danger');
       } else {
         this.loadingController.dismiss();
         this.auth.presentToast(response['message'], false, 'bottom', 2500, 'danger');

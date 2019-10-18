@@ -84,7 +84,12 @@ export class MaterialPage implements OnInit {
       this.router.navigate(['/profile/mobile/' + this.value]);
     } else {
       this.auth.getUser(this.value, this.type).then(response => {
-        this.userArray.push(response);
+        if (response['success'] == 1) {
+          this.userArray.push(response);
+        } else if (response['success'] == 2) {
+          this.loadingController.dismiss();
+          this.auth.presentToast(response['message'], false, 'bottom', 2500, 'danger');
+        }
       });
       this.auth.getTotalOrders(this.value).then(msg => {
         if (msg['success']) {

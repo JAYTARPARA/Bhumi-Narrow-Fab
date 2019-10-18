@@ -92,6 +92,9 @@ export class AllUsersPage implements OnInit {
         } else {
           this.loadingController.dismiss();
         }
+      } else if (response['success'] == 2) {
+        this.loadingController.dismiss();
+        this.auth.presentToast(response['message'], false, 'bottom', 2500, 'danger');
       } else {
         if (this.searchKey == '') {
           this.showNoData = false;

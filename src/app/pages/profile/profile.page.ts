@@ -64,15 +64,20 @@ export class ProfilePage implements OnInit {
     this.auth.getUser(this.value, this.type).then(response => {
       console.log(response);
       this.id = this.value;
-      this.name = response['name'];
-      this.address = response['address'];
-      this.gst = response['gst'];
-      this.phone = response['mobile'];
-      // tslint:disable-next-line:max-line-length
-      if (this.name != undefined && this.name != "" && this.address != undefined && this.address != "" && this.gst != undefined && this.gst != "") {
-        this.auth.userProfileDone = true;
-      } else {
-        this.auth.userProfileDone = false;
+      if (response['success'] == 1) {
+        this.name = response['name'];
+        this.address = response['address'];
+        this.gst = response['gst'];
+        this.phone = response['mobile'];
+        // tslint:disable-next-line:max-line-length
+        if (this.name != undefined && this.name != "" && this.address != undefined && this.address != "" && this.gst != undefined && this.gst != "") {
+          this.auth.userProfileDone = true;
+        } else {
+          this.auth.userProfileDone = false;
+        }
+      } else if (response['success'] == 2) {
+        this.loadingController.dismiss();
+        this.auth.presentToast(response['message'], false, 'bottom', 2500, 'danger');
       }
       setTimeout(() => {
         this.loadingController.dismiss();
@@ -104,6 +109,9 @@ export class ProfilePage implements OnInit {
               this.loadingController.dismiss();
             }, 1500);
             this.auth.presentToast(response['message'], false, 'bottom', 1000, 'success');
+          } else if (response['success'] == 2) {
+            this.loadingController.dismiss();
+            this.auth.presentToast(response['message'], false, 'bottom', 2500, 'danger');
           } else {
             this.loadingController.dismiss();
             this.auth.presentToast(response['message'], false, 'bottom', 1000, 'danger');

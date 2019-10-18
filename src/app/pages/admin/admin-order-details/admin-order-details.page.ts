@@ -84,6 +84,9 @@ export class AdminOrderDetailsPage implements OnInit {
         this.status = this.orderdetail.status;
         this.totalprice = this.orderdetail.totalprice;
         this.username = this.orderdetail.username;
+      } else if (response['success'] == 2) {
+        this.loadingController.dismiss();
+        this.auth.presentToast(response['message'], false, 'bottom', 2500, 'danger');
       } else {
         this.loadingController.dismiss();
         this.auth.presentToast(response['message'], false, 'bottom', 2500, 'danger');
@@ -110,6 +113,9 @@ export class AdminOrderDetailsPage implements OnInit {
 
       if (response['success'] == 1) {
         this.auth.presentToast(response['message'], false, 'bottom', 1000, 'success');
+      } else if (response['success'] == 2) {
+        this.loadingController.dismiss();
+        this.auth.presentToast(response['message'], false, 'bottom', 2500, 'danger');
       } else {
         this.auth.presentToast(response['message'], false, 'bottom', 1000, 'danger');
       }

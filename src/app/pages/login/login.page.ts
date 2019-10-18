@@ -144,10 +144,16 @@ export class LoginPage implements OnInit {
                       this.hideLoader();
                       const id = response['id'];
                       this.navCtrl.navigateForward('/profile/mobile/' + mobile);
+                    } else if (response['success'] == 2) {
+                      this.hideLoader();
+                      this.auth.presentToast(response['message'], false, 'bottom', 2500, 'danger');
                     } else {
                       this.hideLoader();
                     }
                   });
+                } else if (data['success'] == 2) {
+                  this.hideLoader();
+                  this.auth.presentToast(data['message'], false, 'bottom', 2500, 'danger');
                 } else {
                   this.hideLoader();
                   this.navCtrl.navigateForward('/profile/mobile/' + mobile);

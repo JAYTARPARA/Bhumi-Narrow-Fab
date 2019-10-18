@@ -113,6 +113,7 @@ export class AllMaterialsPage implements OnInit {
     console.log('searchKey: ' + this.searchKey);
     console.log('owner: ' + this.owner);
     this.auth.getMaterials(this.results, this.page, this.searchKey, this.owner).then(response => {
+      console.log(response);
       if (response['success'] == 1) {
         this.materials = this.materials.concat(response['materials']);
         this.maximumPages = Math.ceil(response['total'] / this.results);
@@ -125,6 +126,9 @@ export class AllMaterialsPage implements OnInit {
         } else {
           this.loadingController.dismiss();
         }
+      } else if (response['success'] == 2) {
+        this.loadingController.dismiss();
+        this.auth.presentToast(response['message'], false, 'bottom', 2500, 'danger');
       } else {
         if (this.searchKey == '') {
           this.showNoData = false;
