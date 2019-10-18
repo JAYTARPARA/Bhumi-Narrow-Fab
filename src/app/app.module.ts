@@ -30,6 +30,8 @@ import { CallNumber } from '@ionic-native/call-number/ngx';
 
 import { AuthenticationService } from './services/authentication.service';
 
+import { SMS } from '@ionic-native/sms/ngx';
+
 firebase.initializeApp({
   apiKey: 'AIzaSyBA6WJFcR_c13T9Q-hIdwXRV5GC59OdPmg',
   authDomain: 'bhumi-narrow-fab.firebaseapp.com',
@@ -71,7 +73,8 @@ providers: [
     Camera,
     FileTransfer,
     File,
-    CallNumber
+    CallNumber,
+    SMS
   ],
   bootstrap: [AppComponent]
 })

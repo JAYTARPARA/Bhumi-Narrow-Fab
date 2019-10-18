@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from './../../../services/authentication.service';
 import { MenuController, LoadingController } from '@ionic/angular';
+import { SMS } from '@ionic-native/sms/ngx';
 
 @Component({
   selector: 'app-admin-order-details',
@@ -15,6 +16,7 @@ export class AdminOrderDetailsPage implements OnInit {
   username: any;
   totalprice: any;
   status: any;
+  oldStatus: any;
   sample: any;
   quantity: any;
   price: any;
@@ -25,6 +27,7 @@ export class AdminOrderDetailsPage implements OnInit {
   created_at: any;
   address: any;
   orderdetail: any;
+  sendMsg = false;
 
   customActionSheetOptions: any = {
     header: 'Status',
@@ -50,6 +53,7 @@ export class AdminOrderDetailsPage implements OnInit {
     public auth: AuthenticationService,
     public loadingController: LoadingController,
     private menu: MenuController,
+    private sms: SMS
   ) { }
 
   ngOnInit() {
@@ -82,6 +86,7 @@ export class AdminOrderDetailsPage implements OnInit {
         this.quantity = this.orderdetail.quantity;
         this.sample = this.orderdetail.sample;
         this.status = this.orderdetail.status;
+        this.oldStatus = this.orderdetail.status;
         this.totalprice = this.orderdetail.totalprice;
         this.username = this.orderdetail.username;
       } else if (response['success'] == 2) {
@@ -96,6 +101,8 @@ export class AdminOrderDetailsPage implements OnInit {
 
   updateStatus() {
     this.auth.updateOrderStatus(this.order_id, this.status).then(response => {
+      console.log(this.oldStatus);
+      console.log(this.status);
       console.log(response);
       this.loadingController.create({
         message: 'Updating order status',
@@ -103,21 +110,63 @@ export class AdminOrderDetailsPage implements OnInit {
       }).then((res) => {
         res.present();
         res.onDidDismiss().then((dis) => {
-          this.ngOnInit();
+          if (this.sendMsg) {
+            if (this.oldStatus != this.status) {
+              this.loadingController.create({
+                message: 'Sending message to the user',
+                mode: 'ios'
+              }).then((ress) => {
+                ress.present();
+                ress.onDidDismiss().then((diss) => {
+                  this.ngOnInit();
+                });
+              });
+
+              const options = {
+                replaceLineBreaks: true, // true to replace \n by a new line, false by default
+                android: {
+                  intent: ''  // send SMS with the native android SMS messaging
+                  // intent: '' // send SMS without opening any other app
+                }
+              };
+              // tslint:disable-next-line:max-line-length
+              let sendMsg = 'Hello, Your order is updated by owner. \n';
+              sendMsg = sendMsg + 'Order Number: ' + this.order_id + '\n';
+              sendMsg = sendMsg + 'Current Status: ' + this.status + '\n';
+              sendMsg = sendMsg + 'Please vist My Orders page';
+
+              this.sms.send('+91' + this.mobile, sendMsg, options).then( () => {
+                this.loadingController.dismiss();
+                this.auth.presentToast('Message sent to the user', false, 'bottom', 1000, 'success')
+              }, (e) => {
+                this.loadingController.dismiss();
+                alert(e);
+                this.auth.presentToast('Message not sent! Send it manually', false, 'bottom', 1500, 'danger');
+              });
+            } else {
+              this.ngOnInit();
+            }
+          } else {
+            this.ngOnInit();
+          }
         });
       });
 
-      setTimeout(() => {
-        this.loadingController.dismiss();
-      }, 1000);
+      if (response) {
+        setTimeout(() => {
+          this.loadingController.dismiss();
+        }, 1500);
+      }
 
       if (response['success'] == 1) {
         this.auth.presentToast(response['message'], false, 'bottom', 1000, 'success');
+        this.sendMsg = true;
       } else if (response['success'] == 2) {
-        this.loadingController.dismiss();
         this.auth.presentToast(response['message'], false, 'bottom', 2500, 'danger');
+        this.sendMsg = false;
       } else {
         this.auth.presentToast(response['message'], false, 'bottom', 1000, 'danger');
+        this.sendMsg = false;
       }
     });
   }
