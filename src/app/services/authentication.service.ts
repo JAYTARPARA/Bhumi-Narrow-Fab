@@ -127,14 +127,14 @@ export class AuthenticationService {
     }
   }
 
-  getMaterials(results, page, searchKey?) {
+  getMaterials(results, page, searchKey?, owner?) {
     if (!searchKey) {
       searchKey = '';
     }
     if (this.plt.is('cordova')) {
       return new Promise(resolve => {
       // tslint:disable-next-line:max-line-length
-      from(this.nativeHttp.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getMaterials&results=${results}&page=${page}&searchKey=${searchKey}`, { 'Content-Type': 'application/json' }, {}))
+      from(this.nativeHttp.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getMaterials&results=${results}&page=${page}&searchKey=${searchKey}&owner=${owner}`, { 'Content-Type': 'application/json' }, {}))
       .subscribe(
         data => {
           resolve(JSON.parse(data.data));
@@ -143,7 +143,7 @@ export class AuthenticationService {
     } else {
       return new Promise(resolve => {
         // tslint:disable-next-line:max-line-length
-        this.http.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getMaterials&results=${results}&page=${page}&searchKey=${searchKey}`)
+        this.http.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getMaterials&results=${results}&page=${page}&searchKey=${searchKey}&owner=${owner}`)
         .pipe(
           map(results => results)
         ).subscribe(data => {
@@ -184,6 +184,7 @@ export class AuthenticationService {
     const user_address = userArr[0]['address'];
 
     const material_primary_id = orderArr[0]['id'];
+    const company = orderArr[0]['company'];
     const material_image = orderArr[0]['imageurl'];
     const material_id = orderArr[0]['material_id'];
     const material_name = orderArr[0]['name'];
@@ -215,8 +216,15 @@ export class AuthenticationService {
 
     const link = material_image;
 
+    let whatsappnumber = '+919824868568';
+    if (company == 'Bhumi Narrow Fab') {
+      whatsappnumber = '+919825783611';
+    } else if (company == 'Matrushree Lace') {
+      whatsappnumber = '+918488923655';
+    }
+
     if (this.plt.is('cordova')) {
-      return this.socialSharing.shareViaWhatsAppToReceiver('+919824868568', message, '', '').then(async (res) => {
+      return this.socialSharing.shareViaWhatsAppToReceiver(whatsappnumber, message, '', '').then(async (res) => {
         // Success
         await this.saveOrder(user_id, user_mobile, material_primary_id, material_quantity, matsample, material_price).then((response) => {
           if (response['success'] == 1) {

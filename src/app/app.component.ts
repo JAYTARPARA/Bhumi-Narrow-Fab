@@ -32,36 +32,24 @@ export class AppComponent {
     public alertCtrl: AlertController,
     public auth: AuthenticationService,
   ) {
-    this.fireAuth.auth.onAuthStateChanged(user => {
-      if (user) {
-        this.mobile = user.phoneNumber.replace('+91', '');
-        if (this.mobile == '8888888888') {
-          this.auth.getAdminAllTotal().then(response => {
-            if (response['success']) {
-              // console.log(response);
-              this.auth.adminTotalOrders = response['totalOrders'];
-              this.auth.adminTotalUsers = response['totalUsers'];
-              this.auth.adminTotalMaterials = response['totalMaterials'];
-            } else {
-              this.auth.adminTotalOrders = 0;
-              this.auth.adminTotalUsers = 0;
-              this.auth.adminTotalMaterials = 0;
-            }
-            this.showMenu = true;
-            this.sideMenu();
-          });
-        } else {
-          this.auth.getTotalOrders(this.mobile).then(response => {
-            console.log(response);
-            if (response['success']) {
-              this.auth.totalOrders = response['total'];
-            } else {
-              this.auth.totalOrders = 0;
-            }
-            this.showMenu = true;
-            this.sideMenu();
-          });
-        }
+    this.auth.getAdminAllTotal().then(response => {
+      if (response['success']) {
+        console.log(response);
+        this.auth.adminTotalOrders = response['totalOrders'];
+        this.auth.adminTotalUsers = response['totalUsers'];
+        this.auth.adminTotalMaterials = response['totalMaterials'];
+      } else {
+        this.auth.adminTotalOrders = 0;
+        this.auth.adminTotalUsers = 0;
+        this.auth.adminTotalMaterials = 0;
+      }
+    });
+    this.auth.getTotalOrders(this.mobile).then(response => {
+      console.log(response);
+      if (response['success']) {
+        this.auth.totalOrders = response['total'];
+      } else {
+        this.auth.totalOrders = 0;
       }
     });
     this.initializeApp();
@@ -73,64 +61,6 @@ export class AppComponent {
       this.statusBar.backgroundColorByHexString('#222');
       this.splashScreen.hide();
     });
-  }
-
-  sideMenu() {
-    if (this.mobile == '8888888888') {
-      this.navigate =
-        [
-          {
-            title : 'All Materials',
-            url   : '/all-materials',
-            icon  : 'images',
-            number : this.auth.adminTotalMaterials,
-            showNum : 1
-          },
-          {
-            title : 'All Orders',
-            url   : '/all-orders',
-            icon  : 'wallet',
-            number : this.auth.adminTotalOrders,
-            showNum : 1
-          },
-          {
-            title : 'All Users',
-            url   : '/all-users',
-            icon  : 'contacts',
-            number : this.auth.adminTotalUsers,
-            showNum : 1
-          },
-          {
-            title : 'Upload Materials',
-            url   : '/upload-materials',
-            icon  : 'cloud-upload',
-            showNum : 0
-          }
-        ];
-    } else {
-      this.navigate =
-        [
-          {
-            title : 'My Profile',
-            url   : '/profile/mobile/' + this.mobile,
-            icon  : 'contact',
-            showNum : 0
-          },
-          {
-            title : 'My Orders',
-            url   : '/orders/mobile/' + this.mobile,
-            icon  : 'wallet',
-            number : this.auth.totalOrders,
-            showNum : 1
-          },
-          {
-            title : 'All Materials',
-            url   : '/material/mobile/' + this.mobile,
-            icon  : 'images',
-            showNum : 0
-          },
-        ];
-    }
   }
 
   async logout() {

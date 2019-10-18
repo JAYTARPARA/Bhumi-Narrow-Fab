@@ -28,6 +28,8 @@ import { File } from '@ionic-native/file/ngx';
 
 import { CallNumber } from '@ionic-native/call-number/ngx';
 
+import { AuthenticationService } from './services/authentication.service';
+
 firebase.initializeApp({
   apiKey: 'AIzaSyBA6WJFcR_c13T9Q-hIdwXRV5GC59OdPmg',
   authDomain: 'bhumi-narrow-fab.firebaseapp.com',
@@ -79,10 +81,8 @@ export class AppModule {
   constructor(
     private platform: Platform,
     public alertCtrl: AlertController,
+    public auth: AuthenticationService,
   ) {
-    // this.subscribe = this.platform.backButton.subscribeWithPriority(999999, () => {
-    //   this.presentAlertConfirm();
-    // });
   }
 
   async presentAlertConfirm() {

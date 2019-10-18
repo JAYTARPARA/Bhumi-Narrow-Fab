@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from './../../services/authentication.service';
-import { LoadingController } from '@ionic/angular';
+import { MenuController, LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-order-details',
@@ -30,9 +30,11 @@ export class OrderDetailsPage implements OnInit {
     private activatedRoute: ActivatedRoute,
     public auth: AuthenticationService,
     public loadingController: LoadingController,
+    private menu: MenuController,
   ) { }
 
   ngOnInit() {
+    this.menu.enable(true, 'user');
     // Get the details that was passed with the URL
     this.order_id = this.activatedRoute.snapshot.paramMap.get('orderid');
 

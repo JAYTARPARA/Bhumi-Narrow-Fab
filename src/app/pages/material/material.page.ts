@@ -5,7 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { AngularFireAuth } from '@angular/fire/auth';
 
-import { Platform, ToastController, LoadingController, IonContent, AlertController } from '@ionic/angular';
+import { MenuController, Platform, ToastController, LoadingController, IonContent, AlertController } from '@ionic/angular';
 
 import { AuthenticationService } from './../../services/authentication.service';
 
@@ -41,6 +41,7 @@ export class MaterialPage implements OnInit {
   noMoreData = 0;
   searchKey: any;
   showNoDataForSearch = true;
+  owner = 'All';
 
   constructor(
     private fireAuth: AngularFireAuth,
@@ -50,11 +51,13 @@ export class MaterialPage implements OnInit {
     public auth: AuthenticationService,
     private toastCtrl: ToastController,
     public loadingController: LoadingController,
-    public alertCtrl: AlertController
+    public alertCtrl: AlertController,
+    private menu: MenuController,
   ) {
   }
 
   ngOnInit() {
+    this.menu.enable(true, 'user');
   }
 
   ionViewWillEnter(callit?, infiniteScroll?) {
@@ -115,7 +118,7 @@ export class MaterialPage implements OnInit {
   }
 
   loadMaterials(infiniteScroll?) {
-    this.auth.getMaterials(this.results, this.page, this.searchKey).then(response => {
+    this.auth.getMaterials(this.results, this.page, this.searchKey, this.owner).then(response => {
       if (response['success'] == 1) {
         this.materials = this.materials.concat(response['materials']);
         this.maximumPages = Math.ceil(response['total'] / this.results);
@@ -163,7 +166,7 @@ export class MaterialPage implements OnInit {
     });
   }
 
-  async materialOrder(id, price, name, material_id, image, quantity, sample, key) {
+  async materialOrder(company, id, price, name, material_id, image, quantity, sample, key) {
     const imageurl =  'https://bhuminarrowfab.000webhostapp.com/images/materials/' + image;
 
     const splitprice = price.split('/');
@@ -176,6 +179,7 @@ export class MaterialPage implements OnInit {
     this.materialArray = [
       {
         'id': id,
+        'company': company,
         'price': price,
         'name': name,
         'material_id': material_id,

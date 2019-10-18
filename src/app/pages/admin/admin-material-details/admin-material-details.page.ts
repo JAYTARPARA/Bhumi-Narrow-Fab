@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, Platform, LoadingController, AlertController } from '@ionic/angular';
+import { MenuController, NavController, Platform, LoadingController, AlertController } from '@ionic/angular';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from './../../../services/authentication.service';
@@ -28,9 +28,23 @@ export class AdminMaterialDetailsPage implements OnInit {
     public loadingController: LoadingController,
     public alertCtrl: AlertController,
     public router: Router,
+    private menu: MenuController,
   ) { }
 
   ngOnInit() {
+    this.menu.enable(true, 'admin');
+    this.auth.getAdminAllTotal().then(response => {
+      if (response['success']) {
+        console.log(response);
+        this.auth.adminTotalOrders = response['totalOrders'];
+        this.auth.adminTotalUsers = response['totalUsers'];
+        this.auth.adminTotalMaterials = response['totalMaterials'];
+      } else {
+        this.auth.adminTotalOrders = 0;
+        this.auth.adminTotalUsers = 0;
+        this.auth.adminTotalMaterials = 0;
+      }
+    });
   }
 
   ionViewDidEnter() {

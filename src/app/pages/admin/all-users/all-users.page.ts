@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { Platform, ToastController, LoadingController, IonContent, AlertController } from '@ionic/angular';
+import { MenuController, Platform, ToastController, LoadingController, IonContent, AlertController } from '@ionic/angular';
 import { AuthenticationService } from './../../../services/authentication.service';
 import { CallNumber } from '@ionic-native/call-number/ngx';
 
@@ -32,10 +32,13 @@ export class AllUsersPage implements OnInit {
     private toastCtrl: ToastController,
     public loadingController: LoadingController,
     public alertCtrl: AlertController,
-    private callNumber: CallNumber
+    private callNumber: CallNumber,
+    private menu: MenuController,
   ) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.menu.enable(true, 'admin');
+  }
 
   ionViewWillEnter(callit?, infiniteScroll?) {
     this.users = [];

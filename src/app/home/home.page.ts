@@ -6,6 +6,7 @@ import * as firebase from 'firebase';
 
 import { AngularFireAuth } from '@angular/fire/auth';
 import { LoadingController, Platform, AlertController, ToastController } from '@ionic/angular';
+import { AuthenticationService } from './../services/authentication.service';
 
 @Component({
   selector: 'app-home',
@@ -23,7 +24,8 @@ export class HomePage implements OnInit, OnDestroy, AfterViewInit {
     private fireAuth: AngularFireAuth,
     public loadingController: LoadingController,
     public alertCtrl: AlertController,
-    public toast: ToastController
+    public toast: ToastController,
+    public auth: AuthenticationService
   ) {
     this.fireAuth.auth.onAuthStateChanged(user => {
       const chkadmin = user.phoneNumber.replace('+91', '');

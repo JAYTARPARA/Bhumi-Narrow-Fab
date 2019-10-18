@@ -12,6 +12,19 @@
     <ion-row>
       <ion-col>
         <ion-item>
+          <ion-label>Material Owner</ion-label>
+          <ion-select mode="ios" interface="action-sheet" placeholder="Select Status" name="owner" [selectedText]="owner" [(ngModel)]="owner">
+            <ion-select-option *ngFor="let mowner of materialOwner" value="{{mowner.name}}">
+              {{mowner.name}}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
           <ion-label position="stacked">Material Name: </ion-label>
           <ion-input type="text" name="name" mode="md" [(ngModel)]="name" placeholder="AU9 Material"></ion-input>
         </ion-item>

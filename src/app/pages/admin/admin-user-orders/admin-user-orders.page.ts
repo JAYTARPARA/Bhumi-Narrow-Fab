@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Platform, ToastController, LoadingController, NavController, IonContent } from '@ionic/angular';
+import { MenuController, Platform, ToastController, LoadingController, NavController, IonContent } from '@ionic/angular';
 import { AuthenticationService } from './../../../services/authentication.service';
 
 @Component({
@@ -48,10 +48,12 @@ export class AdminUserOrdersPage implements OnInit {
     public auth: AuthenticationService,
     private toastCtrl: ToastController,
     public loadingController: LoadingController,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private menu: MenuController,
   ) { }
 
   ngOnInit() {
+    this.menu.enable(true, 'admin');
   }
 
   ionViewWillEnter(callit?, infiniteScroll?) {
