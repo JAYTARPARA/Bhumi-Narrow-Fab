@@ -24,6 +24,8 @@ export class ProfilePage implements OnInit {
   address: any;
   gst: any;
   id: any;
+  value: any;
+  type: any;
 
   constructor(
     private fireAuth: AngularFireAuth,
@@ -38,9 +40,18 @@ export class ProfilePage implements OnInit {
 
   ngOnInit() {
     this.menu.enable(true, 'user');
-  }
+    this.value = this.activatedRoute.snapshot.paramMap.get('id');
+    this.type = this.activatedRoute.snapshot.paramMap.get('type');
+    this.auth.usermobile = this.value;
 
-  ionViewDidEnter() {
+    this.auth.getTotalOrders(this.value).then(msg => {
+      if (msg['success']) {
+        this.auth.totalOrders = msg['total'];
+      } else {
+        this.auth.totalOrders = 0;
+      }
+    });
+
     this.loadingController.create({
       message: 'Loading your data',
       mode: 'ios'
@@ -49,36 +60,29 @@ export class ProfilePage implements OnInit {
     }).catch((e) => {
       this.loadingController.dismiss();
     });
-    this.fireAuth.auth.onAuthStateChanged(user => {
-      if (user) {
-        this.phone = user.phoneNumber.replace('+91', '');
-        this.uid = user.uid;
-        this.lastSignIn = user.metadata.lastSignInTime;
-        this.created = user.metadata.creationTime;
-        const value = this.activatedRoute.snapshot.paramMap.get('id');
-        const type = this.activatedRoute.snapshot.paramMap.get('type');
-        this.auth.getTotalOrders(this.phone).then(msg => {
-          if (msg['success']) {
-            this.auth.totalOrders = msg['total'];
-          } else {
-            this.auth.totalOrders = 0;
-          }
-        });
-        this.auth.getUser(value, type).then(response => {
-          console.log(response);
-          this.id = value;
-          this.name = response['name'];
-          this.address = response['address'];
-          this.gst = response['gst'];
-          this.loadingController.dismiss();
-        }).catch((err) => {
-          this.loadingController.dismiss();
-        });
+
+    this.auth.getUser(this.value, this.type).then(response => {
+      console.log(response);
+      this.id = this.value;
+      this.name = response['name'];
+      this.address = response['address'];
+      this.gst = response['gst'];
+      this.phone = response['mobile'];
+      // tslint:disable-next-line:max-line-length
+      if (this.name != undefined && this.name != "" && this.address != undefined && this.address != "" && this.gst != undefined && this.gst != "") {
+        this.auth.userProfileDone = true;
       } else {
-        this.router.navigate(['/home']);
+        this.auth.userProfileDone = false;
       }
+      setTimeout(() => {
+        this.loadingController.dismiss();
+      }, 1500);
+    }).catch((err) => {
+      this.loadingController.dismiss();
     });
   }
+
+  ionViewDidEnter() { }
 
   saveProfile() {
     const name = this.name == '' ? '' : this.name;
@@ -89,9 +93,6 @@ export class ProfilePage implements OnInit {
     if (name == "" || gst == "" || phone == "" || address == "") {
       this.auth.presentToast('Please fill all required fields', false, 'bottom', 1000, 'danger');
     } else {
-      setTimeout(() => {
-        this.loadingController.dismiss();
-      }, 5000);
       this.auth.updateUser(phone, name, gst, address).then(response => {
         this.loadingController.create({
           message: 'Saving your data',
@@ -99,7 +100,9 @@ export class ProfilePage implements OnInit {
         }).then((res) => {
           console.log(response);
           if (response['success'] == 1) {
-            this.loadingController.dismiss();
+            setTimeout(() => {
+              this.loadingController.dismiss();
+            }, 1500);
             this.auth.presentToast(response['message'], false, 'bottom', 1000, 'success');
           } else {
             this.loadingController.dismiss();
@@ -107,7 +110,7 @@ export class ProfilePage implements OnInit {
           }
           res.present();
           res.onDidDismiss().then((dis) => {
-
+            this.ngOnInit();
           });
         });
       });

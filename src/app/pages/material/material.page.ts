@@ -39,6 +39,8 @@ export class MaterialPage implements OnInit {
   materialArray = [];
   totalValue = [];
   noMoreData = 0;
+  value: any;
+  type: any;
   searchKey: any;
   showNoDataForSearch = true;
   owner = 'All';
@@ -58,6 +60,9 @@ export class MaterialPage implements OnInit {
 
   ngOnInit() {
     this.menu.enable(true, 'user');
+    this.value = this.activatedRoute.snapshot.paramMap.get('id');
+    this.type = this.activatedRoute.snapshot.paramMap.get('type');
+    this.auth.usermobile = this.value;
   }
 
   ionViewWillEnter(callit?, infiniteScroll?) {
@@ -73,48 +78,26 @@ export class MaterialPage implements OnInit {
   }
 
   ionViewDidEnter() {
-    this.loadingController.create({
-      message: 'checking your data',
-      mode: 'ios'
-    }).then((res) => {
-      res.present();
-      res.onDidDismiss().then((dis) => {
+    if (!this.auth.userProfileDone) {
+      this.auth.presentToast('Please provide all details', false, 'bottom', 2500, 'danger');
+      this.router.navigate(['/profile/mobile/' + this.value]);
+    } else {
+      this.auth.getTotalOrders(this.phone).then(msg => {
+        if (msg['success']) {
+          this.auth.totalOrders = msg['total'];
+        } else {
+          this.auth.totalOrders = 0;
+        }
       });
-    });
-    const value = this.activatedRoute.snapshot.paramMap.get('id');
-    const type = this.activatedRoute.snapshot.paramMap.get('type');
-    this.auth.getUser(value, type).then(response => {
-      console.log(response);
-      this.userArray.push(response);
-      this.id = value;
-      this.name = response['name'];
-      this.address = response['address'];
-      this.gst = response['gst'];
-      this.phone = response['mobile'];
-      this.loadingController.dismiss();
-      if (this.name == "" || this.address == "" || this.gst == "") {
-        this.auth.presentToast('Please provide all details', false, 'bottom', 2500, 'danger');
-        this.router.navigate(['/profile/mobile/' + value]);
-      } else {
-        this.auth.getTotalOrders(this.phone).then(msg => {
-          if (msg['success']) {
-            this.auth.totalOrders = msg['total'];
-          } else {
-            this.auth.totalOrders = 0;
-          }
-        });
-        this.loadingController.create({
-          message: 'loading material data',
-          mode: 'ios'
-        }).then((ress) => {
-          ress.present();
-        });
-        this.showNoDataForSearch = true;
-        this.loadMaterials();
-      }
-    }).catch((err) => {
-      this.loadingController.dismiss();
-    });
+      this.loadingController.create({
+        message: 'loading materials',
+        mode: 'ios'
+      }).then((ress) => {
+        ress.present();
+      });
+      this.showNoDataForSearch = true;
+      this.loadMaterials();
+    }
   }
 
   loadMaterials(infiniteScroll?) {
