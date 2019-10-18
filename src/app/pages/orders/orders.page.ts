@@ -75,6 +75,7 @@ export class OrdersPage implements OnInit {
     this.value = this.activatedRoute.snapshot.paramMap.get('id');
     this.type = this.activatedRoute.snapshot.paramMap.get('type');
     this.auth.usermobile = this.value;
+    console.log(this.auth.userProfileDone);
   }
 
   ionViewWillEnter(callit?, infiniteScroll?) {
@@ -94,7 +95,7 @@ export class OrdersPage implements OnInit {
       this.auth.presentToast('Please provide all details', false, 'bottom', 2500, 'danger');
       this.router.navigate(['/profile/mobile/' + this.value]);
     } else {
-      this.auth.getTotalOrders(this.phone).then(msg => {
+      this.auth.getTotalOrders(this.value).then(msg => {
         if (msg['success']) {
           this.auth.totalOrders = msg['total'];
         } else {
@@ -113,7 +114,7 @@ export class OrdersPage implements OnInit {
   }
 
   loadOrders(infiniteScroll?) {
-    this.auth.getOrders(this.results, this.page, this.phone, this.searchKey, this.searchstatus).then(response => {
+    this.auth.getOrders(this.results, this.page, this.value, this.searchKey, this.searchstatus).then(response => {
       console.log(response);
       if (response['success'] == 1) {
         this.orders = this.orders.concat(response['orders']);

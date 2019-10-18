@@ -143,14 +143,14 @@ export class LoginPage implements OnInit {
                     if (response['success'] == 1) {
                       this.hideLoader();
                       const id = response['id'];
-                      this.navCtrl.navigateForward('/profile/id/' + id);
+                      this.navCtrl.navigateForward('/profile/mobile/' + mobile);
                     } else {
                       this.hideLoader();
                     }
                   });
                 } else {
                   this.hideLoader();
-                  this.navCtrl.navigateForward('/profile/id/' + data['id']);
+                  this.navCtrl.navigateForward('/profile/mobile/' + mobile);
                 }
               });
             }

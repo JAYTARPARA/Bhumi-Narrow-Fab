@@ -17,7 +17,7 @@ export class AuthenticationService {
   adminTotalUsers = 0;
   adminTotalMaterials = 0;
   usermobile: any;
-  userProfileDone = false;
+  userProfileDone = true;
 
   constructor(
     private http: HttpClient,

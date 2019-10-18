@@ -8,6 +8,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { MenuController, Platform, ToastController, LoadingController, IonContent, AlertController } from '@ionic/angular';
 
 import { AuthenticationService } from './../../services/authentication.service';
+import { empty } from 'rxjs';
 
 @Component({
   selector: 'app-material',
@@ -82,7 +83,10 @@ export class MaterialPage implements OnInit {
       this.auth.presentToast('Please provide all details', false, 'bottom', 2500, 'danger');
       this.router.navigate(['/profile/mobile/' + this.value]);
     } else {
-      this.auth.getTotalOrders(this.phone).then(msg => {
+      this.auth.getUser(this.value, this.type).then(response => {
+        this.userArray.push(response);
+      });
+      this.auth.getTotalOrders(this.value).then(msg => {
         if (msg['success']) {
           this.auth.totalOrders = msg['total'];
         } else {
@@ -201,12 +205,16 @@ export class MaterialPage implements OnInit {
                 res.onDidDismiss().then((dis) => {
                 });
               });
-              this.auth.sendOrder(this.userArray, this.materialArray).then(response => {
-                this.loadingController.dismiss();
-                this.sample[key] = false;
-                this.quantity[key] = '';
-                this.auth.totalOrders++;
-              });
+              if (this.userArray.length <= 0) {
+                this.auth.presentToast('Something went wrong! Please reload the page once.', false, 'bottom', 1500, 'danger');
+              } else {
+                this.auth.sendOrder(this.userArray, this.materialArray).then(result => {
+                  this.loadingController.dismiss();
+                  this.sample[key] = false;
+                  this.quantity[key] = '';
+                  this.auth.totalOrders++;
+                });
+              }
             }
           }
         ]
