@@ -96,7 +96,7 @@ export class AllUsersPage implements OnInit {
         this.loadingController.dismiss();
         this.auth.presentToast(response['message'], false, 'bottom', 2500, 'danger');
       } else {
-        if (this.searchKey == '') {
+        if (this.searchKey == undefined || this.searchKey == '') {
           this.showNoData = false;
         } else {
           this.showNoDataForSearch = false;

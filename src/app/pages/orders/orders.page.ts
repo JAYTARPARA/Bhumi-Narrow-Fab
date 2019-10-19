@@ -75,7 +75,35 @@ export class OrdersPage implements OnInit {
     this.value = this.activatedRoute.snapshot.paramMap.get('id');
     this.type = this.activatedRoute.snapshot.paramMap.get('type');
     this.auth.usermobile = this.value;
-    console.log(this.auth.userProfileDone);
+
+    this.loadingController.create({
+      message: 'Checking your data',
+      mode: 'ios'
+    }).then((res) => {
+      res.present();
+    });
+
+    this.auth.getUser(this.value, this.type).then(response => {
+      console.log(response);
+      this.id = this.value;
+      if (response['success'] == 1) {
+        this.name = response['name'];
+        this.address = response['address'];
+        this.gst = response['gst'];
+        this.phone = response['mobile'];
+        // tslint:disable-next-line:max-line-length
+        if (this.name == "" || this.address == "" || this.gst == "") {
+          this.auth.presentToast('Please provide all details', false, 'bottom', 2500, 'danger');
+          this.router.navigate(['/profile/mobile/' + this.value]);
+        }
+      } else if (response['success'] == 2) {
+        this.loadingController.dismiss();
+        this.auth.presentToast(response['message'], false, 'bottom', 2500, 'danger');
+      }
+      setTimeout(() => {
+        this.loadingController.dismiss();
+      }, 800);
+    });
   }
 
   ionViewWillEnter(callit?, infiniteScroll?) {
@@ -91,29 +119,24 @@ export class OrdersPage implements OnInit {
   }
 
   ionViewDidEnter() {
-    if (!this.auth.userProfileDone) {
-      this.auth.presentToast('Please provide all details', false, 'bottom', 2500, 'danger');
-      this.router.navigate(['/profile/mobile/' + this.value]);
-    } else {
-      this.auth.getTotalOrders(this.value).then(msg => {
-        if (msg['success']) {
-          this.auth.totalOrders = msg['total'];
-        } else {
-          this.auth.totalOrders = 0;
-        }
-      });
-      this.loadingController.create({
-        message: 'loading your orders',
-        mode: 'ios'
-      }).then((ress) => {
-        ress.present();
-      });
-      this.showNoDataForSearch = true;
-      this.loadOrders();
-    }
+    this.auth.getTotalOrders(this.value).then(msg => {
+      if (msg['success']) {
+        this.auth.totalOrders = msg['total'];
+      } else {
+        this.auth.totalOrders = 0;
+      }
+    });
+    this.showNoDataForSearch = true;
+    this.loadOrders();
   }
 
   loadOrders(infiniteScroll?) {
+    this.loadingController.create({
+      message: 'loading your orders',
+      mode: 'ios'
+    }).then((ress) => {
+      ress.present();
+    });
     this.auth.getOrders(this.results, this.page, this.value, this.searchKey, this.searchstatus).then(response => {
       console.log(response);
       if (response['success'] == 1) {
@@ -132,7 +155,7 @@ export class OrdersPage implements OnInit {
         this.loadingController.dismiss();
         this.auth.presentToast(response['message'], false, 'bottom', 2500, 'danger');
       } else {
-        if (this.searchKey == '') {
+        if (this.searchKey == undefined || this.searchKey == '') {
           this.showNoData = false;
         } else {
           this.showNoDataForSearch = false;

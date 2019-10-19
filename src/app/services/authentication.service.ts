@@ -17,7 +17,7 @@ export class AuthenticationService {
   adminTotalUsers = 0;
   adminTotalMaterials = 0;
   usermobile: any;
-  userProfileDone = true;
+  // userProfileDone = true;
   serverErrorMsg = 'Server issue! Please try after sometime';
 
   constructor(
@@ -619,6 +619,33 @@ export class AuthenticationService {
           resolve(data);
         }, error => {
           resolve({success: 2, message: this.serverErrorMsg});
+        });
+      });
+    }
+  }
+
+  validateGST(gst) {
+    if (this.plt.is('cordova')) {
+      return new Promise(resolve => {
+      // tslint:disable-next-line:max-line-length
+      from(this.nativeHttp.get(`https://appyflow.in/api/verifyGST?gstNo=${gst}&key_secret=7yZ2AVzT76cie7ralb9YZcLsrjq2`, { 'Content-Type': 'application/json' }, {}))
+      .subscribe(
+        data => {
+          resolve(JSON.parse(data.data));
+      }, error => {
+        resolve(error);
+      });
+    });
+    } else {
+      return new Promise(resolve => {
+        // tslint:disable-next-line:max-line-length
+        this.http.get(`https://appyflow.in/api/verifyGST?gstNo=${gst}&key_secret=7yZ2AVzT76cie7ralb9YZcLsrjq2`)
+        .pipe(
+          map(results => results)
+        ).subscribe(data => {
+          resolve(data);
+        }, error => {
+          resolve(error);
         });
       });
     }

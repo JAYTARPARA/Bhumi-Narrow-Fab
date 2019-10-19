@@ -64,6 +64,41 @@ export class MaterialPage implements OnInit {
     this.value = this.activatedRoute.snapshot.paramMap.get('id');
     this.type = this.activatedRoute.snapshot.paramMap.get('type');
     this.auth.usermobile = this.value;
+
+    this.loadingController.create({
+      message: 'Checking your data',
+      mode: 'ios'
+    }).then((res) => {
+      res.present();
+    }).catch((e) => {
+      this.loadingController.dismiss();
+    });
+
+    this.auth.getUser(this.value, this.type).then(response => {
+      console.log(response);
+      this.id = this.value;
+      if (response['success'] == 1) {
+        this.name = response['name'];
+        this.address = response['address'];
+        this.gst = response['gst'];
+        this.phone = response['mobile'];
+        // tslint:disable-next-line:max-line-length
+        if (this.name == "" || this.address == "" || this.gst == "") {
+          this.auth.presentToast('Please provide all details', false, 'bottom', 2500, 'danger');
+          this.router.navigate(['/profile/mobile/' + this.value]);
+        } else {
+          this.userArray.push(response);
+        }
+      } else if (response['success'] == 2) {
+        this.loadingController.dismiss();
+        this.auth.presentToast(response['message'], false, 'bottom', 2500, 'danger');
+      }
+      setTimeout(() => {
+        this.loadingController.dismiss();
+      }, 800);
+    }).catch((err) => {
+      this.loadingController.dismiss();
+    });
   }
 
   ionViewWillEnter(callit?, infiniteScroll?) {
@@ -79,37 +114,24 @@ export class MaterialPage implements OnInit {
   }
 
   ionViewDidEnter() {
-    if (!this.auth.userProfileDone) {
-      this.auth.presentToast('Please provide all details', false, 'bottom', 2500, 'danger');
-      this.router.navigate(['/profile/mobile/' + this.value]);
-    } else {
-      this.auth.getUser(this.value, this.type).then(response => {
-        if (response['success'] == 1) {
-          this.userArray.push(response);
-        } else if (response['success'] == 2) {
-          this.loadingController.dismiss();
-          this.auth.presentToast(response['message'], false, 'bottom', 2500, 'danger');
-        }
-      });
-      this.auth.getTotalOrders(this.value).then(msg => {
-        if (msg['success']) {
-          this.auth.totalOrders = msg['total'];
-        } else {
-          this.auth.totalOrders = 0;
-        }
-      });
-      this.loadingController.create({
-        message: 'loading materials',
-        mode: 'ios'
-      }).then((ress) => {
-        ress.present();
-      });
-      this.showNoDataForSearch = true;
-      this.loadMaterials();
-    }
+    this.auth.getTotalOrders(this.value).then(msg => {
+      if (msg['success']) {
+        this.auth.totalOrders = msg['total'];
+      } else {
+        this.auth.totalOrders = 0;
+      }
+    });
+    this.showNoDataForSearch = true;
+    this.loadMaterials();
   }
 
   loadMaterials(infiniteScroll?) {
+    this.loadingController.create({
+      message: 'loading materials',
+      mode: 'ios'
+    }).then((ress) => {
+      ress.present();
+    });
     this.auth.getMaterials(this.results, this.page, this.searchKey, this.owner).then(response => {
       if (response['success'] == 1) {
         this.materials = this.materials.concat(response['materials']);
