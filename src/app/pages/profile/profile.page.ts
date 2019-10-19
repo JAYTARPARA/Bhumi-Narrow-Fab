@@ -52,14 +52,20 @@ export class ProfilePage implements OnInit {
         this.auth.totalOrders = 0;
       }
     });
+  }
 
+  ionViewWillEnter(callit?) {
+    if (callit) {
+      this.ionViewDidEnter();
+    }
+  }
+
+  ionViewDidEnter() {
     this.loadingController.create({
       message: 'Loading your data',
       mode: 'ios'
     }).then((res) => {
       res.present();
-    }).catch((e) => {
-      this.loadingController.dismiss();
     });
 
     this.auth.getUser(this.value, this.type).then(response => {
@@ -78,12 +84,8 @@ export class ProfilePage implements OnInit {
       setTimeout(() => {
         this.loadingController.dismiss();
       }, 1500);
-    }).catch((err) => {
-      this.loadingController.dismiss();
     });
   }
-
-  ionViewDidEnter() { }
 
   saveProfile() {
     const name = this.name == '' ? '' : this.name;
@@ -95,7 +97,14 @@ export class ProfilePage implements OnInit {
       this.auth.presentToast('Please fill all required fields', false, 'bottom', 1000, 'danger');
     } else {
       if (this.oldGST != this.gst) {
+        this.loadingController.create({
+          message: 'Checking GSTIN number',
+          mode: 'ios'
+        }).then((res) => {
+          res.present();
+        });
         this.auth.validateGST(this.gst).then(gstResponse => {
+          this.loadingController.dismiss();
           if (gstResponse['error'] != undefined) {
             console.log(gstResponse['error']);
             this.auth.presentToast(gstResponse['error']['message'], false, 'bottom', 1000, 'danger');
@@ -108,7 +117,7 @@ export class ProfilePage implements OnInit {
           }
         });
       } else {
-       this.saveProfileWithGST(phone, name, gst, address);
+        this.saveProfileWithGST(phone, name, gst, address);
       }
     }
   }

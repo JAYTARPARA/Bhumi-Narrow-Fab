@@ -633,7 +633,7 @@ export class AuthenticationService {
         data => {
           resolve(JSON.parse(data.data));
       }, error => {
-        resolve(error);
+        resolve(JSON.parse(error));
       });
     });
     } else {
