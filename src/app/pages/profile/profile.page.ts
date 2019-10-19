@@ -27,6 +27,7 @@ export class ProfilePage implements OnInit {
   id: any;
   value: any;
   type: any;
+  key = '7yZ2AVzT76cie7ralb9YZcLsrjq2';
 
   constructor(
     private fireAuth: AngularFireAuth,
@@ -96,29 +97,25 @@ export class ProfilePage implements OnInit {
     if (name == "" || gst == "" || phone == "" || address == "") {
       this.auth.presentToast('Please fill all required fields', false, 'bottom', 1000, 'danger');
     } else {
-      if (this.oldGST != this.gst) {
-        this.loadingController.create({
-          message: 'Checking GSTIN number',
-          mode: 'ios'
-        }).then((res) => {
-          res.present();
-        });
-        this.auth.validateGST(this.gst).then(gstResponse => {
-          this.loadingController.dismiss();
-          if (gstResponse['error'] != undefined) {
-            console.log(gstResponse['error']);
-            this.auth.presentToast(gstResponse['error']['message'], false, 'bottom', 1000, 'danger');
-          } else {
-            console.log('Name: ' + gstResponse['taxpayerInfo']['lgnm']);
-            console.log('GSTIN: ' + gstResponse['taxpayerInfo']['gstin']);
-            console.log('Registered: ' + gstResponse['taxpayerInfo']['rgdt']);
-            console.log('Status: ' + gstResponse['taxpayerInfo']['sts']);
-            this.saveProfileWithGST(phone, name, gst, address);
-          }
-        });
+      // this.saveProfileWithGST(phone, name, gst, address);
+      const regex = new RegExp(/^([0-9]{2}[a-zA-Z]{4}([a-zA-Z]{1}|[0-9]{1})[0-9]{4}[a-zA-Z]{1}([a-zA-Z]|[0-9]){3}){0,15}$/);
+      console.log('This: ' + gst);
+      console.log('Old: ' + this.oldGST);
+      if (this.oldGST != gst) {
+        console.log('Test RegEx: ' + regex.test(gst));
+        if (regex.test(gst)) {
+          this.saveProfileWithGST(phone, name, gst, address);
+        } else {
+          this.auth.presentToast('Please enter valid GSTIN', false, 'bottom', 1000, 'danger');
+        }
       } else {
         this.saveProfileWithGST(phone, name, gst, address);
       }
+      // if (this.oldGST != this.gst) {
+      //   this.checkGST(this.gst, this.key, phone, name, gst, address);
+      // } else {
+      //   this.saveProfileWithGST(phone, name, gst, address);
+      // }
     }
   }
 
@@ -146,6 +143,36 @@ export class ProfilePage implements OnInit {
           this.ngOnInit();
         });
       });
+    });
+  }
+
+  checkGST(GST, key, phone, name, gst, address) {
+    this.loadingController.create({
+      message: 'Checking GSTIN number',
+      mode: 'ios'
+    }).then((res) => {
+      res.present();
+    });
+    this.auth.validateGST(GST, key).then(gstResponse => {
+      this.loadingController.dismiss();
+      if (gstResponse['error'] != undefined) {
+        if (this.platform.is('cordova')) {
+          gstResponse['error'] = JSON.parse(gstResponse['error']);
+        }
+        // tslint:disable-next-line:max-line-length
+        if (gstResponse['message'] != undefined && gstResponse['message'].includes('Limit Exceed')) {
+            this.key = 'HVEhpveprHeKSIc61xuOHlTd8dG2';
+            this.checkGST(this.gst, this.key, phone, name, gst, address);
+        } else {
+          this.auth.presentToast(gstResponse['error']['message'], false, 'bottom', 1000, 'danger');
+        }
+      } else {
+        console.log('Name: ' + gstResponse['taxpayerInfo']['lgnm']);
+        console.log('GSTIN: ' + gstResponse['taxpayerInfo']['gstin']);
+        console.log('Registered: ' + gstResponse['taxpayerInfo']['rgdt']);
+        console.log('Status: ' + gstResponse['taxpayerInfo']['sts']);
+        this.saveProfileWithGST(phone, name, gst, address);
+      }
     });
   }
 }

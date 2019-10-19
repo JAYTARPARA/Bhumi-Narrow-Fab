@@ -70,8 +70,9 @@ export class MaterialPage implements OnInit {
       mode: 'ios'
     }).then((res) => {
       res.present();
-    }).catch((e) => {
-      this.loadingController.dismiss();
+      res.onDidDismiss().then((dis) => {
+        this.loadMaterials();
+      });
     });
 
     this.auth.getUser(this.value, this.type).then(response => {
@@ -95,9 +96,7 @@ export class MaterialPage implements OnInit {
       }
       setTimeout(() => {
         this.loadingController.dismiss();
-      }, 800);
-    }).catch((err) => {
-      this.loadingController.dismiss();
+      }, 1000);
     });
   }
 
@@ -108,12 +107,12 @@ export class MaterialPage implements OnInit {
       this.content.scrollToTop(1500);
       setTimeout(() => {
         this.noMoreData = 0;
-        this.ionViewDidEnter();
+        this.ionViewDidEnter(callit);
       }, 100);
     }
   }
 
-  ionViewDidEnter() {
+  ionViewDidEnter(callit?) {
     this.auth.getTotalOrders(this.value).then(msg => {
       if (msg['success']) {
         this.auth.totalOrders = msg['total'];
@@ -122,7 +121,9 @@ export class MaterialPage implements OnInit {
       }
     });
     this.showNoDataForSearch = true;
-    this.loadMaterials();
+    if (callit) {
+      this.loadMaterials();
+    }
   }
 
   loadMaterials(infiniteScroll?) {

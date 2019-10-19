@@ -81,6 +81,9 @@ export class OrdersPage implements OnInit {
       mode: 'ios'
     }).then((res) => {
       res.present();
+      res.onDidDismiss().then((dis) => {
+        this.loadOrders();
+      });
     });
 
     this.auth.getUser(this.value, this.type).then(response => {
@@ -102,7 +105,7 @@ export class OrdersPage implements OnInit {
       }
       setTimeout(() => {
         this.loadingController.dismiss();
-      }, 800);
+      }, 1000);
     });
   }
 
@@ -113,12 +116,12 @@ export class OrdersPage implements OnInit {
       this.content.scrollToTop(1500);
       setTimeout(() => {
         this.noMoreData = 0;
-        this.ionViewDidEnter();
+        this.ionViewDidEnter(callit);
       }, 100);
     }
   }
 
-  ionViewDidEnter() {
+  ionViewDidEnter(callit?) {
     this.auth.getTotalOrders(this.value).then(msg => {
       if (msg['success']) {
         this.auth.totalOrders = msg['total'];
@@ -127,7 +130,9 @@ export class OrdersPage implements OnInit {
       }
     });
     this.showNoDataForSearch = true;
-    this.loadOrders();
+    if (callit) {
+      this.loadOrders();
+    }
   }
 
   loadOrders(infiniteScroll?) {

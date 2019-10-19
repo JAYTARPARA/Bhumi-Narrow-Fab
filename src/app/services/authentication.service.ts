@@ -241,9 +241,9 @@ export class AuthenticationService {
 
     let whatsappnumber = '+919824868568';
     if (company == 'Bhumi Narrow Fab') {
-      whatsappnumber = '+919825783611';
+      // whatsappnumber = '+919825783611';
     } else if (company == 'Matrushree Lace') {
-      whatsappnumber = '+918488923655';
+      // whatsappnumber = '+918488923655';
     }
 
     if (this.plt.is('cordova')) {
@@ -624,22 +624,22 @@ export class AuthenticationService {
     }
   }
 
-  validateGST(gst) {
+  validateGST(gst, key) {
     if (this.plt.is('cordova')) {
       return new Promise(resolve => {
       // tslint:disable-next-line:max-line-length
-      from(this.nativeHttp.get(`https://appyflow.in/api/verifyGST?gstNo=${gst}&key_secret=7yZ2AVzT76cie7ralb9YZcLsrjq2`, { 'Content-Type': 'application/json' }, {}))
+      from(this.nativeHttp.get(`https://appyflow.in/api/verifyGST?gstNo=${gst}&key_secret=${key}`, { 'Content-Type': 'application/json' }, {}))
       .subscribe(
         data => {
           resolve(JSON.parse(data.data));
       }, error => {
-        resolve(JSON.parse(error));
+        resolve(error);
       });
     });
     } else {
       return new Promise(resolve => {
         // tslint:disable-next-line:max-line-length
-        this.http.get(`https://appyflow.in/api/verifyGST?gstNo=${gst}&key_secret=7yZ2AVzT76cie7ralb9YZcLsrjq2`)
+        this.http.get(`https://appyflow.in/api/verifyGST?gstNo=${gst}&key_secret=${key}`)
         .pipe(
           map(results => results)
         ).subscribe(data => {
