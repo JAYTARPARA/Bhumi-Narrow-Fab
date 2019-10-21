@@ -63,7 +63,7 @@ export class ProfilePage implements OnInit {
 
   ionViewDidEnter() {
     this.loadingController.create({
-      message: 'Loading your data',
+      message: 'Loading your profile',
       mode: 'ios'
     }).then((res) => {
       res.present();
@@ -97,12 +97,8 @@ export class ProfilePage implements OnInit {
     if (name == "" || gst == "" || phone == "" || address == "") {
       this.auth.presentToast('Please fill all required fields', false, 'bottom', 1000, 'danger');
     } else {
-      // this.saveProfileWithGST(phone, name, gst, address);
       const regex = new RegExp(/^([0-9]{2}[a-zA-Z]{4}([a-zA-Z]{1}|[0-9]{1})[0-9]{4}[a-zA-Z]{1}([a-zA-Z]|[0-9]){3}){0,15}$/);
-      console.log('This: ' + gst);
-      console.log('Old: ' + this.oldGST);
       if (this.oldGST != gst) {
-        console.log('Test RegEx: ' + regex.test(gst));
         if (regex.test(gst)) {
           this.saveProfileWithGST(phone, name, gst, address);
         } else {
@@ -111,11 +107,6 @@ export class ProfilePage implements OnInit {
       } else {
         this.saveProfileWithGST(phone, name, gst, address);
       }
-      // if (this.oldGST != this.gst) {
-      //   this.checkGST(this.gst, this.key, phone, name, gst, address);
-      // } else {
-      //   this.saveProfileWithGST(phone, name, gst, address);
-      // }
     }
   }
 

@@ -77,7 +77,7 @@ export class OrdersPage implements OnInit {
     this.auth.usermobile = this.value;
 
     this.loadingController.create({
-      message: 'Checking your data',
+      message: 'Loading your orders',
       mode: 'ios'
     }).then((res) => {
       res.present();
@@ -137,7 +137,7 @@ export class OrdersPage implements OnInit {
 
   loadOrders(infiniteScroll?) {
     this.loadingController.create({
-      message: 'loading your orders',
+      message: 'Loading your orders',
       mode: 'ios'
     }).then((ress) => {
       ress.present();

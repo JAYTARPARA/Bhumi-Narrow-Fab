@@ -66,7 +66,7 @@ export class MaterialPage implements OnInit {
     this.auth.usermobile = this.value;
 
     this.loadingController.create({
-      message: 'Checking your data',
+      message: 'Loading materials',
       mode: 'ios'
     }).then((res) => {
       res.present();
@@ -128,7 +128,7 @@ export class MaterialPage implements OnInit {
 
   loadMaterials(infiniteScroll?) {
     this.loadingController.create({
-      message: 'loading materials',
+      message: 'Loading materials',
       mode: 'ios'
     }).then((ress) => {
       ress.present();
