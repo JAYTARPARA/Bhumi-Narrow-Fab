@@ -78,13 +78,11 @@ export class ProfilePage implements OnInit {
         this.gst = response['gst'];
         this.phone = response['mobile'];
         this.oldGST = response['gst'];
+        this.loadingController.dismiss();
       } else if (response['success'] == 2) {
         this.loadingController.dismiss();
         this.auth.presentToast(response['message'], false, 'bottom', 2500, 'danger');
       }
-      setTimeout(() => {
-        this.loadingController.dismiss();
-      }, 1500);
     });
   }
 

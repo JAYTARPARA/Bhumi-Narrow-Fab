@@ -46,6 +46,7 @@ export class MaterialPage implements OnInit {
   searchKey: any;
   showNoDataForSearch = true;
   owner = 'All';
+  loadMaterialNow = false;
 
   constructor(
     private fireAuth: AngularFireAuth,
@@ -72,7 +73,9 @@ export class MaterialPage implements OnInit {
     }).then((res) => {
       res.present();
       res.onDidDismiss().then((dis) => {
-        this.loadMaterials();
+        if (this.loadMaterialNow) {
+          this.loadMaterials();
+        }
       });
     });
 
@@ -86,18 +89,21 @@ export class MaterialPage implements OnInit {
         this.phone = response['mobile'];
         // tslint:disable-next-line:max-line-length
         if (this.name == "" || this.address == "" || this.gst == "") {
+          this.loadMaterialNow = false;
+          this.loadingController.dismiss();
           this.auth.presentToast('Please provide all details', false, 'bottom', 2500, 'danger');
           this.router.navigate(['/profile/mobile/' + this.value]);
         } else {
+          this.loadMaterialNow = true;
+          this.loadingController.dismiss();
           this.userArray.push(response);
         }
       } else if (response['success'] == 2) {
         this.loadingController.dismiss();
         this.auth.presentToast(response['message'], false, 'bottom', 2500, 'danger');
-      }
-      setTimeout(() => {
+      } else {
         this.loadingController.dismiss();
-      }, 1000);
+      }
     });
   }
 

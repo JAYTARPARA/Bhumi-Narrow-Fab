@@ -17,6 +17,7 @@ export class HomePage implements OnInit, OnDestroy {
 
   subscribe: any;
   backButtonSubscription: any;
+  showError = false;
 
   constructor(
     public platform: Platform,
@@ -35,28 +36,31 @@ export class HomePage implements OnInit, OnDestroy {
     this.fireAuth.auth.onAuthStateChanged(user => {
       if (user) {
         const chkadmin = user.phoneNumber.replace('+91', '');
-        setTimeout(() => {
-          this.loadingController.dismiss();
-        }, 1000);
         let loadMsg = '';
         let redirectUrl = '';
         if (chkadmin == '8888888888') {
           loadMsg = 'Loading admin area';
           redirectUrl = '/all-materials';
+          setTimeout(() => {
+            this.loadingController.dismiss();
+          }, 1000);
         } else {
           loadMsg = 'Loading';
           this.auth.addUser(chkadmin).then(data => {
+            this.loadingController.dismiss();
             if (data['success'] == 1) {
               if (data['name'] == "") {
                 redirectUrl = '/profile/mobile/' + chkadmin;
               } else {
                 redirectUrl = '/material/mobile/' + chkadmin;
               }
+            } else if (data['success'] == 2) {
+              this.showError = true;
+              this.auth.presentToast(data['message'], false, 'bottom', 2500, 'danger');
             } else {
               redirectUrl = '/profile/mobile/' + chkadmin;
             }
           });
-          // redirectUrl = '/material/mobile/' + user.phoneNumber.replace('+91', '');
         }
         this.loadingController.create({
           message: loadMsg,
