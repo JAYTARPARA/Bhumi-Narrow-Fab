@@ -213,6 +213,7 @@ export class AuthenticationService {
     const material_name = orderArr[0]['name'];
     const material_price = orderArr[0]['price'];
     const material_quantity = orderArr[0]['quantity'];
+    const piece = orderArr[0]['piece'];
     let material_sample = orderArr[0]['sample'];
     let matsample = orderArr[0]['sample'];
 
@@ -234,6 +235,7 @@ export class AuthenticationService {
     message = message + '*Material Name:* ' + material_name + '\r\n';
     message = message + '*Material Price:* ' + material_price + '\r\n';
     message = message + '*Quantity Ordered:* ' + material_quantity + ' M' + '\r\n';
+    message = message + '*Pieces Ordered:* ' + piece + '\r\n';
     message = message + '*Sample Requested:* ' + material_sample + '\r\n';
     message = message + '*Material Image:* ' + material_image + '\r\n';
 
@@ -249,7 +251,8 @@ export class AuthenticationService {
     if (this.plt.is('cordova')) {
       return this.socialSharing.shareViaWhatsAppToReceiver(whatsappnumber, message, '', '').then(async (res) => {
         // Success
-        await this.saveOrder(user_id, user_mobile, material_primary_id, material_quantity, matsample, material_price).then((response) => {
+        // tslint:disable-next-line:max-line-length
+        await this.saveOrder(user_id, user_mobile, material_primary_id, material_quantity, matsample, material_price, piece).then((response) => {
           if (response['success'] == 1) {
             this.presentToast(response['message'], false, 'bottom', 1500, 'success');
           } else {
@@ -262,7 +265,8 @@ export class AuthenticationService {
         return e;
       });
     } else {
-      await this.saveOrder(user_id, user_mobile, material_primary_id, material_quantity, matsample, material_price).then((response) => {
+      // tslint:disable-next-line:max-line-length
+      await this.saveOrder(user_id, user_mobile, material_primary_id, material_quantity, matsample, material_price, piece).then((response) => {
         if (response['success'] == 1) {
           this.presentToast(response['message'], false, 'bottom', 1500, 'success');
         } else if (response['success'] == 2) {
@@ -275,7 +279,7 @@ export class AuthenticationService {
     }
   }
 
-  saveOrder(userid, usermobile, materialprimaryid, materialquantity, matsample, materialprice) {
+  saveOrder(userid, usermobile, materialprimaryid, materialquantity, matsample, materialprice, piece) {
     const date = new Date();
     // tslint:disable-next-line:max-line-length
     const orderDate = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2) + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
@@ -284,7 +288,7 @@ export class AuthenticationService {
     if (this.plt.is('cordova')) {
       return new Promise(resolve => {
       // tslint:disable-next-line:max-line-length
-      from(this.nativeHttp.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=saveOrder&userid=${userid}&usermobile=${usermobile}&materialprimaryid=${materialprimaryid}&materialquantity=${materialquantity}&matsample=${matsample}&orderdate=${orderDate}&materialprice=${materialprice}`, { 'Content-Type': 'application/json' }, {}))
+      from(this.nativeHttp.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=saveOrder&userid=${userid}&usermobile=${usermobile}&materialprimaryid=${materialprimaryid}&materialquantity=${materialquantity}&matsample=${matsample}&orderdate=${orderDate}&materialprice=${materialprice}&piece=${piece}`, { 'Content-Type': 'application/json' }, {}))
       .subscribe(
         data => {
           resolve(JSON.parse(data.data));
@@ -295,7 +299,7 @@ export class AuthenticationService {
     } else {
       return new Promise(resolve => {
         // tslint:disable-next-line:max-line-length
-        this.http.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=saveOrder&userid=${userid}&usermobile=${usermobile}&materialprimaryid=${materialprimaryid}&materialquantity=${materialquantity}&matsample=${matsample}&orderdate=${orderDate}&materialprice=${materialprice}`)
+        this.http.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=saveOrder&userid=${userid}&usermobile=${usermobile}&materialprimaryid=${materialprimaryid}&materialquantity=${materialquantity}&matsample=${matsample}&orderdate=${orderDate}&materialprice=${materialprice}&piece=${piece}`)
         .pipe(
           map(results => results)
         ).subscribe(data => {

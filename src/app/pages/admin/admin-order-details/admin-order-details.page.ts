@@ -18,6 +18,7 @@ export class AdminOrderDetailsPage implements OnInit {
   status: any;
   oldStatus: any;
   sample: any;
+  piece: any;
   quantity: any;
   price: any;
   name: any;
@@ -89,6 +90,7 @@ export class AdminOrderDetailsPage implements OnInit {
         this.oldStatus = this.orderdetail.status;
         this.totalprice = this.orderdetail.totalprice;
         this.username = this.orderdetail.username;
+        this.piece = this.orderdetail.piece;
       } else if (response['success'] == 2) {
         this.loadingController.dismiss();
         this.auth.presentToast(response['message'], false, 'bottom', 2500, 'danger');

@@ -44,8 +44,19 @@ export class HomePage implements OnInit, OnDestroy {
           loadMsg = 'Loading admin area';
           redirectUrl = '/all-materials';
         } else {
-          loadMsg = 'Loading your profile';
-          redirectUrl = '/profile/mobile/' + user.phoneNumber.replace('+91', '');
+          loadMsg = 'Loading';
+          this.auth.addUser(chkadmin).then(data => {
+            if (data['success'] == 1) {
+              if (data['name'] == "") {
+                redirectUrl = '/profile/mobile/' + chkadmin;
+              } else {
+                redirectUrl = '/material/mobile/' + chkadmin;
+              }
+            } else {
+              redirectUrl = '/profile/mobile/' + chkadmin;
+            }
+          });
+          // redirectUrl = '/material/mobile/' + user.phoneNumber.replace('+91', '');
         }
         this.loadingController.create({
           message: loadMsg,

@@ -16,6 +16,7 @@ export class OrderDetailsPage implements OnInit {
   totalprice: any;
   status: any;
   sample: any;
+  piece: any;
   quantity: any;
   price: any;
   name: any;
@@ -65,6 +66,7 @@ export class OrderDetailsPage implements OnInit {
         this.status = this.orderdetail.status;
         this.totalprice = this.orderdetail.totalprice;
         this.username = this.orderdetail.username;
+        this.piece = this.orderdetail.piece;
       } else if (response['success'] == 2) {
         this.loadingController.dismiss();
         this.auth.presentToast(response['message'], false, 'bottom', 2500, 'danger');

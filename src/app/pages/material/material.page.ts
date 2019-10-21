@@ -36,6 +36,7 @@ export class MaterialPage implements OnInit {
   latestResults = 5;
   quantity = [];
   sample = [];
+  pieces = [];
   userArray = [];
   materialArray = [];
   totalValue = [];
@@ -181,11 +182,12 @@ export class MaterialPage implements OnInit {
     });
   }
 
-  async materialOrder(company, id, price, name, material_id, image, quantity, sample, key) {
+  async materialOrder(company, id, price, name, material_id, image, quantity, sample, pieces, key) {
     const imageurl =  'https://bhuminarrowfab.000webhostapp.com/images/materials/' + image;
 
     const splitprice = price.split('/');
     const minquantity = splitprice[1].split('M')[0];
+    const piece = pieces[key];
 
     if (sample[key] === undefined) {
       sample[key] = false;
@@ -200,14 +202,15 @@ export class MaterialPage implements OnInit {
         'material_id': material_id,
         'imageurl': imageurl,
         'quantity': quantity[key],
-        'sample': sample[key]
+        'sample': sample[key],
+        'piece': pieces[key],
       }
     ];
 
-    if (quantity[key] === undefined || quantity[key] < 0) {
+    if (quantity[key] === undefined || quantity[key] < 0 ) {
       this.auth.presentToast('Please add quantity', false, 'bottom', 1500, 'danger');
-    } else if (quantity[key] < minquantity) {
-      this.auth.presentToast('Minimum quantity to order is ' + minquantity + ' Meter', false, 'bottom', 1500, 'danger');
+    } else if (pieces[key] === undefined || pieces[key] < 0) {
+      this.auth.presentToast('Please add proper pieces', false, 'bottom', 1500, 'danger');
     } else {
       const alert = await this.alertCtrl.create({
         header: 'Confirm your order!',

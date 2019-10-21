@@ -106,9 +106,9 @@ export class LoginPage implements OnInit {
     console.log(this.phone);
     let loadMsg = '';
     if (this.phone == '(+91) 88888-88888') {
-      loadMsg = 'Loading';
+      loadMsg = 'Loading admin area';
     } else {
-      loadMsg = 'Loading your profile';
+      loadMsg = 'Loading';
     }
     this.loaderToShow = this.loadingController.create({
       message: loadMsg,
@@ -136,6 +136,7 @@ export class LoginPage implements OnInit {
               this.navCtrl.navigateForward('/all-materials');
             } else {
               this.auth.addUser(mobile).then(data => {
+                console.log('Add User');
                 console.log(data);
                 if (data['success'] == 0) {
                   this.auth.createNewUserWithMobile(mobile).then(response => {
@@ -154,9 +155,14 @@ export class LoginPage implements OnInit {
                 } else if (data['success'] == 2) {
                   this.hideLoader();
                   this.auth.presentToast(data['message'], false, 'bottom', 2500, 'danger');
-                } else {
+                } else if (data['success'] == 1) {
+                  console.log('Success');
                   this.hideLoader();
-                  this.navCtrl.navigateForward('/profile/mobile/' + mobile);
+                  if (data['name'] == "") {
+                    this.navCtrl.navigateForward('/profile/mobile/' + mobile);
+                  } else {
+                    this.navCtrl.navigateForward('/material/mobile/' + mobile);
+                  }
                 }
               });
             }
