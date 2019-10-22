@@ -10,11 +10,11 @@ import { MenuController, Platform, ToastController, LoadingController, IonConten
 import { AuthenticationService } from './../../services/authentication.service';
 
 @Component({
-  selector: 'app-material',
-  templateUrl: './material.page.html',
-  styleUrls: ['./material.page.scss'],
+  selector: 'app-materials',
+  templateUrl: './materials.page.html',
+  styleUrls: ['./materials.page.scss'],
 })
-export class MaterialPage implements OnInit {
+export class MaterialsPage implements OnInit {
   @ViewChild(IonContent, {static: false}) content: IonContent;
 
   phone: any;
@@ -54,7 +54,7 @@ export class MaterialPage implements OnInit {
     private activatedRoute: ActivatedRoute,
     public auth: AuthenticationService,
     private toastCtrl: ToastController,
-    public loadingControllerMaterial: LoadingController,
+    public loadingController: LoadingController,
     public alertCtrl: AlertController,
     private menu: MenuController,
   ) { }
@@ -69,7 +69,7 @@ export class MaterialPage implements OnInit {
     console.log('this.value: ' + this.value);
     console.log('this.type: ' + this.type);
 
-    this.loadingControllerMaterial.create({
+    this.loadingController.create({
       message: 'Loading materials',
       mode: 'ios'
     }).then((res) => {
@@ -93,20 +93,27 @@ export class MaterialPage implements OnInit {
         // tslint:disable-next-line:max-line-length
         if (this.name == "" || this.address == "" || this.gst == "") {
           this.loadMaterialNow = false;
-          this.loadingControllerMaterial.dismiss();
+          this.loadingController.dismiss();
           this.auth.presentToast('Please provide all details', false, 'bottom', 2500, 'danger');
           this.router.navigate(['/profile/mobile/' + this.value]);
         } else {
           this.loadMaterialNow = true;
-          this.loadingControllerMaterial.dismiss();
+          this.loadingController.dismiss();
           this.userArray.push(response);
         }
       } else if (response['success'] == 2) {
-        this.loadingControllerMaterial.dismiss();
+        this.loadingController.dismiss();
         this.auth.presentToast(response['message'], false, 'bottom', 2500, 'danger');
       } else {
-        this.loadingControllerMaterial.dismiss();
+        this.loadingController.dismiss();
       }
+      setTimeout(() => {
+        this.loadingController.getTop().then( chk => {
+          if (chk) {
+            this.loadingController.dismiss();
+          }
+        });
+      }, 1500);
     });
   }
 
@@ -138,7 +145,7 @@ export class MaterialPage implements OnInit {
 
   loadMaterials(infiniteScroll?, scrollCall?) {
     if (!scrollCall) {
-      this.loadingControllerMaterial.create({
+      this.loadingController.create({
         message: 'Loading materials',
         mode: 'ios'
       }).then((ress) => {
@@ -156,7 +163,7 @@ export class MaterialPage implements OnInit {
         if (infiniteScroll) {
           infiniteScroll.target.complete();
         } else {
-          this.loadingControllerMaterial.dismiss();
+          this.loadingController.dismiss();
         }
       } else {
         if (this.searchKey == '') {
@@ -164,7 +171,7 @@ export class MaterialPage implements OnInit {
         } else {
           this.showNoDataForSearch = false;
         }
-        this.loadingControllerMaterial.dismiss();
+        this.loadingController.dismiss();
       }
     });
   }
@@ -242,7 +249,7 @@ export class MaterialPage implements OnInit {
           }, {
             text: 'YES',
             handler: () => {
-              this.loadingControllerMaterial.create({
+              this.loadingController.create({
                 message: 'Saving your order',
                 mode: 'ios'
               }).then((res) => {
@@ -254,7 +261,7 @@ export class MaterialPage implements OnInit {
                 this.auth.presentToast('Something went wrong! Please reload the page once.', false, 'bottom', 1500, 'danger');
               } else {
                 this.auth.sendOrder(this.userArray, this.materialArray).then(result => {
-                  this.loadingControllerMaterial.dismiss();
+                  this.loadingController.dismiss();
                   this.sample[key] = false;
                   this.quantity[key] = '';
                   this.auth.totalOrders++;

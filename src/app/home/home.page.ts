@@ -23,7 +23,7 @@ export class HomePage implements OnInit, OnDestroy {
     public platform: Platform,
     private router: Router,
     private fireAuth: AngularFireAuth,
-    public loadingController: LoadingController,
+    public loadingControllerHome: LoadingController,
     public alertCtrl: AlertController,
     public toast: ToastController,
     public auth: AuthenticationService,
@@ -42,12 +42,12 @@ export class HomePage implements OnInit, OnDestroy {
           loadMsg = 'Loading admin area';
           redirectUrl = '/all-materials';
           setTimeout(() => {
-            this.loadingController.dismiss();
+            this.loadingControllerHome.dismiss();
           }, 1000);
         } else {
           loadMsg = 'Loading';
           this.auth.addUser(chkadmin).then(data => {
-            this.loadingController.dismiss();
+            this.loadingControllerHome.dismiss();
             if (data['success'] == 1) {
               if (data['name'] == "") {
                 redirectUrl = '/profile/mobile/' + chkadmin;
@@ -58,11 +58,17 @@ export class HomePage implements OnInit, OnDestroy {
               this.showError = true;
               this.auth.presentToast(data['message'], false, 'bottom', 2500, 'danger');
             } else {
-              redirectUrl = '/profile/mobile/' + chkadmin;
+              redirectUrl = '/material/mobile/' + chkadmin;
+            }
+          });
+          this.loadingControllerHome.dismiss();
+          this.loadingControllerHome.getTop().then( chk => {
+            if (chk) {
+              this.loadingControllerHome.dismiss();
             }
           });
         }
-        this.loadingController.create({
+        this.loadingControllerHome.create({
           message: loadMsg,
           mode: 'ios'
         }).then((res) => {
@@ -105,5 +111,9 @@ export class HomePage implements OnInit, OnDestroy {
     });
 
     await alert.present();
+  }
+
+  redirectToLogin() {
+    this.router.navigate(['/login']);
   }
 }

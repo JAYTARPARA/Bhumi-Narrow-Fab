@@ -20,10 +20,12 @@
     <ion-button color='dark' class="continuebtn" expand="block" fill="outline" (click)="sendotp(this.phone)">CONTINUE</ion-button>
   </div>
   <br/>
-  <div *ngIf="showOTPInput" class="animated bounceInRight slow">
+  <!-- class="animated bounceInRight slow" -->
+  <div *ngIf="showOTPInput">
     <ion-label color="dark" position="stacked">OTP</ion-label>
     <div style="border-bottom: 1px solid;">
-      <ion-input class="otpinput" type="tel" mask="000000" name="OTP" [(ngModel)]="OTP"></ion-input>
+      <!-- <ion-input class="otpinput" type="tel" mask="000000" name="OTP" [(ngModel)]="OTP"></ion-input> -->
+      <ion-input class="otpinput" type="tel" name="OTP" [(ngModel)]="OTP" maxlength="6"></ion-input>
     </div>
     <ion-row>
       <ion-col>

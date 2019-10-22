@@ -116,6 +116,13 @@ export class OrdersPage implements OnInit {
         this.loadingController.dismiss();
       }
     });
+    setTimeout(() => {
+      this.loadingController.getTop().then( chk => {
+        if (chk) {
+          this.loadingController.dismiss();
+        }
+      });
+    }, 1500);
   }
 
   ionViewWillEnter(callit?, infiniteScroll?) {
@@ -144,13 +151,15 @@ export class OrdersPage implements OnInit {
     }
   }
 
-  loadOrders(infiniteScroll?) {
-    this.loadingController.create({
-      message: 'Loading your orders',
-      mode: 'ios'
-    }).then((ress) => {
-      ress.present();
-    });
+  loadOrders(infiniteScroll?, scrollCall?) {
+    if (!scrollCall) {
+      this.loadingController.create({
+        message: 'Loading your orders',
+        mode: 'ios'
+      }).then((ress) => {
+        ress.present();
+      });
+    }
     this.auth.getOrders(this.results, this.page, this.value, this.searchKey, this.searchstatus).then(response => {
       console.log(response);
       if (response['success'] == 1) {
@@ -179,12 +188,15 @@ export class OrdersPage implements OnInit {
     });
   }
 
-  async loadMore(infiniteScroll) {
+  async loadMore(infiniteScroll, scrollCall?) {
+    if (!scrollCall) {
+      scrollCall = 0;
+    }
     this.page++;
 
     if (this.page <= this.maximumPages) {
       await this.wait(1000);
-      this.loadOrders(infiniteScroll);
+      this.loadOrders(infiniteScroll, scrollCall);
     }
 
     if (this.page === this.maximumPages) {

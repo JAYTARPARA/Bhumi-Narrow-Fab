@@ -19,6 +19,7 @@ const routes: Routes = [
   { path: 'admin-material-details/:id', loadChildren: './pages/admin/admin-material-details/admin-material-details.module#AdminMaterialDetailsPageModule' },
   // tslint:disable-next-line:max-line-length
   { path: 'admin-user-orders/:mobile/:name', loadChildren: './pages/admin/admin-user-orders/admin-user-orders.module#AdminUserOrdersPageModule' },
+  { path: 'materials/:type/:id', loadChildren: './pages/materials/materials.module#MaterialsPageModule' },
 ];
 
 @NgModule({

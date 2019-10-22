@@ -84,6 +84,13 @@ export class ProfilePage implements OnInit {
         this.auth.presentToast(response['message'], false, 'bottom', 2500, 'danger');
       }
     });
+    setTimeout(() => {
+      this.loadingController.getTop().then( chk => {
+        if (chk) {
+          this.loadingController.dismiss();
+        }
+      });
+    }, 1500);
   }
 
   saveProfile() {

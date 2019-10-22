@@ -22,7 +22,7 @@
 <ion-content class="ion-padding card-background-page">
 
   <ion-label color="danger" [hidden]=showNoData class="ion-text-center"><h2><b>No order found.</b></h2></ion-label>
-  <!-- <ion-button class="loginbtn" [hidden]=showNoData color='dark' expand="block" fill="outline" [routerLink]="['/', 'material', 'mobile', phone]">PLACE YOUR FIRST ORDER</ion-button> -->
+  <!-- <ion-button class="loginbtn" [hidden]=showNoData color='dark' expand="block" fill="outline" [routerLink]="['/', 'materials', 'mobile', phone]">PLACE YOUR FIRST ORDER</ion-button> -->
 
   <ion-label color="danger" [hidden]=showNoDataForSearch class="ion-text-center"><h2><b>No order found.</b></h2></ion-label>
 
@@ -51,7 +51,7 @@
     </ion-card-content>
   </ion-card>
 
-  <ion-infinite-scroll *ngIf="!noMoreData"  (ionInfinite)="loadMore($event)">
+  <ion-infinite-scroll *ngIf="!noMoreData"  (ionInfinite)="loadMore($event, 1)">
     <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more orders..."></ion-infinite-scroll-content>
   </ion-infinite-scroll>
 </ion-content>

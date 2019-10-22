@@ -27,11 +27,12 @@ export class LoginPage implements OnInit {
   code = '';
   public recaptchaVerifier: firebase.auth.RecaptchaVerifier;
   loaderToShow: any;
-  OTP: any;
+  OTP = '';
   confirmationResultOTP: any;
   user: any;
   showOTPInput = false;
   OTPmessage = '';
+  hideOTP = true;
   userResponse: Observable<any>;
   // checkuserResponse: Observable<any>;
   checkuserResponse: any;
@@ -39,7 +40,7 @@ export class LoginPage implements OnInit {
   constructor(
     public navCtrl: NavController,
     public alertCtrl: AlertController,
-    public loadingController: LoadingController,
+    public loadingControllerLogin: LoadingController,
     private router: Router,
     private fireAuth: AngularFireAuth,
     private toastCtrl: ToastController,
@@ -80,6 +81,7 @@ export class LoginPage implements OnInit {
       // Enable this for web test
       // this.showAlertForCode(confirmationResult, '');
       this.showOTPInput = true;
+      this.hideOTP = false;
       this.OTPmessage = 'An OTP is sent to your number. You should receive it in 15s';
       this.presentToast('Waiting for OTP', false, 'middle', 1000);
       // Enable this for app test
@@ -110,7 +112,7 @@ export class LoginPage implements OnInit {
     } else {
       loadMsg = 'Loading';
     }
-    this.loaderToShow = this.loadingController.create({
+    this.loadingControllerLogin.create({
       message: loadMsg,
       mode: 'ios'
     }).then((res) => {
@@ -156,7 +158,6 @@ export class LoginPage implements OnInit {
                   this.hideLoader();
                   this.auth.presentToast(data['message'], false, 'bottom', 2500, 'danger');
                 } else if (data['success'] == 1) {
-                  console.log('Success');
                   this.hideLoader();
                   if (data['name'] == "") {
                     this.navCtrl.navigateForward('/profile/mobile/' + mobile);
@@ -180,7 +181,7 @@ export class LoginPage implements OnInit {
   }
 
   showLoader() {
-    this.loaderToShow = this.loadingController.create({
+    this.loadingControllerLogin.create({
       message: 'Sending OTP',
       mode: 'ios'
     }).then((res) => {
@@ -191,7 +192,12 @@ export class LoginPage implements OnInit {
   }
 
   hideLoader() {
-    this.loadingController.dismiss();
+    this.loadingControllerLogin.dismiss();
+    // this.loadingControllerLogin.getTop().then( chk => {
+    //   if (chk) {
+    //     this.loadingControllerLogin.dismiss();
+    //   }
+    // });
   }
 
   start() {
@@ -220,6 +226,7 @@ export class LoginPage implements OnInit {
     const message = data.body;
     if (message && message.indexOf('localhost') != -1) {
       this.OTP = data.body.slice(0, 6);
+      console.log(this.OTP);
       this.presentToast('OTP is received', false, 'middle', 1000);
       this.OTPmessage = ' ';
       this.stop();
