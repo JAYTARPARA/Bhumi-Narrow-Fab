@@ -137,4 +137,56 @@ export class AllUsersPage implements OnInit {
     );
   }
 
+  async blockMe(mobile, status) {
+    console.log('mobile: ' + mobile);
+    console.log('status: ' + status);
+    let subHeaderMsg = '';
+    let loadMessage = '';
+    if (status == 0) {
+      subHeaderMsg = 'Are you sure you want to block this user?';
+      loadMessage = 'Blocking user';
+    } else if (status == 1) {
+      subHeaderMsg = 'Are you sure you want to unblock this user?';
+      loadMessage = 'Unblocking user';
+    }
+
+    const alert = await this.alertCtrl.create({
+      header: 'Confirm!',
+      subHeader: subHeaderMsg,
+      mode: 'ios',
+      buttons: [
+        {
+          text: 'NO',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => { }
+        }, {
+          text: 'YES',
+          handler: () => {
+            this.loadingController.create({
+              message: loadMessage,
+              mode: 'ios'
+            }).then((res) => {
+              res.present();
+              res.onDidDismiss().then((dis) => {
+                this.ionViewWillEnter(1);
+              });
+            });
+            this.auth.blockUnblockUser(mobile, status).then(response => {
+              this.loadingController.dismiss();
+              if (response['success'] == 1) {
+                this.auth.presentToast(response['message'], false, 'bottom', 1000, 'success');
+              } else if (response['success'] == 2) {
+                this.auth.presentToast(response['message'], false, 'bottom', 1500, 'danger');
+              } else {
+                this.auth.presentToast(response['message'], false, 'bottom', 1500, 'danger');
+              }
+            });
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+
 }

@@ -13,6 +13,8 @@ import { NgxMaskIonicModule } from 'ngx-mask-ionic';
 
 import * as firebase from 'firebase';
 
+// import * as admin from 'firebase-admin';
+
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireModule } from '@angular/fire';
 
@@ -42,6 +44,14 @@ firebase.initializeApp({
   appId: '1:900635805457:web:8431369e0f961389b16eb0',
   measurementId: 'G-R4CP2PPVVY'
 });
+
+// const admin = require('firebase-admin');
+// const serviceAccount = require('src/assets/firebase/bhumi-narrow-fab-firebase-adminsdk-j5q44-977418a653.json');
+
+// admin.initializeApp({
+//   credential: admin.credential.cert(serviceAccount),
+//   databaseURL: 'https://bhumi-narrow-fab.firebaseio.com'
+// });
 
 @NgModule({
   declarations: [AppComponent ],

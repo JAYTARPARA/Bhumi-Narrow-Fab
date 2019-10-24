@@ -49,7 +49,7 @@ export class AppComponent {
         this.auth.adminTotalMaterials = 0;
       }
     });
-    this.auth.getTotalOrders(this.mobile).then(response => {
+    this.auth.getTotalOrders(this.auth.usermobile).then(response => {
       console.log(response);
       if (response['success']) {
         this.auth.totalOrders = response['total'];
@@ -65,7 +65,22 @@ export class AppComponent {
       // this.statusBar.styleDefault();
       this.statusBar.backgroundColorByHexString('#222');
       this.splashScreen.hide();
+      this.checkUserStatus();
     });
+  }
+
+  checkUserStatus() {
+    setInterval(() => {
+      this.auth.checkUserStatus(this.auth.usermobile).then(response => {
+        console.log(response);
+        if (response['success'] == 1 && response['status'] == 0) {
+          this.auth.presentToast('You are blocked by admin', false, 'bottom', 1500, 'danger');
+          this.fireAuth.auth.signOut().then(() => {
+            this.router.navigate(['/home']);
+          });
+        }
+      });
+    }, 30000);
   }
 
   async logout() {

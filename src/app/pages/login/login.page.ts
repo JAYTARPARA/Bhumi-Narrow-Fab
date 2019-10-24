@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { AlertController, NavController, LoadingController, ToastController, Platform, MenuController } from '@ionic/angular';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { AlertController, NavController, LoadingController, ToastController, Platform, MenuController, IonInput } from '@ionic/angular';
 import { Router } from '@angular/router';
 
 import * as firebase from 'firebase';
@@ -21,6 +21,7 @@ declare var SMSReceive: any;
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
+  @ViewChild('OTPInput', {static: false})  inputElement: IonInput;
 
   phone: any;
   verificationID: any;
@@ -76,20 +77,33 @@ export class LoginPage implements OnInit {
 
     const appVerifier = this.recaptchaVerifier;
 
-    firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier).then(confirmationResult => {
-      this.hideLoader();
-      // Enable this for web test
-      // this.showAlertForCode(confirmationResult, '');
-      this.showOTPInput = true;
-      this.hideOTP = false;
-      this.OTPmessage = 'An OTP is sent to your number. You should receive it in 15s';
-      this.presentToast('Waiting for OTP', false, 'middle', 1000);
-      // Enable this for app test
-      this.confirmationResultOTP = confirmationResult;
-      this.start();
-    }).catch( (error) => {
-      this.hideLoader();
-      this.showAlertForError(error.message);
+    const chkPhoneNumber = phoneNumber.replace('+91', '');
+
+    this.auth.checkUserStatus(chkPhoneNumber).then(response => {
+      console.log(response);
+      if (response['success'] == 1 && response['status'] == 0) {
+        setTimeout(() => {
+          this.hideLoader();
+        }, 1000);
+        this.auth.presentToast('You are blocked by admin', false, 'bottom', 1500, 'danger');
+        this.router.navigate(['/home']);
+      } else {
+        firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier).then(confirmationResult => {
+          this.hideLoader();
+          // Enable this for web test
+          // this.showAlertForCode(confirmationResult, '');
+          this.showOTPInput = true;
+          this.hideOTP = false;
+          this.OTPmessage = 'An OTP is sent to your number. You should receive it in 15s';
+          this.presentToast('Waiting for OTP', false, 'middle', 1000);
+          // Enable this for app test
+          this.confirmationResultOTP = confirmationResult;
+          this.start();
+        }).catch( (error) => {
+          this.hideLoader();
+          this.showAlertForError(error.message);
+        });
+      }
     });
   }
 
@@ -227,6 +241,7 @@ export class LoginPage implements OnInit {
     if (message && message.indexOf('localhost') != -1) {
       this.OTP = data.body.slice(0, 6);
       console.log(this.OTP);
+      // this.inputElement.setFocus();
       this.presentToast('OTP is received', false, 'middle', 1000);
       this.OTPmessage = ' ';
       this.stop();

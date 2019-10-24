@@ -655,4 +655,58 @@ export class AuthenticationService {
     }
   }
 
+  blockUnblockUser(mobile, status) {
+    if (this.plt.is('cordova')) {
+      return new Promise(resolve => {
+      // tslint:disable-next-line:max-line-length
+      from(this.nativeHttp.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=blockUnblockUser&mobile=${mobile}&status=${status}`, { 'Content-Type': 'application/json' }, {}))
+      .subscribe(
+        data => {
+          resolve(JSON.parse(data.data));
+      }, error => {
+        resolve({success: 2, message: this.serverErrorMsg});
+      });
+    });
+    } else {
+      return new Promise(resolve => {
+        // tslint:disable-next-line:max-line-length
+        this.http.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=blockUnblockUser&mobile=${mobile}&status=${status}`)
+        .pipe(
+          map(results => results)
+        ).subscribe(data => {
+          resolve(data);
+        }, error => {
+          resolve({success: 2, message: this.serverErrorMsg});
+        });
+      });
+    }
+  }
+
+  checkUserStatus(mobile) {
+    console.log(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=checkUserStatus&mobile=${mobile}`);
+    if (this.plt.is('cordova')) {
+      return new Promise(resolve => {
+      // tslint:disable-next-line:max-line-length
+      from(this.nativeHttp.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=checkUserStatus&mobile=${mobile}`, { 'Content-Type': 'application/json' }, {}))
+      .subscribe(
+        data => {
+          resolve(JSON.parse(data.data));
+      }, error => {
+        resolve({success: 2, message: this.serverErrorMsg});
+      });
+    });
+    } else {
+      return new Promise(resolve => {
+        // tslint:disable-next-line:max-line-length
+        this.http.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=checkUserStatus&mobile=${mobile}`)
+        .pipe(
+          map(results => results)
+        ).subscribe(data => {
+          resolve(data);
+        }, error => {
+          resolve({success: 2, message: this.serverErrorMsg});
+        });
+      });
+    }
+  }
 }

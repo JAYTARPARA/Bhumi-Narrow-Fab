@@ -4,6 +4,7 @@
     <h1>Welcome to Bhumi Narrow Fab</h1>
     <h6>Get connected with us to order fancy lace from huge collection</h6>
     <ion-button *ngIf="!showError" class="ion-padding loginbtn" color='dark' expand="block" fill="outline" routerLink="/login" routerDirection="forward">LOG IN</ion-button>
+    <!-- <ion-button *ngIf="!showError" class="ion-padding loginbtn" color='dark' expand="block" (click)="redirectToLogin()">LOG IN</ion-button> -->
     <div *ngIf="showError" class="animated bounceInRight slow">
       <ion-row>
         <ion-col>
