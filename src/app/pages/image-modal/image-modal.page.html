@@ -1,0 +1,15 @@
+<ion-content fullscreen>
+  <ion-item class="close-fake" lines="none">
+    <ion-button (click)="close()" slot="end" fill="clear" color="light">
+      <ion-icon name="close" slot="end"></ion-icon>
+    </ion-button>
+  </ion-item>
+
+  <ion-slides [options]="sliderOpts">
+    <ion-slide>
+      <div class="swiper-zoom-container">
+          <img src="https://bhuminarrowfab.000webhostapp.com/images/materials/{{img}}">
+      </div>
+    </ion-slide>
+  </ion-slides>
+</ion-content>

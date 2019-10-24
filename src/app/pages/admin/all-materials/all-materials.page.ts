@@ -5,9 +5,11 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { AngularFireAuth } from '@angular/fire/auth';
 
-import { MenuController, Platform, ToastController, LoadingController, IonContent, AlertController } from '@ionic/angular';
+import { MenuController, Platform, ToastController, LoadingController, IonContent, AlertController, ModalController } from '@ionic/angular';
 
 import { AuthenticationService } from './../../../services/authentication.service';
+
+import { ImageModalPage } from './../../image-modal/image-modal.page';
 
 @Component({
   selector: 'app-all-materials',
@@ -65,6 +67,7 @@ export class AllMaterialsPage implements OnInit {
     public loadingController: LoadingController,
     public alertCtrl: AlertController,
     private menu: MenuController,
+    public modalController: ModalController
   ) {
   }
 
@@ -159,5 +162,14 @@ export class AllMaterialsPage implements OnInit {
         resolve();
       }, time);
     });
+  }
+
+  openImagePreview(image) {
+    this.modalController.create({
+      component: ImageModalPage,
+      componentProps: {
+        img: image
+      }
+    }).then(modal => modal.present());
   }
 }

@@ -34,6 +34,8 @@ import { AuthenticationService } from './services/authentication.service';
 
 import { SMS } from '@ionic-native/sms/ngx';
 
+import { ImageModalPageModule } from './pages/image-modal/image-modal.module';
+
 firebase.initializeApp({
   apiKey: 'AIzaSyBA6WJFcR_c13T9Q-hIdwXRV5GC59OdPmg',
   authDomain: 'bhumi-narrow-fab.firebaseapp.com',
@@ -57,7 +59,7 @@ firebase.initializeApp({
   declarations: [AppComponent ],
   entryComponents: [],
   imports: [
-    BrowserModule,
+BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
     NgxMaskIonicModule.forRoot(),
@@ -73,6 +75,7 @@ firebase.initializeApp({
     }),
     AngularFireAuthModule,
     HttpClientModule,
+    ImageModalPageModule
   ],
 providers: [
     StatusBar,

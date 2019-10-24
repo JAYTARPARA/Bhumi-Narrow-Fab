@@ -5,9 +5,12 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { AngularFireAuth } from '@angular/fire/auth';
 
-import { MenuController, Platform, ToastController, LoadingController, IonContent, AlertController } from '@ionic/angular';
+// tslint:disable-next-line:max-line-length
+import { MenuController, Platform, ToastController, LoadingController, IonContent, AlertController, ModalController  } from '@ionic/angular';
 
 import { AuthenticationService } from './../../services/authentication.service';
+
+import { ImageModalPage } from './../image-modal/image-modal.page';
 
 @Component({
   selector: 'app-material',
@@ -57,6 +60,7 @@ export class MaterialPage implements OnInit {
     public loadingControllerMaterial: LoadingController,
     public alertCtrl: AlertController,
     private menu: MenuController,
+    public modalController: ModalController
   ) { }
 
   ngOnInit() {
@@ -276,5 +280,14 @@ export class MaterialPage implements OnInit {
     const unit = unitsplit[0];
 
     this.totalValue[key] =  Math.round((quantity * unitprice) / unit);
+  }
+
+  openImagePreview(image) {
+    this.modalController.create({
+      component: ImageModalPage,
+      componentProps: {
+        img: image
+      }
+    }).then(modal => modal.present());
   }
 }

@@ -25,7 +25,7 @@
           <ion-card-subtitle style="font-size: 20px;">{{ material.material_id }}</ion-card-subtitle>
         </ion-col>
       </ion-row>
-      <ion-row>
+      <ion-row (click)="openImagePreview(material.image)">
         <img src="https://bhuminarrowfab.000webhostapp.com/images/materials/{{material.image}}">
       </ion-row>
       <ion-row>
