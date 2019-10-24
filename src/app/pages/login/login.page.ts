@@ -70,41 +70,45 @@ export class LoginPage implements OnInit {
   }
 
   sendotp(phone) {
-    this.showLoader();
-    let phoneNumber = phone.replace('(+91)', '+91');
-    phoneNumber = phoneNumber.replace(' ', '');
-    phoneNumber = phoneNumber.replace('-', '');
-
-    const appVerifier = this.recaptchaVerifier;
-
-    const chkPhoneNumber = phoneNumber.replace('+91', '');
-
-    this.auth.checkUserStatus(chkPhoneNumber).then(response => {
-      console.log(response);
-      if (response['success'] == 1 && response['status'] == 0) {
-        setTimeout(() => {
-          this.hideLoader();
-        }, 1000);
-        this.auth.presentToast('You are blocked by admin', false, 'bottom', 1500, 'danger');
-        this.router.navigate(['/home']);
-      } else {
-        firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier).then(confirmationResult => {
-          this.hideLoader();
-          // Enable this for web test
-          // this.showAlertForCode(confirmationResult, '');
-          this.showOTPInput = true;
-          this.hideOTP = false;
-          this.OTPmessage = 'An OTP is sent to your number. You should receive it in 15s';
-          this.presentToast('Waiting for OTP', false, 'middle', 1000);
-          // Enable this for app test
-          this.confirmationResultOTP = confirmationResult;
-          this.start();
-        }).catch( (error) => {
-          this.hideLoader();
-          this.showAlertForError(error.message);
-        });
-      }
-    });
+    if (phone == undefined || phone == '') {
+      this.auth.presentToast('Please enter mobile number first', false, 'bottom', 1500, 'danger');
+    } else {
+      this.showLoader();
+      let phoneNumber = phone.replace('(+91)', '+91');
+      phoneNumber = phoneNumber.replace(' ', '');
+      phoneNumber = phoneNumber.replace('-', '');
+  
+      const appVerifier = this.recaptchaVerifier;
+  
+      const chkPhoneNumber = phoneNumber.replace('+91', '');
+  
+      this.auth.checkUserStatus(chkPhoneNumber).then(response => {
+        console.log(response);
+        if (response['success'] == 1 && response['status'] == 0) {
+          setTimeout(() => {
+            this.hideLoader();
+          }, 1000);
+          this.auth.presentToast('You are blocked by admin', false, 'bottom', 1500, 'danger');
+          this.router.navigate(['/home']);
+        } else {
+          firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier).then(confirmationResult => {
+            this.hideLoader();
+            // Enable this for web test
+            // this.showAlertForCode(confirmationResult, '');
+            this.showOTPInput = true;
+            this.hideOTP = false;
+            this.OTPmessage = 'An OTP is sent to your number. You should receive it in 15s';
+            this.presentToast('Waiting for OTP', false, 'middle', 1000);
+            // Enable this for app test
+            this.confirmationResultOTP = confirmationResult;
+            this.start();
+          }).catch( (error) => {
+            this.hideLoader();
+            this.showAlertForError(error.message);
+          });
+        }
+      });
+    }
   }
 
   async showAlertForError(error) {
@@ -120,23 +124,26 @@ export class LoginPage implements OnInit {
 
   confirmUser() {
     console.log(this.phone);
-    let loadMsg = '';
-    if (this.phone == '(+91) 88888-88888') {
-      loadMsg = 'Loading admin area';
+    if (this.OTP == undefined || this.OTP == '') {
+      this.auth.presentToast('Please enter OTP first', false, 'bottom', 1500, 'danger');
     } else {
-      loadMsg = 'Loading';
-    }
-    this.loadingControllerLogin.create({
-      message: loadMsg,
-      mode: 'ios'
-    }).then((res) => {
-      res.present();
-      res.onDidDismiss().then((dis) => { });
-    });
-    const confirmationResult = this.confirmationResultOTP;
-    const receivedOTP = this.OTP;
-
-    confirmationResult
+      let loadMsg = '';
+      if (this.phone == '(+91) 88888-88888') {
+        loadMsg = 'Loading admin area';
+      } else {
+        loadMsg = 'Loading';
+      }
+      this.loadingControllerLogin.create({
+        message: loadMsg,
+        mode: 'ios'
+      }).then((res) => {
+        res.present();
+        res.onDidDismiss().then((dis) => { });
+      });
+      const confirmationResult = this.confirmationResultOTP;
+      const receivedOTP = this.OTP;
+  
+      confirmationResult
       .confirm(receivedOTP)
       .then( (result) => {
         // User signed in successfully.
@@ -192,6 +199,7 @@ export class LoginPage implements OnInit {
         this.hideLoader();
         this.showAlertForError(error.message);
       });
+    }
   }
 
   showLoader() {
