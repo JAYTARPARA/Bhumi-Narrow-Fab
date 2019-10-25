@@ -66,7 +66,7 @@ export class OrdersPage implements OnInit {
     private activatedRoute: ActivatedRoute,
     public auth: AuthenticationService,
     private toastCtrl: ToastController,
-    public loadingController: LoadingController,
+    public loadingControllerOrder: LoadingController,
     private navCtrl: NavController,
     private menu: MenuController,
   ) { }
@@ -77,7 +77,7 @@ export class OrdersPage implements OnInit {
     this.type = this.activatedRoute.snapshot.paramMap.get('type');
     this.auth.usermobile = this.value;
 
-    this.loadingController.create({
+    this.loadingControllerOrder.create({
       message: 'Loading your orders',
       mode: 'ios'
     }).then((res) => {
@@ -101,25 +101,25 @@ export class OrdersPage implements OnInit {
         // tslint:disable-next-line:max-line-length
         if (this.name == "" || this.address == "" || this.gst == "") {
           this.loadOrderNow = false;
-          this.loadingController.dismiss();
+          this.loadingControllerOrder.dismiss();
           this.auth.presentToast('Please provide all details', false, 'bottom', 2500, 'danger');
           this.router.navigate(['/profile/mobile/' + this.value]);
         } else {
           this.loadOrderNow = true;
-          this.loadingController.dismiss();
+          this.loadingControllerOrder.dismiss();
         }
       } else if (response['success'] == 2) {
         this.loadOrderNow = false;
-        this.loadingController.dismiss();
+        this.loadingControllerOrder.dismiss();
         this.auth.presentToast(response['message'], false, 'bottom', 2500, 'danger');
       } else {
-        this.loadingController.dismiss();
+        this.loadingControllerOrder.dismiss();
       }
     });
     setTimeout(() => {
-      this.loadingController.getTop().then( chk => {
+      this.loadingControllerOrder.getTop().then( chk => {
         if (chk) {
-          this.loadingController.dismiss();
+          this.loadingControllerOrder.dismiss();
         }
       });
     }, 1500);
@@ -132,6 +132,8 @@ export class OrdersPage implements OnInit {
       this.content.scrollToTop(1500);
       setTimeout(() => {
         this.noMoreData = 0;
+        this.showNoDataForSearch = true;
+        this.showNoData = true;
         this.ionViewDidEnter(callit);
       }, 100);
     }
@@ -153,7 +155,7 @@ export class OrdersPage implements OnInit {
 
   loadOrders(infiniteScroll?, scrollCall?) {
     if (!scrollCall) {
-      this.loadingController.create({
+      this.loadingControllerOrder.create({
         message: 'Loading your orders',
         mode: 'ios'
       }).then((ress) => {
@@ -172,10 +174,10 @@ export class OrdersPage implements OnInit {
         if (infiniteScroll) {
           infiniteScroll.target.complete();
         } else {
-          this.loadingController.dismiss();
+          this.loadingControllerOrder.dismiss();
         }
       } else if (response['success'] == 2) {
-        this.loadingController.dismiss();
+        this.loadingControllerOrder.dismiss();
         this.auth.presentToast(response['message'], false, 'bottom', 2500, 'danger');
       } else {
         if (this.searchKey == undefined || this.searchKey == '') {
@@ -183,7 +185,7 @@ export class OrdersPage implements OnInit {
         } else {
           this.showNoDataForSearch = false;
         }
-        this.loadingController.dismiss();
+        this.loadingControllerOrder.dismiss();
       }
     });
   }

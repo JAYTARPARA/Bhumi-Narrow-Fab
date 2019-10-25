@@ -1,8 +1,8 @@
 <ion-header no-border class="animated fadeInDown">
   <ion-toolbar color='primary' mode="ios">
-      <ion-buttons slot="start">
-        <ion-back-button defaultHref="home"></ion-back-button>
-      </ion-buttons>
+      <!-- <ion-buttons slot="start"> -->
+        <!-- <ion-back-button defaultHref="home"></ion-back-button> -->
+      <!-- </ion-buttons> -->
   </ion-toolbar>
 </ion-header>
 
@@ -17,7 +17,7 @@
     <ion-label class="ion-text-wrap" color="medium" mode="ios">
       A 6 digits OTP will be sent via SMS to verify your mobile number!
     </ion-label>
-    <ion-button color='dark' class="continuebtn" expand="block" fill="outline" (click)="sendotp(this.phone)">CONTINUE</ion-button>
+    <ion-button color='dark' class="continuebtn" expand="block" fill="outline" (click)="sendotp(this.phone)" [disabled]="continue">CONTINUE</ion-button>
   </div>
   <br/>
   <div *ngIf="showOTPInput" class="animated bounceInRight slow">
@@ -31,6 +31,6 @@
         <ion-text class="small">{{ OTPmessage }}</ion-text>
       </ion-col>
     </ion-row>
-    <ion-button color='dark' class="continuebtn" expand="block" fill="outline" (click)="confirmUser()">VERIFY</ion-button>
+    <ion-button color='dark' class="continuebtn" expand="block" fill="outline" (click)="confirmUser()" [disabled]="submitted">VERIFY</ion-button>
   </div>
 </ion-content>

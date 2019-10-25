@@ -3,10 +3,10 @@ import { Component } from '@angular/core';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 
-import { MenuController, Platform, LoadingController, AlertController } from '@ionic/angular';
+import { MenuController, Platform, LoadingController, AlertController, NavController } from '@ionic/angular';
 
 import { AuthenticationService } from './services/authentication.service';
 
@@ -31,6 +31,8 @@ export class AppComponent {
     public loadingController: LoadingController,
     public alertCtrl: AlertController,
     public auth: AuthenticationService,
+    public navCtrl: NavController,
+    private activatedRoute: ActivatedRoute,
   ) {
     this.fireAuth.auth.onAuthStateChanged(user => {
       if (user) {
@@ -81,6 +83,15 @@ export class AppComponent {
         }
       });
     }, 30000);
+    // setInterval(() => {
+    //   this.auth.checkUserProfileStatus(this.auth.usermobile).then(response => {
+    //     console.log(response);
+    //     if (response['success'] == 1 && response['status'] == 0) {
+    //       this.auth.presentToast('Please provide all details', false, 'bottom', 2500, 'danger');
+    //       this.router.navigate(['/profile/mobile/' + this.auth.usermobile]);
+    //     }
+    //   });
+    // }, 1000);
   }
 
   async logout() {

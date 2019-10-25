@@ -1,12 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
-import * as firebase from 'firebase';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { AngularFireAuth } from '@angular/fire/auth';
 
 // tslint:disable-next-line:max-line-length
-import { MenuController, Platform, ToastController, LoadingController, IonContent, AlertController, ModalController  } from '@ionic/angular';
+import { MenuController, Platform, ToastController, LoadingController, IonContent, AlertController, ModalController } from '@ionic/angular';
 
 import { AuthenticationService } from './../../services/authentication.service';
 
@@ -86,26 +85,22 @@ export class MaterialPage implements OnInit {
       });
     });
 
-    this.auth.getUser(this.value, this.type).then(response => {
-      console.log(response);
-      this.id = this.value;
-      if (response['success'] == 1) {
-        this.name = response['name'];
-        this.address = response['address'];
-        this.gst = response['gst'];
-        this.phone = response['mobile'];
-        // tslint:disable-next-line:max-line-length
-        if (this.name == "" || this.address == "" || this.gst == "") {
-          this.loadMaterialNow = false;
+    this.auth.checkUserProfileStatus(this.value).then(response => {
+      if (response['success'] == 1 && response['status'] == 0) {
+        this.loadMaterialNow = false;
+        this.auth.presentToast('Please provide all details', false, 'bottom', 2500, 'danger');
+        this.router.navigate(['/profile/mobile/' + this.auth.usermobile]);
+      } else if (response['success'] == 1 && response['status'] == 1) {
+        this.loadMaterialNow = true;
+        this.auth.getUser(this.value, this.type).then(results => {
+          console.log(results);
+          this.userArray.push(results);
+        });
+        // this.loadingControllerMaterial.dismiss();
+        setTimeout(() => {
           this.loadingControllerMaterial.dismiss();
-          this.auth.presentToast('Please provide all details', false, 'bottom', 2500, 'danger');
-          this.router.navigate(['/profile/mobile/' + this.value]);
-        } else {
-          this.loadMaterialNow = true;
-          this.loadingControllerMaterial.dismiss();
-          this.userArray.push(response);
-        }
-      } else if (response['success'] == 2) {
+        }, 500);
+      }  else if (response['success'] == 2) {
         this.loadingControllerMaterial.dismiss();
         this.auth.presentToast(response['message'], false, 'bottom', 2500, 'danger');
       } else {

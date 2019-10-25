@@ -8,7 +8,7 @@
       <ion-content>
         <ion-list lines="none">
           <ion-menu-toggle auto-hide="true">
-            <ion-item routerLink="/profile/mobile/{{auth.usermobile}}" routerDirection="forward" mode="ios">
+            <ion-item href="/profile/mobile/{{auth.usermobile}}" mode="ios">
               <ion-icon name="contact" slot="start"></ion-icon>
                 My Profile
             </ion-item>
@@ -16,7 +16,7 @@
         </ion-list>
         <ion-list lines="none">
           <ion-menu-toggle auto-hide="true">
-            <ion-item routerLink="/orders/mobile/{{auth.usermobile}}" routerDirection="forward" mode="ios">
+            <ion-item href="/orders/mobile/{{auth.usermobile}}" mode="ios">
               <ion-icon name="wallet" slot="start"></ion-icon>
                 My Orders
                 <ion-chip mode="ios">
@@ -27,7 +27,7 @@
         </ion-list>
         <ion-list lines="none">
           <ion-menu-toggle auto-hide="true">
-            <ion-item routerLink="/materials/mobile/{{auth.usermobile}}" routerDirection="forward" mode="ios">
+            <ion-item href="/material/mobile/{{auth.usermobile}}" mode="ios">
               <ion-icon name="images" slot="start"></ion-icon>
                 All Materials
               </ion-item>
@@ -49,7 +49,7 @@
         <ion-content>
           <ion-list lines="none">
             <ion-menu-toggle auto-hide="true">
-              <ion-item routerLink="/all-materials" routerDirection="forward" mode="ios">
+              <ion-item href="/all-materials" mode="ios">
                 <ion-icon name="images" slot="start"></ion-icon>
                 All Materials
                 <ion-chip mode="ios">
@@ -60,7 +60,7 @@
           </ion-list>
           <ion-list lines="none">
             <ion-menu-toggle auto-hide="true">
-              <ion-item routerLink="/all-orders" routerDirection="forward" mode="ios">
+              <ion-item href="/all-orders" mode="ios">
                 <ion-icon name="wallet" slot="start"></ion-icon>
                 All Orders
                 <ion-chip mode="ios">
@@ -71,7 +71,7 @@
           </ion-list>
           <ion-list lines="none">
             <ion-menu-toggle auto-hide="true">
-              <ion-item routerLink="/all-users" routerDirection="forward" mode="ios">
+              <ion-item href="/all-users" mode="ios">
                 <ion-icon name="contacts" slot="start"></ion-icon>
                 All Users
                 <ion-chip mode="ios">
@@ -82,7 +82,7 @@
           </ion-list>
           <ion-list lines="none">
               <ion-menu-toggle auto-hide="true">
-                <ion-item routerLink="/upload-materials" routerDirection="forward" mode="ios">
+                <ion-item href="/upload-materials" mode="ios">
                   <ion-icon name="cloud-upload" slot="start"></ion-icon>
                   Upload Materials
                 </ion-item>

@@ -32,8 +32,11 @@ export class LoginPage implements OnInit {
   confirmationResultOTP: any;
   user: any;
   showOTPInput = false;
+  // showOTPInput = true;
   OTPmessage = '';
   hideOTP = true;
+  submitted = false;
+  continue = false;
   userResponse: Observable<any>;
   // checkuserResponse: Observable<any>;
   checkuserResponse: any;
@@ -74,14 +77,15 @@ export class LoginPage implements OnInit {
       this.auth.presentToast('Please enter mobile number first', false, 'bottom', 1500, 'danger');
     } else {
       this.showLoader();
+      this.continue = true;
       let phoneNumber = phone.replace('(+91)', '+91');
       phoneNumber = phoneNumber.replace(' ', '');
       phoneNumber = phoneNumber.replace('-', '');
-  
+
       const appVerifier = this.recaptchaVerifier;
-  
+
       const chkPhoneNumber = phoneNumber.replace('+91', '');
-  
+
       this.auth.checkUserStatus(chkPhoneNumber).then(response => {
         console.log(response);
         if (response['success'] == 1 && response['status'] == 0) {
@@ -127,22 +131,10 @@ export class LoginPage implements OnInit {
     if (this.OTP == undefined || this.OTP == '') {
       this.auth.presentToast('Please enter OTP first', false, 'bottom', 1500, 'danger');
     } else {
-      let loadMsg = '';
-      if (this.phone == '(+91) 88888-88888') {
-        loadMsg = 'Loading admin area';
-      } else {
-        loadMsg = 'Loading';
-      }
-      this.loadingControllerLogin.create({
-        message: loadMsg,
-        mode: 'ios'
-      }).then((res) => {
-        res.present();
-        res.onDidDismiss().then((dis) => { });
-      });
+      this.submitted = true;
       const confirmationResult = this.confirmationResultOTP;
       const receivedOTP = this.OTP;
-  
+
       confirmationResult
       .confirm(receivedOTP)
       .then( (result) => {
@@ -155,48 +147,39 @@ export class LoginPage implements OnInit {
             // Save user to database if not added
             const mobile = user.phoneNumber.replace('+91', '');
             if (mobile == '8888888888') {
-              this.hideLoader();
               this.navCtrl.navigateForward('/all-materials');
             } else {
               this.auth.addUser(mobile).then(data => {
-                console.log('Add User');
                 console.log(data);
                 if (data['success'] == 0) {
                   this.auth.createNewUserWithMobile(mobile).then(response => {
                     console.log(response);
                     if (response['success'] == 1) {
-                      this.hideLoader();
-                      const id = response['id'];
                       this.navCtrl.navigateForward('/profile/mobile/' + mobile);
                     } else if (response['success'] == 2) {
-                      this.hideLoader();
+                      this.submitted = false;
                       this.auth.presentToast(response['message'], false, 'bottom', 2500, 'danger');
                     } else {
-                      this.hideLoader();
+                      this.submitted = false;
+                      this.auth.presentToast(response['message'], false, 'bottom', 2500, 'danger');
                     }
                   });
                 } else if (data['success'] == 2) {
-                  this.hideLoader();
+                  this.submitted = false;
                   this.auth.presentToast(data['message'], false, 'bottom', 2500, 'danger');
                 } else if (data['success'] == 1) {
-                  this.hideLoader();
-                  if (data['name'] == "") {
-                    this.navCtrl.navigateForward('/profile/mobile/' + mobile);
-                  } else {
-                    this.navCtrl.navigateForward('/material/mobile/' + mobile);
-                  }
+                  this.navCtrl.navigateForward('/material/mobile/' + mobile);
                 }
               });
             }
           } else {
-            this.hideLoader();
             this.router.navigate(['/home']);
           }
         });
       })
       .catch( (error) => {
         // User couldn't sign in (bad verification code?)
-        this.hideLoader();
+        this.submitted = false;
         this.showAlertForError(error.message);
       });
     }
@@ -215,11 +198,6 @@ export class LoginPage implements OnInit {
 
   hideLoader() {
     this.loadingControllerLogin.dismiss();
-    // this.loadingControllerLogin.getTop().then( chk => {
-    //   if (chk) {
-    //     this.loadingControllerLogin.dismiss();
-    //   }
-    // });
   }
 
   start() {

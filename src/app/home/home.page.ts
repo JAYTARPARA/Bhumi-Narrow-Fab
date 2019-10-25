@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import * as firebase from 'firebase';
 
 import { AngularFireAuth } from '@angular/fire/auth';
-import { LoadingController, Platform, AlertController, ToastController, MenuController } from '@ionic/angular';
+import { LoadingController, Platform, AlertController, ToastController, MenuController, NavController } from '@ionic/angular';
 import { AuthenticationService } from './../services/authentication.service';
 
 @Component({
@@ -27,62 +27,30 @@ export class HomePage implements OnInit, OnDestroy {
     public alertCtrl: AlertController,
     public toast: ToastController,
     public auth: AuthenticationService,
-    private menu: MenuController
+    private menu: MenuController,
+    public navCtrl: NavController,
   ) {
     this.backButtonSubscription = this.platform.backButton.subscribeWithPriority(999999, () => {
       this.presentAlertConfirm();
-    });
-
-    this.fireAuth.auth.onAuthStateChanged(user => {
-      if (user) {
-        const chkadmin = user.phoneNumber.replace('+91', '');
-        let loadMsg = '';
-        let redirectUrl = '';
-        if (chkadmin == '8888888888') {
-          loadMsg = 'Loading admin area';
-          redirectUrl = '/all-materials';
-          setTimeout(() => {
-            this.loadingControllerHome.dismiss();
-          }, 1000);
-        } else {
-          loadMsg = 'Loading';
-          this.auth.addUser(chkadmin).then(data => {
-            this.loadingControllerHome.dismiss();
-            if (data['success'] == 1) {
-              if (data['name'] == "") {
-                redirectUrl = '/profile/mobile/' + chkadmin;
-              } else {
-                redirectUrl = '/material/mobile/' + chkadmin;
-              }
-            } else if (data['success'] == 2) {
-              this.showError = true;
-              this.auth.presentToast(data['message'], false, 'bottom', 2500, 'danger');
-            } else {
-              redirectUrl = '/material/mobile/' + chkadmin;
-            }
-          });
-          this.loadingControllerHome.dismiss();
-          this.loadingControllerHome.getTop().then( chk => {
-            if (chk) {
-              this.loadingControllerHome.dismiss();
-            }
-          });
-        }
-        this.loadingControllerHome.create({
-          message: loadMsg,
-          mode: 'ios'
-        }).then((res) => {
-          res.present();
-          res.onDidDismiss().then((dis) => {
-            this.router.navigate([redirectUrl]);
-          });
-        });
-      }
     });
   }
 
   ngOnInit() {
     this.menu.enable(false);
+    this.fireAuth.auth.onAuthStateChanged(user => {
+      if (user) {
+        const chkadmin = user.phoneNumber.replace('+91', '');
+        let redirectUrl = '';
+        if (chkadmin == '8888888888') {
+          redirectUrl = '/all-materials';
+        } else {
+          redirectUrl = '/material/mobile/' + chkadmin;
+        }
+        setTimeout(() => {
+          this.navCtrl.navigateForward(redirectUrl);
+        }, 1000);
+      }
+    });
   }
 
   ngOnDestroy() {
@@ -114,6 +82,6 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   redirectToLogin() {
-    this.router.navigate(['/login']);
+    this.navCtrl.navigateForward('/login');
   }
 }
