@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { AlertController, NavController, LoadingController, ToastController, Platform, MenuController, IonInput } from '@ionic/angular';
+// tslint:disable-next-line:max-line-length
+import { AlertController, NavController, LoadingController, ToastController, Platform, MenuController, IonInput, IonButton } from '@ionic/angular';
 import { Router } from '@angular/router';
 
 import * as firebase from 'firebase';
@@ -21,7 +22,7 @@ declare var SMSReceive: any;
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  @ViewChild('OTPInput', {static: false})  inputElement: IonInput;
+  // @ViewChild('OTPInput', {static: false})  inputElement: IonButton;
 
   phone: any;
   verificationID: any;
@@ -40,6 +41,7 @@ export class LoginPage implements OnInit {
   userResponse: Observable<any>;
   // checkuserResponse: Observable<any>;
   checkuserResponse: any;
+  showError = false;
 
   constructor(
     public navCtrl: NavController,
@@ -57,6 +59,22 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {
     this.menu.enable(false);
+    this.fireAuth.auth.onAuthStateChanged(user => {
+      if (user) {
+        this.showError = true;
+        const chkadmin = user.phoneNumber.replace('+91', '');
+        let redirectUrl = '';
+        if (chkadmin == '8888888888') {
+          redirectUrl = '/all-materials';
+        } else {
+          redirectUrl = '/material/mobile/' + chkadmin;
+        }
+        this.navCtrl.navigateForward(redirectUrl);
+        // setTimeout(() => {
+        //   this.navCtrl.navigateForward(redirectUrl);
+        // }, 600);
+      }
+    });
     this.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', { size: 'invisible' });
   }
 
@@ -227,7 +245,6 @@ export class LoginPage implements OnInit {
     if (message && message.indexOf('localhost') != -1) {
       this.OTP = data.body.slice(0, 6);
       console.log(this.OTP);
-      // this.inputElement.setFocus();
       this.presentToast('OTP is received', false, 'middle', 1000);
       this.OTPmessage = ' ';
       this.stop();

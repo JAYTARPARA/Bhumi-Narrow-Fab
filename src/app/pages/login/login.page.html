@@ -17,13 +17,14 @@
     <ion-label class="ion-text-wrap" color="medium" mode="ios">
       A 6 digits OTP will be sent via SMS to verify your mobile number!
     </ion-label>
-    <ion-button color='dark' class="continuebtn" expand="block" fill="outline" (click)="sendotp(this.phone)" [disabled]="continue">CONTINUE</ion-button>
+    <ion-button color='dark' *ngIf="!showError" class="continuebtn" expand="block" fill="outline" (click)="sendotp(this.phone)" [disabled]="continue">CONTINUE</ion-button>
+    <ion-button *ngIf="showError" class="ion-padding loginbtn" color='dark' expand="block" fill="outline" style="pointer-events: none;">Loading...</ion-button>
   </div>
   <br/>
   <div *ngIf="showOTPInput" class="animated bounceInRight slow">
     <ion-label color="dark" position="stacked">OTP</ion-label>
     <div style="border-bottom: 1px solid;">
-      <ion-input class="otpinput" #OTPInput type="tel" mask="000000" name="OTP" [(ngModel)]="OTP"></ion-input>
+      <ion-input class="otpinput" type="tel" mask="000000" name="OTP" [(ngModel)]="OTP"></ion-input>
       <!-- <ion-input class="otpinput" type="tel" name="OTP" [(ngModel)]="OTP" maxlength="6"></ion-input> -->
     </div>
     <ion-row>
@@ -31,6 +32,6 @@
         <ion-text class="small">{{ OTPmessage }}</ion-text>
       </ion-col>
     </ion-row>
-    <ion-button color='dark' class="continuebtn" expand="block" fill="outline" (click)="confirmUser()" [disabled]="submitted">VERIFY</ion-button>
+    <ion-button color='dark' class="continuebtn" #OTPInput expand="block" fill="outline" (click)="confirmUser()" [disabled]="submitted">VERIFY</ion-button>
   </div>
 </ion-content>

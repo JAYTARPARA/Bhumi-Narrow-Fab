@@ -78,6 +78,8 @@ export class AllOrdersPage implements OnInit {
       this.content.scrollToTop(1500);
       setTimeout(() => {
         this.noMoreData = 0;
+        this.showNoDataForSearch = true;
+        this.showNoData = true;
         this.ionViewDidEnter();
       }, 100);
     }

@@ -48,6 +48,7 @@ export class MaterialPage implements OnInit {
   showNoDataForSearch = true;
   owner = 'All';
   loadMaterialNow = false;
+  backButtonSubscription: any;
 
   constructor(
     private fireAuth: AngularFireAuth,
@@ -71,19 +72,38 @@ export class MaterialPage implements OnInit {
     console.log('Here');
     console.log('this.value: ' + this.value);
     console.log('this.type: ' + this.type);
+  }
 
-    this.loadingControllerMaterial.create({
-      message: 'Loading materials',
-      mode: 'ios'
-    }).then((res) => {
-      res.present();
-      res.onDidDismiss().then((dis) => {
-        console.log(this.loadMaterialNow);
-        if (this.loadMaterialNow) {
-          this.loadMaterials();
-        }
+  ionViewWillEnter(callit?, infiniteScroll?) {
+    console.log('Testing 3');
+    this.materials = [];
+    this.page = 1;
+    if (callit) {
+      this.content.scrollToTop(1500);
+      setTimeout(() => {
+        this.noMoreData = 0;
+        this.showNoData = true;
+        this.showNoDataForSearch = true;
+        this.ionViewDidEnter(callit);
+      }, 100);
+    }
+  }
+
+  ionViewDidEnter(callit?) {
+    if (!callit) {
+      this.loadingControllerMaterial.create({
+        message: 'Loading materials',
+        mode: 'ios'
+      }).then((res) => {
+        res.present();
+        res.onDidDismiss().then((dis) => {
+          console.log(this.loadMaterialNow);
+          if (this.loadMaterialNow) {
+            this.loadMaterials();
+          }
+        });
       });
-    });
+    }
 
     this.auth.checkUserProfileStatus(this.value).then(response => {
       if (response['success'] == 1 && response['status'] == 0) {
@@ -98,30 +118,23 @@ export class MaterialPage implements OnInit {
         });
         // this.loadingControllerMaterial.dismiss();
         setTimeout(() => {
-          this.loadingControllerMaterial.dismiss();
+          if (!callit) {
+            this.loadingControllerMaterial.dismiss();
+          }
         }, 500);
       }  else if (response['success'] == 2) {
-        this.loadingControllerMaterial.dismiss();
+        if (!callit) {
+          this.loadingControllerMaterial.dismiss();
+        }
         this.auth.presentToast(response['message'], false, 'bottom', 2500, 'danger');
       } else {
-        this.loadingControllerMaterial.dismiss();
+        if (!callit) {
+          this.loadingControllerMaterial.dismiss();
+        }
       }
     });
-  }
 
-  ionViewWillEnter(callit?, infiniteScroll?) {
-    this.materials = [];
-    this.page = 1;
-    if (callit) {
-      this.content.scrollToTop(1500);
-      setTimeout(() => {
-        this.noMoreData = 0;
-        this.ionViewDidEnter(callit);
-      }, 100);
-    }
-  }
 
-  ionViewDidEnter(callit?) {
     this.auth.getTotalOrders(this.value).then(msg => {
       if (msg['success']) {
         this.auth.totalOrders = msg['total'];
@@ -206,6 +219,10 @@ export class MaterialPage implements OnInit {
       sample[key] = false;
     }
 
+    if (pieces[key] === undefined || pieces[key] == null) {
+      pieces[key] = 0;
+    }
+
     this.materialArray = [
       {
         'id': id,
@@ -222,7 +239,7 @@ export class MaterialPage implements OnInit {
 
     if (quantity[key] === undefined || quantity[key] <= 0 ) {
       this.auth.presentToast('Please add quantity', false, 'bottom', 1500, 'danger');
-    } else if (pieces[key] === undefined || pieces[key] <= 0) {
+    } else if (pieces[key] < 0) {
       this.auth.presentToast('Please add proper pieces', false, 'bottom', 1500, 'danger');
     } else {
       const alert = await this.alertCtrl.create({
@@ -236,6 +253,7 @@ export class MaterialPage implements OnInit {
             cssClass: 'secondary',
             handler: (blah) => {
               this.quantity[key] = '';
+              this.pieces[key] = '';
               this.sample[key] = false;
             }
           }, {

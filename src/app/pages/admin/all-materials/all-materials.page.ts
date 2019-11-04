@@ -44,7 +44,8 @@ export class AllMaterialsPage implements OnInit {
   searchKey: any;
   showNoDataForSearch = true;
   owner = 'All';
-
+  backButtonSubscription: any;
+  
   materialOwner: any[] = [
     {
       name : 'All',
@@ -67,7 +68,7 @@ export class AllMaterialsPage implements OnInit {
     public loadingController: LoadingController,
     public alertCtrl: AlertController,
     private menu: MenuController,
-    public modalController: ModalController
+    public modalController: ModalController,
   ) {
   }
 
@@ -82,6 +83,8 @@ export class AllMaterialsPage implements OnInit {
       this.content.scrollToTop(1500);
       setTimeout(() => {
         this.noMoreData = 0;
+        this.showNoData = true;
+        this.showNoDataForSearch = true;
         this.ionViewDidEnter();
       }, 100);
     }

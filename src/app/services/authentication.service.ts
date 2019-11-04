@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HTTP } from '@ionic-native/http/ngx';
 import { HttpClient } from '@angular/common/http';
 import { from } from 'rxjs';
-import { Platform, ToastController } from '@ionic/angular';
+import { Platform, ToastController, AlertController } from '@ionic/angular';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
@@ -26,7 +26,32 @@ export class AuthenticationService {
     private plt: Platform,
     private toastCtrl: ToastController,
     private socialSharing: SocialSharing,
+    public alertCtrl: AlertController,
   ) { }
+
+  async presentAlertConfirm() {
+    const alert = await this.alertCtrl.create({
+      header: 'Confirm!',
+      subHeader: 'Are you sure you want to exit the app?',
+      mode: 'ios',
+      buttons: [
+        {
+          text: 'NO',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+          }
+        }, {
+          text: 'YES',
+          handler: () => {
+            navigator['app'].exitApp();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
 
   async presentToast(message, showbutton, position, duration, color) {
     const toast = await this.toastCtrl.create({

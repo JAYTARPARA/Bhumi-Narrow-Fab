@@ -4,13 +4,9 @@
     <h1>Welcome to Bhumi Narrow Fab</h1>
     <h6>Get connected with us to order fancy lace from huge collection</h6>
     <ion-button *ngIf="!showError" class="ion-padding loginbtn" color='dark' expand="block" fill="outline" href="/login">LOG IN</ion-button>
-    <!-- <ion-button *ngIf="!showError" class="ion-padding loginbtn" color='dark' expand="block" (click)="redirectToLogin()">LOG IN</ion-button> -->
-    <div *ngIf="showError" class="animated bounceInRight slow">
-      <ion-row>
-        <ion-col>
-          <ion-label color="danger" mode="ios" position="stacked"><h6>Server is down!! Please exit from app and open it again after sometime.</h6></ion-label>
-        </ion-col>
-      </ion-row>
+    <!-- <ion-button *ngIf="showError" class="ion-padding loginbtn" color='dark' expand="block" fill="outline" style="pointer-events: none;">Loading...</ion-button> -->
+    <div *ngIf="showError">
+      <ion-img src="./assets/images/loader.gif" style="margin:0 auto;width: 180px; height: 180px;"></ion-img>
     </div>
   </div>
 </ion-content>

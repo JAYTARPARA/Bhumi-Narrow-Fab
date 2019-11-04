@@ -76,53 +76,6 @@ export class OrdersPage implements OnInit {
     this.value = this.activatedRoute.snapshot.paramMap.get('id');
     this.type = this.activatedRoute.snapshot.paramMap.get('type');
     this.auth.usermobile = this.value;
-
-    this.loadingControllerOrder.create({
-      message: 'Loading your orders',
-      mode: 'ios'
-    }).then((res) => {
-      res.present();
-      res.onDidDismiss().then((dis) => {
-        console.log(this.loadOrderNow);
-        if (this.loadOrderNow) {
-          this.loadOrders();
-        }
-      });
-    });
-
-    this.auth.getUser(this.value, this.type).then(response => {
-      console.log(response);
-      this.id = this.value;
-      if (response['success'] == 1) {
-        this.name = response['name'];
-        this.address = response['address'];
-        this.gst = response['gst'];
-        this.phone = response['mobile'];
-        // tslint:disable-next-line:max-line-length
-        if (this.name == "" || this.address == "" || this.gst == "") {
-          this.loadOrderNow = false;
-          this.loadingControllerOrder.dismiss();
-          this.auth.presentToast('Please provide all details', false, 'bottom', 2500, 'danger');
-          this.router.navigate(['/profile/mobile/' + this.value]);
-        } else {
-          this.loadOrderNow = true;
-          this.loadingControllerOrder.dismiss();
-        }
-      } else if (response['success'] == 2) {
-        this.loadOrderNow = false;
-        this.loadingControllerOrder.dismiss();
-        this.auth.presentToast(response['message'], false, 'bottom', 2500, 'danger');
-      } else {
-        this.loadingControllerOrder.dismiss();
-      }
-    });
-    setTimeout(() => {
-      this.loadingControllerOrder.getTop().then( chk => {
-        if (chk) {
-          this.loadingControllerOrder.dismiss();
-        }
-      });
-    }, 1500);
   }
 
   ionViewWillEnter(callit?, infiniteScroll?) {
@@ -140,6 +93,61 @@ export class OrdersPage implements OnInit {
   }
 
   ionViewDidEnter(callit?) {
+    if (!callit) {
+      this.loadingControllerOrder.create({
+        message: 'Loading your orders',
+        mode: 'ios'
+      }).then((res) => {
+        res.present();
+        res.onDidDismiss().then((dis) => {
+          console.log(this.loadOrderNow);
+          if (this.loadOrderNow) {
+            this.loadOrders();
+          }
+        });
+      });
+    }
+
+    this.auth.getUser(this.value, this.type).then(response => {
+      console.log(response);
+      this.id = this.value;
+      if (response['success'] == 1) {
+        this.name = response['name'];
+        this.address = response['address'];
+        this.gst = response['gst'];
+        this.phone = response['mobile'];
+        // tslint:disable-next-line:max-line-length
+        if (this.name == "" || this.address == "" || this.gst == "") {
+          this.loadOrderNow = false;
+          this.loadingControllerOrder.dismiss();
+          this.auth.presentToast('Please provide all details', false, 'bottom', 2500, 'danger');
+          this.router.navigate(['/profile/mobile/' + this.value]);
+        } else {
+          this.loadOrderNow = true;
+          if (!callit) {
+            this.loadingControllerOrder.dismiss();
+          }
+        }
+      } else if (response['success'] == 2) {
+        this.loadOrderNow = false;
+        if (!callit) {
+          this.loadingControllerOrder.dismiss();
+        }
+        this.auth.presentToast(response['message'], false, 'bottom', 2500, 'danger');
+      } else {
+        if (!callit) {
+          this.loadingControllerOrder.dismiss();
+        }
+      }
+    });
+    // setTimeout(() => {
+    //   this.loadingControllerOrder.getTop().then( chk => {
+    //     if (chk) {
+    //       this.loadingControllerOrder.dismiss();
+    //     }
+    //   });
+    // }, 1500);
+
     this.auth.getTotalOrders(this.value).then(msg => {
       if (msg['success']) {
         this.auth.totalOrders = msg['total'];

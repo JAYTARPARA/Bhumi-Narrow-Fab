@@ -8,7 +8,7 @@
       <ion-button (click)="ionViewWillEnter(1, $event)"><ion-icon name="refresh"></ion-icon></ion-button>
     </ion-buttons>
   </ion-toolbar>
-  <ion-searchbar mode="ios" [hidden]=!showNoData debounce="700" placeholder="Search Materials"  [(ngModel)]="searchKey" (ionChange)="ionViewWillEnter(1, '')" showCancelButton="always" clearIcon=false class="animated bounceInLeft slow"></ion-searchbar>
+  <ion-searchbar mode="ios" debounce="700" placeholder="Search Materials"  [(ngModel)]="searchKey" (ionChange)="ionViewWillEnter(1, '')" showCancelButton="always" clearIcon=false class="animated bounceInLeft slow"></ion-searchbar>
   <ion-item class="animated bounceInLeft slow">
       <ion-label>Search by company</ion-label>
       <ion-select mode="ios" interface="action-sheet" placeholder="Select Status" [selectedText]="owner" [(ngModel)]="owner" (ionChange)="ionViewWillEnter(1, '')">

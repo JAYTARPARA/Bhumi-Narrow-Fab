@@ -17,7 +17,7 @@ export class HomePage implements OnInit, OnDestroy {
 
   subscribe: any;
   backButtonSubscription: any;
-  showError = false;
+  showError = true;
 
   constructor(
     public platform: Platform,
@@ -30,9 +30,9 @@ export class HomePage implements OnInit, OnDestroy {
     private menu: MenuController,
     public navCtrl: NavController,
   ) {
-    this.backButtonSubscription = this.platform.backButton.subscribeWithPriority(999999, () => {
-      this.presentAlertConfirm();
-    });
+    // this.backButtonSubscription = this.platform.backButton.subscribeWithPriority(999999, () => {
+    //   this.presentAlertConfirm();
+    // });
   }
 
   ngOnInit() {
@@ -46,15 +46,29 @@ export class HomePage implements OnInit, OnDestroy {
         } else {
           redirectUrl = '/material/mobile/' + chkadmin;
         }
-        setTimeout(() => {
-          this.navCtrl.navigateForward(redirectUrl);
-        }, 1000);
+        this.navCtrl.navigateForward(redirectUrl);
+      } else {
+        this.showError = false;
       }
     });
   }
 
-  ngOnDestroy() {
+  ionViewDidEnter() {
+    this.backButtonSubscription = this.platform.backButton.subscribe( () => {
+        // navigator['app'].exitApp();
+        console.log(this.constructor.name);
+        if (this.constructor.name == 'HomePage') {
+          this.presentAlertConfirm();
+        }
+    });
+  }
+
+  ionViewWillLeave() {
     this.backButtonSubscription.unsubscribe();
+  }
+
+  ngOnDestroy() {
+    // this.backButtonSubscription.unsubscribe();
   }
 
   async presentAlertConfirm() {

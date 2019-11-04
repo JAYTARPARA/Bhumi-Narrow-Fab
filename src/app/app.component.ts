@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
@@ -20,6 +20,8 @@ export class AppComponent {
   showMenu = false;
   subscribe: any;
   mobile: any;
+  backButtonSubscriptionMain: any;
+  callFirstTime = false;
 
   constructor(
     private platform: Platform,
@@ -34,6 +36,12 @@ export class AppComponent {
     public navCtrl: NavController,
     private activatedRoute: ActivatedRoute,
   ) {
+    // this.backButtonSubscription = this.platform.backButton.subscribeWithPriority(999999, () => {
+      // tslint:disable-next-line:max-line-length
+    //   if (this.constructor.name == 'HomePage' || this.constructor.name == 'LoginPage' || this.constructor.name == 'AllMaterialsPage' || this.constructor.name == 'MaterialPage') {
+    //     this.presentAlertConfirm();
+    //   }
+    // });
     this.fireAuth.auth.onAuthStateChanged(user => {
       if (user) {
         this.auth.usermobile = user.phoneNumber.replace('+91', '');
@@ -82,16 +90,32 @@ export class AppComponent {
           });
         }
       });
-    }, 30000);
-    // setInterval(() => {
-    //   this.auth.checkUserProfileStatus(this.auth.usermobile).then(response => {
-    //     console.log(response);
-    //     if (response['success'] == 1 && response['status'] == 0) {
-    //       this.auth.presentToast('Please provide all details', false, 'bottom', 2500, 'danger');
-    //       this.router.navigate(['/profile/mobile/' + this.auth.usermobile]);
-    //     }
-    //   });
-    // }, 1000);
+    }, 5000);
+  }
+
+  async exitApp() {
+    this.menu.close();
+    const alert = await this.alertCtrl.create({
+      header: 'Confirm!',
+      subHeader: 'Are you sure you want to exit the app?',
+      mode: 'ios',
+      buttons: [
+        {
+          text: 'NO',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+          }
+        }, {
+          text: 'YES',
+          handler: () => {
+            navigator['app'].exitApp();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
   async logout() {
@@ -125,6 +149,30 @@ export class AppComponent {
                 });
               });
             });
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async presentAlertConfirm() {
+    const alert = await this.alertCtrl.create({
+      header: 'Confirm!',
+      subHeader: 'Are you sure you want to exit the app?',
+      mode: 'ios',
+      buttons: [
+        {
+          text: 'NO',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+          }
+        }, {
+          text: 'YES',
+          handler: () => {
+            navigator['app'].exitApp();
           }
         }
       ]
