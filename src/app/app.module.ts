@@ -1,40 +1,27 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
-
 import { AlertController, IonicModule, IonicRouteStrategy, Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-
 import { NgxMaskIonicModule } from 'ngx-mask-ionic';
-
 import * as firebase from 'firebase';
-
 // import * as admin from 'firebase-admin';
-
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireModule } from '@angular/fire';
-
 import { HttpClientModule } from '@angular/common/http';
 import { HTTP } from '@ionic-native/http/ngx';
-
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
-
 import { Camera } from '@ionic-native/camera/ngx';
-
 import { FileTransfer } from '@ionic-native/file-transfer/ngx';
 import { File } from '@ionic-native/file/ngx';
-
 import { CallNumber } from '@ionic-native/call-number/ngx';
-
 import { AuthenticationService } from './services/authentication.service';
-
 import { SMS } from '@ionic-native/sms/ngx';
-
 import { ImageModalPageModule } from './pages/image-modal/image-modal.module';
+import { IonicStorageModule } from '@ionic/storage';
 
 firebase.initializeApp({
   apiKey: 'AIzaSyBA6WJFcR_c13T9Q-hIdwXRV5GC59OdPmg',
@@ -63,6 +50,7 @@ BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
     NgxMaskIonicModule.forRoot(),
+    IonicStorageModule.forRoot(),
     AngularFireModule.initializeApp({
       apiKey: 'AIzaSyBA6WJFcR_c13T9Q-hIdwXRV5GC59OdPmg',
       authDomain: 'bhumi-narrow-fab.firebaseapp.com',
@@ -75,9 +63,9 @@ BrowserModule,
     }),
     AngularFireAuthModule,
     HttpClientModule,
-    ImageModalPageModule
+    ImageModalPageModule,
   ],
-providers: [
+  providers: [
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
@@ -87,7 +75,7 @@ providers: [
     FileTransfer,
     File,
     CallNumber,
-    SMS
+    SMS,
   ],
   bootstrap: [AppComponent]
 })

@@ -1,14 +1,11 @@
 import { Component, OnDestroy } from '@angular/core';
-
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-
 import { Router, ActivatedRoute } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
-
 import { MenuController, Platform, LoadingController, AlertController, NavController } from '@ionic/angular';
-
 import { AuthenticationService } from './services/authentication.service';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-root',
@@ -35,6 +32,7 @@ export class AppComponent {
     public auth: AuthenticationService,
     public navCtrl: NavController,
     private activatedRoute: ActivatedRoute,
+    private storage: Storage,
   ) {
     // this.backButtonSubscription = this.platform.backButton.subscribeWithPriority(999999, () => {
       // tslint:disable-next-line:max-line-length
@@ -42,6 +40,16 @@ export class AppComponent {
     //     this.presentAlertConfirm();
     //   }
     // });
+    this.initializeApp();
+    this.storage.get('authentication').then((authentication) => {
+      console.log('Here');
+      if (authentication == null) {
+        this.router.navigate(['/authentication']);
+      } else if (authentication == 'wrong') {
+        this.auth.presentToast('You have entered wrong passcode', false, 'bottom', 1500, 'danger');
+        this.router.navigate(['/authentication']);
+      }
+    });
     this.fireAuth.auth.onAuthStateChanged(user => {
       if (user) {
         this.auth.usermobile = user.phoneNumber.replace('+91', '');
@@ -67,7 +75,6 @@ export class AppComponent {
         this.auth.totalOrders = 0;
       }
     });
-    this.initializeApp();
   }
 
   initializeApp() {

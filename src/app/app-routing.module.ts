@@ -20,6 +20,7 @@ const routes: Routes = [
   // tslint:disable-next-line:max-line-length
   { path: 'admin-user-orders/:mobile/:name', loadChildren: './pages/admin/admin-user-orders/admin-user-orders.module#AdminUserOrdersPageModule' },
   { path: 'image-modal', loadChildren: './pages/image-modal/image-modal.module#ImageModalPageModule' },
+  { path: 'authentication', loadChildren: './pages/authentication/authentication.module#AuthenticationPageModule' },
 ];
 
 @NgModule({

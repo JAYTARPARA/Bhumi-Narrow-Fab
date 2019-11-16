@@ -1,0 +1,9 @@
+<ion-content>
+  <ion-img class="animated fadeInDown slow" src="./assets/images/lock.jpg" style="height: 250px; width: 250px;margin: 0 auto;"></ion-img>
+  <div  class="ion-padding animated bounceInLeft delay-1s"> 
+      <h1>Welcome!!</h1>
+      <h6>This application is for private use only. Please enter passcode to use the application.</h6>
+      <ion-input class="mobilenumber" type="number" placeholder="Enter passcode" [(ngModel)]="passcode"></ion-input>
+      <ion-button class="ion-padding loginbtn" color='dark' expand="block" fill="outline" (click)="verifyMe()">UNLOCK IT</ion-button>
+    </div>
+</ion-content>
