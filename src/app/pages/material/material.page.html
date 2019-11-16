@@ -9,6 +9,14 @@
       </ion-buttons>
   </ion-toolbar>
   <ion-searchbar mode="ios" debounce="700" placeholder="Search Materials"  [(ngModel)]="searchKey" (ionChange)="ionViewWillEnter(1, '')" showCancelButton="always" clearIcon=false class="animated bounceInLeft slow"></ion-searchbar>
+  <ion-item class="animated bounceInLeft slow">
+    <ion-label>Sort by</ion-label>
+    <ion-select mode="ios" interface="action-sheet" placeholder="Select Sorting" [selectedText]="sortBy" [(ngModel)]="sortBy" (ionChange)="ionViewWillEnter(1, '')">
+      <ion-select-option *ngFor="let osorting of sortingFilter" value="{{osorting.name}}">
+        {{osorting.name}}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
 </ion-header>
 
 <ion-content class="ion-padding card-background-page">
@@ -25,12 +33,20 @@
           <ion-card-subtitle style="font-size: 20px;">{{ material.material_id }}</ion-card-subtitle>
         </ion-col>
       </ion-row>
+      <ion-row>
+        <ion-col>
+          <div class="card-color" style="color: black;font-size: 18px;margin-top: -10px;">Material color: <b>{{ material.color }}</b></div>
+        </ion-col>
+      </ion-row>
       <ion-row (click)="openImagePreview(material.image)">
         <img src="https://bhuminarrowfab.000webhostapp.com/images/materials/{{material.image}}">
       </ion-row>
       <ion-row>
-        <ion-col class="ion-text-left">
-          <div class="card-price" style="font-size: 20px;">&#8377;{{ material.price }}</div>
+        <ion-col>
+          <ion-button color='dark' style="float: left;;" fill="outline" (click)="showPrice(material.id)">TAP ME</ion-button>
+        </ion-col>
+        <ion-col class="hide-me material-{{material.id}}">
+          <div class="card-price" style="font-size: 20px;float: right;margin-top: 10px">&#8377;{{ material.price }}</div>
         </ion-col>
       </ion-row>
       <ion-list>

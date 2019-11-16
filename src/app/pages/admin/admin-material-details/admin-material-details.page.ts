@@ -12,13 +12,24 @@ import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-nati
 })
 export class AdminMaterialDetailsPage implements OnInit {
   // base64Image = 'https://bhuminarrowfab.000webhostapp.com/images/materials/';
-   base64Image: any;
-   base64ImageUpdate: any;
-   name: any;
-   mid: any;
-   price: any;
-   material: any;
-   id: any;
+  base64Image: any;
+  base64ImageUpdate: any;
+  name: any;
+  mid: any;
+  color: any;
+  price: any;
+  material: any;
+  id: any;
+  owner: any;
+
+  materialOwner: any[] = [
+  {
+    name : 'Bhumi Narrow Fab',
+  },
+  {
+    name : 'Matrushree Lace',
+  },
+  ];
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -64,6 +75,8 @@ export class AdminMaterialDetailsPage implements OnInit {
         this.name = this.material['name'];
         this.mid = this.material['material_id'];
         this.price = this.material['price'].slice(0, this.material['price'].length - 1);
+        this.owner = this.material['company'];
+        this.color = this.material['color'];
         this.base64Image = 'https://bhuminarrowfab.000webhostapp.com/images/materials/' + this.material['image'];
         this.loadingController.dismiss();
       } else if (response['success'] == 2) {
@@ -102,15 +115,23 @@ export class AdminMaterialDetailsPage implements OnInit {
     });
  }
 
+ capitalizeString(word: string) {
+  return word[0].toUpperCase() + word.substr(1).toLowerCase();
+ }
+
  update() {
   const name = this.name;
   let mid = this.mid;
+  let color = this.color;
   const price = this.price;
+  const mowner = this.owner;
 
-  if (name == undefined || mid == undefined || price == undefined || name == '' || mid == '' || price == '') {
+  // tslint:disable-next-line:max-line-length
+  if (name == undefined || mid == undefined || color == undefined || price == undefined || mowner == undefined || name == '' || mid == '' || color == '' || price == '' || mowner == '') {
       this.auth.presentToast('Please fill all required fields', false, 'bottom', 1000, 'danger');
   } else {
       mid = mid.toUpperCase();
+      color = this.capitalizeString(color);
       this.loadingController.create({
         message: 'Updating material',
         mode: 'ios'
@@ -135,7 +156,7 @@ export class AdminMaterialDetailsPage implements OnInit {
 
       if (this.base64ImageUpdate) {
         // tslint:disable-next-line:max-line-length
-        fileTransfer.upload(this.base64ImageUpdate, `https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=updateMaterial&id=${this.id}&name=${name}&mid=${mid}&price=${price}`, options).then(result => {
+        fileTransfer.upload(this.base64ImageUpdate, `https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=updateMaterial&id=${this.id}&name=${name}&mid=${mid}&color=${color}&mowner=${mowner}&price=${price}`, options).then(result => {
           this.loadingController.dismiss();
           if (JSON.parse(JSON.parse(JSON.stringify(result.response)))['success'] == 1) {
             this.auth.presentToast(JSON.parse(JSON.parse(JSON.stringify(result.response)))['message'], false, 'bottom', 1000, 'success');
@@ -146,7 +167,7 @@ export class AdminMaterialDetailsPage implements OnInit {
           console.log('error' + JSON.stringify(error));
         });
       } else {
-        this.auth.updateMaterialDetailOnly(this.id, this.name, this.mid, this.price).then(response => {
+        this.auth.updateMaterialDetailOnly(this.id, this.name, mid, color, mowner, this.price).then(response => {
           this.loadingController.dismiss();
           if (response['success'] == 1) {
             this.auth.presentToast(response['message'], false, 'bottom', 1000, 'success');

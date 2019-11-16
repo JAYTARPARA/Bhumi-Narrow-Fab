@@ -171,14 +171,17 @@ export class AuthenticationService {
     }
   }
 
-  getMaterials(results, page, searchKey?, owner?) {
+  getMaterials(results, page, searchKey?, owner?, sortby?) {
     if (!searchKey) {
       searchKey = '';
+    }
+    if (!sortby) {
+      sortby = '';
     }
     if (this.plt.is('cordova')) {
       return new Promise(resolve => {
       // tslint:disable-next-line:max-line-length
-      from(this.nativeHttp.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getMaterials&results=${results}&page=${page}&searchKey=${searchKey}&owner=${owner}`, { 'Content-Type': 'application/json' }, {}))
+      from(this.nativeHttp.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getMaterials&results=${results}&page=${page}&searchKey=${searchKey}&owner=${owner}&sortby=${sortby}`, { 'Content-Type': 'application/json' }, {}))
       .subscribe(
         data => {
           resolve(JSON.parse(data.data));
@@ -189,7 +192,7 @@ export class AuthenticationService {
     } else {
       return new Promise(resolve => {
         // tslint:disable-next-line:max-line-length
-        this.http.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getMaterials&results=${results}&page=${page}&searchKey=${searchKey}&owner=${owner}`)
+        this.http.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getMaterials&results=${results}&page=${page}&searchKey=${searchKey}&owner=${owner}&sortby=${sortby}`)
         .pipe(
           map(results => results)
         ).subscribe(data => {
@@ -499,11 +502,11 @@ export class AuthenticationService {
     }
   }
 
-  updateMaterialDetailOnly(id, name, mid, price) {
+  updateMaterialDetailOnly(id, name, mid, color, mowner, price) {
     if (this.plt.is('cordova')) {
       return new Promise(resolve => {
       // tslint:disable-next-line:max-line-length
-      from(this.nativeHttp.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=updateMaterialDetailOnly&id=${id}&name=${name}&mid=${mid}&price=${price}`, { 'Content-Type': 'application/json' }, {}))
+      from(this.nativeHttp.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=updateMaterialDetailOnly&id=${id}&name=${name}&mid=${mid}&color=${color}&mowner=${mowner}&price=${price}`, { 'Content-Type': 'application/json' }, {}))
       .subscribe(
         data => {
           resolve(JSON.parse(data.data));
@@ -514,7 +517,7 @@ export class AuthenticationService {
     } else {
       return new Promise(resolve => {
         // tslint:disable-next-line:max-line-length
-        this.http.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=updateMaterialDetailOnly&id=${id}&name=${name}&mid=${mid}&price=${price}`)
+        this.http.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=updateMaterialDetailOnly&id=${id}&name=${name}&mid=${mid}&color=${color}&mowner=${mowner}&price=${price}`)
         .pipe(
           map(results => results)
         ).subscribe(data => {

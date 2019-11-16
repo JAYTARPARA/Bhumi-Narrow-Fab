@@ -33,7 +33,7 @@
         </ion-chip>
         <ion-row class="ion-text-left">
           <ion-col col-12>
-            <ion-card-title>{{ order.name }}</ion-card-title>
+            <ion-card-title>{{ order.username }}</ion-card-title>
             <ion-card-subtitle style="font-size: 20px;">Ordered at: {{ order.created_at }}</ion-card-subtitle>
             <ion-label color="{{order.color}}">ID: {{ order.order_id }}</ion-label>
           </ion-col>
@@ -44,6 +44,8 @@
         <ion-row>
           <ion-col class="ion-text-left">
             <div class="card-price" style="font-size: 20px;">Order total: &#8377;{{ order.totalprice }}</div>
+            <div class="card-price" style="font-size: 20px;">Quantity: {{ order.quantity }}</div>
+            <div class="card-price" style="font-size: 20px;">Pieces: {{ order.piece }}</div>
           </ion-col>
         </ion-row>
         <ion-button class="loginbtn" color='dark' expand="block" fill="outline" [routerLink]="['/', 'admin-order-details', order.order_id]">ORDER DETAIL</ion-button>

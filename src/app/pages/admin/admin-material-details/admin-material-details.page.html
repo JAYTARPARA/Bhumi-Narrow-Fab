@@ -15,6 +15,19 @@
     <ion-row>
       <ion-col>
         <ion-item>
+          <ion-label>Material Owner</ion-label>
+          <ion-select mode="ios" interface="action-sheet" placeholder="Select Owner" name="owner" [selectedText]="owner" [(ngModel)]="owner">
+            <ion-select-option *ngFor="let mowner of materialOwner" value="{{mowner.name}}">
+              {{mowner.name}}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
           <ion-label position="stacked">Material Name: </ion-label>
           <ion-input type="text" name="name" mode="md" [(ngModel)]="name" placeholder="AU9 Material"></ion-input>
         </ion-item>
@@ -26,6 +39,15 @@
         <ion-item>
           <ion-label position="stacked">Material ID: </ion-label>
           <ion-input type="text" name="mid" mode="md" [(ngModel)]="mid" placeholder="AU9" style="text-transform: uppercase;"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="stacked">Material Color: </ion-label>
+          <ion-input type="text" name="color" mode="md" [(ngModel)]="color" placeholder="Blue" style="text-transform: capitalize;"></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>

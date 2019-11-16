@@ -17,7 +17,8 @@
     <ion-label class="ion-text-wrap" color="medium" mode="ios">
       A 6 digits OTP will be sent via SMS to verify your mobile number!
     </ion-label>
-    <ion-button color='dark' *ngIf="!showError" class="continuebtn" expand="block" fill="outline" (click)="sendotp(this.phone)" [disabled]="continue">CONTINUE</ion-button>
+    <!-- [disabled]="continue" -->
+    <ion-button color='dark' *ngIf="!showError" class="continuebtn" expand="block" fill="outline" (click)="sendotp(this.phone)">CONTINUE</ion-button>
     <ion-button *ngIf="showError" class="ion-padding loginbtn" color='dark' expand="block" fill="outline" style="pointer-events: none;">Loading...</ion-button>
   </div>
   <br/>

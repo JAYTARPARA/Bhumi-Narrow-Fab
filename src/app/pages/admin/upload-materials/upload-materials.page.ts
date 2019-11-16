@@ -16,6 +16,7 @@ export class UploadMaterialsPage implements OnInit {
   base64Image: any;
   name: any;
   mid: any;
+  color: any;
   price: any;
   owner = 'Bhumi Narrow Fab';
 
@@ -69,17 +70,23 @@ export class UploadMaterialsPage implements OnInit {
       });
    }
 
+   capitalizeString(word: string) {
+    return word[0].toUpperCase() + word.substr(1).toLowerCase();
+   }
+
    upload() {
     const name = this.name;
     let mid = this.mid;
+    let color = this.color;
     const price = this.price;
     const mowner = this.owner;
 
     // tslint:disable-next-line:max-line-length
-    if (name == undefined || mid == undefined || price == undefined || mowner == undefined || name == '' || mid == '' || price == '' || mowner == '') {
+    if (name == undefined || mid == undefined || color == undefined || price == undefined || mowner == undefined || name == '' || mid == '' || color == '' || price == '' || mowner == '') {
       this.auth.presentToast('Please fill all required fields', false, 'bottom', 1000, 'danger');
     } else {
       mid = mid.toUpperCase();
+      color = this.capitalizeString(color);
       this.loadingController.create({
         message: 'Uploading material',
         mode: 'ios'
@@ -103,7 +110,7 @@ export class UploadMaterialsPage implements OnInit {
       };
 
       // tslint:disable-next-line:max-line-length
-      fileTransfer.upload(this.base64Image, `https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=uploadMaterial&name=${name}&mid=${mid}&price=${price}&mowner=${mowner}`, options).then(result => {
+      fileTransfer.upload(this.base64Image, `https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=uploadMaterial&name=${name}&mid=${mid}&color=${color}&price=${price}&mowner=${mowner}`, options).then(result => {
         this.loadingController.dismiss();
 
         if (JSON.parse(JSON.parse(JSON.stringify(result.response)))['success'] == 1) {

@@ -49,6 +49,25 @@ export class MaterialPage implements OnInit {
   owner = 'All';
   loadMaterialNow = false;
   backButtonSubscription: any;
+  sortBy = 'Latest Materials';
+
+  sortingFilter: any[] = [
+    {
+      name: 'Latest Materials',
+    },
+    {
+      name : 'Price: high to low',
+    },
+    {
+      name : 'Price: low to high',
+    },
+    {
+      name : 'Color: A to Z',
+    },
+    {
+      name : 'Color: Z to A',
+    },
+  ];
 
   constructor(
     private fireAuth: AngularFireAuth,
@@ -75,7 +94,7 @@ export class MaterialPage implements OnInit {
   }
 
   ionViewWillEnter(callit?, infiniteScroll?) {
-    console.log('Testing 3');
+    console.log('Sorting: ' + this.sortBy);
     this.materials = [];
     this.page = 1;
     if (callit) {
@@ -108,6 +127,7 @@ export class MaterialPage implements OnInit {
     this.auth.checkUserProfileStatus(this.value).then(response => {
       if (response['success'] == 1 && response['status'] == 0) {
         this.loadMaterialNow = false;
+        this.loadingControllerMaterial.dismiss();
         this.auth.presentToast('Please provide all details', false, 'bottom', 2500, 'danger');
         this.router.navigate(['/profile/mobile/' + this.auth.usermobile]);
       } else if (response['success'] == 1 && response['status'] == 1) {
@@ -149,6 +169,7 @@ export class MaterialPage implements OnInit {
   }
 
   loadMaterials(infiniteScroll?, scrollCall?) {
+    let sortingBy = this.sortBy;
     if (!scrollCall) {
       this.loadingControllerMaterial.create({
         message: 'Loading materials',
@@ -157,7 +178,19 @@ export class MaterialPage implements OnInit {
         ress.present();
       });
     }
-    this.auth.getMaterials(this.results, this.page, this.searchKey, this.owner).then(response => {
+
+    if (sortingBy == 'Latest Materials') {
+      sortingBy = '';
+    } else if (sortingBy == 'Price: high to low') {
+      sortingBy = 'phl';
+    } else if (sortingBy == 'Price: low to high') {
+      sortingBy = 'plh';
+    } else if (sortingBy == 'Color: A to Z') {
+      sortingBy = 'caz';
+    } else if (sortingBy == 'Color: Z to A') {
+      sortingBy = 'cza';
+    }
+    this.auth.getMaterials(this.results, this.page, this.searchKey, this.owner, sortingBy).then(response => {
       if (response['success'] == 1) {
         this.materials = this.materials.concat(response['materials']);
         this.maximumPages = Math.ceil(response['total'] / this.results);
@@ -302,5 +335,14 @@ export class MaterialPage implements OnInit {
         img: image
       }
     }).then(modal => modal.present());
+  }
+
+  showPrice(materialid) {
+    const bodyClass = document.querySelector('.material-' + materialid);
+    if (bodyClass.classList.contains('hide-me')) {
+      bodyClass.classList.remove('hide-me');
+    } else {
+      bodyClass.classList.add('hide-me');
+    }
   }
 }
