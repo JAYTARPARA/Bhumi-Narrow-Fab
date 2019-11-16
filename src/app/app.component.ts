@@ -45,9 +45,11 @@ export class AppComponent {
       console.log('Here');
       if (authentication == null) {
         this.router.navigate(['/authentication']);
+        return;
       } else if (authentication == 'wrong') {
         this.auth.presentToast('You have entered wrong passcode', false, 'bottom', 1500, 'danger');
         this.router.navigate(['/authentication']);
+        return;
       }
     });
     this.fireAuth.auth.onAuthStateChanged(user => {

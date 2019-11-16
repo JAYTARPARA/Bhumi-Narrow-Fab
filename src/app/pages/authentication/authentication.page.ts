@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../services/authentication.service';
 import { Storage } from '@ionic/storage';
 import { Router } from '@angular/router';
+import { Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-authentication',
@@ -16,7 +17,15 @@ export class AuthenticationPage implements OnInit {
     public auth: AuthenticationService,
     private storage: Storage,
     private router: Router,
-  ) { }
+    private platform: Platform,
+  ) {
+    this.platform.backButton.subscribeWithPriority(999999, () => {
+      document.addEventListener('backbutton', (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+      }, false);
+    });
+  }
 
   ngOnInit() {
   }
