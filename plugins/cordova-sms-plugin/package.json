@@ -1,0 +1,110 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "cordova-sms-plugin",
+        "scope": null,
+        "escapedName": "cordova-sms-plugin",
+        "name": "cordova-sms-plugin",
+        "rawSpec": "",
+        "spec": "latest",
+        "type": "tag"
+      },
+      "C:\\Projects\\My Ionic Projects\\bhuminarrowfab"
+    ]
+  ],
+  "_from": "cordova-sms-plugin@latest",
+  "_hasShrinkwrap": false,
+  "_id": "cordova-sms-plugin@1.0.0",
+  "_inCache": true,
+  "_location": "/cordova-sms-plugin",
+  "_nodeVersion": "11.1.0",
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/cordova-sms-plugin_1.0.0_1544905058552_0.229775402409357"
+  },
+  "_npmUser": {
+    "name": "dbaq",
+    "email": "didier.baquier@gmail.com"
+  },
+  "_npmVersion": "6.4.1",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "cordova-sms-plugin",
+    "scope": null,
+    "escapedName": "cordova-sms-plugin",
+    "name": "cordova-sms-plugin",
+    "rawSpec": "",
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/cordova-sms-plugin/-/cordova-sms-plugin-1.0.0.tgz",
+  "_shasum": "d5f6825696df02ad88b1447902377ccf2b0bb80b",
+  "_shrinkwrap": null,
+  "_spec": "cordova-sms-plugin",
+  "_where": "C:\\Projects\\My Ionic Projects\\bhuminarrowfab",
+  "author": {
+    "name": "Didier Baquier"
+  },
+  "bugs": {
+    "url": "https://github.com/cordova-sms/cordova-sms-plugin/issues"
+  },
+  "cordova": {
+    "id": "cordova-sms-plugin",
+    "platforms": [
+      "android",
+      "wp8",
+      "ios",
+      "windows"
+    ]
+  },
+  "dependencies": {},
+  "description": "Cross-platform plugin for Cordova / PhoneGap to to easily send SMS. Available for Android, iOS and WP.",
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "integrity": "sha512-DdRf1zdJkwC9BJ3fVg2yx/faoW5eOscg6oFIWODfOIBu5AQ1oV6+gsGTO5pHVLBzlt5V8U9zG9PwhR1IbnW/EQ==",
+    "shasum": "d5f6825696df02ad88b1447902377ccf2b0bb80b",
+    "tarball": "https://registry.npmjs.org/cordova-sms-plugin/-/cordova-sms-plugin-1.0.0.tgz",
+    "fileCount": 10,
+    "unpackedSize": 28267,
+    "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJcFWFjCRA9TVsSAnZWagAAlxEP/iW+IkgNG9Xrf+IwNA6Z\nFdANt4alyfGwXetY50EURiSEH239COiECO0YKFNGu6eQ7LCBgTNssQzVn/2N\nEccyhBL/+P+hUa1pjStGFIAc5+zJzrW3oeonu0YG0asTULBs5UmiksAvweD0\nS2jfyFd858aeopGTvq4R+zCfwWh/jBZw/OAg21n+SwYn7QpvDdsWsoF7d4XT\nBw0blBUp2Cp2S/yDgEr6QPqy34ebWHzytfLj5jl0rZJVq6N36XgjRLf27ie4\nh/baHrE/uz19d8Pq3ah9KfuiOHtHgI+DsJ/f5y/VuZ+AhNRkj9ZJX10l9FkL\nL0e+81UIn3fb2glCujMPaMIaM76dRH71W9VqEW1BOAnAJnPbBiWPQTgy5eOT\nclHlMOMUcf8ZBts6e8oDYgTQqF1UByFWOoqgYj/D/S7ujYreVw+gd3BYkuxk\neyei4rdzn1mvr+BkOJQK9LZxrWniJLb8EWeRPblVH6fdDbrYueucrZmEFYpp\n9IryIVksnEXYTOeJWI4kTcCbTZdkVOQfDs+nS0nnygv6EOyhFHhlghontBPi\nUgpjCbHjpPbwcX3d0WpHG5TqfTpnTa5ZVGuZRLhk0EIZdrhNYLg+wyzuf03H\nlXgjgRITTPAR4XWh9rx2p10StuSWKqfkxKgiZEyS9y2k2IBENQMNZorS4gyH\nCVpF\r\n=5iC5\r\n-----END PGP SIGNATURE-----\r\n"
+  },
+  "engines": [
+    {
+      "name": "cordova",
+      "version": ">=3.0.0"
+    }
+  ],
+  "gitHead": "782c194334b0904d372e7dd228dc67ceddc8e586",
+  "homepage": "https://github.com/cordova-sms/cordova-sms-plugin#readme",
+  "keywords": [
+    "cordova",
+    "phonegap",
+    "sms",
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-wp8",
+    "cordova-ios",
+    "cordova-windows"
+  ],
+  "license": "MIT",
+  "maintainers": [
+    {
+      "name": "dbaq",
+      "email": "didier.baquier@gmail.com"
+    }
+  ],
+  "name": "cordova-sms-plugin",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cordova-sms/cordova-sms-plugin.git"
+  },
+  "version": "1.0.0"
+}

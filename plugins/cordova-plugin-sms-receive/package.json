@@ -1,0 +1,109 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "cordova-plugin-sms-receive",
+        "scope": null,
+        "escapedName": "cordova-plugin-sms-receive",
+        "name": "cordova-plugin-sms-receive",
+        "rawSpec": "",
+        "spec": "latest",
+        "type": "tag"
+      },
+      "C:\\Projects\\My Ionic Projects\\bhuminarrowfab"
+    ]
+  ],
+  "_from": "cordova-plugin-sms-receive@latest",
+  "_hasShrinkwrap": false,
+  "_id": "cordova-plugin-sms-receive@1.0.2",
+  "_inCache": true,
+  "_location": "/cordova-plugin-sms-receive",
+  "_nodeVersion": "4.9.1",
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/cordova-plugin-sms-receive_1.0.2_1549725831693_0.7195410810075396"
+  },
+  "_npmUser": {
+    "name": "andreszs",
+    "email": "admin@andreszsogon.com"
+  },
+  "_npmVersion": "2.15.11",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "cordova-plugin-sms-receive",
+    "scope": null,
+    "escapedName": "cordova-plugin-sms-receive",
+    "name": "cordova-plugin-sms-receive",
+    "rawSpec": "",
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/cordova-plugin-sms-receive/-/cordova-plugin-sms-receive-1.0.2.tgz",
+  "_shasum": "6060bec36c90414d91164cf6e2660db698c8f0a7",
+  "_shrinkwrap": null,
+  "_spec": "cordova-plugin-sms-receive",
+  "_where": "C:\\Projects\\My Ionic Projects\\bhuminarrowfab",
+  "author": {
+    "name": "Andres Zsogon",
+    "email": "andreszs@users.noreply.github.com"
+  },
+  "bugs": {
+    "url": "https://github.com/andreszs/cordova-plugin-sms-receive/issues"
+  },
+  "cordova": {
+    "id": "cordova-plugin-sms-receive",
+    "platforms": [
+      "android"
+    ]
+  },
+  "dependencies": {},
+  "description": "Cordova plugin to receive SMS in Android",
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "shasum": "6060bec36c90414d91164cf6e2660db698c8f0a7",
+    "tarball": "https://registry.npmjs.org/cordova-plugin-sms-receive/-/cordova-plugin-sms-receive-1.0.2.tgz",
+    "integrity": "sha512-y2QMX709RgrbCHVDHAewjvXi50h+u+VcuCQADPJS+tH/BosFie+x1vo5mMwysuIEiaQ25b0qhIzo63RCyT5Fyw==",
+    "fileCount": 14,
+    "unpackedSize": 279694,
+    "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJcXvCICRA9TVsSAnZWagAAVKsP+QE/REskrpGRcJiXJtiq\n5iqW3HbeXmFfc9l8uO/Xm+XDI4jp4F1euayTK27WUc6rvayEl3t17HzwCKfy\nU0pUTIP2fMJ0UU9XXUmkvbF548yMb3OZy0sSn0vCESedWMhxKU73MfdT2Kq3\nPufWYfNxDbdq4OLDRsq1ueAGF1IYrg1psUMQVO6uiPmJDndclHfnjXM5mttT\nlzWQAMdI5JD6eruBM/n3uhVFSafHm9U/APJ3M2f3OrvswpZlipsdeH50Z77n\npaNy1tjsdIA/8i57aDYnsTGzKHFUD0kjp0JhLDpwY941Gbo98+WH/0FH2eQX\n5kqwPyatvqI6r9zsELWnWikeleUxenh9NGjXhsOBL0FK+1f1R9UT6iZiI3QE\nabCGbt22MamhMBG/fqFdqLO7Bmifxi0km4FEIR7yKr7+vCcWc3Qbdp8mptaM\na7xAX/ZDBJrPJQmqxoQZw0WrHH+dW3w47gYZzxvIRkueIgu32iiTSA2pSZyU\nSjy/E1vLxSWogfQ6dWs4AAzzs4petZ12ibmDdVwllA1OHb5zsytdyaOX2qPm\nH32c8RaANYPEUNhIH666LEHd7abaQgcMLTw2dlIoZMOlD7wVbr2mGtwWNpru\nWuAF5aHzQkHAfUrzJrgrece1dwjMJgyIWNTTKn37YYeYtbTibAI8887vq8h1\nRsVg\r\n=0gOY\r\n-----END PGP SIGNATURE-----\r\n"
+  },
+  "engines": [
+    {
+      "name": "cordova",
+      "version": ">=6.0.0"
+    },
+    {
+      "name": "cordova-android",
+      "version": ">=4"
+    }
+  ],
+  "gitHead": "40acefe0984788e72915db362215751f537d19c0",
+  "homepage": "https://github.com/andreszs/cordova-plugin-sms-receive#readme",
+  "keywords": [
+    "cordova",
+    "ecosystem:cordova",
+    "sms",
+    "receive"
+  ],
+  "license": "MIT",
+  "maintainers": [
+    {
+      "name": "andreszs",
+      "email": "admin@andreszsogon.com"
+    }
+  ],
+  "name": "cordova-plugin-sms-receive",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andreszs/cordova-plugin-sms-receive.git"
+  },
+  "scripts": {},
+  "version": "1.0.2"
+}

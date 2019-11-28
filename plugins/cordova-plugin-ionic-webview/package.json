@@ -1,0 +1,156 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "cordova-plugin-ionic-webview@^4.0.0",
+        "scope": null,
+        "escapedName": "cordova-plugin-ionic-webview",
+        "name": "cordova-plugin-ionic-webview",
+        "rawSpec": "^4.0.0",
+        "spec": ">=4.0.0 <5.0.0",
+        "type": "range"
+      },
+      "C:\\Projects\\My Ionic Projects\\bhuminarrowfab"
+    ]
+  ],
+  "_from": "cordova-plugin-ionic-webview@>=4.0.0 <5.0.0",
+  "_hasShrinkwrap": false,
+  "_id": "cordova-plugin-ionic-webview@4.1.2",
+  "_inCache": true,
+  "_location": "/cordova-plugin-ionic-webview",
+  "_nodeVersion": "10.16.3",
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/cordova-plugin-ionic-webview_4.1.2_1569412478208_0.24621730156715338"
+  },
+  "_npmUser": {
+    "name": "ionicjs",
+    "email": "hi@ionicframework.com"
+  },
+  "_npmVersion": "6.11.3",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "cordova-plugin-ionic-webview@^4.0.0",
+    "scope": null,
+    "escapedName": "cordova-plugin-ionic-webview",
+    "name": "cordova-plugin-ionic-webview",
+    "rawSpec": "^4.0.0",
+    "spec": ">=4.0.0 <5.0.0",
+    "type": "range"
+  },
+  "_requiredBy": [
+    "#DEV:/",
+    "#USER"
+  ],
+  "_resolved": "https://registry.npmjs.org/cordova-plugin-ionic-webview/-/cordova-plugin-ionic-webview-4.1.2.tgz",
+  "_shasum": "7a2bd929c2724110617145b349cd8399f23a8a59",
+  "_shrinkwrap": null,
+  "_spec": "cordova-plugin-ionic-webview@^4.0.0",
+  "_where": "C:\\Projects\\My Ionic Projects\\bhuminarrowfab",
+  "author": {
+    "name": "Ionic Team"
+  },
+  "bugs": {
+    "url": "https://github.com/ionic-team/cordova-plugin-ionic-webview/issues"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "dependencies": {},
+  "description": "Ionic Web View Engine Plugin",
+  "devDependencies": {
+    "@semantic-release/changelog": "^3.0.0",
+    "@semantic-release/exec": "^3.3.0",
+    "@semantic-release/git": "^7.0.4",
+    "@semantic-release/github": "^5.0.6",
+    "@semantic-release/npm": "^5.0.4",
+    "commitizen": "^4.0.3",
+    "cz-conventional-changelog": "^3.0.2",
+    "semantic-release": "^15.9.17",
+    "sync-cordova-xml": "^0.4.0"
+  },
+  "directories": {},
+  "dist": {
+    "integrity": "sha512-a7eIbm/Of0FsV98xkgc6CNVVN7qtuxeX5fUM/0SxBNKT3OIvo8UcNUyLF+ak4likwar8iKpl/CgS+PCUJptxWg==",
+    "shasum": "7a2bd929c2724110617145b349cd8399f23a8a59",
+    "tarball": "https://registry.npmjs.org/cordova-plugin-ionic-webview/-/cordova-plugin-ionic-webview-4.1.2.tgz",
+    "fileCount": 24,
+    "unpackedSize": 136669,
+    "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJdi1V+CRA9TVsSAnZWagAAjaAP/1kE8BvN8rgntqqQZfZp\nzkn/7ElNQ3P3BmHehNkrTmL8mjO+dnyHVTUkYSOOVgEFQ7FWgeFfFCs1QJCk\nlIbmD0qvUhX5ffyTjG/wPYmjqkE/RWOqkc78R+12xsqB+WijOGq+hDY4vBgh\n1lJU508mHYClFrX4Mu13shOzpW0IeawsI96eskErH8hTy74ldF5zLSNxaeIE\n4CGFaIEb7RVkW/uyEE6pl7hDRWTtv/9Jss29/9bUvCVAHB6pSeNalkkUGsDW\nZQPmIBPMhkwLOljUbXvs8EV2G135Yhyr9F1yZ3biSVCF5wJDV1celcH2RE+/\njN/mrb75w8pCisyUaT7pMm5BkYrHwz6+mTfQ1hcildqRPzqCxr/f+c2bFIAe\n0LmK1aNSLQq+hwsVsTjucnTzbGl+xs+lyE9WZgSBafv3E5V7R216BFS+JlX+\nsX0IhGq+WSj/SwdmzNa7z61KNAAxrWDinbJ91B/ZrBZevLHxdtspRZECsniM\nw5O/v1y0NH+lXDzkOyZFSao/SAIrOkfYfCNueru6fe3E6A7SrWmM8QBpHZpd\nZjo9W7EUyrG0KD+7TdEHt2wPiQ8DXQYMz83Mq0UmT0AUr4w0OwOWVJm26Gip\ncw2/5qfdhXkIp1dvtXkoPeryqLB01yQkcUROrkgfnC8A6DH20YC1axNHY0cS\nsqyW\r\n=WHWX\r\n-----END PGP SIGNATURE-----\r\n"
+  },
+  "engines": {
+    "cordovaDependencies": {
+      "2.0.0": {
+        "cordova-android": ">=6.4.0",
+        "cordova-ios": ">=4.0.0-dev"
+      },
+      "3.1.0": {
+        "cordova": ">=7.1.0",
+        "cordova-android": ">=6.4.0",
+        "cordova-ios": ">=4.0.0-dev"
+      }
+    }
+  },
+  "gitHead": "55a8e825b2ea87bf8c667063ee548cfbacaba2fa",
+  "homepage": "https://github.com/ionic-team/cordova-plugin-ionic-webview#readme",
+  "keywords": [
+    "cordova",
+    "wkwebview"
+  ],
+  "license": "Apache-2.0",
+  "maintainers": [
+    {
+      "name": "manucorporat",
+      "email": "manu.mtza@gmail.com"
+    },
+    {
+      "name": "maxlynch",
+      "email": "max@ionic.io"
+    },
+    {
+      "name": "nhyatt",
+      "email": "nick@ionic.io"
+    }
+  ],
+  "name": "cordova-plugin-ionic-webview",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "release": {
+    "branch": "stable",
+    "verifyConditions": [
+      "@semantic-release/changelog",
+      "@semantic-release/npm",
+      "@semantic-release/git",
+      "@semantic-release/github"
+    ],
+    "prepare": [
+      "@semantic-release/changelog",
+      "@semantic-release/npm",
+      "@semantic-release/exec",
+      "@semantic-release/git"
+    ],
+    "publish": [
+      "@semantic-release/github",
+      "@semantic-release/npm"
+    ],
+    "success": [
+      "@semantic-release/github"
+    ],
+    "failure": [
+      "@semantic-release/github"
+    ],
+    "prepareCmd": "npm run version"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ionic-team/cordova-plugin-ionic-webview.git"
+  },
+  "scripts": {
+    "cz": "git-cz",
+    "sync_plugin_xml": "sync-cordova-xml package.json plugin.xml --output=plugin.xml",
+    "version": "npm run sync_plugin_xml && git add plugin.xml"
+  },
+  "version": "4.1.2"
+}

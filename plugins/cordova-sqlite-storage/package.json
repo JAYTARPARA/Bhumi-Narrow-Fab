@@ -1,0 +1,113 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "cordova-sqlite-storage",
+        "scope": null,
+        "escapedName": "cordova-sqlite-storage",
+        "name": "cordova-sqlite-storage",
+        "rawSpec": "",
+        "spec": "latest",
+        "type": "tag"
+      },
+      "C:\\Projects\\My Ionic Projects\\bhuminarrowfab"
+    ]
+  ],
+  "_from": "cordova-sqlite-storage@latest",
+  "_hasShrinkwrap": false,
+  "_id": "cordova-sqlite-storage@3.4.0",
+  "_inCache": true,
+  "_location": "/cordova-sqlite-storage",
+  "_nodeVersion": "10.16.3",
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/cordova-sqlite-storage_3.4.0_1569601543397_0.5595814486495834"
+  },
+  "_npmUser": {
+    "name": "brodybits",
+    "email": "chris@brody.consulting"
+  },
+  "_npmVersion": "6.9.0",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "cordova-sqlite-storage",
+    "scope": null,
+    "escapedName": "cordova-sqlite-storage",
+    "name": "cordova-sqlite-storage",
+    "rawSpec": "",
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/cordova-sqlite-storage/-/cordova-sqlite-storage-3.4.0.tgz",
+  "_shasum": "5a4b96d5120e525d35f9470279d23f6ccdc8bd23",
+  "_shrinkwrap": null,
+  "_spec": "cordova-sqlite-storage",
+  "_where": "C:\\Projects\\My Ionic Projects\\bhuminarrowfab",
+  "author": {
+    "name": "various"
+  },
+  "bugs": {
+    "url": "https://github.com/xpbrew/cordova-sqlite-storage/issues"
+  },
+  "cordova": {
+    "id": "cordova-sqlite-storage",
+    "platforms": [
+      "android",
+      "ios",
+      "osx",
+      "windows"
+    ]
+  },
+  "dependencies": {
+    "cordova-sqlite-storage-dependencies": "2.1.0"
+  },
+  "description": "Native interface to SQLite for PhoneGap/Cordova - cordova-sqlite-storage plugin version",
+  "devDependencies": {
+    "coffeescript": "1",
+    "cross-spawn": "^6.0.5",
+    "fs-extra": "^8.1.0"
+  },
+  "directories": {},
+  "dist": {
+    "integrity": "sha512-Uavq3HulVIYXxTFCp5aafiQhYrZF0/cGlyN76RYhIftcD5IRhza9+ghhV5abJYvuGlzY+p9dM5hPcjnYxfAH+g==",
+    "shasum": "5a4b96d5120e525d35f9470279d23f6ccdc8bd23",
+    "tarball": "https://registry.npmjs.org/cordova-sqlite-storage/-/cordova-sqlite-storage-3.4.0.tgz",
+    "fileCount": 64,
+    "unpackedSize": 1298704,
+    "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJdjjgICRA9TVsSAnZWagAA1bUP/3ioZVaHT+IjImbMkwvk\nk0FkhsEsZfo5GKDdQxZkgIpA4Pz5OVhdBHMbTV3+Hj6E5L/8lnLlS0Cc8K11\nuLdJ0GFa2SPIPkeDlLBI78S786WKDYOPs+n84DcH2I9/+J6XTO5m/ROO6LtR\nPzH2dtDDnLKpDdFEVzCZCmagck+BcZAeAtskmSiffXY45ywsI4KXZ+OcCjaH\nUMhBH/rnP7hOhnsKg5M6xHK1UPPFG7Rh/pOQzUm0LA8Ebj0H1ldqgr+6Ifmm\nDj2DLLdYg4EDvC9cdsevgRCjiuSPudi94Rk1D8cOor/I8uoVP11VY0mTiozg\nt4NW5d5qXXxVcznMj2FW3bzC9IbTvy2eBuYJ7v/6veY0mSLE8e9zGXrG5dda\nr14BQvFuJW9nkexH8jzO/eOwqbCf9AYrmYMYR3ZjNcP7XKac0B2v0CFPmm1P\nUIUZmAn4jYHazu0mz+zYWfUEzRf5cSXkVfOWtb80fuigcMqmdqSvDlh5MINn\nXtJ45sFB7SZGi+CnJR+jvtWhF9AXVfk1agXvh2DtO0dbWindrBAqJ6rpshBW\njgaaKtcbUm3P4m8v2hBhDsJOLfrzHQ0CnvrlTWzyH/Y+SAXgsXH5Plr0izSL\nPehl8JOOdp8oHL0fWjqFYuQkEi4UEGlpKTXcBrPzYDoGaEpI55giHCE+4Mw5\nkXx8\r\n=+kw8\r\n-----END PGP SIGNATURE-----\r\n"
+  },
+  "gitHead": "41cf126701380d237f49f38a9b6a5b17b8cd6489",
+  "homepage": "https://github.com/xpbrew/cordova-sqlite-storage",
+  "keywords": [
+    "sqlite",
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios",
+    "cordova-osx",
+    "cordova-windows"
+  ],
+  "license": "MIT",
+  "maintainers": [
+    {
+      "name": "brodybits",
+      "email": "brodybits@litehelpers.net"
+    }
+  ],
+  "name": "cordova-sqlite-storage",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xpbrew/cordova-sqlite-storage.git"
+  },
+  "scripts": {
+    "clean-spec": "rm -rf spec/[mnp]* && git cl spec/config.xml && git status --ignored",
+    "prepare-js": "coffee -p SQLitePlugin.coffee.md > www/SQLitePlugin.js",
+    "prepare-spec": "node scripts/prepareSpec.js"
+  },
+  "version": "3.4.0"
+}
