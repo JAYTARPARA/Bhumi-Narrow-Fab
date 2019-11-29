@@ -180,11 +180,13 @@ var AllOrdersPage = /** @class */ (function () {
         this.auth.getAdminAllTotal().then(function (res) {
             if (res['success']) {
                 _this.auth.adminTotalOrders = res['totalOrders'];
+                _this.auth.adminWhatsappOrders = res['totalWhatsappOrders'];
                 _this.auth.adminTotalUsers = res['totalUsers'];
                 _this.auth.adminTotalMaterials = res['totalMaterials'];
             }
             else {
                 _this.auth.adminTotalOrders = 0;
+                _this.auth.adminWhatsappOrders = 0;
                 _this.auth.adminTotalUsers = 0;
                 _this.auth.adminTotalMaterials = 0;
             }

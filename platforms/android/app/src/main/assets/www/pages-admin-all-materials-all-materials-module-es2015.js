@@ -152,11 +152,13 @@ let AllMaterialsPage = class AllMaterialsPage {
         this.auth.getAdminAllTotal().then(res => {
             if (res['success']) {
                 this.auth.adminTotalOrders = res['totalOrders'];
+                this.auth.adminWhatsappOrders = res['totalWhatsappOrders'];
                 this.auth.adminTotalUsers = res['totalUsers'];
                 this.auth.adminTotalMaterials = res['totalMaterials'];
             }
             else {
                 this.auth.adminTotalOrders = 0;
+                this.auth.adminWhatsappOrders = 0;
                 this.auth.adminTotalUsers = 0;
                 this.auth.adminTotalMaterials = 0;
             }
