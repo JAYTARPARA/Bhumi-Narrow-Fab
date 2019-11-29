@@ -8,6 +8,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
+	"./pages/admin/add-orders/add-orders.module": [
+		"./src/app/pages/admin/add-orders/add-orders.module.ts",
+		"pages-admin-add-orders-add-orders-module"
+	],
 	"./pages/admin/admin-material-details/admin-material-details.module": [
 		"./src/app/pages/admin/admin-material-details/admin-material-details.module.ts",
 		"pages-admin-admin-material-details-admin-material-details-module"
@@ -35,6 +39,14 @@ var map = {
 	"./pages/admin/upload-materials/upload-materials.module": [
 		"./src/app/pages/admin/upload-materials/upload-materials.module.ts",
 		"pages-admin-upload-materials-upload-materials-module"
+	],
+	"./pages/admin/whatsapp-order-details/whatsapp-order-details.module": [
+		"./src/app/pages/admin/whatsapp-order-details/whatsapp-order-details.module.ts",
+		"pages-admin-whatsapp-order-details-whatsapp-order-details-module"
+	],
+	"./pages/admin/whatsapp-orders/whatsapp-orders.module": [
+		"./src/app/pages/admin/whatsapp-orders/whatsapp-orders.module.ts",
+		"pages-admin-whatsapp-orders-whatsapp-orders-module"
 	],
 	"./pages/authentication/authentication.module": [
 		"./src/app/pages/authentication/authentication.module.ts",
@@ -510,7 +522,7 @@ module.exports = webpackAsyncContext;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-app>\n    <ion-menu side=\"start\" menuId=\"user\" contentId=\"user-menu-content\">\n      <ion-header>\n        <ion-toolbar>\n          <ion-title>Menu</ion-title>\n        </ion-toolbar>\n      </ion-header>\n      <ion-content>\n        <ion-list lines=\"none\">\n          <ion-menu-toggle auto-hide=\"true\">\n            <!-- <ion-item href=\"/profile/mobile/{{auth.usermobile}}\" mode=\"ios\"> -->\n            <ion-item routerLink=\"/profile/mobile/{{auth.usermobile}}\" routerDirection=\"forward\" mode=\"ios\">\n              <ion-icon name=\"contact\" slot=\"start\"></ion-icon>\n                My Profile\n            </ion-item>\n          </ion-menu-toggle>\n        </ion-list>\n        <ion-list lines=\"none\">\n          <ion-menu-toggle auto-hide=\"true\">\n            <!-- <ion-item href=\"/orders/mobile/{{auth.usermobile}}\" mode=\"ios\"> -->\n            <ion-item routerLink=\"/orders/mobile/{{auth.usermobile}}\" routerDirection=\"forward\" mode=\"ios\">\n              <ion-icon name=\"wallet\" slot=\"start\"></ion-icon>\n                My Orders\n                <ion-chip mode=\"ios\">\n                  <ion-label>{{ auth.totalOrders }}</ion-label>\n                </ion-chip>\n            </ion-item>\n          </ion-menu-toggle>\n        </ion-list>\n        <ion-list lines=\"none\">\n          <ion-menu-toggle auto-hide=\"true\">\n            <ion-item href=\"/material/mobile/{{auth.usermobile}}\" mode=\"ios\">\n            <!-- <ion-item routerLink=\"/material/mobile/{{auth.usermobile}}\" routerDirection=\"forward\" mode=\"ios\"> -->\n              <ion-icon name=\"images\" slot=\"start\"></ion-icon>\n                All Materials\n              </ion-item>\n          </ion-menu-toggle>\n        </ion-list>\n      </ion-content>\n      <ion-footer>\n        <ion-button mode=\"md\" color='primary' expand=\"block\" fill=\"outline\" (click)=\"exitApp()\">EXIT APP</ion-button>\n        <ion-button mode=\"md\" color='danger' expand=\"block\" fill=\"outline\" (click)=\"logout()\">LOGOUT</ion-button>\n      </ion-footer>\n    </ion-menu>\n    <ion-router-outlet id=\"user-menu-content\"></ion-router-outlet>\n\n    <ion-menu side=\"start\" menuId=\"admin\" contentId=\"user-admin-content\">\n        <ion-header>\n          <ion-toolbar>\n            <ion-title>Menu</ion-title>\n          </ion-toolbar>\n        </ion-header>\n        <ion-content>\n          <ion-list lines=\"none\">\n            <ion-menu-toggle auto-hide=\"true\">\n              <!-- <ion-item href=\"/all-materials\" mode=\"ios\"> -->\n                <ion-item routerLink=\"/all-materials\" routerDirection=\"forward\" mode=\"ios\">\n                <ion-icon name=\"images\" slot=\"start\"></ion-icon>\n                All Materials\n                <ion-chip mode=\"ios\">\n                  <ion-label>{{ auth.adminTotalMaterials }}</ion-label>\n                </ion-chip>\n              </ion-item>\n            </ion-menu-toggle>\n          </ion-list>\n          <ion-list lines=\"none\">\n            <ion-menu-toggle auto-hide=\"true\">\n              <!-- <ion-item href=\"/all-orders\" mode=\"ios\"> -->\n              <ion-item routerLink=\"/all-orders\" routerDirection=\"forward\" mode=\"ios\">\n                <ion-icon name=\"wallet\" slot=\"start\"></ion-icon>\n                All Orders\n                <ion-chip mode=\"ios\">\n                  <ion-label>{{ auth.adminTotalOrders }}</ion-label>\n                </ion-chip>\n              </ion-item>\n            </ion-menu-toggle>\n          </ion-list>\n          <ion-list lines=\"none\">\n            <ion-menu-toggle auto-hide=\"true\">\n              <!-- <ion-item href=\"/all-users\" mode=\"ios\"> -->\n              <ion-item routerLink=\"/all-users\" routerDirection=\"forward\" mode=\"ios\">\n                <ion-icon name=\"contacts\" slot=\"start\"></ion-icon>\n                All Users\n                <ion-chip mode=\"ios\">\n                  <ion-label>{{ auth.adminTotalUsers }}</ion-label>\n                </ion-chip>\n              </ion-item>\n            </ion-menu-toggle>\n          </ion-list>\n          <ion-list lines=\"none\">\n              <ion-menu-toggle auto-hide=\"true\">\n                <!-- <ion-item href=\"/upload-materials\" mode=\"ios\"> -->\n                <ion-item routerLink=\"/upload-materials\" routerDirection=\"forward\" mode=\"ios\">\n                  <ion-icon name=\"cloud-upload\" slot=\"start\"></ion-icon>\n                  Upload Materials\n                </ion-item>\n              </ion-menu-toggle>\n            </ion-list>\n        </ion-content>\n        <ion-footer>\n          <ion-button mode=\"md\" color='primary' expand=\"block\" fill=\"outline\" (click)=\"exitApp()\">EXIT APP</ion-button>\n          <ion-button mode=\"md\" color='danger' expand=\"block\" fill=\"outline\" (click)=\"logout()\">LOGOUT</ion-button>\n        </ion-footer>\n      </ion-menu>\n      <ion-router-outlet id=\"user-admin-content\"></ion-router-outlet>\n  </ion-app>\n  "
+module.exports = "<ion-app>\n    <ion-menu side=\"start\" menuId=\"user\" contentId=\"user-menu-content\">\n      <ion-header>\n        <ion-toolbar>\n          <ion-title>Menu</ion-title>\n        </ion-toolbar>\n      </ion-header>\n      <ion-content>\n        <ion-list lines=\"none\">\n          <ion-menu-toggle auto-hide=\"true\">\n            <!-- <ion-item href=\"/profile/mobile/{{auth.usermobile}}\" mode=\"ios\"> -->\n            <ion-item routerLink=\"/profile/mobile/{{auth.usermobile}}\" routerDirection=\"forward\" mode=\"ios\">\n              <ion-icon name=\"contact\" slot=\"start\"></ion-icon>\n                My Profile\n            </ion-item>\n          </ion-menu-toggle>\n        </ion-list>\n        <ion-list lines=\"none\">\n          <ion-menu-toggle auto-hide=\"true\">\n            <!-- <ion-item href=\"/orders/mobile/{{auth.usermobile}}\" mode=\"ios\"> -->\n            <ion-item routerLink=\"/orders/mobile/{{auth.usermobile}}\" routerDirection=\"forward\" mode=\"ios\">\n              <ion-icon name=\"wallet\" slot=\"start\"></ion-icon>\n                My Orders\n                <ion-chip mode=\"ios\">\n                  <ion-label>{{ auth.totalOrders }}</ion-label>\n                </ion-chip>\n            </ion-item>\n          </ion-menu-toggle>\n        </ion-list>\n        <ion-list lines=\"none\">\n          <ion-menu-toggle auto-hide=\"true\">\n            <ion-item href=\"/material/mobile/{{auth.usermobile}}\" mode=\"ios\">\n            <!-- <ion-item routerLink=\"/material/mobile/{{auth.usermobile}}\" routerDirection=\"forward\" mode=\"ios\"> -->\n              <ion-icon name=\"images\" slot=\"start\"></ion-icon>\n                All Materials\n              </ion-item>\n          </ion-menu-toggle>\n        </ion-list>\n      </ion-content>\n      <ion-footer>\n        <ion-button mode=\"md\" color='primary' expand=\"block\" fill=\"outline\" (click)=\"exitApp()\">EXIT APP</ion-button>\n        <ion-button mode=\"md\" color='danger' expand=\"block\" fill=\"outline\" (click)=\"logout()\">LOGOUT</ion-button>\n      </ion-footer>\n    </ion-menu>\n    <ion-router-outlet id=\"user-menu-content\"></ion-router-outlet>\n\n    <ion-menu side=\"start\" menuId=\"admin\" contentId=\"user-admin-content\">\n        <ion-header>\n          <ion-toolbar>\n            <ion-title>Menu</ion-title>\n          </ion-toolbar>\n        </ion-header>\n        <ion-content>\n          <ion-list lines=\"none\">\n            <ion-menu-toggle auto-hide=\"true\">\n              <!-- <ion-item href=\"/all-materials\" mode=\"ios\"> -->\n                <ion-item routerLink=\"/all-materials\" routerDirection=\"forward\" mode=\"ios\">\n                <ion-icon name=\"images\" slot=\"start\"></ion-icon>\n                All Materials\n                <ion-chip mode=\"ios\">\n                  <ion-label>{{ auth.adminTotalMaterials }}</ion-label>\n                </ion-chip>\n              </ion-item>\n            </ion-menu-toggle>\n          </ion-list>\n          <ion-list lines=\"none\">\n            <ion-menu-toggle auto-hide=\"true\">\n              <!-- <ion-item href=\"/all-orders\" mode=\"ios\"> -->\n              <ion-item routerLink=\"/all-orders\" routerDirection=\"forward\" mode=\"ios\">\n                <ion-icon name=\"wallet\" slot=\"start\"></ion-icon>\n                All Orders\n                <ion-chip mode=\"ios\">\n                  <ion-label>{{ auth.adminTotalOrders }}</ion-label>\n                </ion-chip>\n              </ion-item>\n            </ion-menu-toggle>\n          </ion-list>\n          <ion-list lines=\"none\">\n            <ion-menu-toggle auto-hide=\"true\">\n              <ion-item routerLink=\"/whatsapp-orders\" routerDirection=\"forward\" mode=\"ios\">\n                <ion-icon name=\"logo-whatsapp\" slot=\"start\"></ion-icon>\n                Whatsapp Orders\n                <ion-chip mode=\"ios\">\n                  <ion-label>{{ auth.adminWhatsappOrders }}</ion-label>\n                </ion-chip>\n              </ion-item>\n            </ion-menu-toggle>\n          </ion-list>\n          <ion-list lines=\"none\">\n            <ion-menu-toggle auto-hide=\"true\">\n              <!-- <ion-item href=\"/all-users\" mode=\"ios\"> -->\n              <ion-item routerLink=\"/all-users\" routerDirection=\"forward\" mode=\"ios\">\n                <ion-icon name=\"contacts\" slot=\"start\"></ion-icon>\n                All Users\n                <ion-chip mode=\"ios\">\n                  <ion-label>{{ auth.adminTotalUsers }}</ion-label>\n                </ion-chip>\n              </ion-item>\n            </ion-menu-toggle>\n          </ion-list>\n          <ion-list lines=\"none\">\n            <ion-menu-toggle auto-hide=\"true\">\n              <!-- <ion-item href=\"/upload-materials\" mode=\"ios\"> -->\n              <ion-item routerLink=\"/upload-materials\" routerDirection=\"forward\" mode=\"ios\">\n                <ion-icon name=\"cloud-upload\" slot=\"start\"></ion-icon>\n                Upload Materials\n              </ion-item>\n            </ion-menu-toggle>\n          </ion-list>\n          <ion-list lines=\"none\">\n            <ion-menu-toggle auto-hide=\"true\">\n              <ion-item routerLink=\"/add-orders\" routerDirection=\"forward\" mode=\"ios\">\n                <ion-icon name=\"add-circle-outline\" slot=\"start\"></ion-icon>\n                Add Whatsapp Order\n              </ion-item>\n            </ion-menu-toggle>\n          </ion-list>\n        </ion-content>\n        <ion-footer>\n          <ion-button mode=\"md\" color='primary' expand=\"block\" fill=\"outline\" (click)=\"exitApp()\">EXIT APP</ion-button>\n          <ion-button mode=\"md\" color='danger' expand=\"block\" fill=\"outline\" (click)=\"logout()\">LOGOUT</ion-button>\n        </ion-footer>\n      </ion-menu>\n      <ion-router-outlet id=\"user-admin-content\"></ion-router-outlet>\n  </ion-app>\n  "
 
 /***/ }),
 
@@ -561,6 +573,10 @@ var routes = [
     { path: 'admin-user-orders/:mobile/:name', loadChildren: './pages/admin/admin-user-orders/admin-user-orders.module#AdminUserOrdersPageModule' },
     { path: 'image-modal', loadChildren: './pages/image-modal/image-modal.module#ImageModalPageModule' },
     { path: 'authentication', loadChildren: './pages/authentication/authentication.module#AuthenticationPageModule' },
+    { path: 'add-orders', loadChildren: './pages/admin/add-orders/add-orders.module#AddOrdersPageModule' },
+    // tslint:disable-next-line:max-line-length
+    { path: 'whatsapp-order-details/:id', loadChildren: './pages/admin/whatsapp-order-details/whatsapp-order-details.module#WhatsappOrderDetailsPageModule' },
+    { path: 'whatsapp-orders', loadChildren: './pages/admin/whatsapp-orders/whatsapp-orders.module#WhatsappOrdersPageModule' },
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
@@ -665,11 +681,13 @@ var AppComponent = /** @class */ (function () {
             if (response['success']) {
                 console.log(response);
                 _this.auth.adminTotalOrders = response['totalOrders'];
+                _this.auth.adminWhatsappOrders = response['totalWhatsappOrders'];
                 _this.auth.adminTotalUsers = response['totalUsers'];
                 _this.auth.adminTotalMaterials = response['totalMaterials'];
             }
             else {
                 _this.auth.adminTotalOrders = 0;
+                _this.auth.adminWhatsappOrders = 0;
                 _this.auth.adminTotalUsers = 0;
                 _this.auth.adminTotalMaterials = 0;
             }
@@ -1189,6 +1207,7 @@ var AuthenticationService = /** @class */ (function () {
         this.base64img = '';
         this.totalOrders = 0;
         this.adminTotalOrders = 0;
+        this.adminWhatsappOrders = 0;
         this.adminTotalUsers = 0;
         this.adminTotalMaterials = 0;
         // userProfileDone = true;
@@ -1586,6 +1605,31 @@ var AuthenticationService = /** @class */ (function () {
             });
         }
     };
+    AuthenticationService.prototype.getWhatsappOrderByID = function (orderid) {
+        var _this = this;
+        if (this.plt.is('cordova')) {
+            return new Promise(function (resolve) {
+                // tslint:disable-next-line:max-line-length
+                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["from"])(_this.nativeHttp.get("https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getWhatsappOrderByID&orderid=" + orderid, { 'Content-Type': 'application/json' }, {}))
+                    .subscribe(function (data) {
+                    resolve(JSON.parse(data.data));
+                }, function (error) {
+                    resolve({ success: 2, message: _this.serverErrorMsg });
+                });
+            });
+        }
+        else {
+            return new Promise(function (resolve) {
+                // tslint:disable-next-line:max-line-length
+                _this.http.get("https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getWhatsappOrderByID&orderid=" + orderid)
+                    .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function (results) { return results; })).subscribe(function (data) {
+                    resolve(data);
+                }, function (error) {
+                    resolve({ success: 2, message: _this.serverErrorMsg });
+                });
+            });
+        }
+    };
     AuthenticationService.prototype.getTotalOrders = function (mobile) {
         var _this = this;
         if (this.plt.is('cordova')) {
@@ -1798,10 +1842,51 @@ var AuthenticationService = /** @class */ (function () {
             });
         }
     };
-    AuthenticationService.prototype.getAllOrders = function (results, page, searchKey, searchstatus) {
+    AuthenticationService.prototype.updateWhatsappOrderStatus = function (id, status) {
+        var _this = this;
+        if (status == 'Pending') {
+            status = 0;
+        }
+        else if (status == 'Confirmed') {
+            status = 1;
+        }
+        else if (status == 'Delivered') {
+            status = 2;
+        }
+        else if (status == 'Rejected') {
+            status = 3;
+        }
+        // tslint:disable-next-line:max-line-length
+        var apiCall = encodeURI("https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=updateWhatsappOrderStatus&id=" + id + "&status=" + status);
+        if (this.plt.is('cordova')) {
+            return new Promise(function (resolve) {
+                // tslint:disable-next-line:max-line-length
+                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["from"])(_this.nativeHttp.get(apiCall, { 'Content-Type': 'application/json' }, {}))
+                    .subscribe(function (data) {
+                    resolve(JSON.parse(data.data));
+                }, function (error) {
+                    resolve({ success: 2, message: _this.serverErrorMsg });
+                });
+            });
+        }
+        else {
+            return new Promise(function (resolve) {
+                _this.http.get(apiCall)
+                    .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function (results) { return results; })).subscribe(function (data) {
+                    resolve(data);
+                }, function (error) {
+                    resolve({ success: 2, message: _this.serverErrorMsg });
+                });
+            });
+        }
+    };
+    AuthenticationService.prototype.getAllOrders = function (results, page, searchKey, searchstatus, searchKeyDate) {
         var _this = this;
         if (!searchKey) {
             searchKey = '';
+        }
+        if (!searchKeyDate) {
+            searchKeyDate = '';
         }
         if (!searchstatus) {
             searchKey = 'All';
@@ -1809,7 +1894,7 @@ var AuthenticationService = /** @class */ (function () {
         if (this.plt.is('cordova')) {
             return new Promise(function (resolve) {
                 // tslint:disable-next-line:max-line-length
-                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["from"])(_this.nativeHttp.get("https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getAllOrders&results=" + results + "&page=" + page + "&searchKey=" + searchKey + "&searchstatus=" + searchstatus, { 'Content-Type': 'application/json' }, {}))
+                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["from"])(_this.nativeHttp.get("https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getAllOrders&results=" + results + "&page=" + page + "&searchKey=" + searchKey + "&searchstatus=" + searchstatus + "&searchKeyDate=" + searchKeyDate, { 'Content-Type': 'application/json' }, {}))
                     .subscribe(function (data) {
                     resolve(JSON.parse(data.data));
                 }, function (error) {
@@ -1820,7 +1905,41 @@ var AuthenticationService = /** @class */ (function () {
         else {
             return new Promise(function (resolve) {
                 // tslint:disable-next-line:max-line-length
-                _this.http.get("https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getAllOrders&results=" + results + "&page=" + page + "&searchKey=" + searchKey + "&searchstatus=" + searchstatus)
+                _this.http.get("https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getAllOrders&results=" + results + "&page=" + page + "&searchKey=" + searchKey + "&searchstatus=" + searchstatus + "&searchKeyDate=" + searchKeyDate)
+                    .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function (results) { return results; })).subscribe(function (data) {
+                    resolve(data);
+                }, function (error) {
+                    resolve({ success: 2, message: _this.serverErrorMsg });
+                });
+            });
+        }
+    };
+    AuthenticationService.prototype.getAllWhatsappOrders = function (results, page, searchKey, searchstatus, searchKeyDate) {
+        var _this = this;
+        if (!searchKey) {
+            searchKey = '';
+        }
+        if (!searchKeyDate) {
+            searchKeyDate = '';
+        }
+        if (!searchstatus) {
+            searchKey = 'All';
+        }
+        if (this.plt.is('cordova')) {
+            return new Promise(function (resolve) {
+                // tslint:disable-next-line:max-line-length
+                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["from"])(_this.nativeHttp.get("https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getAllWhatsappOrders&results=" + results + "&page=" + page + "&searchKey=" + searchKey + "&searchstatus=" + searchstatus + "&searchKeyDate=" + searchKeyDate, { 'Content-Type': 'application/json' }, {}))
+                    .subscribe(function (data) {
+                    resolve(JSON.parse(data.data));
+                }, function (error) {
+                    resolve({ success: 2, message: _this.serverErrorMsg });
+                });
+            });
+        }
+        else {
+            return new Promise(function (resolve) {
+                // tslint:disable-next-line:max-line-length
+                _this.http.get("https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getAllWhatsappOrders&results=" + results + "&page=" + page + "&searchKey=" + searchKey + "&searchstatus=" + searchstatus + "&searchKeyDate=" + searchKeyDate)
                     .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function (results) { return results; })).subscribe(function (data) {
                     resolve(data);
                 }, function (error) {

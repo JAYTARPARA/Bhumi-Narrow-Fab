@@ -14,6 +14,7 @@ export class AuthenticationService {
   base64img = '';
   totalOrders = 0;
   adminTotalOrders = 0;
+  adminWhatsappOrders = 0;
   adminTotalUsers = 0;
   adminTotalMaterials = 0;
   usermobile: any;
@@ -399,6 +400,33 @@ export class AuthenticationService {
     }
   }
 
+  getWhatsappOrderByID(orderid) {
+    if (this.plt.is('cordova')) {
+      return new Promise(resolve => {
+      // tslint:disable-next-line:max-line-length
+      from(this.nativeHttp.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getWhatsappOrderByID&orderid=${orderid}`, { 'Content-Type': 'application/json' }, {}))
+      .subscribe(
+        data => {
+          resolve(JSON.parse(data.data));
+      }, error => {
+        resolve({success: 2, message: this.serverErrorMsg});
+      });
+    });
+    } else {
+      return new Promise(resolve => {
+        // tslint:disable-next-line:max-line-length
+        this.http.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getWhatsappOrderByID&orderid=${orderid}`)
+        .pipe(
+          map(results => results)
+        ).subscribe(data => {
+          resolve(data);
+        }, error => {
+          resolve({success: 2, message: this.serverErrorMsg});
+        });
+      });
+    }
+  }
+
   getTotalOrders(mobile) {
     if (this.plt.is('cordova')) {
       return new Promise(resolve => {
@@ -623,9 +651,49 @@ export class AuthenticationService {
     }
   }
 
-  getAllOrders(results, page, searchKey?, searchstatus?) {
+  updateWhatsappOrderStatus(id, status) {
+    if (status == 'Pending') {
+      status = 0;
+    } else if (status == 'Confirmed') {
+      status = 1;
+    } else if (status == 'Delivered') {
+      status = 2;
+    } else if (status == 'Rejected') {
+      status = 3;
+    }
+    // tslint:disable-next-line:max-line-length
+    const apiCall = encodeURI(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=updateWhatsappOrderStatus&id=${id}&status=${status}`);
+    if (this.plt.is('cordova')) {
+      return new Promise(resolve => {
+        // tslint:disable-next-line:max-line-length
+      from(this.nativeHttp.get(apiCall, { 'Content-Type': 'application/json' }, {}))
+      .subscribe(
+        data => {
+          resolve(JSON.parse(data.data));
+      }, error => {
+        resolve({success: 2, message: this.serverErrorMsg});
+      });
+    });
+    } else {
+      return new Promise(resolve => {
+        this.http.get(apiCall)
+        .pipe(
+          map(results => results)
+        ).subscribe(data => {
+          resolve(data);
+        }, error => {
+          resolve({success: 2, message: this.serverErrorMsg});
+        });
+      });
+    }
+  }
+
+  getAllOrders(results, page, searchKey?, searchstatus?, searchKeyDate?) {
     if (!searchKey) {
       searchKey = '';
+    }
+    if (!searchKeyDate) {
+      searchKeyDate = '';
     }
     if (!searchstatus) {
       searchKey = 'All';
@@ -633,7 +701,7 @@ export class AuthenticationService {
     if (this.plt.is('cordova')) {
       return new Promise(resolve => {
       // tslint:disable-next-line:max-line-length
-      from(this.nativeHttp.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getAllOrders&results=${results}&page=${page}&searchKey=${searchKey}&searchstatus=${searchstatus}`, { 'Content-Type': 'application/json' }, {}))
+      from(this.nativeHttp.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getAllOrders&results=${results}&page=${page}&searchKey=${searchKey}&searchstatus=${searchstatus}&searchKeyDate=${searchKeyDate}`, { 'Content-Type': 'application/json' }, {}))
       .subscribe(
         data => {
           resolve(JSON.parse(data.data));
@@ -644,7 +712,43 @@ export class AuthenticationService {
     } else {
       return new Promise(resolve => {
         // tslint:disable-next-line:max-line-length
-        this.http.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getAllOrders&results=${results}&page=${page}&searchKey=${searchKey}&searchstatus=${searchstatus}`)
+        this.http.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getAllOrders&results=${results}&page=${page}&searchKey=${searchKey}&searchstatus=${searchstatus}&searchKeyDate=${searchKeyDate}`)
+        .pipe(
+          map(results => results)
+        ).subscribe(data => {
+          resolve(data);
+        }, error => {
+          resolve({success: 2, message: this.serverErrorMsg});
+        });
+      });
+    }
+  }
+
+  getAllWhatsappOrders(results, page, searchKey?, searchstatus?, searchKeyDate?) {
+    if (!searchKey) {
+      searchKey = '';
+    }
+    if (!searchKeyDate) {
+      searchKeyDate = '';
+    }
+    if (!searchstatus) {
+      searchKey = 'All';
+    }
+    if (this.plt.is('cordova')) {
+      return new Promise(resolve => {
+      // tslint:disable-next-line:max-line-length
+      from(this.nativeHttp.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getAllWhatsappOrders&results=${results}&page=${page}&searchKey=${searchKey}&searchstatus=${searchstatus}&searchKeyDate=${searchKeyDate}`, { 'Content-Type': 'application/json' }, {}))
+      .subscribe(
+        data => {
+          resolve(JSON.parse(data.data));
+      }, error => {
+        resolve({success: 2, message: this.serverErrorMsg});
+      });
+    });
+    } else {
+      return new Promise(resolve => {
+        // tslint:disable-next-line:max-line-length
+        this.http.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getAllWhatsappOrders&results=${results}&page=${page}&searchKey=${searchKey}&searchstatus=${searchstatus}&searchKeyDate=${searchKeyDate}`)
         .pipe(
           map(results => results)
         ).subscribe(data => {

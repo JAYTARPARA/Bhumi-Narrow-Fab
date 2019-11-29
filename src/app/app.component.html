@@ -77,6 +77,17 @@
           </ion-list>
           <ion-list lines="none">
             <ion-menu-toggle auto-hide="true">
+              <ion-item routerLink="/whatsapp-orders" routerDirection="forward" mode="ios">
+                <ion-icon name="logo-whatsapp" slot="start"></ion-icon>
+                Whatsapp Orders
+                <ion-chip mode="ios">
+                  <ion-label>{{ auth.adminWhatsappOrders }}</ion-label>
+                </ion-chip>
+              </ion-item>
+            </ion-menu-toggle>
+          </ion-list>
+          <ion-list lines="none">
+            <ion-menu-toggle auto-hide="true">
               <!-- <ion-item href="/all-users" mode="ios"> -->
               <ion-item routerLink="/all-users" routerDirection="forward" mode="ios">
                 <ion-icon name="contacts" slot="start"></ion-icon>
@@ -88,14 +99,22 @@
             </ion-menu-toggle>
           </ion-list>
           <ion-list lines="none">
-              <ion-menu-toggle auto-hide="true">
-                <!-- <ion-item href="/upload-materials" mode="ios"> -->
-                <ion-item routerLink="/upload-materials" routerDirection="forward" mode="ios">
-                  <ion-icon name="cloud-upload" slot="start"></ion-icon>
-                  Upload Materials
-                </ion-item>
-              </ion-menu-toggle>
-            </ion-list>
+            <ion-menu-toggle auto-hide="true">
+              <!-- <ion-item href="/upload-materials" mode="ios"> -->
+              <ion-item routerLink="/upload-materials" routerDirection="forward" mode="ios">
+                <ion-icon name="cloud-upload" slot="start"></ion-icon>
+                Upload Materials
+              </ion-item>
+            </ion-menu-toggle>
+          </ion-list>
+          <ion-list lines="none">
+            <ion-menu-toggle auto-hide="true">
+              <ion-item routerLink="/add-orders" routerDirection="forward" mode="ios">
+                <ion-icon name="add-circle-outline" slot="start"></ion-icon>
+                Add Whatsapp Order
+              </ion-item>
+            </ion-menu-toggle>
+          </ion-list>
         </ion-content>
         <ion-footer>
           <ion-button mode="md" color='primary' expand="block" fill="outline" (click)="exitApp()">EXIT APP</ion-button>

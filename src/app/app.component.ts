@@ -61,10 +61,12 @@ export class AppComponent {
       if (response['success']) {
         console.log(response);
         this.auth.adminTotalOrders = response['totalOrders'];
+        this.auth.adminWhatsappOrders = response['totalWhatsappOrders'];
         this.auth.adminTotalUsers = response['totalUsers'];
         this.auth.adminTotalMaterials = response['totalMaterials'];
       } else {
         this.auth.adminTotalOrders = 0;
+        this.auth.adminWhatsappOrders = 0;
         this.auth.adminTotalUsers = 0;
         this.auth.adminTotalMaterials = 0;
       }

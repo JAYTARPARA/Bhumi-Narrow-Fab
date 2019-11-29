@@ -1,0 +1,88 @@
+<ion-header no-border class="animated fadeInDown">
+  <ion-toolbar color='dark' mode="ios">
+    <ion-title>Add Order</ion-title>
+    <ion-buttons slot="start">
+        <ion-menu-button autoHide="false"></ion-menu-button>
+      </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class='ion-padding material-upload'>
+  <form>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="stacked">Party Name: </ion-label>
+          <ion-input type="text" name="partyname" mode="md" [(ngModel)]="partyname" placeholder="Bhumi Narrow Fab"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="stacked">Party Mobile: </ion-label>
+          <ion-input type="number" name="partymobile" mode="md" [(ngModel)]="partymobile" placeholder="9824514524" maxlength="10"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="stacked">Party Address: </ion-label>
+          <ion-textarea autoGrow=true placeholder="Party Address" mode="md" clearInput name="partyaddress" [(ngModel)]="partyaddress" placeholder="Address*"></ion-textarea>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="stacked">Quantity: </ion-label>
+          <ion-input type="number" name="quantity" placeholder="Enter quantity (e.g. 1250)" [(ngModel)]="quantity"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="stacked">Pieces: </ion-label>
+          <ion-input type="number" name="pieces" placeholder="Enter pieces (e.g. 9)" [(ngModel)]="pieces"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="stacked">Sample: </ion-label>
+          <ion-toggle name="sample" color="success" [(ngModel)]="sample"></ion-toggle>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-label position="stacked">Material Image: </ion-label>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-button fill="outline" color="dark" (click)='AccessCamera()'>
+          <ion-icon name='camera'>Camera</ion-icon>
+        </ion-button>
+      </ion-col>
+
+      <ion-col>
+        <ion-button fill="outline" color="dark" (click)='AccessGallery()'>
+            <ion-icon name='image'>Gallery</ion-icon>
+          </ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-img [src]='base64Image' *ngIf='base64Image'></ion-img>
+    <ion-button color='dark' class="uploadbtn" *ngIf='base64Image' (click)='addOrder()' expand="block" fill="outline" type="submit">ADD ORDER</ion-button>
+  </form>
+</ion-content>

@@ -89,6 +89,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_authentication_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../../../services/authentication.service */ "./src/app/services/authentication.service.ts");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 /* harmony import */ var _ionic_native_sms_ngx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic-native/sms/ngx */ "./node_modules/@ionic-native/sms/ngx/index.js");
+/* harmony import */ var _ionic_native_social_sharing_ngx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic-native/social-sharing/ngx */ "./node_modules/@ionic-native/social-sharing/ngx/index.js");
+
 
 
 
@@ -96,12 +98,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var AdminOrderDetailsPage = /** @class */ (function () {
-    function AdminOrderDetailsPage(activatedRoute, auth, loadingController, menu, sms) {
+    function AdminOrderDetailsPage(activatedRoute, auth, loadingController, menu, sms, socialSharing) {
         this.activatedRoute = activatedRoute;
         this.auth = auth;
         this.loadingController = loadingController;
         this.menu = menu;
         this.sms = sms;
+        this.socialSharing = socialSharing;
         this.sendMsg = false;
         this.customActionSheetOptions = {
             header: 'Status',
@@ -167,75 +170,89 @@ var AdminOrderDetailsPage = /** @class */ (function () {
         });
     };
     AdminOrderDetailsPage.prototype.updateStatus = function () {
-        var _this = this;
-        this.auth.updateOrderStatus(this.order_id, this.status).then(function (response) {
-            console.log(_this.oldStatus);
-            console.log(_this.status);
-            console.log(response);
-            _this.loadingController.create({
-                message: 'Updating order status',
-                mode: 'ios'
-            }).then(function (res) {
-                res.present();
-                res.onDidDismiss().then(function (dis) {
-                    if (_this.sendMsg) {
-                        if (_this.oldStatus != _this.status) {
-                            _this.loadingController.create({
-                                message: 'Sending message to the user',
-                                mode: 'ios'
-                            }).then(function (ress) {
-                                ress.present();
-                                ress.onDidDismiss().then(function (diss) {
-                                    _this.ngOnInit();
-                                });
-                            });
-                            var options = {
-                                replaceLineBreaks: true,
-                                android: {
-                                    intent: '' // send SMS with the native android SMS messaging
-                                    // intent: '' // send SMS without opening any other app
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var _this = this;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                this.auth.updateOrderStatus(this.order_id, this.status).then(function (response) {
+                    console.log(_this.oldStatus);
+                    console.log(_this.status);
+                    console.log(response);
+                    _this.loadingController.create({
+                        message: 'Updating order status',
+                        mode: 'ios'
+                    }).then(function (res) {
+                        res.present();
+                        res.onDidDismiss().then(function (dis) {
+                            if (_this.sendMsg) {
+                                if (_this.oldStatus != _this.status) {
+                                    _this.loadingController.create({
+                                        message: 'Sending message to the user',
+                                        mode: 'ios'
+                                    }).then(function (ress) {
+                                        ress.present();
+                                        ress.onDidDismiss().then(function (diss) {
+                                            _this.ngOnInit();
+                                        });
+                                    });
+                                    // const options = {
+                                    //   replaceLineBreaks: true, // true to replace \n by a new line, false by default
+                                    //   android: {
+                                    //     intent: ''  // send SMS with the native android SMS messaging
+                                    //     // intent: '' // send SMS without opening any other app
+                                    //   }
+                                    // };
+                                    var sendMsg = 'Hello, Your order is updated by owner. \r\n';
+                                    sendMsg = sendMsg + 'Order Number: ' + _this.order_id + '\r\n';
+                                    sendMsg = sendMsg + 'Current Status: ' + _this.status + '\r\n';
+                                    sendMsg = sendMsg + 'Please vist My Orders page in application';
+                                    // this.sms.send('+91' + this.mobile, sendMsg, options).then( () => {
+                                    //   this.loadingController.dismiss();
+                                    //   this.auth.presentToast('Message sent to the user', false, 'bottom', 1000, 'success');
+                                    // }, (e) => {
+                                    //   this.loadingController.dismiss();
+                                    //   alert(e);
+                                    //   this.auth.presentToast('Message not sent! Send it manually', false, 'bottom', 1500, 'danger');
+                                    // });
+                                    _this.socialSharing.shareViaWhatsAppToReceiver('+91' + _this.mobile, sendMsg, '', '').then(function () {
+                                        // Success
+                                        _this.loadingController.dismiss();
+                                        _this.auth.presentToast('Message sent to the user', false, 'bottom', 1000, 'success');
+                                    }).catch(function (e) {
+                                        // Error!
+                                        _this.loadingController.dismiss();
+                                        _this.auth.presentToast('Message not sent! Send it manually', false, 'bottom', 1500, 'danger');
+                                        console.log(e);
+                                    });
                                 }
-                            };
-                            // tslint:disable-next-line:max-line-length
-                            var sendMsg = 'Hello, Your order is updated by owner. \n';
-                            sendMsg = sendMsg + 'Order Number: ' + _this.order_id + '\n';
-                            sendMsg = sendMsg + 'Current Status: ' + _this.status + '\n';
-                            sendMsg = sendMsg + 'Please vist My Orders page';
-                            _this.sms.send('+91' + _this.mobile, sendMsg, options).then(function () {
-                                _this.loadingController.dismiss();
-                                _this.auth.presentToast('Message sent to the user', false, 'bottom', 1000, 'success');
-                            }, function (e) {
-                                _this.loadingController.dismiss();
-                                alert(e);
-                                _this.auth.presentToast('Message not sent! Send it manually', false, 'bottom', 1500, 'danger');
-                            });
-                        }
-                        else {
-                            _this.ngOnInit();
-                        }
+                                else {
+                                    _this.ngOnInit();
+                                }
+                            }
+                            else {
+                                _this.ngOnInit();
+                            }
+                        });
+                    });
+                    if (response) {
+                        setTimeout(function () {
+                            _this.loadingController.dismiss();
+                        }, 1500);
+                    }
+                    if (response['success'] == 1) {
+                        _this.auth.presentToast(response['message'], false, 'bottom', 1000, 'success');
+                        _this.sendMsg = true;
+                    }
+                    else if (response['success'] == 2) {
+                        _this.auth.presentToast(response['message'], false, 'bottom', 2500, 'danger');
+                        _this.sendMsg = false;
                     }
                     else {
-                        _this.ngOnInit();
+                        _this.auth.presentToast(response['message'], false, 'bottom', 1000, 'danger');
+                        _this.sendMsg = false;
                     }
                 });
+                return [2 /*return*/];
             });
-            if (response) {
-                setTimeout(function () {
-                    _this.loadingController.dismiss();
-                }, 1500);
-            }
-            if (response['success'] == 1) {
-                _this.auth.presentToast(response['message'], false, 'bottom', 1000, 'success');
-                _this.sendMsg = true;
-            }
-            else if (response['success'] == 2) {
-                _this.auth.presentToast(response['message'], false, 'bottom', 2500, 'danger');
-                _this.sendMsg = false;
-            }
-            else {
-                _this.auth.presentToast(response['message'], false, 'bottom', 1000, 'danger');
-                _this.sendMsg = false;
-            }
         });
     };
     AdminOrderDetailsPage.ctorParameters = function () { return [
@@ -243,7 +260,8 @@ var AdminOrderDetailsPage = /** @class */ (function () {
         { type: _services_authentication_service__WEBPACK_IMPORTED_MODULE_3__["AuthenticationService"] },
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"] },
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["MenuController"] },
-        { type: _ionic_native_sms_ngx__WEBPACK_IMPORTED_MODULE_5__["SMS"] }
+        { type: _ionic_native_sms_ngx__WEBPACK_IMPORTED_MODULE_5__["SMS"] },
+        { type: _ionic_native_social_sharing_ngx__WEBPACK_IMPORTED_MODULE_6__["SocialSharing"] }
     ]; };
     AdminOrderDetailsPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -255,7 +273,8 @@ var AdminOrderDetailsPage = /** @class */ (function () {
             _services_authentication_service__WEBPACK_IMPORTED_MODULE_3__["AuthenticationService"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["MenuController"],
-            _ionic_native_sms_ngx__WEBPACK_IMPORTED_MODULE_5__["SMS"]])
+            _ionic_native_sms_ngx__WEBPACK_IMPORTED_MODULE_5__["SMS"],
+            _ionic_native_social_sharing_ngx__WEBPACK_IMPORTED_MODULE_6__["SocialSharing"]])
     ], AdminOrderDetailsPage);
     return AdminOrderDetailsPage;
 }());

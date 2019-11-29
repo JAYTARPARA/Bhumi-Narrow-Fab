@@ -34,8 +34,10 @@ export class AllOrdersPage implements OnInit {
   latestResults = 5;
   noMoreData = 0;
   searchKey: any;
+  searchKeyDate: any;
   showNoDataForSearch = true;
   searchstatus = 'All';
+  maxDateSelect: any;
 
   orderStatus: any[] = [
     {
@@ -55,6 +57,28 @@ export class AllOrdersPage implements OnInit {
     }
   ];
 
+  customPickerOptions = {
+    buttons: [{
+      text: 'Cancel',
+      role: 'cancel',
+      handler: () => {}
+    }, {
+      text: 'Clear',
+      handler: () => {
+        this.searchKeyDate = null;
+      }
+    }, {
+      text: 'Search',
+      handler: (data) => {
+        console.log(data);
+        const year: string = data.year.text;
+        const month: string = data.month.value < 10 ? '0' + data.month.value.toString() : data.month.value.toString();
+        const day: string = data.day.text;
+        this.searchKeyDate = day + '-' + month + '-' + year;
+      }
+    }]
+  };
+
   constructor(
     private fireAuth: AngularFireAuth,
     private router: Router,
@@ -65,13 +89,16 @@ export class AllOrdersPage implements OnInit {
     public loadingController: LoadingController,
     private navCtrl: NavController,
     private menu: MenuController,
-  ) { }
+    ) { }
 
-  ngOnInit() {
-    this.menu.enable(true, 'admin');
-  }
+    ngOnInit() {
+      const currentDate = new Date();
+      this.maxDateSelect = currentDate.getFullYear() + '-' + (currentDate.getMonth() + 1) + '-' + currentDate.getDate();
+      this.menu.enable(true, 'admin');
+    }
 
   ionViewWillEnter(callit?, infiniteScroll?) {
+    console.log('Date: ' + this.searchKeyDate);
     this.orders = [];
     this.page = 1;
     if (callit) {
@@ -89,10 +116,12 @@ export class AllOrdersPage implements OnInit {
     this.auth.getAdminAllTotal().then(res => {
       if (res['success']) {
         this.auth.adminTotalOrders = res['totalOrders'];
+        this.auth.adminWhatsappOrders = res['totalWhatsappOrders'];
         this.auth.adminTotalUsers = res['totalUsers'];
         this.auth.adminTotalMaterials = res['totalMaterials'];
       } else {
         this.auth.adminTotalOrders = 0;
+        this.auth.adminWhatsappOrders = 0;
         this.auth.adminTotalUsers = 0;
         this.auth.adminTotalMaterials = 0;
       }
@@ -108,7 +137,7 @@ export class AllOrdersPage implements OnInit {
   }
 
   loadOrders(infiniteScroll?) {
-    this.auth.getAllOrders(this.results, this.page, this.searchKey, this.searchstatus).then(response => {
+    this.auth.getAllOrders(this.results, this.page, this.searchKey, this.searchstatus, this.searchKeyDate).then(response => {
       console.log(response);
       if (response['success'] == 1) {
         this.orders = this.orders.concat(response['orders']);

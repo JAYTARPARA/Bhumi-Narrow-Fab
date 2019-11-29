@@ -21,6 +21,10 @@ const routes: Routes = [
   { path: 'admin-user-orders/:mobile/:name', loadChildren: './pages/admin/admin-user-orders/admin-user-orders.module#AdminUserOrdersPageModule' },
   { path: 'image-modal', loadChildren: './pages/image-modal/image-modal.module#ImageModalPageModule' },
   { path: 'authentication', loadChildren: './pages/authentication/authentication.module#AuthenticationPageModule' },
+  { path: 'add-orders', loadChildren: './pages/admin/add-orders/add-orders.module#AddOrdersPageModule' },
+  // tslint:disable-next-line:max-line-length
+  { path: 'whatsapp-order-details/:id', loadChildren: './pages/admin/whatsapp-order-details/whatsapp-order-details.module#WhatsappOrderDetailsPageModule' },
+  { path: 'whatsapp-orders', loadChildren: './pages/admin/whatsapp-orders/whatsapp-orders.module#WhatsappOrdersPageModule' },
 ];
 
 @NgModule({

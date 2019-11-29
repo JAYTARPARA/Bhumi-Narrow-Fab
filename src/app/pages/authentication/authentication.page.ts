@@ -34,7 +34,7 @@ export class AuthenticationPage implements OnInit {
     console.log('passcode: ' + this.passcode);
     if (this.passcode == '') {
       this.auth.presentToast('Please enter passcode', false, 'bottom', 1500, 'danger');
-    } else if (this.passcode == '123456') {
+    } else if (this.passcode == '250179') {
       this.storage.set('authentication', 'done');
       this.auth.presentToast('You can access application.', false, 'bottom', 1500, 'success');
       this.router.navigate(['/home']);
