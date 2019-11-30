@@ -272,9 +272,9 @@ export class AuthenticationService {
 
     let whatsappnumber = '+919824868568';
     if (company == 'Bhumi Narrow Fab') {
-      // whatsappnumber = '+919825783611';
+      whatsappnumber = '+919825783611';
     } else if (company == 'Matrushree Lace') {
-      // whatsappnumber = '+918488923655';
+      whatsappnumber = '+918488923655';
     }
 
     if (this.plt.is('cordova')) {

@@ -1374,10 +1374,10 @@ let AuthenticationService = class AuthenticationService {
             const link = material_image;
             let whatsappnumber = '+919824868568';
             if (company == 'Bhumi Narrow Fab') {
-                // whatsappnumber = '+919825783611';
+                whatsappnumber = '+919825783611';
             }
             else if (company == 'Matrushree Lace') {
-                // whatsappnumber = '+918488923655';
+                whatsappnumber = '+918488923655';
             }
             if (this.plt.is('cordova')) {
                 return this.socialSharing.shareViaWhatsAppToReceiver(whatsappnumber, message, '', '').then((res) => tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
