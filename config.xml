@@ -2,7 +2,7 @@
 <widget id="com.bhuminarrowfab.app" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Bhumi Narrow Fab</name>
     <description>Fancy Lace Collection</description>
-    <author email="jaytarpara@gmail.com" href="http://dnv.atwebpages.com/me">Ionic Framework Team</author>
+    <author email="jaytarpara00@gmail.com" href="http://dnv.atwebpages.com/me">Jay Tarpara</author>
     <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />

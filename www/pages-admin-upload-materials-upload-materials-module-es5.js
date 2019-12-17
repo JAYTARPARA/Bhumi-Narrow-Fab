@@ -184,6 +184,7 @@ var UploadMaterialsPage = /** @class */ (function () {
                 if (JSON.parse(JSON.parse(JSON.stringify(result.response)))['success'] == 1) {
                     _this.auth.adminTotalMaterials++;
                     _this.auth.presentToast(JSON.parse(JSON.parse(JSON.stringify(result.response)))['message'], false, 'bottom', 1000, 'success');
+                    _this.nav.navigateForward('/all-materials');
                 }
                 else {
                     _this.auth.presentToast(JSON.parse(JSON.parse(JSON.stringify(result.response)))['message'], false, 'bottom', 1000, 'danger');

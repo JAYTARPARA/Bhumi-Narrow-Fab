@@ -2,17 +2,13 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 // tslint:disable-next-line:max-line-length
 import { AlertController, NavController, LoadingController, ToastController, Platform, MenuController, IonInput, IonButton } from '@ionic/angular';
 import { Router } from '@angular/router';
-
 import * as firebase from 'firebase';
-
 import { AngularFireAuth } from '@angular/fire/auth';
-
 import { HTTP } from '@ionic-native/http/ngx';
 import { HttpClient } from '@angular/common/http';
-
 import { AuthenticationService } from './../../services/authentication.service';
-
 import { Observable } from 'rxjs';
+import * as $ from 'jquery';
 
 declare var SMSReceive: any;
 
@@ -247,6 +243,7 @@ export class LoginPage implements OnInit {
       console.log(this.OTP);
       this.presentToast('OTP is received', false, 'middle', 1000);
       this.OTPmessage = ' ';
+      $('.continuebtn').click();
       this.stop();
     }
   }
