@@ -130,6 +130,9 @@ let AllMaterialsPage = class AllMaterialsPage {
             {
                 name: 'Matrushree Lace',
             },
+            {
+                name: '23 Needle',
+            },
         ];
     }
     ngOnInit() {

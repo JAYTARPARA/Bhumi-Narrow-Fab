@@ -627,6 +627,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 /* harmony import */ var _services_authentication_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./services/authentication.service */ "./src/app/services/authentication.service.ts");
 /* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ionic/storage */ "./node_modules/@ionic/storage/fesm5/ionic-storage.js");
+/* harmony import */ var _ionic_native_onesignal_ngx__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @ionic-native/onesignal/ngx */ "./node_modules/@ionic-native/onesignal/ngx/index.js");
+/* harmony import */ var _ionic_native_autostart_ngx__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @ionic-native/autostart/ngx */ "./node_modules/@ionic-native/autostart/ngx/index.js");
+/* harmony import */ var _ionic_native_background_mode_ngx__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @ionic-native/background-mode/ngx */ "./node_modules/@ionic-native/background-mode/ngx/index.js");
+
+
+
 
 
 
@@ -637,7 +643,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var AppComponent = /** @class */ (function () {
-    function AppComponent(platform, splashScreen, statusBar, fireAuth, router, menu, loadingController, alertCtrl, auth, navCtrl, activatedRoute, storage) {
+    function AppComponent(platform, splashScreen, statusBar, fireAuth, router, menu, loadingController, alertCtrl, auth, navCtrl, activatedRoute, storage, oneSignal, autostart, backgroundMode) {
         var _this = this;
         this.platform = platform;
         this.splashScreen = splashScreen;
@@ -651,6 +657,9 @@ var AppComponent = /** @class */ (function () {
         this.navCtrl = navCtrl;
         this.activatedRoute = activatedRoute;
         this.storage = storage;
+        this.oneSignal = oneSignal;
+        this.autostart = autostart;
+        this.backgroundMode = backgroundMode;
         this.showMenu = false;
         this.callFirstTime = false;
         // this.backButtonSubscription = this.platform.backButton.subscribeWithPriority(999999, () => {
@@ -705,7 +714,12 @@ var AppComponent = /** @class */ (function () {
     AppComponent.prototype.initializeApp = function () {
         var _this = this;
         this.platform.ready().then(function () {
+            if (_this.platform.is('cordova')) {
+                _this.setupPush();
+            }
             // this.statusBar.styleDefault();
+            // this.backgroundMode.enable();
+            _this.autostart.enable();
             _this.statusBar.backgroundColorByHexString('#222');
             _this.splashScreen.hide();
             _this.checkUserStatus();
@@ -846,6 +860,23 @@ var AppComponent = /** @class */ (function () {
             });
         });
     };
+    AppComponent.prototype.setupPush = function () {
+        // I recommend to put these into your environment.ts
+        this.oneSignal.startInit('a1711926-9bb5-45f3-8b9c-c491e036198d', '900635805457');
+        this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.None);
+        // Notifcation was received in general
+        this.oneSignal.handleNotificationReceived().subscribe(function (data) {
+            var msg = data.payload.body;
+            var title = data.payload.title;
+            var additionalData = data.payload.additionalData;
+        });
+        // Notification was really clicked/opened
+        this.oneSignal.handleNotificationOpened().subscribe(function (data) {
+            // Just a note that the data is a different place here!
+            var additionalData = data.notification.payload.additionalData;
+        });
+        this.oneSignal.endInit();
+    };
     AppComponent.ctorParameters = function () { return [
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["Platform"] },
         { type: _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_2__["SplashScreen"] },
@@ -858,7 +889,10 @@ var AppComponent = /** @class */ (function () {
         { type: _services_authentication_service__WEBPACK_IMPORTED_MODULE_7__["AuthenticationService"] },
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["NavController"] },
         { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"] },
-        { type: _ionic_storage__WEBPACK_IMPORTED_MODULE_8__["Storage"] }
+        { type: _ionic_storage__WEBPACK_IMPORTED_MODULE_8__["Storage"] },
+        { type: _ionic_native_onesignal_ngx__WEBPACK_IMPORTED_MODULE_9__["OneSignal"] },
+        { type: _ionic_native_autostart_ngx__WEBPACK_IMPORTED_MODULE_10__["Autostart"] },
+        { type: _ionic_native_background_mode_ngx__WEBPACK_IMPORTED_MODULE_11__["BackgroundMode"] }
     ]; };
     AppComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -877,7 +911,10 @@ var AppComponent = /** @class */ (function () {
             _services_authentication_service__WEBPACK_IMPORTED_MODULE_7__["AuthenticationService"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["NavController"],
             _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"],
-            _ionic_storage__WEBPACK_IMPORTED_MODULE_8__["Storage"]])
+            _ionic_storage__WEBPACK_IMPORTED_MODULE_8__["Storage"],
+            _ionic_native_onesignal_ngx__WEBPACK_IMPORTED_MODULE_9__["OneSignal"],
+            _ionic_native_autostart_ngx__WEBPACK_IMPORTED_MODULE_10__["Autostart"],
+            _ionic_native_background_mode_ngx__WEBPACK_IMPORTED_MODULE_11__["BackgroundMode"]])
     ], AppComponent);
     return AppComponent;
 }());
@@ -921,6 +958,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_native_sms_ngx__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @ionic-native/sms/ngx */ "./node_modules/@ionic-native/sms/ngx/index.js");
 /* harmony import */ var _pages_image_modal_image_modal_module__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./pages/image-modal/image-modal.module */ "./src/app/pages/image-modal/image-modal.module.ts");
 /* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @ionic/storage */ "./node_modules/@ionic/storage/fesm5/ionic-storage.js");
+/* harmony import */ var _ionic_native_onesignal_ngx__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @ionic-native/onesignal/ngx */ "./node_modules/@ionic-native/onesignal/ngx/index.js");
+/* harmony import */ var _ionic_native_autostart_ngx__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @ionic-native/autostart/ngx */ "./node_modules/@ionic-native/autostart/ngx/index.js");
+/* harmony import */ var _ionic_native_background_mode_ngx__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! @ionic-native/background-mode/ngx */ "./node_modules/@ionic-native/background-mode/ngx/index.js");
 
 
 
@@ -933,6 +973,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 // import * as admin from 'firebase-admin';
+
+
+
 
 
 
@@ -1042,6 +1085,9 @@ var AppModule = /** @class */ (function () {
                 _ionic_native_file_ngx__WEBPACK_IMPORTED_MODULE_18__["File"],
                 _ionic_native_call_number_ngx__WEBPACK_IMPORTED_MODULE_19__["CallNumber"],
                 _ionic_native_sms_ngx__WEBPACK_IMPORTED_MODULE_21__["SMS"],
+                _ionic_native_onesignal_ngx__WEBPACK_IMPORTED_MODULE_24__["OneSignal"],
+                _ionic_native_autostart_ngx__WEBPACK_IMPORTED_MODULE_25__["Autostart"],
+                _ionic_native_background_mode_ngx__WEBPACK_IMPORTED_MODULE_26__["BackgroundMode"],
             ],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"]]
         }),
@@ -1468,6 +1514,9 @@ var AuthenticationService = /** @class */ (function () {
                         }
                         else if (company == 'Matrushree Lace') {
                             whatsappnumber = '+918488923655';
+                        }
+                        else if (company == '23 Needle') {
+                            whatsappnumber = '+917778997755';
                         }
                         if (!this.plt.is('cordova')) return [3 /*break*/, 1];
                         return [2 /*return*/, this.socialSharing.shareViaWhatsAppToReceiver(whatsappnumber, message, '', '').then(function (res) { return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this, void 0, void 0, function () {

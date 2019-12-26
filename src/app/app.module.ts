@@ -22,6 +22,9 @@ import { AuthenticationService } from './services/authentication.service';
 import { SMS } from '@ionic-native/sms/ngx';
 import { ImageModalPageModule } from './pages/image-modal/image-modal.module';
 import { IonicStorageModule } from '@ionic/storage';
+import { OneSignal } from '@ionic-native/onesignal/ngx';
+import { Autostart } from '@ionic-native/autostart/ngx';
+import { BackgroundMode } from '@ionic-native/background-mode/ngx';
 
 firebase.initializeApp({
   apiKey: 'AIzaSyBA6WJFcR_c13T9Q-hIdwXRV5GC59OdPmg',
@@ -76,6 +79,9 @@ BrowserModule,
     File,
     CallNumber,
     SMS,
+    OneSignal,
+    Autostart,
+    BackgroundMode,
   ],
   bootstrap: [AppComponent]
 })

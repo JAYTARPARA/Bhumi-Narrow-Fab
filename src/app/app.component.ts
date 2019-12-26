@@ -6,6 +6,9 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { MenuController, Platform, LoadingController, AlertController, NavController } from '@ionic/angular';
 import { AuthenticationService } from './services/authentication.service';
 import { Storage } from '@ionic/storage';
+import { OneSignal } from '@ionic-native/onesignal/ngx';
+import { Autostart } from '@ionic-native/autostart/ngx';
+import { BackgroundMode } from '@ionic-native/background-mode/ngx';
 
 @Component({
   selector: 'app-root',
@@ -33,6 +36,9 @@ export class AppComponent {
     public navCtrl: NavController,
     private activatedRoute: ActivatedRoute,
     private storage: Storage,
+    private oneSignal: OneSignal,
+    private autostart: Autostart,
+    private backgroundMode: BackgroundMode,
   ) {
     // this.backButtonSubscription = this.platform.backButton.subscribeWithPriority(999999, () => {
       // tslint:disable-next-line:max-line-length
@@ -83,7 +89,12 @@ export class AppComponent {
 
   initializeApp() {
     this.platform.ready().then(() => {
+      if (this.platform.is('cordova')) {
+        this.setupPush();
+      }
       // this.statusBar.styleDefault();
+      // this.backgroundMode.enable();
+      this.autostart.enable();
       this.statusBar.backgroundColorByHexString('#222');
       this.splashScreen.hide();
       this.checkUserStatus();
@@ -190,5 +201,27 @@ export class AppComponent {
     });
 
     await alert.present();
+  }
+
+  setupPush() {
+    // I recommend to put these into your environment.ts
+    this.oneSignal.startInit('a1711926-9bb5-45f3-8b9c-c491e036198d', '900635805457');
+
+    this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.None);
+
+    // Notifcation was received in general
+    this.oneSignal.handleNotificationReceived().subscribe(data => {
+      const msg = data.payload.body;
+      const title = data.payload.title;
+      const additionalData = data.payload.additionalData;
+    });
+
+    // Notification was really clicked/opened
+    this.oneSignal.handleNotificationOpened().subscribe(data => {
+      // Just a note that the data is a different place here!
+      const additionalData = data.notification.payload.additionalData;
+    });
+
+    this.oneSignal.endInit();
   }
 }

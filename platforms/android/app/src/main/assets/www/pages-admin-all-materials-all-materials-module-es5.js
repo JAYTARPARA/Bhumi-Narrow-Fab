@@ -133,6 +133,9 @@ var AllMaterialsPage = /** @class */ (function () {
             {
                 name: 'Matrushree Lace',
             },
+            {
+                name: '23 Needle',
+            },
         ];
     }
     AllMaterialsPage.prototype.ngOnInit = function () {

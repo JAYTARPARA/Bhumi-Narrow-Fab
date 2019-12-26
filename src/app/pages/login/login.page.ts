@@ -119,7 +119,7 @@ export class LoginPage implements OnInit {
             this.presentToast('Waiting for OTP', false, 'middle', 1000);
             // Enable this for app test
             this.confirmationResultOTP = confirmationResult;
-            this.start();
+            // this.start();
           }).catch( (error) => {
             this.hideLoader();
             this.showAlertForError(error.message);
@@ -243,7 +243,7 @@ export class LoginPage implements OnInit {
       console.log(this.OTP);
       this.presentToast('OTP is received', false, 'middle', 1000);
       this.OTPmessage = ' ';
-      $('.continuebtn').click();
+      // $('.continuebtn').click();
       this.stop();
     }
   }

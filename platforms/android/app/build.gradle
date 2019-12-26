@@ -98,6 +98,7 @@ ext {
 }
 
 // PLUGIN GRADLE EXTENSIONS START
+apply from: "../onesignal-cordova-plugin/app-build-extras-onesignal.gradle"
 // PLUGIN GRADLE EXTENSIONS END
 
 def hasBuildExtras1 = file('build-extras.gradle').exists()
@@ -297,6 +298,7 @@ dependencies {
     implementation "com.squareup.okhttp3:okhttp-urlconnection:3.10.0"
     implementation "com.android.support:support-v4:24.1.1+"
     implementation "com.android.support:support-v4:27.+"
+    implementation "com.onesignal:OneSignal:3.12.4"
     // SUB-PROJECT DEPENDENCIES END
 }
 

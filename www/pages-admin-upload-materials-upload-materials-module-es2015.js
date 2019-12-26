@@ -109,6 +109,9 @@ let UploadMaterialsPage = class UploadMaterialsPage {
             {
                 name: 'Matrushree Lace',
             },
+            {
+                name: '23 Needle',
+            },
         ];
     }
     ngOnInit() {

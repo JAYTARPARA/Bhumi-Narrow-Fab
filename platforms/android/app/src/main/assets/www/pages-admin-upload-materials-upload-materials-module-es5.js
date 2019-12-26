@@ -112,6 +112,9 @@ var UploadMaterialsPage = /** @class */ (function () {
             {
                 name: 'Matrushree Lace',
             },
+            {
+                name: '23 Needle',
+            },
         ];
     }
     UploadMaterialsPage.prototype.ngOnInit = function () {

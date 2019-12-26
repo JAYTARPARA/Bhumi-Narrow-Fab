@@ -291,14 +291,6 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       ]
     },
     {
-      "id": "cordova-plugin-sms-receive.SMSReceive",
-      "file": "plugins/cordova-plugin-sms-receive/www/SMSReceive.js",
-      "pluginId": "cordova-plugin-sms-receive",
-      "clobbers": [
-        "window.SMSReceive"
-      ]
-    },
-    {
       "id": "cordova-plugin-camera.Camera",
       "file": "plugins/cordova-plugin-camera/www/CameraConstants.js",
       "pluginId": "cordova-plugin-camera",
@@ -369,6 +361,31 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       "clobbers": [
         "SQLitePlugin"
       ]
+    },
+    {
+      "id": "onesignal-cordova-plugin.OneSignal",
+      "file": "plugins/onesignal-cordova-plugin/www/OneSignal.js",
+      "pluginId": "onesignal-cordova-plugin",
+      "clobbers": [
+        "OneSignal"
+      ]
+    },
+    {
+      "id": "cordova-plugin-autostart.AutoStart",
+      "file": "plugins/cordova-plugin-autostart/www/auto-start.js",
+      "pluginId": "cordova-plugin-autostart",
+      "clobbers": [
+        "cordova.plugins.autoStart"
+      ]
+    },
+    {
+      "id": "cordova-plugin-background-mode.BackgroundMode",
+      "file": "plugins/cordova-plugin-background-mode/www/background-mode.js",
+      "pluginId": "cordova-plugin-background-mode",
+      "clobbers": [
+        "cordova.plugins.backgroundMode",
+        "plugin.backgroundMode"
+      ]
     }
   ];
   module.exports.metadata = {
@@ -382,11 +399,13 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "cordova-plugin-advanced-http": "2.2.0",
     "es6-promise-plugin": "4.2.2",
     "cordova-plugin-x-socialsharing": "5.6.0",
-    "cordova-plugin-sms-receive": "1.0.2",
     "cordova-plugin-camera": "4.1.0",
     "cordova-plugin-file-transfer": "1.7.1",
     "mx.ferreyra.callnumber": "0.0.2",
     "cordova-sms-plugin": "1.0.0",
-    "cordova-sqlite-storage": "3.4.0"
+    "cordova-sqlite-storage": "3.4.0",
+    "onesignal-cordova-plugin": "2.8.1",
+    "cordova-plugin-autostart": "2.3.0",
+    "cordova-plugin-background-mode": "0.7.3"
   };
 });

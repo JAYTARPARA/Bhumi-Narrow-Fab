@@ -45,7 +45,7 @@ export class AllMaterialsPage implements OnInit {
   showNoDataForSearch = true;
   owner = 'All';
   backButtonSubscription: any;
-  
+
   materialOwner: any[] = [
     {
       name : 'All',
@@ -55,6 +55,9 @@ export class AllMaterialsPage implements OnInit {
     },
     {
       name : 'Matrushree Lace',
+    },
+    {
+      name : '23 Needle',
     },
   ];
 

@@ -275,6 +275,8 @@ export class AuthenticationService {
       whatsappnumber = '+919825783611';
     } else if (company == 'Matrushree Lace') {
       whatsappnumber = '+918488923655';
+    } else if (company == '23 Needle') {
+      whatsappnumber = '+917778997755';
     }
 
     if (this.plt.is('cordova')) {

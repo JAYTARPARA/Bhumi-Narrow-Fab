@@ -27,6 +27,9 @@ export class UploadMaterialsPage implements OnInit {
     {
       name : 'Matrushree Lace',
     },
+    {
+      name : '23 Needle',
+    },
   ];
 
   constructor(
