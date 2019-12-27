@@ -1,0 +1,104 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "cordova-support-google-services@~1.3.1",
+        "scope": null,
+        "escapedName": "cordova-support-google-services",
+        "name": "cordova-support-google-services",
+        "rawSpec": "~1.3.1",
+        "spec": ">=1.3.1 <1.4.0",
+        "type": "range"
+      },
+      "C:\\Projects\\My Ionic Projects\\bhuminarrowfab"
+    ]
+  ],
+  "_from": "cordova-support-google-services@>=1.3.1 <1.4.0",
+  "_hasShrinkwrap": false,
+  "_id": "cordova-support-google-services@1.3.2",
+  "_inCache": true,
+  "_location": "/cordova-support-google-services",
+  "_nodeVersion": "8.15.1",
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/cordova-support-google-services_1.3.2_1572253229006_0.6993331020524627"
+  },
+  "_npmUser": {
+    "name": "chemerisuk",
+    "email": "chemerisuk@gmail.com"
+  },
+  "_npmVersion": "6.4.1",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "cordova-support-google-services@~1.3.1",
+    "scope": null,
+    "escapedName": "cordova-support-google-services",
+    "name": "cordova-support-google-services",
+    "rawSpec": "~1.3.1",
+    "spec": ">=1.3.1 <1.4.0",
+    "type": "range"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/cordova-support-google-services/-/cordova-support-google-services-1.3.2.tgz",
+  "_shasum": "39f05f123e12c97adb8cd80cac3f3ff948ca7e23",
+  "_shrinkwrap": null,
+  "_spec": "cordova-support-google-services@~1.3.1",
+  "_where": "C:\\Projects\\My Ionic Projects\\bhuminarrowfab",
+  "author": {
+    "name": "Maksim Chemerisuk",
+    "email": "chemerisuk@gmail.com",
+    "url": "https://github.com/chemerisuk"
+  },
+  "bugs": {
+    "url": "https://github.com/chemerisuk/cordova-support-google-services/issues"
+  },
+  "cordova": {
+    "id": "cordova-support-google-services",
+    "platforms": [
+      "android"
+    ]
+  },
+  "dependencies": {},
+  "description": "Cordova plugin to add google service support",
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "integrity": "sha512-RtEWzULreUX662MFWopGhFispLiHX7gUf2GijPOC2mY2oCNuUobj2mO4tl5q7PYbOreSxq+PrSekhmS6TAAWdw==",
+    "shasum": "39f05f123e12c97adb8cd80cac3f3ff948ca7e23",
+    "tarball": "https://registry.npmjs.org/cordova-support-google-services/-/cordova-support-google-services-1.3.2.tgz",
+    "fileCount": 5,
+    "unpackedSize": 6635,
+    "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJdtq4tCRA9TVsSAnZWagAAWBsP/2Mv/3Jc0TauMgMy6rto\n5gWX+B+F5CIjIJidWj0f6DbOPFcGqnwLZOuGK0/Sif0Pk8pmbBNOOmOSvFDf\nl09XKHek59oc7Ya8GJ7RAcwU0EvlMlVo1eXn9J+VTSfn3goL27Im+eV741H/\nO4F+8vnOV0psA/cZXJyHX+Sh1+WvVvgQ3XQALOcRG6+LQpyjWrB+nEOwP7nj\nie4yv8I/eOJm5DP/NHo86Gi6tRigY2Mcj/5EUiM48efWNweGCx7PiYau0ttf\nE/VwbXgCko3tJBL8ZfiJolUEKZHyo4WcL7SyYLvbv50zQKXiIlgKiOLgWZwA\nzlGDfjkRqV+3Yjhwl1GRQRU5Rt4ST8rzKfWBKdE7uT3d7m+dtw1pnFd4sRjW\n96UuPm3Nk7tuvE5JczKWMcZCLni62ysVDCXhq98zBtiHFZ3usn6mTJqZpF1f\nFpUNAN6fb8hKxTCxFjiTj+bPyi5Lau0wAyN6rEtR4G/PQabp67JSKJzQ4IIt\nAAfn94hoR5XVnAzjHHwTMXmRuzjEWBZouaVe2l+ZDsnCwX2IgKf2+tXuzR09\nJ/RMUsZdexLBmbptyS4X2eG3q//YM6gUX4B8AqhzN2GIoAOFIGUzPLuQhQ7t\nTz7FvpTKw/QrdDCXVQaVI56SDxQqA19ywhfVw1uLJVAw3ZzNnex+4jP4e9KL\nzAjC\r\n=xgVr\r\n-----END PGP SIGNATURE-----\r\n"
+  },
+  "gitHead": "f9d05e7ddc0b738e658019f2cf429190f5b05ef5",
+  "homepage": "https://github.com/chemerisuk/cordova-support-google-services#readme",
+  "keywords": [
+    "cordova",
+    "google services",
+    "firebase",
+    "ecosystem:cordova",
+    "cordova-android"
+  ],
+  "license": "MIT",
+  "maintainers": [
+    {
+      "name": "chemerisuk",
+      "email": "chemerisuk@gmail.com"
+    }
+  ],
+  "name": "cordova-support-google-services",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chemerisuk/cordova-support-google-services.git"
+  },
+  "scripts": {
+    "postversion": "git push && git push --tags",
+    "version": "replace -s 'version=\"(.+)(?=\">)' 'version=\"'$npm_package_version plugin.xml && git add plugin.xml"
+  },
+  "version": "1.3.2"
+}

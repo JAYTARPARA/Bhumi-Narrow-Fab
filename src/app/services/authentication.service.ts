@@ -871,4 +871,20 @@ export class AuthenticationService {
       });
     }
   }
+
+  addRegistrationID(registrationId) {
+    console.log(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=saveRegistrationID&registrationId=${registrationId}`);
+    if (this.plt.is('cordova')) {
+      return new Promise(resolve => {
+      // tslint:disable-next-line:max-line-length
+      from(this.nativeHttp.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=saveRegistrationID&registrationId=${registrationId}`, { 'Content-Type': 'application/json' }, {}))
+      .subscribe(
+        data => {
+          resolve(JSON.parse(data.data));
+        }, error => {
+          resolve({success: 2, message: this.serverErrorMsg});
+        });
+      });
+    }
+  }
 }

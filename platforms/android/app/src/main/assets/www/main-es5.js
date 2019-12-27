@@ -630,6 +630,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_native_onesignal_ngx__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @ionic-native/onesignal/ngx */ "./node_modules/@ionic-native/onesignal/ngx/index.js");
 /* harmony import */ var _ionic_native_autostart_ngx__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @ionic-native/autostart/ngx */ "./node_modules/@ionic-native/autostart/ngx/index.js");
 /* harmony import */ var _ionic_native_background_mode_ngx__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @ionic-native/background-mode/ngx */ "./node_modules/@ionic-native/background-mode/ngx/index.js");
+/* harmony import */ var _ionic_native_push_ngx__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @ionic-native/push/ngx */ "./node_modules/@ionic-native/push/ngx/index.js");
+
 
 
 
@@ -643,7 +645,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var AppComponent = /** @class */ (function () {
-    function AppComponent(platform, splashScreen, statusBar, fireAuth, router, menu, loadingController, alertCtrl, auth, navCtrl, activatedRoute, storage, oneSignal, autostart, backgroundMode) {
+    function AppComponent(platform, splashScreen, statusBar, fireAuth, router, menu, loadingController, alertCtrl, auth, navCtrl, activatedRoute, storage, oneSignal, autostart, backgroundMode, push) {
         var _this = this;
         this.platform = platform;
         this.splashScreen = splashScreen;
@@ -660,6 +662,7 @@ var AppComponent = /** @class */ (function () {
         this.oneSignal = oneSignal;
         this.autostart = autostart;
         this.backgroundMode = backgroundMode;
+        this.push = push;
         this.showMenu = false;
         this.callFirstTime = false;
         // this.backButtonSubscription = this.platform.backButton.subscribeWithPriority(999999, () => {
@@ -715,6 +718,7 @@ var AppComponent = /** @class */ (function () {
         var _this = this;
         this.platform.ready().then(function () {
             if (_this.platform.is('cordova')) {
+                _this.initPushNotification();
                 _this.setupPush();
             }
             // this.statusBar.styleDefault();
@@ -877,6 +881,46 @@ var AppComponent = /** @class */ (function () {
         });
         this.oneSignal.endInit();
     };
+    AppComponent.prototype.initPushNotification = function () {
+        var _this = this;
+        // to check if we have permission
+        this.push.hasPermission()
+            .then(function (res) {
+            if (res.isEnabled) {
+                console.log('We have permission to send push notifications');
+            }
+            else {
+                console.log('We do not have permission to send push notifications');
+            }
+        });
+        // Create a channel (Android O and above). You'll need to provide the id, description and importance properties.
+        this.push.createChannel({
+            id: 'bhuminarrowfab',
+            description: 'Bhumi Narrow Fab channel',
+            // The importance property goes from 1 = Lowest, 2 = Low, 3 = Normal, 4 = High and 5 = Highest.
+            importance: 5
+        }).then(function () { return console.log('Channel created'); });
+        var options = {
+            android: {
+                senderID: '900635805457',
+            }
+        };
+        var pushObject = this.push.init(options);
+        pushObject.on('notification').subscribe(function (notification) {
+            console.log('Received a notification');
+            console.log(notification);
+        });
+        pushObject.on('registration').subscribe(function (registration) {
+            console.log('Registered');
+            console.log(registration);
+            var registrationId = registration['registrationId'];
+            _this.auth.addRegistrationID(btoa(registrationId)).then(function (response) {
+                console.log('Add Token');
+                console.log(response);
+            });
+        });
+        pushObject.on('error').subscribe(function (error) { return console.error('Error with Push plugin', error); });
+    };
     AppComponent.ctorParameters = function () { return [
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["Platform"] },
         { type: _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_2__["SplashScreen"] },
@@ -892,7 +936,8 @@ var AppComponent = /** @class */ (function () {
         { type: _ionic_storage__WEBPACK_IMPORTED_MODULE_8__["Storage"] },
         { type: _ionic_native_onesignal_ngx__WEBPACK_IMPORTED_MODULE_9__["OneSignal"] },
         { type: _ionic_native_autostart_ngx__WEBPACK_IMPORTED_MODULE_10__["Autostart"] },
-        { type: _ionic_native_background_mode_ngx__WEBPACK_IMPORTED_MODULE_11__["BackgroundMode"] }
+        { type: _ionic_native_background_mode_ngx__WEBPACK_IMPORTED_MODULE_11__["BackgroundMode"] },
+        { type: _ionic_native_push_ngx__WEBPACK_IMPORTED_MODULE_12__["Push"] }
     ]; };
     AppComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -914,7 +959,8 @@ var AppComponent = /** @class */ (function () {
             _ionic_storage__WEBPACK_IMPORTED_MODULE_8__["Storage"],
             _ionic_native_onesignal_ngx__WEBPACK_IMPORTED_MODULE_9__["OneSignal"],
             _ionic_native_autostart_ngx__WEBPACK_IMPORTED_MODULE_10__["Autostart"],
-            _ionic_native_background_mode_ngx__WEBPACK_IMPORTED_MODULE_11__["BackgroundMode"]])
+            _ionic_native_background_mode_ngx__WEBPACK_IMPORTED_MODULE_11__["BackgroundMode"],
+            _ionic_native_push_ngx__WEBPACK_IMPORTED_MODULE_12__["Push"]])
     ], AppComponent);
     return AppComponent;
 }());
@@ -961,6 +1007,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_native_onesignal_ngx__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @ionic-native/onesignal/ngx */ "./node_modules/@ionic-native/onesignal/ngx/index.js");
 /* harmony import */ var _ionic_native_autostart_ngx__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @ionic-native/autostart/ngx */ "./node_modules/@ionic-native/autostart/ngx/index.js");
 /* harmony import */ var _ionic_native_background_mode_ngx__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! @ionic-native/background-mode/ngx */ "./node_modules/@ionic-native/background-mode/ngx/index.js");
+/* harmony import */ var _ionic_native_push_ngx__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! @ionic-native/push/ngx */ "./node_modules/@ionic-native/push/ngx/index.js");
 
 
 
@@ -989,6 +1036,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 firebase__WEBPACK_IMPORTED_MODULE_10__["initializeApp"]({
     apiKey: 'AIzaSyBA6WJFcR_c13T9Q-hIdwXRV5GC59OdPmg',
     authDomain: 'bhumi-narrow-fab.firebaseapp.com',
@@ -999,12 +1047,6 @@ firebase__WEBPACK_IMPORTED_MODULE_10__["initializeApp"]({
     appId: '1:900635805457:web:8431369e0f961389b16eb0',
     measurementId: 'G-R4CP2PPVVY'
 });
-// const admin = require('firebase-admin');
-// const serviceAccount = require('src/assets/firebase/bhumi-narrow-fab-firebase-adminsdk-j5q44-977418a653.json');
-// admin.initializeApp({
-//   credential: admin.credential.cert(serviceAccount),
-//   databaseURL: 'https://bhumi-narrow-fab.firebaseio.com'
-// });
 var AppModule = /** @class */ (function () {
     function AppModule(platform, alertCtrl, auth) {
         this.platform = platform;
@@ -1088,6 +1130,7 @@ var AppModule = /** @class */ (function () {
                 _ionic_native_onesignal_ngx__WEBPACK_IMPORTED_MODULE_24__["OneSignal"],
                 _ionic_native_autostart_ngx__WEBPACK_IMPORTED_MODULE_25__["Autostart"],
                 _ionic_native_background_mode_ngx__WEBPACK_IMPORTED_MODULE_26__["BackgroundMode"],
+                _ionic_native_push_ngx__WEBPACK_IMPORTED_MODULE_27__["Push"],
             ],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"]]
         }),
@@ -2093,6 +2136,21 @@ var AuthenticationService = /** @class */ (function () {
                 _this.http.get("https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=checkUserProfileStatus&mobile=" + mobile)
                     .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function (results) { return results; })).subscribe(function (data) {
                     resolve(data);
+                }, function (error) {
+                    resolve({ success: 2, message: _this.serverErrorMsg });
+                });
+            });
+        }
+    };
+    AuthenticationService.prototype.addRegistrationID = function (registrationId) {
+        var _this = this;
+        console.log("https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=saveRegistrationID&registrationId=" + registrationId);
+        if (this.plt.is('cordova')) {
+            return new Promise(function (resolve) {
+                // tslint:disable-next-line:max-line-length
+                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["from"])(_this.nativeHttp.get("https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=saveRegistrationID&registrationId=" + registrationId, { 'Content-Type': 'application/json' }, {}))
+                    .subscribe(function (data) {
+                    resolve(JSON.parse(data.data));
                 }, function (error) {
                     resolve({ success: 2, message: _this.serverErrorMsg });
                 });

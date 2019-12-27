@@ -386,6 +386,14 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
         "cordova.plugins.backgroundMode",
         "plugin.backgroundMode"
       ]
+    },
+    {
+      "id": "phonegap-plugin-push.PushNotification",
+      "file": "plugins/phonegap-plugin-push/www/push.js",
+      "pluginId": "phonegap-plugin-push",
+      "clobbers": [
+        "PushNotification"
+      ]
     }
   ];
   module.exports.metadata = {
@@ -406,6 +414,9 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "cordova-sqlite-storage": "3.4.0",
     "onesignal-cordova-plugin": "2.8.1",
     "cordova-plugin-autostart": "2.3.0",
-    "cordova-plugin-background-mode": "0.7.3"
+    "cordova-plugin-background-mode": "0.7.3",
+    "cordova-support-google-services": "1.3.2",
+    "phonegap-plugin-multidex": "1.0.0",
+    "phonegap-plugin-push": "2.3.0"
   };
 });

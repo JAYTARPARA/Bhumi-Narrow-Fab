@@ -99,6 +99,8 @@ ext {
 
 // PLUGIN GRADLE EXTENSIONS START
 apply from: "../onesignal-cordova-plugin/app-build-extras-onesignal.gradle"
+apply from: "../cordova-support-google-services/app-build.gradle"
+apply from: "../phonegap-plugin-multidex/app-multidex.gradle"
 // PLUGIN GRADLE EXTENSIONS END
 
 def hasBuildExtras1 = file('build-extras.gradle').exists()
@@ -299,6 +301,9 @@ dependencies {
     implementation "com.android.support:support-v4:24.1.1+"
     implementation "com.android.support:support-v4:27.+"
     implementation "com.onesignal:OneSignal:3.12.4"
+    implementation "com.android.support:support-v13:27.+"
+    implementation "me.leolin:ShortcutBadger:1.1.17@aar"
+    implementation "com.google.firebase:firebase-messaging:17.0.+"
     // SUB-PROJECT DEPENDENCIES END
 }
 

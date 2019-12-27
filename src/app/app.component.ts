@@ -9,6 +9,7 @@ import { Storage } from '@ionic/storage';
 import { OneSignal } from '@ionic-native/onesignal/ngx';
 import { Autostart } from '@ionic-native/autostart/ngx';
 import { BackgroundMode } from '@ionic-native/background-mode/ngx';
+import { Push, PushObject, PushOptions } from '@ionic-native/push/ngx';
 
 @Component({
   selector: 'app-root',
@@ -39,6 +40,7 @@ export class AppComponent {
     private oneSignal: OneSignal,
     private autostart: Autostart,
     private backgroundMode: BackgroundMode,
+    public push: Push,
   ) {
     // this.backButtonSubscription = this.platform.backButton.subscribeWithPriority(999999, () => {
       // tslint:disable-next-line:max-line-length
@@ -90,6 +92,7 @@ export class AppComponent {
   initializeApp() {
     this.platform.ready().then(() => {
       if (this.platform.is('cordova')) {
+        this.initPushNotification();
         this.setupPush();
       }
       // this.statusBar.styleDefault();
@@ -223,5 +226,47 @@ export class AppComponent {
     });
 
     this.oneSignal.endInit();
+  }
+
+  initPushNotification() {
+    // to check if we have permission
+    this.push.hasPermission()
+    .then((res: any) => {
+      if (res.isEnabled) {
+        console.log('We have permission to send push notifications');
+      } else {
+        console.log('We do not have permission to send push notifications');
+      }
+    });
+
+    // Create a channel (Android O and above). You'll need to provide the id, description and importance properties.
+    this.push.createChannel({
+      id: 'bhuminarrowfab',
+      description: 'Bhumi Narrow Fab channel',
+      // The importance property goes from 1 = Lowest, 2 = Low, 3 = Normal, 4 = High and 5 = Highest.
+      importance: 5
+    }).then(() => console.log('Channel created'));
+
+    const options: PushOptions = {
+      android: {
+        senderID: '900635805457',
+      }
+     };
+
+    const pushObject: PushObject = this.push.init(options);
+    pushObject.on('notification').subscribe((notification: any) => {
+      console.log('Received a notification');
+      console.log(notification);
+    });
+    pushObject.on('registration').subscribe((registration: any) => {
+      console.log('Registered');
+      console.log(registration);
+      const registrationId = registration['registrationId'];
+      this.auth.addRegistrationID(btoa(registrationId)).then(response => {
+        console.log('Add Token');
+        console.log(response);
+      });
+    });
+    pushObject.on('error').subscribe(error => console.error('Error with Push plugin', error));
   }
 }

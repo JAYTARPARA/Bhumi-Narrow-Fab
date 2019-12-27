@@ -25,6 +25,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { OneSignal } from '@ionic-native/onesignal/ngx';
 import { Autostart } from '@ionic-native/autostart/ngx';
 import { BackgroundMode } from '@ionic-native/background-mode/ngx';
+import { Push, PushObject, PushOptions } from '@ionic-native/push/ngx';
 
 firebase.initializeApp({
   apiKey: 'AIzaSyBA6WJFcR_c13T9Q-hIdwXRV5GC59OdPmg',
@@ -36,14 +37,6 @@ firebase.initializeApp({
   appId: '1:900635805457:web:8431369e0f961389b16eb0',
   measurementId: 'G-R4CP2PPVVY'
 });
-
-// const admin = require('firebase-admin');
-// const serviceAccount = require('src/assets/firebase/bhumi-narrow-fab-firebase-adminsdk-j5q44-977418a653.json');
-
-// admin.initializeApp({
-//   credential: admin.credential.cert(serviceAccount),
-//   databaseURL: 'https://bhumi-narrow-fab.firebaseio.com'
-// });
 
 @NgModule({
   declarations: [AppComponent ],
@@ -82,6 +75,7 @@ BrowserModule,
     OneSignal,
     Autostart,
     BackgroundMode,
+    Push,
   ],
   bootstrap: [AppComponent]
 })

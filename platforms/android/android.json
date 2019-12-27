@@ -98,6 +98,10 @@
             {
               "xml": "<preference name=\"KeepRunning\" value=\"true\" />",
               "count": 1
+            },
+            {
+              "xml": "<feature name=\"PushNotification\"><param name=\"android-package\" value=\"com.adobe.phonegap.push.PushPlugin\" /></feature>",
+              "count": 1
             }
           ]
         }
@@ -121,7 +125,7 @@
           "/manifest": [
             {
               "xml": "<uses-permission android:name=\"android.permission.INTERNET\" />",
-              "count": 1
+              "count": 2
             },
             {
               "xml": "<uses-feature android:name=\"android.hardware.telephony\" android:required=\"false\" />",
@@ -145,6 +149,14 @@
             },
             {
               "xml": "<uses-permission android:name=\"android.permission.WAKE_LOCK\" />",
+              "count": 2
+            },
+            {
+              "xml": "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />",
+              "count": 1
+            },
+            {
+              "xml": "<uses-permission android:name=\"android.permission.VIBRATE\" />",
               "count": 1
             }
           ],
@@ -185,6 +197,26 @@
             },
             {
               "xml": "<service android:name=\"de.appplant.cordova.plugin.background.ForegroundService\" />",
+              "count": 1
+            },
+            {
+              "xml": "<activity android:exported=\"true\" android:name=\"com.adobe.phonegap.push.PushHandlerActivity\" android:permission=\"${applicationId}.permission.PushHandlerActivity\" />",
+              "count": 1
+            },
+            {
+              "xml": "<receiver android:name=\"com.adobe.phonegap.push.BackgroundActionButtonHandler\" />",
+              "count": 1
+            },
+            {
+              "xml": "<receiver android:name=\"com.adobe.phonegap.push.PushDismissedHandler\" />",
+              "count": 1
+            },
+            {
+              "xml": "<service android:name=\"com.adobe.phonegap.push.FCMService\"><intent-filter><action android:name=\"com.google.firebase.MESSAGING_EVENT\" /></intent-filter></service>",
+              "count": 1
+            },
+            {
+              "xml": "<service android:name=\"com.adobe.phonegap.push.PushInstanceIDListenerService\"><intent-filter><action android:name=\"com.google.firebase.INSTANCE_ID_EVENT\" /></intent-filter></service>",
               "count": 1
             }
           ],
@@ -285,6 +317,17 @@
       "PACKAGE_NAME": "com.bhuminarrowfab.app"
     },
     "cordova-plugin-background-mode": {
+      "PACKAGE_NAME": "com.bhuminarrowfab.app"
+    },
+    "cordova-support-google-services": {
+      "PACKAGE_NAME": "com.bhuminarrowfab.app"
+    },
+    "phonegap-plugin-multidex": {
+      "PACKAGE_NAME": "com.bhuminarrowfab.app"
+    },
+    "phonegap-plugin-push": {
+      "ANDROID_SUPPORT_V13_VERSION": "27.+",
+      "FCM_VERSION": "17.0.+",
       "PACKAGE_NAME": "com.bhuminarrowfab.app"
     }
   },
@@ -676,6 +719,14 @@
         "cordova.plugins.backgroundMode",
         "plugin.backgroundMode"
       ]
+    },
+    {
+      "id": "phonegap-plugin-push.PushNotification",
+      "file": "plugins/phonegap-plugin-push/www/push.js",
+      "pluginId": "phonegap-plugin-push",
+      "clobbers": [
+        "PushNotification"
+      ]
     }
   ],
   "plugin_metadata": {
@@ -696,6 +747,9 @@
     "cordova-sqlite-storage": "3.4.0",
     "onesignal-cordova-plugin": "2.8.1",
     "cordova-plugin-autostart": "2.3.0",
-    "cordova-plugin-background-mode": "0.7.3"
+    "cordova-plugin-background-mode": "0.7.3",
+    "cordova-support-google-services": "1.3.2",
+    "phonegap-plugin-multidex": "1.0.0",
+    "phonegap-plugin-push": "2.3.0"
   }
 }

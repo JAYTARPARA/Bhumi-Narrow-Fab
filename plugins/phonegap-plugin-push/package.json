@@ -1,0 +1,181 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "phonegap-plugin-push@2.3.0",
+        "scope": null,
+        "escapedName": "phonegap-plugin-push",
+        "name": "phonegap-plugin-push",
+        "rawSpec": "2.3.0",
+        "spec": "2.3.0",
+        "type": "version"
+      },
+      "C:\\Projects\\My Ionic Projects\\bhuminarrowfab"
+    ]
+  ],
+  "_from": "phonegap-plugin-push@2.3.0",
+  "_hasShrinkwrap": false,
+  "_id": "phonegap-plugin-push@2.3.0",
+  "_inCache": true,
+  "_location": "/phonegap-plugin-push",
+  "_nodeVersion": "10.16.1",
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/phonegap-plugin-push_2.3.0_1568923228814_0.8193061829083716"
+  },
+  "_npmUser": {
+    "name": "purplecabbage",
+    "email": "purplecabbage@gmail.com"
+  },
+  "_npmVersion": "6.9.0",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "phonegap-plugin-push@2.3.0",
+    "scope": null,
+    "escapedName": "phonegap-plugin-push",
+    "name": "phonegap-plugin-push",
+    "rawSpec": "2.3.0",
+    "spec": "2.3.0",
+    "type": "version"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/phonegap-plugin-push/-/phonegap-plugin-push-2.3.0.tgz",
+  "_shasum": "2703cbcb139cffa426695ab7f2d5af3011d12578",
+  "_shrinkwrap": null,
+  "_spec": "phonegap-plugin-push@2.3.0",
+  "_where": "C:\\Projects\\My Ionic Projects\\bhuminarrowfab",
+  "author": {
+    "name": "Adobe PhoneGap Team"
+  },
+  "bugs": {
+    "url": "https://github.com/phonegap/phonegap-plugin-push/issues"
+  },
+  "cordova": {
+    "id": "phonegap-plugin-push",
+    "platforms": [
+      "ios",
+      "android",
+      "windows",
+      "browser"
+    ]
+  },
+  "dependencies": {
+    "install": "^0.8.2"
+  },
+  "description": "Register and receive push notifications.",
+  "devDependencies": {
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "babel-eslint": "^10.0.3",
+    "babel-plugin-add-header-comment": "^1.0.3",
+    "eslint": "^6.2.2",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "jasmine": "^3.4.0",
+    "nodemon": "^1.19.1",
+    "pluginpub": "^0.0.9"
+  },
+  "directories": {},
+  "dist": {
+    "integrity": "sha512-0R35BGVvvNzov3fckBspc7snwsIdClIBhI7jUCIa7AgSZy2Lrwm8kPuLTyzMVSNR3MJTxWX6s06aDlVL7EvQ3w==",
+    "shasum": "2703cbcb139cffa426695ab7f2d5af3011d12578",
+    "tarball": "https://registry.npmjs.org/phonegap-plugin-push/-/phonegap-plugin-push-2.3.0.tgz",
+    "fileCount": 51,
+    "unpackedSize": 527355,
+    "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJdg95dCRA9TVsSAnZWagAAoRsP/1eMcCA/7WWl4pRd4Uko\nNC1RRZ9P3ekXgy6Wft9NcxzkExi+YwdgaV2IQkW+8vXPigpPR+Ip3JiCR0qJ\n7JmrJQwParY8ktb5QeeDyNhKwQaWsC/AA5a1KfetyYRVD3cGvLsT8Dy8Cm5s\n9eBk5nPAjHZ+ECp8K2V++EKMd+PF7J2lJYxMdPTNya7QBaLYruzjBCZRoeym\nkzdFZEEZ4zwuBZz9mgDU6r8ha7+yaDNwHJB8Di6K/ULmMuTFZUZE9kFOm8rs\n/KyGiB/Xd0j38rGEmYQKi9PjEDnUQ6lXRoa0sUC4LgEXgPCMAA+MBA/AvtgC\noA7qoF3umKWxSwExu3RXt3DLjWOAa11WkYZ30ODbpCWHJDcZZ2wivVv1HDmh\nz/G765ApOHeB7CG0WsuC/9ZaF4XXA5q4S0UnOENrqCkgqJwgu4iZN3b2OBrz\nMroUa76XCelTocZEsG16KOl2UGGrgozHacfLcYFps94O0BDtdoIrjLszoHQA\nuuQhieqJXfOc0KzAaSztG2g35p+yWAjnKiAmxtlt6fYnal2J6wiIRgMrwnxt\n+7MrBAlGE9kHNGsGAbJP8zMTqfE06ogYAZRPqRVn+O9PGw9i42kmMCuYkUim\nlx0U5q9+1YvV0XAHhomIC/VKFDtgwFq/0w6k8hqpZ9eMRABHiYToZ3gnTMh+\n1e0D\r\n=YO2w\r\n-----END PGP SIGNATURE-----\r\n"
+  },
+  "engines": {
+    "cordovaDependencies": {
+      "1.8.2": {
+        "cordova": ">=3.6.3",
+        "cordova-android": ">=4.0.0",
+        "cordova-ios": ">=4.1.0"
+      },
+      "2.0.0": {
+        "cordova": ">=7.0.0",
+        "cordova-android": ">=6.2.1",
+        "cordova-ios": ">=4.4.0"
+      },
+      "2.2.0": {
+        "cordova": ">=7.1.0",
+        "cordova-android": ">=7.1.0",
+        "cordova-ios": ">=4.5.0"
+      },
+      "<2.0.0": {
+        "cordova": ">=6.4.0",
+        "cordova-android": ">=6.0.0",
+        "cordova-ios": ">=4.3.0"
+      },
+      "<2.1.2": {
+        "cordova": ">=7.1.0",
+        "cordova-android": ">=6.3.0",
+        "cordova-ios": ">=4.4.0"
+      },
+      "<2.2.0": {
+        "cordova": ">=7.1.0",
+        "cordova-android": ">=6.3.0",
+        "cordova-ios": ">=4.5.0"
+      }
+    }
+  },
+  "gitHead": "87a8132c071f42d14382f859c1c8436ae634fc69",
+  "homepage": "http://github.com/phonegap/phonegap-plugin-push#readme",
+  "keywords": [
+    "ecosystem:cordova",
+    "ecosystem:phonegap",
+    "cordova-ios",
+    "cordova-android",
+    "cordova-windows8",
+    "cordova-windows",
+    "cordova-wp8",
+    "cordova-browser"
+  ],
+  "license": "MIT",
+  "maintainers": [
+    {
+      "name": "anis",
+      "email": "anis.kadri@gmail.com"
+    },
+    {
+      "name": "jcesarmobile",
+      "email": "jcesarmobile@gmail.com"
+    },
+    {
+      "name": "macdonst",
+      "email": "simon.macdonald@gmail.com"
+    },
+    {
+      "name": "mwbrooks",
+      "email": "michael@michaelbrooks.ca"
+    },
+    {
+      "name": "surajpindoria",
+      "email": "suraj.pindoria@yahoo.com"
+    },
+    {
+      "name": "timkim",
+      "email": "timk@adobe.com"
+    }
+  ],
+  "name": "phonegap-plugin-push",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/phonegap/phonegap-plugin-push.git"
+  },
+  "scripts": {
+    "build": "babel src/js --out-dir www",
+    "build:watch": "nodemon -w ./src/js -e js -x npm run build",
+    "eslint": "eslint src/js",
+    "jasmine": "jasmine --config=spec/unit.json",
+    "precommit-msg": "echo 'Pre-commit checks...' && exit 0",
+    "test": "npm run build && npm run eslint && npm run jasmine"
+  },
+  "types": "./types/index.d.ts",
+  "version": "2.3.0"
+}
