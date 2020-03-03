@@ -6,6 +6,7 @@ import { Platform, ToastController, AlertController } from "@ionic/angular";
 import { map } from "rxjs/operators";
 import { Observable } from "rxjs";
 import { SocialSharing } from "@ionic-native/social-sharing/ngx";
+import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions/ngx';
 
 @Injectable({
   providedIn: "root"
@@ -20,6 +21,16 @@ export class AuthenticationService {
   usermobile: any;
   // userProfileDone = true;
   serverErrorMsg = "Server issue! Please try after sometime";
+
+  optionsRight: NativeTransitionOptions = {
+    direction: 'right',
+    duration: 400,
+  };
+
+  optionsLeft: NativeTransitionOptions = {
+    direction: 'left',
+    duration: 400,
+  };
 
   constructor(
     private http: HttpClient,
@@ -72,7 +83,7 @@ export class AuthenticationService {
         // tslint:disable-next-line:max-line-length
         from(
           this.nativeHttp.get(
-            `http://jaytarpara.in/mysql.php?callapi=1&process=checkUser&mobile=${mobile}`,
+            `https://jaytarpara.in/mysql.php?callapi=1&process=checkUser&mobile=${mobile}`,
             { "Content-Type": "application/json" },
             {}
           )
@@ -89,7 +100,7 @@ export class AuthenticationService {
       return new Promise(resolve => {
         this.http
           .get(
-            `http://jaytarpara.in/mysql.php?callapi=1&process=checkUser&mobile=${mobile}`
+            `https://jaytarpara.in/mysql.php?callapi=1&process=checkUser&mobile=${mobile}`
           )
           .pipe(map(results => results))
           .subscribe(
@@ -110,7 +121,7 @@ export class AuthenticationService {
         // tslint:disable-next-line:max-line-length
         from(
           this.nativeHttp.get(
-            `http://jaytarpara.in/mysql.php?callapi=1&process=addUser&mobile=${mobile}`,
+            `https://jaytarpara.in/mysql.php?callapi=1&process=addUser&mobile=${mobile}`,
             { "Content-Type": "application/json" },
             {}
           )
@@ -127,7 +138,7 @@ export class AuthenticationService {
       return new Promise(resolve => {
         this.http
           .get(
-            `http://jaytarpara.in/mysql.php?callapi=1&process=addUser&mobile=${mobile}`
+            `https://jaytarpara.in/mysql.php?callapi=1&process=addUser&mobile=${mobile}`
           )
           .pipe(map(results => results))
           .subscribe(
@@ -148,7 +159,7 @@ export class AuthenticationService {
         // tslint:disable-next-line:max-line-length
         from(
           this.nativeHttp.get(
-            `http://jaytarpara.in/mysql.php?callapi=1&process=getUser&value=${value}&type=${type}`,
+            `https://jaytarpara.in/mysql.php?callapi=1&process=getUser&value=${value}&type=${type}`,
             { "Content-Type": "application/json" },
             {}
           )
@@ -165,7 +176,7 @@ export class AuthenticationService {
       return new Promise(resolve => {
         this.http
           .get(
-            `http://jaytarpara.in/mysql.php?callapi=1&process=getUser&value=${value}&type=${type}`
+            `https://jaytarpara.in/mysql.php?callapi=1&process=getUser&value=${value}&type=${type}`
           )
           .pipe(map(results => results))
           .subscribe(
@@ -183,7 +194,7 @@ export class AuthenticationService {
   updateUser(mobile, name, gst, address) {
     // tslint:disable-next-line:max-line-length
     const apiCall = encodeURI(
-      `http://jaytarpara.in/mysql.php?callapi=1&process=updateUser&mobile=${mobile}&name=${name}&gst=${gst}&address=${address}`
+      `https://jaytarpara.in/mysql.php?callapi=1&process=updateUser&mobile=${mobile}&name=${name}&gst=${gst}&address=${address}`
     );
     if (this.plt.is("cordova")) {
       return new Promise(resolve => {
@@ -229,14 +240,14 @@ export class AuthenticationService {
     }
     // tslint:disable-next-line:max-line-length
     console.log(
-      `http://jaytarpara.in/mysql.php?callapi=1&process=getMaterials&results=${results}&page=${page}&searchKey=${searchKey}&owner=${owner}&type=${type}&sortby=${sortby}`
+      `https://jaytarpara.in/mysql.php?callapi=1&process=getMaterials&results=${results}&page=${page}&searchKey=${searchKey}&owner=${owner}&type=${type}&sortby=${sortby}`
     );
     if (this.plt.is("cordova")) {
       return new Promise(resolve => {
         // tslint:disable-next-line:max-line-length
         from(
           this.nativeHttp.get(
-            `http://jaytarpara.in/mysql.php?callapi=1&process=getMaterials&results=${results}&page=${page}&searchKey=${searchKey}&owner=${owner}&type=${type}&sortby=${sortby}`,
+            `https://jaytarpara.in/mysql.php?callapi=1&process=getMaterials&results=${results}&page=${page}&searchKey=${searchKey}&owner=${owner}&type=${type}&sortby=${sortby}`,
             { "Content-Type": "application/json" },
             {}
           )
@@ -254,7 +265,7 @@ export class AuthenticationService {
         // tslint:disable-next-line:max-line-length
         this.http
           .get(
-            `http://jaytarpara.in/mysql.php?callapi=1&process=getMaterials&results=${results}&page=${page}&searchKey=${searchKey}&owner=${owner}&type=${type}&sortby=${sortby}`
+            `https://jaytarpara.in/mysql.php?callapi=1&process=getMaterials&results=${results}&page=${page}&searchKey=${searchKey}&owner=${owner}&type=${type}&sortby=${sortby}`
           )
           .pipe(map(results => results))
           .subscribe(
@@ -275,7 +286,7 @@ export class AuthenticationService {
         // tslint:disable-next-line:max-line-length
         from(
           this.nativeHttp.get(
-            `http://jaytarpara.in/mysql.php?callapi=1&process=getLatestMaterials&results=${results}&lastid=${lastid}`,
+            `https://jaytarpara.in/mysql.php?callapi=1&process=getLatestMaterials&results=${results}&lastid=${lastid}`,
             { "Content-Type": "application/json" },
             {}
           )
@@ -288,7 +299,7 @@ export class AuthenticationService {
         // tslint:disable-next-line:max-line-length
         this.http
           .get(
-            `http://jaytarpara.in/mysql.php?callapi=1&process=getLatestMaterials&results=${results}&lastid=${lastid}`
+            `https://jaytarpara.in/mysql.php?callapi=1&process=getLatestMaterials&results=${results}&lastid=${lastid}`
           )
           .pipe(map(results => results))
           .subscribe(data => {
@@ -460,7 +471,7 @@ export class AuthenticationService {
         // tslint:disable-next-line:max-line-length
         from(
           this.nativeHttp.get(
-            `http://jaytarpara.in/mysql.php?callapi=1&process=saveOrder&userid=${userid}&usermobile=${usermobile}&materialprimaryid=${materialprimaryid}&materialquantity=${materialquantity}&matsample=${matsample}&orderdate=${orderDate}&materialprice=${materialprice}&piece=${piece}`,
+            `https://jaytarpara.in/mysql.php?callapi=1&process=saveOrder&userid=${userid}&usermobile=${usermobile}&materialprimaryid=${materialprimaryid}&materialquantity=${materialquantity}&matsample=${matsample}&orderdate=${orderDate}&materialprice=${materialprice}&piece=${piece}`,
             { "Content-Type": "application/json" },
             {}
           )
@@ -478,7 +489,7 @@ export class AuthenticationService {
         // tslint:disable-next-line:max-line-length
         this.http
           .get(
-            `http://jaytarpara.in/mysql.php?callapi=1&process=saveOrder&userid=${userid}&usermobile=${usermobile}&materialprimaryid=${materialprimaryid}&materialquantity=${materialquantity}&matsample=${matsample}&orderdate=${orderDate}&materialprice=${materialprice}&piece=${piece}`
+            `https://jaytarpara.in/mysql.php?callapi=1&process=saveOrder&userid=${userid}&usermobile=${usermobile}&materialprimaryid=${materialprimaryid}&materialquantity=${materialquantity}&matsample=${matsample}&orderdate=${orderDate}&materialprice=${materialprice}&piece=${piece}`
           )
           .pipe(map(results => results))
           .subscribe(
@@ -505,7 +516,7 @@ export class AuthenticationService {
         // tslint:disable-next-line:max-line-length
         from(
           this.nativeHttp.get(
-            `http://jaytarpara.in/mysql.php?callapi=1&process=getOrders&results=${results}&page=${page}&mobile=${mobile}&searchKey=${searchKey}&searchstatus=${searchstatus}`,
+            `https://jaytarpara.in/mysql.php?callapi=1&process=getOrders&results=${results}&page=${page}&mobile=${mobile}&searchKey=${searchKey}&searchstatus=${searchstatus}`,
             { "Content-Type": "application/json" },
             {}
           )
@@ -523,7 +534,7 @@ export class AuthenticationService {
         // tslint:disable-next-line:max-line-length
         this.http
           .get(
-            `http://jaytarpara.in/mysql.php?callapi=1&process=getOrders&results=${results}&page=${page}&mobile=${mobile}&searchKey=${searchKey}&searchstatus=${searchstatus}`
+            `https://jaytarpara.in/mysql.php?callapi=1&process=getOrders&results=${results}&page=${page}&mobile=${mobile}&searchKey=${searchKey}&searchstatus=${searchstatus}`
           )
           .pipe(map(results => results))
           .subscribe(
@@ -544,7 +555,7 @@ export class AuthenticationService {
         // tslint:disable-next-line:max-line-length
         from(
           this.nativeHttp.get(
-            `http://jaytarpara.in/mysql.php?callapi=1&process=getOrderByID&orderid=${orderid}`,
+            `https://jaytarpara.in/mysql.php?callapi=1&process=getOrderByID&orderid=${orderid}`,
             { "Content-Type": "application/json" },
             {}
           )
@@ -562,7 +573,7 @@ export class AuthenticationService {
         // tslint:disable-next-line:max-line-length
         this.http
           .get(
-            `http://jaytarpara.in/mysql.php?callapi=1&process=getOrderByID&orderid=${orderid}`
+            `https://jaytarpara.in/mysql.php?callapi=1&process=getOrderByID&orderid=${orderid}`
           )
           .pipe(map(results => results))
           .subscribe(
@@ -583,7 +594,7 @@ export class AuthenticationService {
         // tslint:disable-next-line:max-line-length
         from(
           this.nativeHttp.get(
-            `http://jaytarpara.in/mysql.php?callapi=1&process=getWhatsappOrderByID&orderid=${orderid}`,
+            `https://jaytarpara.in/mysql.php?callapi=1&process=getWhatsappOrderByID&orderid=${orderid}`,
             { "Content-Type": "application/json" },
             {}
           )
@@ -601,7 +612,7 @@ export class AuthenticationService {
         // tslint:disable-next-line:max-line-length
         this.http
           .get(
-            `http://jaytarpara.in/mysql.php?callapi=1&process=getWhatsappOrderByID&orderid=${orderid}`
+            `https://jaytarpara.in/mysql.php?callapi=1&process=getWhatsappOrderByID&orderid=${orderid}`
           )
           .pipe(map(results => results))
           .subscribe(
@@ -622,7 +633,7 @@ export class AuthenticationService {
         // tslint:disable-next-line:max-line-length
         from(
           this.nativeHttp.get(
-            `http://jaytarpara.in/mysql.php?callapi=1&process=getTotalOrders&mobile=${mobile}`,
+            `https://jaytarpara.in/mysql.php?callapi=1&process=getTotalOrders&mobile=${mobile}`,
             { "Content-Type": "application/json" },
             {}
           )
@@ -640,7 +651,7 @@ export class AuthenticationService {
         // tslint:disable-next-line:max-line-length
         this.http
           .get(
-            `http://jaytarpara.in/mysql.php?callapi=1&process=getTotalOrders&mobile=${mobile}`
+            `https://jaytarpara.in/mysql.php?callapi=1&process=getTotalOrders&mobile=${mobile}`
           )
           .pipe(map(results => results))
           .subscribe(
@@ -661,7 +672,7 @@ export class AuthenticationService {
         // tslint:disable-next-line:max-line-length
         from(
           this.nativeHttp.post(
-            `http://jaytarpara.in/mysql.php?callapi=1&process=uploadMaterial`,
+            `https://jaytarpara.in/mysql.php?callapi=1&process=uploadMaterial`,
             data,
             { "Content-Type": "application/json" }
           )
@@ -679,7 +690,7 @@ export class AuthenticationService {
         // tslint:disable-next-line:max-line-length
         this.http
           .post(
-            `http://jaytarpara.in/mysql.php?callapi=1&process=uploadMaterial`,
+            `https://jaytarpara.in/mysql.php?callapi=1&process=uploadMaterial`,
             data
           )
           .pipe(map(results => results))
@@ -701,7 +712,7 @@ export class AuthenticationService {
         // tslint:disable-next-line:max-line-length
         from(
           this.nativeHttp.get(
-            `http://jaytarpara.in/mysql.php?callapi=1&process=getAdminAllTotal`,
+            `https://jaytarpara.in/mysql.php?callapi=1&process=getAdminAllTotal`,
             { "Content-Type": "application/json" },
             {}
           )
@@ -714,7 +725,7 @@ export class AuthenticationService {
         // tslint:disable-next-line:max-line-length
         this.http
           .get(
-            `http://jaytarpara.in/mysql.php?callapi=1&process=getAdminAllTotal`
+            `https://jaytarpara.in/mysql.php?callapi=1&process=getAdminAllTotal`
           )
           .pipe(map(results => results))
           .subscribe(data => {
@@ -730,7 +741,7 @@ export class AuthenticationService {
         // tslint:disable-next-line:max-line-length
         from(
           this.nativeHttp.get(
-            `http://jaytarpara.in/mysql.php?callapi=1&process=getMaterialByID&materialid=${materialid}`,
+            `https://jaytarpara.in/mysql.php?callapi=1&process=getMaterialByID&materialid=${materialid}`,
             { "Content-Type": "application/json" },
             {}
           )
@@ -748,7 +759,7 @@ export class AuthenticationService {
         // tslint:disable-next-line:max-line-length
         this.http
           .get(
-            `http://jaytarpara.in/mysql.php?callapi=1&process=getMaterialByID&materialid=${materialid}`
+            `https://jaytarpara.in/mysql.php?callapi=1&process=getMaterialByID&materialid=${materialid}`
           )
           .pipe(map(results => results))
           .subscribe(
@@ -769,7 +780,7 @@ export class AuthenticationService {
         // tslint:disable-next-line:max-line-length
         from(
           this.nativeHttp.get(
-            `http://jaytarpara.in/mysql.php?callapi=1&process=updateMaterialDetailOnly&id=${id}&name=${name}&mid=${mid}&color=${color}&mowner=${mowner}&mtype=${mtype}&price=${price}`,
+            `https://jaytarpara.in/mysql.php?callapi=1&process=updateMaterialDetailOnly&id=${id}&name=${name}&mid=${mid}&color=${color}&mowner=${mowner}&mtype=${mtype}&price=${price}`,
             { "Content-Type": "application/json" },
             {}
           )
@@ -787,7 +798,7 @@ export class AuthenticationService {
         // tslint:disable-next-line:max-line-length
         this.http
           .get(
-            `http://jaytarpara.in/mysql.php?callapi=1&process=updateMaterialDetailOnly&id=${id}&name=${name}&mid=${mid}&color=${color}&mowner=${mowner}&mtype=${mtype}&price=${price}`
+            `https://jaytarpara.in/mysql.php?callapi=1&process=updateMaterialDetailOnly&id=${id}&name=${name}&mid=${mid}&color=${color}&mowner=${mowner}&mtype=${mtype}&price=${price}`
           )
           .pipe(map(results => results))
           .subscribe(
@@ -808,7 +819,7 @@ export class AuthenticationService {
         // tslint:disable-next-line:max-line-length
         from(
           this.nativeHttp.get(
-            `http://jaytarpara.in/mysql.php?callapi=1&process=deleteMaterial&id=${id}`,
+            `https://jaytarpara.in/mysql.php?callapi=1&process=deleteMaterial&id=${id}`,
             { "Content-Type": "application/json" },
             {}
           )
@@ -826,7 +837,7 @@ export class AuthenticationService {
         // tslint:disable-next-line:max-line-length
         this.http
           .get(
-            `http://jaytarpara.in/mysql.php?callapi=1&process=deleteMaterial&id=${id}`
+            `https://jaytarpara.in/mysql.php?callapi=1&process=deleteMaterial&id=${id}`
           )
           .pipe(map(results => results))
           .subscribe(
@@ -850,7 +861,7 @@ export class AuthenticationService {
         // tslint:disable-next-line:max-line-length
         from(
           this.nativeHttp.get(
-            `http://jaytarpara.in/mysql.php?callapi=1&process=getUsers&results=${results}&page=${page}&searchKey=${searchKey}`,
+            `https://jaytarpara.in/mysql.php?callapi=1&process=getUsers&results=${results}&page=${page}&searchKey=${searchKey}`,
             { "Content-Type": "application/json" },
             {}
           )
@@ -868,7 +879,7 @@ export class AuthenticationService {
         // tslint:disable-next-line:max-line-length
         this.http
           .get(
-            `http://jaytarpara.in/mysql.php?callapi=1&process=getUsers&results=${results}&page=${page}&searchKey=${searchKey}`
+            `https://jaytarpara.in/mysql.php?callapi=1&process=getUsers&results=${results}&page=${page}&searchKey=${searchKey}`
           )
           .pipe(map(results => results))
           .subscribe(
@@ -895,7 +906,7 @@ export class AuthenticationService {
     }
     // tslint:disable-next-line:max-line-length
     const apiCall = encodeURI(
-      `http://jaytarpara.in/mysql.php?callapi=1&process=updateOrderStatus&id=${id}&status=${status}`
+      `https://jaytarpara.in/mysql.php?callapi=1&process=updateOrderStatus&id=${id}&status=${status}`
     );
     if (this.plt.is("cordova")) {
       return new Promise(resolve => {
@@ -944,7 +955,7 @@ export class AuthenticationService {
     }
     // tslint:disable-next-line:max-line-length
     const apiCall = encodeURI(
-      `http://jaytarpara.in/mysql.php?callapi=1&process=updateWhatsappOrderStatus&id=${id}&status=${status}`
+      `https://jaytarpara.in/mysql.php?callapi=1&process=updateWhatsappOrderStatus&id=${id}&status=${status}`
     );
     if (this.plt.is("cordova")) {
       return new Promise(resolve => {
@@ -996,7 +1007,7 @@ export class AuthenticationService {
         // tslint:disable-next-line:max-line-length
         from(
           this.nativeHttp.get(
-            `http://jaytarpara.in/mysql.php?callapi=1&process=getAllOrders&results=${results}&page=${page}&searchKey=${searchKey}&searchstatus=${searchstatus}&searchKeyDate=${searchKeyDate}`,
+            `https://jaytarpara.in/mysql.php?callapi=1&process=getAllOrders&results=${results}&page=${page}&searchKey=${searchKey}&searchstatus=${searchstatus}&searchKeyDate=${searchKeyDate}`,
             { "Content-Type": "application/json" },
             {}
           )
@@ -1014,7 +1025,7 @@ export class AuthenticationService {
         // tslint:disable-next-line:max-line-length
         this.http
           .get(
-            `http://jaytarpara.in/mysql.php?callapi=1&process=getAllOrders&results=${results}&page=${page}&searchKey=${searchKey}&searchstatus=${searchstatus}&searchKeyDate=${searchKeyDate}`
+            `https://jaytarpara.in/mysql.php?callapi=1&process=getAllOrders&results=${results}&page=${page}&searchKey=${searchKey}&searchstatus=${searchstatus}&searchKeyDate=${searchKeyDate}`
           )
           .pipe(map(results => results))
           .subscribe(
@@ -1050,7 +1061,7 @@ export class AuthenticationService {
         // tslint:disable-next-line:max-line-length
         from(
           this.nativeHttp.get(
-            `http://jaytarpara.in/mysql.php?callapi=1&process=getAllWhatsappOrders&results=${results}&page=${page}&searchKey=${searchKey}&searchstatus=${searchstatus}&searchKeyDate=${searchKeyDate}`,
+            `https://jaytarpara.in/mysql.php?callapi=1&process=getAllWhatsappOrders&results=${results}&page=${page}&searchKey=${searchKey}&searchstatus=${searchstatus}&searchKeyDate=${searchKeyDate}`,
             { "Content-Type": "application/json" },
             {}
           )
@@ -1068,7 +1079,7 @@ export class AuthenticationService {
         // tslint:disable-next-line:max-line-length
         this.http
           .get(
-            `http://jaytarpara.in/mysql.php?callapi=1&process=getAllWhatsappOrders&results=${results}&page=${page}&searchKey=${searchKey}&searchstatus=${searchstatus}&searchKeyDate=${searchKeyDate}`
+            `https://jaytarpara.in/mysql.php?callapi=1&process=getAllWhatsappOrders&results=${results}&page=${page}&searchKey=${searchKey}&searchstatus=${searchstatus}&searchKeyDate=${searchKeyDate}`
           )
           .pipe(map(results => results))
           .subscribe(
@@ -1128,7 +1139,7 @@ export class AuthenticationService {
         // tslint:disable-next-line:max-line-length
         from(
           this.nativeHttp.get(
-            `http://jaytarpara.in/mysql.php?callapi=1&process=blockUnblockUser&mobile=${mobile}&status=${status}`,
+            `https://jaytarpara.in/mysql.php?callapi=1&process=blockUnblockUser&mobile=${mobile}&status=${status}`,
             { "Content-Type": "application/json" },
             {}
           )
@@ -1146,7 +1157,7 @@ export class AuthenticationService {
         // tslint:disable-next-line:max-line-length
         this.http
           .get(
-            `http://jaytarpara.in/mysql.php?callapi=1&process=blockUnblockUser&mobile=${mobile}&status=${status}`
+            `https://jaytarpara.in/mysql.php?callapi=1&process=blockUnblockUser&mobile=${mobile}&status=${status}`
           )
           .pipe(map(results => results))
           .subscribe(
@@ -1163,14 +1174,14 @@ export class AuthenticationService {
 
   checkUserStatus(mobile) {
     console.log(
-      `http://jaytarpara.in/mysql.php?callapi=1&process=checkUserStatus&mobile=${mobile}`
+      `https://jaytarpara.in/mysql.php?callapi=1&process=checkUserStatus&mobile=${mobile}`
     );
     if (this.plt.is("cordova")) {
       return new Promise(resolve => {
         // tslint:disable-next-line:max-line-length
         from(
           this.nativeHttp.get(
-            `http://jaytarpara.in/mysql.php?callapi=1&process=checkUserStatus&mobile=${mobile}`,
+            `https://jaytarpara.in/mysql.php?callapi=1&process=checkUserStatus&mobile=${mobile}`,
             { "Content-Type": "application/json" },
             {}
           )
@@ -1188,7 +1199,7 @@ export class AuthenticationService {
         // tslint:disable-next-line:max-line-length
         this.http
           .get(
-            `http://jaytarpara.in/mysql.php?callapi=1&process=checkUserStatus&mobile=${mobile}`
+            `https://jaytarpara.in/mysql.php?callapi=1&process=checkUserStatus&mobile=${mobile}`
           )
           .pipe(map(results => results))
           .subscribe(
@@ -1205,14 +1216,14 @@ export class AuthenticationService {
 
   checkUserProfileStatus(mobile) {
     console.log(
-      `http://jaytarpara.in/mysql.php?callapi=1&process=checkUserProfileStatus&mobile=${mobile}`
+      `https://jaytarpara.in/mysql.php?callapi=1&process=checkUserProfileStatus&mobile=${mobile}`
     );
     if (this.plt.is("cordova")) {
       return new Promise(resolve => {
         // tslint:disable-next-line:max-line-length
         from(
           this.nativeHttp.get(
-            `http://jaytarpara.in/mysql.php?callapi=1&process=checkUserProfileStatus&mobile=${mobile}`,
+            `https://jaytarpara.in/mysql.php?callapi=1&process=checkUserProfileStatus&mobile=${mobile}`,
             { "Content-Type": "application/json" },
             {}
           )
@@ -1230,7 +1241,7 @@ export class AuthenticationService {
         // tslint:disable-next-line:max-line-length
         this.http
           .get(
-            `http://jaytarpara.in/mysql.php?callapi=1&process=checkUserProfileStatus&mobile=${mobile}`
+            `https://jaytarpara.in/mysql.php?callapi=1&process=checkUserProfileStatus&mobile=${mobile}`
           )
           .pipe(map(results => results))
           .subscribe(
@@ -1247,14 +1258,14 @@ export class AuthenticationService {
 
   addRegistrationID(registrationId) {
     console.log(
-      `http://jaytarpara.in/mysql.php?callapi=1&process=saveRegistrationID&registrationId=${registrationId}`
+      `https://jaytarpara.in/mysql.php?callapi=1&process=saveRegistrationID&registrationId=${registrationId}`
     );
     if (this.plt.is("cordova")) {
       return new Promise(resolve => {
         // tslint:disable-next-line:max-line-length
         from(
           this.nativeHttp.get(
-            `http://jaytarpara.in/mysql.php?callapi=1&process=saveRegistrationID&registrationId=${registrationId}`,
+            `https://jaytarpara.in/mysql.php?callapi=1&process=saveRegistrationID&registrationId=${registrationId}`,
             { "Content-Type": "application/json" },
             {}
           )

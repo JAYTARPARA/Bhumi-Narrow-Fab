@@ -371,14 +371,6 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       ]
     },
     {
-      "id": "cordova-plugin-autostart.AutoStart",
-      "file": "plugins/cordova-plugin-autostart/www/auto-start.js",
-      "pluginId": "cordova-plugin-autostart",
-      "clobbers": [
-        "cordova.plugins.autoStart"
-      ]
-    },
-    {
       "id": "cordova-plugin-background-mode.BackgroundMode",
       "file": "plugins/cordova-plugin-background-mode/www/background-mode.js",
       "pluginId": "cordova-plugin-background-mode",
@@ -393,6 +385,14 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       "pluginId": "phonegap-plugin-push",
       "clobbers": [
         "PushNotification"
+      ]
+    },
+    {
+      "id": "com.telerik.plugins.nativepagetransitions.NativePageTransitions",
+      "file": "plugins/com.telerik.plugins.nativepagetransitions/www/NativePageTransitions.js",
+      "pluginId": "com.telerik.plugins.nativepagetransitions",
+      "clobbers": [
+        "window.plugins.nativepagetransitions"
       ]
     }
   ];
@@ -413,10 +413,10 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "cordova-sms-plugin": "1.0.0",
     "cordova-sqlite-storage": "3.4.0",
     "onesignal-cordova-plugin": "2.8.1",
-    "cordova-plugin-autostart": "2.3.0",
     "cordova-plugin-background-mode": "0.7.3",
     "cordova-support-google-services": "1.3.2",
     "phonegap-plugin-multidex": "1.0.0",
-    "phonegap-plugin-push": "2.3.0"
+    "phonegap-plugin-push": "2.3.0",
+    "com.telerik.plugins.nativepagetransitions": "0.6.5"
   };
 });

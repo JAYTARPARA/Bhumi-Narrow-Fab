@@ -4,6 +4,7 @@ import { AuthenticationService } from './../../../services/authentication.servic
 import { MenuController, LoadingController } from '@ionic/angular';
 import { SMS } from '@ionic-native/sms/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions/ngx';
 
 @Component({
   selector: 'app-admin-order-details',
@@ -57,7 +58,24 @@ export class AdminOrderDetailsPage implements OnInit {
     private menu: MenuController,
     private sms: SMS,
     private socialSharing: SocialSharing,
+    private nativePageTransitions: NativePageTransitions,
   ) { }
+
+  ionViewWillLeave() {
+    this.nativePageTransitions.flip(this.auth.optionsLeft)
+      .then()
+      .catch((errr) => {
+        console.log(errr);
+    });
+  }
+
+  ionViewWillEnter() {
+    this.nativePageTransitions.flip(this.auth.optionsRight)
+      .then()
+      .catch((errr) => {
+        console.log(errr);
+    });
+  }
 
   ngOnInit() {
     this.menu.enable(true, 'admin');

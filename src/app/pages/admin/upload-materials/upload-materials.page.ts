@@ -12,7 +12,7 @@ import { File } from '@ionic-native/file';
   styleUrls: ['./upload-materials.page.scss'],
 })
 export class UploadMaterialsPage implements OnInit {
-  // base64Image = 'http://jaytarpara.in/images/materials/AA1.png';
+  // base64Image = 'https://jaytarpara.in/images/materials/AA1.png';
   base64Image: any;
   name: any;
   mid: any;
@@ -133,7 +133,7 @@ export class UploadMaterialsPage implements OnInit {
       };
 
       // tslint:disable-next-line:max-line-length
-      fileTransfer.upload(this.base64Image, `http://jaytarpara.in/mysql.php?callapi=1&process=uploadMaterial&name=${name}&mid=${mid}&color=${color}&price=${price}&mowner=${mowner}&material_type=${mtype}`, options).then(result => {
+      fileTransfer.upload(this.base64Image, `https://jaytarpara.in/mysql.php?callapi=1&process=uploadMaterial&name=${name}&mid=${mid}&color=${color}&price=${price}&mowner=${mowner}&material_type=${mtype}`, options).then(result => {
         this.loadingController.dismiss();
 
         if (JSON.parse(JSON.parse(JSON.stringify(result.response)))['success'] == 1) {

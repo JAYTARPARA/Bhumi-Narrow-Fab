@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header no-border class=\"animated fadeInDown\">\n  <ion-toolbar color='dark' mode=\"ios\">\n    <ion-title>Material Detail</ion-title>\n    <ion-buttons slot=\"start\">\n        <ion-menu-button autoHide=\"false\"></ion-menu-button>\n      </ion-buttons>\n      <ion-buttons slot=\"end\">\n        <ion-button href=\"all-materials\"><ion-icon name=\"close\"></ion-icon></ion-button>\n      </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content class='ion-padding material-upload'>\n  <form>\n    <ion-row>\n      <ion-col>\n        <ion-item>\n          <ion-label>Material Owner</ion-label>\n          <ion-select mode=\"ios\" interface=\"action-sheet\" placeholder=\"Select Owner\" name=\"owner\" [selectedText]=\"owner\" [(ngModel)]=\"owner\">\n            <ion-select-option *ngFor=\"let mowner of materialOwner\" value=\"{{mowner.name}}\">\n              {{mowner.name}}\n            </ion-select-option>\n          </ion-select>\n        </ion-item>\n      </ion-col>\n    </ion-row>\n\n    <ion-row>\n      <ion-col>\n        <ion-item>\n          <ion-label position=\"stacked\">Material Name: </ion-label>\n          <ion-input type=\"text\" name=\"name\" mode=\"md\" [(ngModel)]=\"name\" placeholder=\"AU9 Material\"></ion-input>\n        </ion-item>\n      </ion-col>\n    </ion-row>\n\n    <ion-row>\n      <ion-col>\n        <ion-item>\n          <ion-label position=\"stacked\">Material ID: </ion-label>\n          <ion-input type=\"text\" name=\"mid\" mode=\"md\" [(ngModel)]=\"mid\" placeholder=\"AU9\" style=\"text-transform: uppercase;\"></ion-input>\n        </ion-item>\n      </ion-col>\n    </ion-row>\n\n    <ion-row>\n      <ion-col>\n        <ion-item>\n          <ion-label position=\"stacked\">Material Color: </ion-label>\n          <ion-input type=\"text\" name=\"color\" mode=\"md\" [(ngModel)]=\"color\" placeholder=\"Blue\" style=\"text-transform: capitalize;\"></ion-input>\n        </ion-item>\n      </ion-col>\n    </ion-row>\n    \n    <ion-row>\n      <ion-col>\n        <ion-item>\n          <ion-label position=\"stacked\">Material Price: </ion-label>\n          <ion-input type=\"text\" name=\"price\" mode=\"md\" [(ngModel)]=\"price\" placeholder=\"125/27\"></ion-input>\n        </ion-item>\n      </ion-col>\n    </ion-row>\n\n    <ion-row>\n      <ion-col>\n        <ion-label position=\"stacked\">Material Image: </ion-label>\n      </ion-col>\n    </ion-row>\n\n    <ion-row>\n      <ion-col>\n        <ion-button fill=\"outline\" color=\"dark\" (click)='AccessCamera()'>\n          <ion-icon name='camera'>Camera</ion-icon>\n        </ion-button>\n      </ion-col>\n\n      <ion-col>\n        <ion-button fill=\"outline\" color=\"dark\" (click)='AccessGallery()'>\n            <ion-icon name='image'>Gallery</ion-icon>\n          </ion-button>\n      </ion-col>\n    </ion-row>\n    <ion-img [src]='base64Image' *ngIf='base64Image && !base64ImageUpdate'></ion-img>\n    <ion-img [src]='base64ImageUpdate' *ngIf='base64ImageUpdate'></ion-img>\n    <ion-button color='dark' class=\"uploadbtn\" (click)='update()' expand=\"block\" fill=\"outline\" type=\"submit\">UPDATE MATERIAL</ion-button>\n    <ion-button color='danger' class=\"uploadbtn\" (click)='delete()' expand=\"block\" fill=\"outline\">DELETE MATERIAL</ion-button>\n  </form>\n</ion-content>\n"
+module.exports = "<ion-header no-border class=\"animated fadeInDown\">\n  <ion-toolbar color='dark' mode=\"ios\">\n    <ion-title>Material Detail</ion-title>\n    <ion-buttons slot=\"start\">\n        <ion-menu-button autoHide=\"false\"></ion-menu-button>\n      </ion-buttons>\n      <ion-buttons slot=\"end\">\n        <ion-button href=\"all-materials\"><ion-icon name=\"close\"></ion-icon></ion-button>\n      </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content class='ion-padding material-upload'>\n  <form>\n    <ion-row>\n      <ion-col>\n        <ion-item>\n          <ion-label>Material Owner</ion-label>\n          <ion-select mode=\"ios\" interface=\"action-sheet\" placeholder=\"Select Owner\" name=\"owner\" [selectedText]=\"owner\" [(ngModel)]=\"owner\">\n            <ion-select-option *ngFor=\"let mowner of materialOwner\" value=\"{{mowner.name}}\">\n              {{mowner.name}}\n            </ion-select-option>\n          </ion-select>\n        </ion-item>\n      </ion-col>\n    </ion-row>\n\n    <ion-row>\n      <ion-col>\n        <ion-item>\n          <ion-label>Material Type</ion-label>\n          <ion-select mode=\"ios\" interface=\"action-sheet\" placeholder=\"Select Type\" name=\"type\" [selectedText]=\"type\" [(ngModel)]=\"type\">\n            <ion-select-option *ngFor=\"let mtype of materialType\" value=\"{{mtype.name}}\">\n              {{mtype.name}}\n            </ion-select-option>\n          </ion-select>\n        </ion-item>\n      </ion-col>\n    </ion-row>\n\n    <ion-row>\n      <ion-col>\n        <ion-item>\n          <ion-label position=\"stacked\">Material Name: </ion-label>\n          <ion-input type=\"text\" name=\"name\" mode=\"md\" [(ngModel)]=\"name\" placeholder=\"AU9 Material\"></ion-input>\n        </ion-item>\n      </ion-col>\n    </ion-row>\n\n    <ion-row>\n      <ion-col>\n        <ion-item>\n          <ion-label position=\"stacked\">Material ID: </ion-label>\n          <ion-input type=\"text\" name=\"mid\" mode=\"md\" [(ngModel)]=\"mid\" placeholder=\"AU9\" style=\"text-transform: uppercase;\"></ion-input>\n        </ion-item>\n      </ion-col>\n    </ion-row>\n\n    <ion-row>\n      <ion-col>\n        <ion-item>\n          <ion-label position=\"stacked\">Material Color: </ion-label>\n          <ion-input type=\"text\" name=\"color\" mode=\"md\" [(ngModel)]=\"color\" placeholder=\"Blue\" style=\"text-transform: capitalize;\"></ion-input>\n        </ion-item>\n      </ion-col>\n    </ion-row>\n    \n    <ion-row>\n      <ion-col>\n        <ion-item>\n          <ion-label position=\"stacked\">Material Price: </ion-label>\n          <ion-input type=\"text\" name=\"price\" mode=\"md\" [(ngModel)]=\"price\" placeholder=\"125/27\"></ion-input>\n        </ion-item>\n      </ion-col>\n    </ion-row>\n\n    <ion-row>\n      <ion-col>\n        <ion-label position=\"stacked\">Material Image: </ion-label>\n      </ion-col>\n    </ion-row>\n\n    <ion-row>\n      <ion-col>\n        <ion-button fill=\"outline\" color=\"dark\" (click)='AccessCamera()'>\n          <ion-icon name='camera'>Camera</ion-icon>\n        </ion-button>\n      </ion-col>\n\n      <ion-col>\n        <ion-button fill=\"outline\" color=\"dark\" (click)='AccessGallery()'>\n            <ion-icon name='image'>Gallery</ion-icon>\n          </ion-button>\n      </ion-col>\n    </ion-row>\n    <ion-img [src]='base64Image' *ngIf='base64Image && !base64ImageUpdate'></ion-img>\n    <ion-img [src]='base64ImageUpdate' *ngIf='base64ImageUpdate'></ion-img>\n    <ion-button color='dark' class=\"uploadbtn\" (click)='update()' expand=\"block\" fill=\"outline\" type=\"submit\">UPDATE MATERIAL</ion-button>\n    <ion-button color='danger' class=\"uploadbtn\" (click)='delete()' expand=\"block\" fill=\"outline\">DELETE MATERIAL</ion-button>\n  </form>\n</ion-content>\n"
 
 /***/ }),
 
@@ -90,6 +90,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _services_authentication_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../../../services/authentication.service */ "./src/app/services/authentication.service.ts");
 /* harmony import */ var _ionic_native_file_transfer_ngx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic-native/file-transfer/ngx */ "./node_modules/@ionic-native/file-transfer/ngx/index.js");
+/* harmony import */ var _ionic_native_native_page_transitions_ngx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic-native/native-page-transitions/ngx */ "./node_modules/@ionic-native/native-page-transitions/ngx/index.js");
+
 
 
 
@@ -98,7 +100,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var AdminMaterialDetailsPage = /** @class */ (function () {
-    function AdminMaterialDetailsPage(activatedRoute, auth, camera, transfer, loadingController, alertCtrl, router, menu) {
+    function AdminMaterialDetailsPage(activatedRoute, auth, camera, transfer, loadingController, alertCtrl, router, menu, nativePageTransitions) {
         this.activatedRoute = activatedRoute;
         this.auth = auth;
         this.camera = camera;
@@ -107,12 +109,30 @@ var AdminMaterialDetailsPage = /** @class */ (function () {
         this.alertCtrl = alertCtrl;
         this.router = router;
         this.menu = menu;
+        this.nativePageTransitions = nativePageTransitions;
         this.materialOwner = [
             {
                 name: 'Bhumi Narrow Fab',
             },
             {
                 name: 'Matrushree Lace',
+            },
+        ];
+        this.materialType = [
+            {
+                name: 'Fancy',
+            },
+            {
+                name: 'Needle Lace',
+            },
+            {
+                name: 'Moti Lace',
+            },
+            {
+                name: 'Crosset',
+            },
+            {
+                name: 'Cut Work',
             },
         ];
     }
@@ -133,6 +153,24 @@ var AdminMaterialDetailsPage = /** @class */ (function () {
             }
         });
     };
+    AdminMaterialDetailsPage.prototype.ionViewWillLeave = function () {
+        console.log('hereere');
+        var options = {
+            direction: 'up',
+            duration: 500,
+            slowdownfactor: 3,
+            slidePixels: 20,
+            iosdelay: 100,
+            androiddelay: 150,
+            fixedPixelsTop: 0,
+            fixedPixelsBottom: 60
+        };
+        this.nativePageTransitions.slide(options)
+            .then(function () {
+            console.log('CALLED');
+        })
+            .catch();
+    };
     AdminMaterialDetailsPage.prototype.ionViewDidEnter = function () {
         var _this = this;
         this.loadingController.create({
@@ -152,8 +190,9 @@ var AdminMaterialDetailsPage = /** @class */ (function () {
                 _this.mid = _this.material['material_id'];
                 _this.price = _this.material['price'].slice(0, _this.material['price'].length - 1);
                 _this.owner = _this.material['company'];
+                _this.type = _this.material['material_type'];
                 _this.color = _this.material['color'];
-                _this.base64Image = 'https://bhuminarrowfab.000webhostapp.com/images/materials/' + _this.material['image'];
+                _this.base64Image = 'https://jaytarpara.in/images/materials/' + _this.material['image'];
                 _this.loadingController.dismiss();
             }
             else if (response['success'] == 2) {
@@ -202,8 +241,9 @@ var AdminMaterialDetailsPage = /** @class */ (function () {
         var color = this.color;
         var price = this.price;
         var mowner = this.owner;
+        var mtype = this.type;
         // tslint:disable-next-line:max-line-length
-        if (name == undefined || mid == undefined || color == undefined || price == undefined || mowner == undefined || name == '' || mid == '' || color == '' || price == '' || mowner == '') {
+        if (name == undefined || mid == undefined || mtype == undefined || color == undefined || price == undefined || mowner == undefined || name == '' || mid == '' || mtype == '' || color == '' || price == '' || mowner == '') {
             this.auth.presentToast('Please fill all required fields', false, 'bottom', 1000, 'danger');
         }
         else {
@@ -228,7 +268,7 @@ var AdminMaterialDetailsPage = /** @class */ (function () {
             };
             if (this.base64ImageUpdate) {
                 // tslint:disable-next-line:max-line-length
-                fileTransfer.upload(this.base64ImageUpdate, "https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=updateMaterial&id=" + this.id + "&name=" + name + "&mid=" + mid + "&color=" + color + "&mowner=" + mowner + "&price=" + price, options).then(function (result) {
+                fileTransfer.upload(this.base64ImageUpdate, "https://jaytarpara.in/mysql.php?callapi=1&process=updateMaterial&id=" + this.id + "&name=" + name + "&mid=" + mid + "&color=" + color + "&mowner=" + mowner + "&mtype=" + mtype + "&price=" + price, options).then(function (result) {
                     _this.loadingController.dismiss();
                     if (JSON.parse(JSON.parse(JSON.stringify(result.response)))['success'] == 1) {
                         _this.auth.presentToast(JSON.parse(JSON.parse(JSON.stringify(result.response)))['message'], false, 'bottom', 1000, 'success');
@@ -241,7 +281,7 @@ var AdminMaterialDetailsPage = /** @class */ (function () {
                 });
             }
             else {
-                this.auth.updateMaterialDetailOnly(this.id, this.name, mid, color, mowner, this.price).then(function (response) {
+                this.auth.updateMaterialDetailOnly(this.id, this.name, mid, color, mowner, mtype, this.price).then(function (response) {
                     _this.loadingController.dismiss();
                     if (response['success'] == 1) {
                         _this.auth.presentToast(response['message'], false, 'bottom', 1000, 'success');
@@ -321,7 +361,8 @@ var AdminMaterialDetailsPage = /** @class */ (function () {
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["LoadingController"] },
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"] },
         { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"] },
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["MenuController"] }
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["MenuController"] },
+        { type: _ionic_native_native_page_transitions_ngx__WEBPACK_IMPORTED_MODULE_7__["NativePageTransitions"] }
     ]; };
     AdminMaterialDetailsPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -336,7 +377,8 @@ var AdminMaterialDetailsPage = /** @class */ (function () {
             _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["LoadingController"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"],
             _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"],
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["MenuController"]])
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["MenuController"],
+            _ionic_native_native_page_transitions_ngx__WEBPACK_IMPORTED_MODULE_7__["NativePageTransitions"]])
     ], AdminMaterialDetailsPage);
     return AdminMaterialDetailsPage;
 }());

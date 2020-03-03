@@ -172,9 +172,9 @@ var AddOrdersPage = /** @class */ (function () {
                 headers: {}
             };
             // tslint:disable-next-line:max-line-length
-            console.log("https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=addOrder&partyname=" + partyname + "&partymobile=" + partymobile + "&partyaddress=" + partyaddress + "&quantity=" + quantity + "&pieces=" + pieces + "&sample=" + sample);
+            console.log("https://jaytarpara.in/mysql.php?callapi=1&process=addOrder&partyname=" + partyname + "&partymobile=" + partymobile + "&partyaddress=" + partyaddress + "&quantity=" + quantity + "&pieces=" + pieces + "&sample=" + sample);
             // tslint:disable-next-line:max-line-length
-            fileTransfer.upload(this.base64Image, "https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=addOrder&partyname=" + partyname + "&partymobile=" + partymobile + "&partyaddress=" + partyaddress + "&quantity=" + quantity + "&pieces=" + pieces + "&sample=" + sample, options).then(function (result) {
+            fileTransfer.upload(this.base64Image, "https://jaytarpara.in/mysql.php?callapi=1&process=addOrder&partyname=" + partyname + "&partymobile=" + partymobile + "&partyaddress=" + partyaddress + "&quantity=" + quantity + "&pieces=" + pieces + "&sample=" + sample, options).then(function (result) {
                 _this.loadingController.dismiss();
                 if (JSON.parse(JSON.parse(JSON.stringify(result.response)))['success'] == 1) {
                     _this.auth.presentToast(JSON.parse(JSON.parse(JSON.stringify(result.response)))['message'], false, 'bottom', 1000, 'success');

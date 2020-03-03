@@ -63,6 +63,9 @@
       "ANDROID_SUPPORT_V13_VERSION": "27.+",
       "FCM_VERSION": "17.0.+",
       "PACKAGE_NAME": "com.bhuminarrowfab.app"
+    },
+    "com.telerik.plugins.nativepagetransitions": {
+      "PACKAGE_NAME": "com.bhuminarrowfab.app"
     }
   },
   "dependent_plugins": {

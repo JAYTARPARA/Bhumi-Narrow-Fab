@@ -527,7 +527,7 @@ module.exports = "<ion-app>\n    <ion-menu side=\"start\" menuId=\"user\" conten
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-content fullscreen>\n  <ion-item class=\"close-fake\" lines=\"none\">\n    <ion-button (click)=\"close()\" slot=\"end\" fill=\"clear\" color=\"light\">\n      <ion-icon name=\"close\" slot=\"end\"></ion-icon>\n    </ion-button>\n  </ion-item>\n\n  <ion-slides [options]=\"sliderOpts\">\n    <ion-slide>\n      <div class=\"swiper-zoom-container\">\n          <img src=\"https://bhuminarrowfab.000webhostapp.com/images/materials/{{img}}\">\n      </div>\n    </ion-slide>\n  </ion-slides>\n</ion-content>\n"
+module.exports = "<ion-content fullscreen>\n  <ion-item class=\"close-fake\" lines=\"none\">\n    <ion-button (click)=\"close()\" slot=\"end\" fill=\"clear\" color=\"light\">\n      <ion-icon name=\"close\" slot=\"end\"></ion-icon>\n    </ion-button>\n  </ion-item>\n\n  <ion-slides [options]=\"sliderOpts\">\n    <ion-slide>\n      <div class=\"swiper-zoom-container\">\n          <img src=\"https://jaytarpara.in/images/materials/{{img}}\">\n      </div>\n    </ion-slide>\n  </ion-slides>\n</ion-content>\n"
 
 /***/ }),
 
@@ -619,10 +619,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_authentication_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./services/authentication.service */ "./src/app/services/authentication.service.ts");
 /* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ionic/storage */ "./node_modules/@ionic/storage/fesm2015/ionic-storage.js");
 /* harmony import */ var _ionic_native_onesignal_ngx__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @ionic-native/onesignal/ngx */ "./node_modules/@ionic-native/onesignal/ngx/index.js");
-/* harmony import */ var _ionic_native_autostart_ngx__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @ionic-native/autostart/ngx */ "./node_modules/@ionic-native/autostart/ngx/index.js");
-/* harmony import */ var _ionic_native_background_mode_ngx__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @ionic-native/background-mode/ngx */ "./node_modules/@ionic-native/background-mode/ngx/index.js");
-/* harmony import */ var _ionic_native_push_ngx__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @ionic-native/push/ngx */ "./node_modules/@ionic-native/push/ngx/index.js");
-
+/* harmony import */ var _ionic_native_background_mode_ngx__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @ionic-native/background-mode/ngx */ "./node_modules/@ionic-native/background-mode/ngx/index.js");
+/* harmony import */ var _ionic_native_push_ngx__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @ionic-native/push/ngx */ "./node_modules/@ionic-native/push/ngx/index.js");
 
 
 
@@ -636,7 +634,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let AppComponent = class AppComponent {
-    constructor(platform, splashScreen, statusBar, fireAuth, router, menu, loadingController, alertCtrl, auth, navCtrl, activatedRoute, storage, oneSignal, autostart, backgroundMode, push) {
+    constructor(platform, splashScreen, statusBar, fireAuth, router, menu, loadingController, alertCtrl, auth, navCtrl, activatedRoute, storage, oneSignal, backgroundMode, push) {
         this.platform = platform;
         this.splashScreen = splashScreen;
         this.statusBar = statusBar;
@@ -650,7 +648,6 @@ let AppComponent = class AppComponent {
         this.activatedRoute = activatedRoute;
         this.storage = storage;
         this.oneSignal = oneSignal;
-        this.autostart = autostart;
         this.backgroundMode = backgroundMode;
         this.push = push;
         this.showMenu = false;
@@ -662,18 +659,17 @@ let AppComponent = class AppComponent {
         //   }
         // });
         this.initializeApp();
-        this.storage.get('authentication').then((authentication) => {
-            console.log('Here');
-            if (authentication == null) {
-                this.router.navigate(['/authentication']);
-                return;
-            }
-            else if (authentication == 'wrong') {
-                this.auth.presentToast('You have entered wrong passcode', false, 'bottom', 1500, 'danger');
-                this.router.navigate(['/authentication']);
-                return;
-            }
-        });
+        // this.storage.get('authentication').then((authentication) => {
+        //   console.log('Here');
+        //   if (authentication == null) {
+        //     this.router.navigate(['/authentication']);
+        //     return;
+        //   } else if (authentication == 'wrong') {
+        //     this.auth.presentToast('You have entered wrong passcode', false, 'bottom', 1500, 'danger');
+        //     this.router.navigate(['/authentication']);
+        //     return;
+        //   }
+        // });
         this.fireAuth.auth.onAuthStateChanged(user => {
             if (user) {
                 this.auth.usermobile = user.phoneNumber.replace('+91', '');
@@ -712,7 +708,6 @@ let AppComponent = class AppComponent {
             }
             // this.statusBar.styleDefault();
             // this.backgroundMode.enable();
-            // this.autostart.enable();
             this.statusBar.backgroundColorByHexString('#222');
             this.splashScreen.hide();
             this.checkUserStatus();
@@ -890,9 +885,8 @@ AppComponent.ctorParameters = () => [
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"] },
     { type: _ionic_storage__WEBPACK_IMPORTED_MODULE_8__["Storage"] },
     { type: _ionic_native_onesignal_ngx__WEBPACK_IMPORTED_MODULE_9__["OneSignal"] },
-    { type: _ionic_native_autostart_ngx__WEBPACK_IMPORTED_MODULE_10__["Autostart"] },
-    { type: _ionic_native_background_mode_ngx__WEBPACK_IMPORTED_MODULE_11__["BackgroundMode"] },
-    { type: _ionic_native_push_ngx__WEBPACK_IMPORTED_MODULE_12__["Push"] }
+    { type: _ionic_native_background_mode_ngx__WEBPACK_IMPORTED_MODULE_10__["BackgroundMode"] },
+    { type: _ionic_native_push_ngx__WEBPACK_IMPORTED_MODULE_11__["Push"] }
 ];
 AppComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -913,9 +907,8 @@ AppComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"],
         _ionic_storage__WEBPACK_IMPORTED_MODULE_8__["Storage"],
         _ionic_native_onesignal_ngx__WEBPACK_IMPORTED_MODULE_9__["OneSignal"],
-        _ionic_native_autostart_ngx__WEBPACK_IMPORTED_MODULE_10__["Autostart"],
-        _ionic_native_background_mode_ngx__WEBPACK_IMPORTED_MODULE_11__["BackgroundMode"],
-        _ionic_native_push_ngx__WEBPACK_IMPORTED_MODULE_12__["Push"]])
+        _ionic_native_background_mode_ngx__WEBPACK_IMPORTED_MODULE_10__["BackgroundMode"],
+        _ionic_native_push_ngx__WEBPACK_IMPORTED_MODULE_11__["Push"]])
 ], AppComponent);
 
 
@@ -958,9 +951,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_image_modal_image_modal_module__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./pages/image-modal/image-modal.module */ "./src/app/pages/image-modal/image-modal.module.ts");
 /* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @ionic/storage */ "./node_modules/@ionic/storage/fesm2015/ionic-storage.js");
 /* harmony import */ var _ionic_native_onesignal_ngx__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @ionic-native/onesignal/ngx */ "./node_modules/@ionic-native/onesignal/ngx/index.js");
-/* harmony import */ var _ionic_native_autostart_ngx__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @ionic-native/autostart/ngx */ "./node_modules/@ionic-native/autostart/ngx/index.js");
-/* harmony import */ var _ionic_native_background_mode_ngx__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! @ionic-native/background-mode/ngx */ "./node_modules/@ionic-native/background-mode/ngx/index.js");
-/* harmony import */ var _ionic_native_push_ngx__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! @ionic-native/push/ngx */ "./node_modules/@ionic-native/push/ngx/index.js");
+/* harmony import */ var _ionic_native_background_mode_ngx__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @ionic-native/background-mode/ngx */ "./node_modules/@ionic-native/background-mode/ngx/index.js");
+/* harmony import */ var _ionic_native_push_ngx__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! @ionic-native/push/ngx */ "./node_modules/@ionic-native/push/ngx/index.js");
+/* harmony import */ var _ionic_native_native_page_transitions_ngx__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! @ionic-native/native-page-transitions/ngx */ "./node_modules/@ionic-native/native-page-transitions/ngx/index.js");
 
 
 
@@ -1072,9 +1065,9 @@ AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
             _ionic_native_call_number_ngx__WEBPACK_IMPORTED_MODULE_19__["CallNumber"],
             _ionic_native_sms_ngx__WEBPACK_IMPORTED_MODULE_21__["SMS"],
             _ionic_native_onesignal_ngx__WEBPACK_IMPORTED_MODULE_24__["OneSignal"],
-            _ionic_native_autostart_ngx__WEBPACK_IMPORTED_MODULE_25__["Autostart"],
-            _ionic_native_background_mode_ngx__WEBPACK_IMPORTED_MODULE_26__["BackgroundMode"],
-            _ionic_native_push_ngx__WEBPACK_IMPORTED_MODULE_27__["Push"],
+            _ionic_native_background_mode_ngx__WEBPACK_IMPORTED_MODULE_25__["BackgroundMode"],
+            _ionic_native_push_ngx__WEBPACK_IMPORTED_MODULE_26__["Push"],
+            _ionic_native_native_page_transitions_ngx__WEBPACK_IMPORTED_MODULE_27__["NativePageTransitions"],
         ],
         bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"]]
     }),
@@ -1231,32 +1224,32 @@ let AuthenticationService = class AuthenticationService {
         this.toastCtrl = toastCtrl;
         this.socialSharing = socialSharing;
         this.alertCtrl = alertCtrl;
-        this.base64img = '';
+        this.base64img = "";
         this.totalOrders = 0;
         this.adminTotalOrders = 0;
         this.adminWhatsappOrders = 0;
         this.adminTotalUsers = 0;
         this.adminTotalMaterials = 0;
         // userProfileDone = true;
-        this.serverErrorMsg = 'Server issue! Please try after sometime';
+        this.serverErrorMsg = "Server issue! Please try after sometime";
     }
     presentAlertConfirm() {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
             const alert = yield this.alertCtrl.create({
-                header: 'Confirm!',
-                subHeader: 'Are you sure you want to exit the app?',
-                mode: 'ios',
+                header: "Confirm!",
+                subHeader: "Are you sure you want to exit the app?",
+                mode: "ios",
                 buttons: [
                     {
-                        text: 'NO',
-                        role: 'cancel',
-                        cssClass: 'secondary',
-                        handler: (blah) => {
-                        }
-                    }, {
-                        text: 'YES',
+                        text: "NO",
+                        role: "cancel",
+                        cssClass: "secondary",
+                        handler: blah => { }
+                    },
+                    {
+                        text: "YES",
                         handler: () => {
-                            navigator['app'].exitApp();
+                            navigator["app"].exitApp();
                         }
                     }
                 ]
@@ -1272,17 +1265,16 @@ let AuthenticationService = class AuthenticationService {
                 position: position,
                 duration: duration,
                 color: color,
-                mode: 'ios'
+                mode: "ios"
             });
             toast.present();
         });
     }
     addUser(mobile) {
-        if (this.plt.is('cordova')) {
+        if (this.plt.is("cordova")) {
             return new Promise(resolve => {
                 // tslint:disable-next-line:max-line-length
-                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["from"])(this.nativeHttp.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=checkUser&mobile=${mobile}`, { 'Content-Type': 'application/json' }, {}))
-                    .subscribe(data => {
+                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["from"])(this.nativeHttp.get(`https://jaytarpara.in/mysql.php?callapi=1&process=checkUser&mobile=${mobile}`, { "Content-Type": "application/json" }, {})).subscribe(data => {
                     resolve(JSON.parse(data.data));
                 }, error => {
                     resolve({ success: 2, message: this.serverErrorMsg });
@@ -1291,8 +1283,10 @@ let AuthenticationService = class AuthenticationService {
         }
         else {
             return new Promise(resolve => {
-                this.http.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=checkUser&mobile=${mobile}`)
-                    .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(results => results)).subscribe(data => {
+                this.http
+                    .get(`https://jaytarpara.in/mysql.php?callapi=1&process=checkUser&mobile=${mobile}`)
+                    .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(results => results))
+                    .subscribe(data => {
                     resolve(data);
                 }, error => {
                     resolve({ success: 2, message: this.serverErrorMsg });
@@ -1301,11 +1295,10 @@ let AuthenticationService = class AuthenticationService {
         }
     }
     createNewUserWithMobile(mobile) {
-        if (this.plt.is('cordova')) {
+        if (this.plt.is("cordova")) {
             return new Promise(resolve => {
                 // tslint:disable-next-line:max-line-length
-                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["from"])(this.nativeHttp.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=addUser&mobile=${mobile}`, { 'Content-Type': 'application/json' }, {}))
-                    .subscribe(data => {
+                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["from"])(this.nativeHttp.get(`https://jaytarpara.in/mysql.php?callapi=1&process=addUser&mobile=${mobile}`, { "Content-Type": "application/json" }, {})).subscribe(data => {
                     resolve(JSON.parse(data.data));
                 }, error => {
                     resolve({ success: 2, message: this.serverErrorMsg });
@@ -1314,8 +1307,10 @@ let AuthenticationService = class AuthenticationService {
         }
         else {
             return new Promise(resolve => {
-                this.http.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=addUser&mobile=${mobile}`)
-                    .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(results => results)).subscribe(data => {
+                this.http
+                    .get(`https://jaytarpara.in/mysql.php?callapi=1&process=addUser&mobile=${mobile}`)
+                    .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(results => results))
+                    .subscribe(data => {
                     resolve(data);
                 }, error => {
                     resolve({ success: 2, message: this.serverErrorMsg });
@@ -1324,11 +1319,10 @@ let AuthenticationService = class AuthenticationService {
         }
     }
     getUser(value, type) {
-        if (this.plt.is('cordova')) {
+        if (this.plt.is("cordova")) {
             return new Promise(resolve => {
                 // tslint:disable-next-line:max-line-length
-                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["from"])(this.nativeHttp.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getUser&value=${value}&type=${type}`, { 'Content-Type': 'application/json' }, {}))
-                    .subscribe(data => {
+                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["from"])(this.nativeHttp.get(`https://jaytarpara.in/mysql.php?callapi=1&process=getUser&value=${value}&type=${type}`, { "Content-Type": "application/json" }, {})).subscribe(data => {
                     resolve(JSON.parse(data.data));
                 }, error => {
                     resolve({ success: 2, message: this.serverErrorMsg });
@@ -1337,8 +1331,10 @@ let AuthenticationService = class AuthenticationService {
         }
         else {
             return new Promise(resolve => {
-                this.http.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getUser&value=${value}&type=${type}`)
-                    .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(results => results)).subscribe(data => {
+                this.http
+                    .get(`https://jaytarpara.in/mysql.php?callapi=1&process=getUser&value=${value}&type=${type}`)
+                    .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(results => results))
+                    .subscribe(data => {
                     resolve(data);
                 }, error => {
                     resolve({ success: 2, message: this.serverErrorMsg });
@@ -1348,12 +1344,11 @@ let AuthenticationService = class AuthenticationService {
     }
     updateUser(mobile, name, gst, address) {
         // tslint:disable-next-line:max-line-length
-        const apiCall = encodeURI(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=updateUser&mobile=${mobile}&name=${name}&gst=${gst}&address=${address}`);
-        if (this.plt.is('cordova')) {
+        const apiCall = encodeURI(`https://jaytarpara.in/mysql.php?callapi=1&process=updateUser&mobile=${mobile}&name=${name}&gst=${gst}&address=${address}`);
+        if (this.plt.is("cordova")) {
             return new Promise(resolve => {
                 // tslint:disable-next-line:max-line-length
-                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["from"])(this.nativeHttp.get(apiCall, { 'Content-Type': 'application/json' }, {}))
-                    .subscribe(data => {
+                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["from"])(this.nativeHttp.get(apiCall, { "Content-Type": "application/json" }, {})).subscribe(data => {
                     resolve(JSON.parse(data.data));
                 }, error => {
                     resolve({ success: 2, message: this.serverErrorMsg });
@@ -1362,8 +1357,10 @@ let AuthenticationService = class AuthenticationService {
         }
         else {
             return new Promise(resolve => {
-                this.http.get(apiCall)
-                    .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(results => results)).subscribe(data => {
+                this.http
+                    .get(apiCall)
+                    .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(results => results))
+                    .subscribe(data => {
                     resolve(data);
                 }, error => {
                     resolve({ success: 2, message: this.serverErrorMsg });
@@ -1371,18 +1368,19 @@ let AuthenticationService = class AuthenticationService {
             });
         }
     }
-    getMaterials(results, page, searchKey, owner, sortby) {
+    getMaterials(results, page, searchKey, owner, type, sortby) {
         if (!searchKey) {
-            searchKey = '';
+            searchKey = "";
         }
         if (!sortby) {
-            sortby = '';
+            sortby = "";
         }
-        if (this.plt.is('cordova')) {
+        // tslint:disable-next-line:max-line-length
+        console.log(`https://jaytarpara.in/mysql.php?callapi=1&process=getMaterials&results=${results}&page=${page}&searchKey=${searchKey}&owner=${owner}&type=${type}&sortby=${sortby}`);
+        if (this.plt.is("cordova")) {
             return new Promise(resolve => {
                 // tslint:disable-next-line:max-line-length
-                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["from"])(this.nativeHttp.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getMaterials&results=${results}&page=${page}&searchKey=${searchKey}&owner=${owner}&sortby=${sortby}`, { 'Content-Type': 'application/json' }, {}))
-                    .subscribe(data => {
+                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["from"])(this.nativeHttp.get(`https://jaytarpara.in/mysql.php?callapi=1&process=getMaterials&results=${results}&page=${page}&searchKey=${searchKey}&owner=${owner}&type=${type}&sortby=${sortby}`, { "Content-Type": "application/json" }, {})).subscribe(data => {
                     resolve(JSON.parse(data.data));
                 }, error => {
                     resolve({ success: 2, message: this.serverErrorMsg });
@@ -1392,8 +1390,10 @@ let AuthenticationService = class AuthenticationService {
         else {
             return new Promise(resolve => {
                 // tslint:disable-next-line:max-line-length
-                this.http.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getMaterials&results=${results}&page=${page}&searchKey=${searchKey}&owner=${owner}&sortby=${sortby}`)
-                    .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(results => results)).subscribe(data => {
+                this.http
+                    .get(`https://jaytarpara.in/mysql.php?callapi=1&process=getMaterials&results=${results}&page=${page}&searchKey=${searchKey}&owner=${owner}&type=${type}&sortby=${sortby}`)
+                    .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(results => results))
+                    .subscribe(data => {
                     resolve(data);
                 }, error => {
                     resolve({ success: 2, message: this.serverErrorMsg });
@@ -1402,11 +1402,10 @@ let AuthenticationService = class AuthenticationService {
         }
     }
     getLatestMaterials(results, lastid) {
-        if (this.plt.is('cordova')) {
+        if (this.plt.is("cordova")) {
             return new Promise(resolve => {
                 // tslint:disable-next-line:max-line-length
-                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["from"])(this.nativeHttp.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getLatestMaterials&results=${results}&lastid=${lastid}`, { 'Content-Type': 'application/json' }, {}))
-                    .subscribe(data => {
+                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["from"])(this.nativeHttp.get(`https://jaytarpara.in/mysql.php?callapi=1&process=getLatestMaterials&results=${results}&lastid=${lastid}`, { "Content-Type": "application/json" }, {})).subscribe(data => {
                     resolve(JSON.parse(data.data));
                 });
             });
@@ -1414,8 +1413,10 @@ let AuthenticationService = class AuthenticationService {
         else {
             return new Promise(resolve => {
                 // tslint:disable-next-line:max-line-length
-                this.http.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getLatestMaterials&results=${results}&lastid=${lastid}`)
-                    .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(results => results)).subscribe(data => {
+                this.http
+                    .get(`https://jaytarpara.in/mysql.php?callapi=1&process=getLatestMaterials&results=${results}&lastid=${lastid}`)
+                    .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(results => results))
+                    .subscribe(data => {
                     resolve(data);
                 });
             });
@@ -1423,82 +1424,86 @@ let AuthenticationService = class AuthenticationService {
     }
     sendOrder(userArr, orderArr) {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
-            const user_id = userArr[0]['id'];
-            const user_mobile = userArr[0]['mobile'];
-            const user_name = userArr[0]['name'];
-            const user_gst = userArr[0]['gst'];
-            const user_address = userArr[0]['address'];
-            const material_primary_id = orderArr[0]['id'];
-            const company = orderArr[0]['company'];
-            const material_image = orderArr[0]['imageurl'];
-            const material_id = orderArr[0]['material_id'];
-            const material_name = orderArr[0]['name'];
-            const material_price = orderArr[0]['price'];
-            const material_quantity = orderArr[0]['quantity'];
-            const piece = orderArr[0]['piece'];
-            let material_sample = orderArr[0]['sample'];
-            let matsample = orderArr[0]['sample'];
+            const user_id = userArr[0]["id"];
+            const user_mobile = userArr[0]["mobile"];
+            const user_name = userArr[0]["name"];
+            const user_gst = userArr[0]["gst"];
+            const user_address = userArr[0]["address"];
+            const material_primary_id = orderArr[0]["id"];
+            const company = orderArr[0]["company"];
+            const material_image = orderArr[0]["imageurl"];
+            const material_id = orderArr[0]["material_id"];
+            const material_name = orderArr[0]["name"];
+            const material_price = orderArr[0]["price"];
+            const material_quantity = orderArr[0]["quantity"];
+            const piece = orderArr[0]["piece"];
+            let material_sample = orderArr[0]["sample"];
+            let matsample = orderArr[0]["sample"];
             if (material_sample) {
-                material_sample = 'Yes';
+                material_sample = "Yes";
             }
             else {
                 matsample = 0;
-                material_sample = 'No';
+                material_sample = "No";
             }
-            let message = '*Here is a new order and details are as below* \r\n\r\n';
-            message = message + '*User Details:* \r\n';
-            message = message + '*Name:* ' + user_name + '\r\n';
-            message = message + '*Mobile:* ' + user_mobile + '\r\n';
-            message = message + '*GST:* ' + user_gst + '\r\n';
-            message = message + '*Address:* ' + user_address + '\r\n\r\n';
-            message = message + '*Order Details:* \r\n';
-            message = message + '*Design Number:* ' + material_id + '\r\n';
-            message = message + '*Material Name:* ' + material_name + '\r\n';
-            message = message + '*Material Price:* ' + material_price + '\r\n';
-            message = message + '*Quantity Ordered:* ' + material_quantity + ' M' + '\r\n';
-            message = message + '*Pieces Ordered:* ' + piece + '\r\n';
-            message = message + '*Sample Requested:* ' + material_sample + '\r\n';
-            message = message + '*Material Image:* ' + material_image + '\r\n';
+            let message = "*Here is a new order and details are as below* \r\n\r\n";
+            message = message + "*User Details:* \r\n";
+            message = message + "*Name:* " + user_name + "\r\n";
+            message = message + "*Mobile:* " + user_mobile + "\r\n";
+            message = message + "*GST:* " + user_gst + "\r\n";
+            message = message + "*Address:* " + user_address + "\r\n\r\n";
+            message = message + "*Order Details:* \r\n";
+            message = message + "*Design Number:* " + material_id + "\r\n";
+            message = message + "*Material Name:* " + material_name + "\r\n";
+            message = message + "*Material Price:* " + material_price + "\r\n";
+            message =
+                message + "*Quantity Ordered:* " + material_quantity + " M" + "\r\n";
+            message = message + "*Pieces Ordered:* " + piece + "\r\n";
+            message = message + "*Sample Requested:* " + material_sample + "\r\n";
+            message = message + "*Material Image:* " + material_image + "\r\n";
             const link = material_image;
-            let whatsappnumber = '+919824868568';
-            if (company == 'Bhumi Narrow Fab') {
-                whatsappnumber = '+919825783611';
+            let whatsappnumber = "+919824868568";
+            if (company == "Bhumi Narrow Fab") {
+                whatsappnumber = "+919825783611";
             }
-            else if (company == 'Matrushree Lace') {
-                whatsappnumber = '+918488923655';
+            else if (company == "Matrushree Lace") {
+                whatsappnumber = "+918488923655";
             }
-            else if (company == '23 Needle') {
-                whatsappnumber = '+917778997755';
+            else if (company == "23 Needle") {
+                whatsappnumber = "+917778997755";
             }
-            if (this.plt.is('cordova')) {
-                return this.socialSharing.shareViaWhatsAppToReceiver(whatsappnumber, message, '', '').then((res) => tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            if (this.plt.is("cordova")) {
+                return this.socialSharing
+                    .shareViaWhatsAppToReceiver(whatsappnumber, message, "", "")
+                    .then((res) => tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
                     // Success
                     // tslint:disable-next-line:max-line-length
-                    yield this.saveOrder(user_id, user_mobile, material_primary_id, material_quantity, matsample, material_price, piece).then((response) => {
-                        if (response['success'] == 1) {
-                            this.presentToast(response['message'], false, 'bottom', 1500, 'success');
+                    yield this.saveOrder(user_id, user_mobile, material_primary_id, material_quantity, matsample, material_price, piece).then(response => {
+                        if (response["success"] == 1) {
+                            this.presentToast(response["message"], false, "bottom", 1500, "success");
                         }
                         else {
-                            this.presentToast(response['message'], false, 'bottom', 1500, 'danger');
+                            this.presentToast(response["message"], false, "bottom", 1500, "danger");
                         }
                         return response;
                     });
-                })).catch((e) => {
+                }))
+                    .catch(e => {
                     // Error!
                     return e;
                 });
             }
             else {
                 // tslint:disable-next-line:max-line-length
-                yield this.saveOrder(user_id, user_mobile, material_primary_id, material_quantity, matsample, material_price, piece).then((response) => {
-                    if (response['success'] == 1) {
-                        this.presentToast(response['message'], false, 'bottom', 1500, 'success');
+                yield this.saveOrder(user_id, user_mobile, material_primary_id, material_quantity, matsample, material_price, piece).then(response => {
+                    if (response["success"] == 1) {
+                        this.presentToast(response["message"], false, "bottom", 1500, "success");
                     }
-                    else if (response['success'] == 2) {
-                        this.presentToast(response['message'], false, 'bottom', 2500, 'danger');
+                    else if (response["success"] == 2) {
+                        this.presentToast(response["message"], false, "bottom", 2500, "danger");
                     }
                     else {
-                        this.presentToast(response['message'], false, 'bottom', 1500, 'danger');
+                        this.presentToast(response["message"], false, "bottom", 1500, "danger");
                     }
                     return response;
                 });
@@ -1508,13 +1513,22 @@ let AuthenticationService = class AuthenticationService {
     saveOrder(userid, usermobile, materialprimaryid, materialquantity, matsample, materialprice, piece) {
         const date = new Date();
         // tslint:disable-next-line:max-line-length
-        const orderDate = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2) + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+        const orderDate = date.getFullYear() +
+            "-" +
+            ("0" + (date.getMonth() + 1)).slice(-2) +
+            "-" +
+            ("0" + date.getDate()).slice(-2) +
+            " " +
+            date.getHours() +
+            ":" +
+            date.getMinutes() +
+            ":" +
+            date.getSeconds();
         // tslint:disable-next-line:max-line-length
-        if (this.plt.is('cordova')) {
+        if (this.plt.is("cordova")) {
             return new Promise(resolve => {
                 // tslint:disable-next-line:max-line-length
-                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["from"])(this.nativeHttp.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=saveOrder&userid=${userid}&usermobile=${usermobile}&materialprimaryid=${materialprimaryid}&materialquantity=${materialquantity}&matsample=${matsample}&orderdate=${orderDate}&materialprice=${materialprice}&piece=${piece}`, { 'Content-Type': 'application/json' }, {}))
-                    .subscribe(data => {
+                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["from"])(this.nativeHttp.get(`https://jaytarpara.in/mysql.php?callapi=1&process=saveOrder&userid=${userid}&usermobile=${usermobile}&materialprimaryid=${materialprimaryid}&materialquantity=${materialquantity}&matsample=${matsample}&orderdate=${orderDate}&materialprice=${materialprice}&piece=${piece}`, { "Content-Type": "application/json" }, {})).subscribe(data => {
                     resolve(JSON.parse(data.data));
                 }, error => {
                     resolve({ success: 2, message: this.serverErrorMsg });
@@ -1524,8 +1538,10 @@ let AuthenticationService = class AuthenticationService {
         else {
             return new Promise(resolve => {
                 // tslint:disable-next-line:max-line-length
-                this.http.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=saveOrder&userid=${userid}&usermobile=${usermobile}&materialprimaryid=${materialprimaryid}&materialquantity=${materialquantity}&matsample=${matsample}&orderdate=${orderDate}&materialprice=${materialprice}&piece=${piece}`)
-                    .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(results => results)).subscribe(data => {
+                this.http
+                    .get(`https://jaytarpara.in/mysql.php?callapi=1&process=saveOrder&userid=${userid}&usermobile=${usermobile}&materialprimaryid=${materialprimaryid}&materialquantity=${materialquantity}&matsample=${matsample}&orderdate=${orderDate}&materialprice=${materialprice}&piece=${piece}`)
+                    .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(results => results))
+                    .subscribe(data => {
                     resolve(data);
                 }, error => {
                     resolve({ success: 2, message: this.serverErrorMsg });
@@ -1535,16 +1551,15 @@ let AuthenticationService = class AuthenticationService {
     }
     getOrders(results, page, mobile, searchKey, searchstatus) {
         if (!searchKey) {
-            searchKey = '';
+            searchKey = "";
         }
         if (!searchstatus) {
-            searchKey = 'All';
+            searchKey = "All";
         }
-        if (this.plt.is('cordova')) {
+        if (this.plt.is("cordova")) {
             return new Promise(resolve => {
                 // tslint:disable-next-line:max-line-length
-                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["from"])(this.nativeHttp.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getOrders&results=${results}&page=${page}&mobile=${mobile}&searchKey=${searchKey}&searchstatus=${searchstatus}`, { 'Content-Type': 'application/json' }, {}))
-                    .subscribe(data => {
+                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["from"])(this.nativeHttp.get(`https://jaytarpara.in/mysql.php?callapi=1&process=getOrders&results=${results}&page=${page}&mobile=${mobile}&searchKey=${searchKey}&searchstatus=${searchstatus}`, { "Content-Type": "application/json" }, {})).subscribe(data => {
                     resolve(JSON.parse(data.data));
                 }, error => {
                     resolve({ success: 2, message: this.serverErrorMsg });
@@ -1554,8 +1569,10 @@ let AuthenticationService = class AuthenticationService {
         else {
             return new Promise(resolve => {
                 // tslint:disable-next-line:max-line-length
-                this.http.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getOrders&results=${results}&page=${page}&mobile=${mobile}&searchKey=${searchKey}&searchstatus=${searchstatus}`)
-                    .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(results => results)).subscribe(data => {
+                this.http
+                    .get(`https://jaytarpara.in/mysql.php?callapi=1&process=getOrders&results=${results}&page=${page}&mobile=${mobile}&searchKey=${searchKey}&searchstatus=${searchstatus}`)
+                    .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(results => results))
+                    .subscribe(data => {
                     resolve(data);
                 }, error => {
                     resolve({ success: 2, message: this.serverErrorMsg });
@@ -1564,11 +1581,10 @@ let AuthenticationService = class AuthenticationService {
         }
     }
     getOrderByID(orderid) {
-        if (this.plt.is('cordova')) {
+        if (this.plt.is("cordova")) {
             return new Promise(resolve => {
                 // tslint:disable-next-line:max-line-length
-                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["from"])(this.nativeHttp.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getOrderByID&orderid=${orderid}`, { 'Content-Type': 'application/json' }, {}))
-                    .subscribe(data => {
+                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["from"])(this.nativeHttp.get(`https://jaytarpara.in/mysql.php?callapi=1&process=getOrderByID&orderid=${orderid}`, { "Content-Type": "application/json" }, {})).subscribe(data => {
                     resolve(JSON.parse(data.data));
                 }, error => {
                     resolve({ success: 2, message: this.serverErrorMsg });
@@ -1578,8 +1594,10 @@ let AuthenticationService = class AuthenticationService {
         else {
             return new Promise(resolve => {
                 // tslint:disable-next-line:max-line-length
-                this.http.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getOrderByID&orderid=${orderid}`)
-                    .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(results => results)).subscribe(data => {
+                this.http
+                    .get(`https://jaytarpara.in/mysql.php?callapi=1&process=getOrderByID&orderid=${orderid}`)
+                    .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(results => results))
+                    .subscribe(data => {
                     resolve(data);
                 }, error => {
                     resolve({ success: 2, message: this.serverErrorMsg });
@@ -1588,11 +1606,10 @@ let AuthenticationService = class AuthenticationService {
         }
     }
     getWhatsappOrderByID(orderid) {
-        if (this.plt.is('cordova')) {
+        if (this.plt.is("cordova")) {
             return new Promise(resolve => {
                 // tslint:disable-next-line:max-line-length
-                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["from"])(this.nativeHttp.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getWhatsappOrderByID&orderid=${orderid}`, { 'Content-Type': 'application/json' }, {}))
-                    .subscribe(data => {
+                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["from"])(this.nativeHttp.get(`https://jaytarpara.in/mysql.php?callapi=1&process=getWhatsappOrderByID&orderid=${orderid}`, { "Content-Type": "application/json" }, {})).subscribe(data => {
                     resolve(JSON.parse(data.data));
                 }, error => {
                     resolve({ success: 2, message: this.serverErrorMsg });
@@ -1602,8 +1619,10 @@ let AuthenticationService = class AuthenticationService {
         else {
             return new Promise(resolve => {
                 // tslint:disable-next-line:max-line-length
-                this.http.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getWhatsappOrderByID&orderid=${orderid}`)
-                    .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(results => results)).subscribe(data => {
+                this.http
+                    .get(`https://jaytarpara.in/mysql.php?callapi=1&process=getWhatsappOrderByID&orderid=${orderid}`)
+                    .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(results => results))
+                    .subscribe(data => {
                     resolve(data);
                 }, error => {
                     resolve({ success: 2, message: this.serverErrorMsg });
@@ -1612,11 +1631,10 @@ let AuthenticationService = class AuthenticationService {
         }
     }
     getTotalOrders(mobile) {
-        if (this.plt.is('cordova')) {
+        if (this.plt.is("cordova")) {
             return new Promise(resolve => {
                 // tslint:disable-next-line:max-line-length
-                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["from"])(this.nativeHttp.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getTotalOrders&mobile=${mobile}`, { 'Content-Type': 'application/json' }, {}))
-                    .subscribe(data => {
+                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["from"])(this.nativeHttp.get(`https://jaytarpara.in/mysql.php?callapi=1&process=getTotalOrders&mobile=${mobile}`, { "Content-Type": "application/json" }, {})).subscribe(data => {
                     resolve(JSON.parse(data.data));
                 }, error => {
                     resolve({ success: 2, message: this.serverErrorMsg });
@@ -1626,8 +1644,10 @@ let AuthenticationService = class AuthenticationService {
         else {
             return new Promise(resolve => {
                 // tslint:disable-next-line:max-line-length
-                this.http.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getTotalOrders&mobile=${mobile}`)
-                    .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(results => results)).subscribe(data => {
+                this.http
+                    .get(`https://jaytarpara.in/mysql.php?callapi=1&process=getTotalOrders&mobile=${mobile}`)
+                    .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(results => results))
+                    .subscribe(data => {
                     resolve(data);
                 }, error => {
                     resolve({ success: 2, message: this.serverErrorMsg });
@@ -1636,11 +1656,10 @@ let AuthenticationService = class AuthenticationService {
         }
     }
     uploadMaterial(data) {
-        if (this.plt.is('cordova')) {
+        if (this.plt.is("cordova")) {
             return new Promise(resolve => {
                 // tslint:disable-next-line:max-line-length
-                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["from"])(this.nativeHttp.post(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=uploadMaterial`, data, { 'Content-Type': 'application/json' }))
-                    .subscribe(results => {
+                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["from"])(this.nativeHttp.post(`https://jaytarpara.in/mysql.php?callapi=1&process=uploadMaterial`, data, { "Content-Type": "application/json" })).subscribe(results => {
                     resolve(JSON.parse(results.data));
                 }, error => {
                     resolve({ success: 2, message: this.serverErrorMsg });
@@ -1650,8 +1669,10 @@ let AuthenticationService = class AuthenticationService {
         else {
             return new Promise(resolve => {
                 // tslint:disable-next-line:max-line-length
-                this.http.post(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=uploadMaterial`, data)
-                    .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(results => results)).subscribe(response => {
+                this.http
+                    .post(`https://jaytarpara.in/mysql.php?callapi=1&process=uploadMaterial`, data)
+                    .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(results => results))
+                    .subscribe(response => {
                     resolve(response);
                 }, error => {
                     resolve({ success: 2, message: this.serverErrorMsg });
@@ -1660,11 +1681,10 @@ let AuthenticationService = class AuthenticationService {
         }
     }
     getAdminAllTotal() {
-        if (this.plt.is('cordova')) {
+        if (this.plt.is("cordova")) {
             return new Promise(resolve => {
                 // tslint:disable-next-line:max-line-length
-                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["from"])(this.nativeHttp.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getAdminAllTotal`, { 'Content-Type': 'application/json' }, {}))
-                    .subscribe(data => {
+                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["from"])(this.nativeHttp.get(`https://jaytarpara.in/mysql.php?callapi=1&process=getAdminAllTotal`, { "Content-Type": "application/json" }, {})).subscribe(data => {
                     resolve(JSON.parse(data.data));
                 });
             });
@@ -1672,19 +1692,20 @@ let AuthenticationService = class AuthenticationService {
         else {
             return new Promise(resolve => {
                 // tslint:disable-next-line:max-line-length
-                this.http.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getAdminAllTotal`)
-                    .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(results => results)).subscribe(data => {
+                this.http
+                    .get(`https://jaytarpara.in/mysql.php?callapi=1&process=getAdminAllTotal`)
+                    .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(results => results))
+                    .subscribe(data => {
                     resolve(data);
                 });
             });
         }
     }
     getMaterialDetails(materialid) {
-        if (this.plt.is('cordova')) {
+        if (this.plt.is("cordova")) {
             return new Promise(resolve => {
                 // tslint:disable-next-line:max-line-length
-                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["from"])(this.nativeHttp.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getMaterialByID&materialid=${materialid}`, { 'Content-Type': 'application/json' }, {}))
-                    .subscribe(data => {
+                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["from"])(this.nativeHttp.get(`https://jaytarpara.in/mysql.php?callapi=1&process=getMaterialByID&materialid=${materialid}`, { "Content-Type": "application/json" }, {})).subscribe(data => {
                     resolve(JSON.parse(data.data));
                 }, error => {
                     resolve({ success: 2, message: this.serverErrorMsg });
@@ -1694,8 +1715,10 @@ let AuthenticationService = class AuthenticationService {
         else {
             return new Promise(resolve => {
                 // tslint:disable-next-line:max-line-length
-                this.http.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getMaterialByID&materialid=${materialid}`)
-                    .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(results => results)).subscribe(data => {
+                this.http
+                    .get(`https://jaytarpara.in/mysql.php?callapi=1&process=getMaterialByID&materialid=${materialid}`)
+                    .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(results => results))
+                    .subscribe(data => {
                     resolve(data);
                 }, error => {
                     resolve({ success: 2, message: this.serverErrorMsg });
@@ -1703,12 +1726,11 @@ let AuthenticationService = class AuthenticationService {
             });
         }
     }
-    updateMaterialDetailOnly(id, name, mid, color, mowner, price) {
-        if (this.plt.is('cordova')) {
+    updateMaterialDetailOnly(id, name, mid, color, mowner, mtype, price) {
+        if (this.plt.is("cordova")) {
             return new Promise(resolve => {
                 // tslint:disable-next-line:max-line-length
-                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["from"])(this.nativeHttp.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=updateMaterialDetailOnly&id=${id}&name=${name}&mid=${mid}&color=${color}&mowner=${mowner}&price=${price}`, { 'Content-Type': 'application/json' }, {}))
-                    .subscribe(data => {
+                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["from"])(this.nativeHttp.get(`https://jaytarpara.in/mysql.php?callapi=1&process=updateMaterialDetailOnly&id=${id}&name=${name}&mid=${mid}&color=${color}&mowner=${mowner}&mtype=${mtype}&price=${price}`, { "Content-Type": "application/json" }, {})).subscribe(data => {
                     resolve(JSON.parse(data.data));
                 }, error => {
                     resolve({ success: 2, message: this.serverErrorMsg });
@@ -1718,8 +1740,10 @@ let AuthenticationService = class AuthenticationService {
         else {
             return new Promise(resolve => {
                 // tslint:disable-next-line:max-line-length
-                this.http.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=updateMaterialDetailOnly&id=${id}&name=${name}&mid=${mid}&color=${color}&mowner=${mowner}&price=${price}`)
-                    .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(results => results)).subscribe(data => {
+                this.http
+                    .get(`https://jaytarpara.in/mysql.php?callapi=1&process=updateMaterialDetailOnly&id=${id}&name=${name}&mid=${mid}&color=${color}&mowner=${mowner}&mtype=${mtype}&price=${price}`)
+                    .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(results => results))
+                    .subscribe(data => {
                     resolve(data);
                 }, error => {
                     resolve({ success: 2, message: this.serverErrorMsg });
@@ -1728,11 +1752,10 @@ let AuthenticationService = class AuthenticationService {
         }
     }
     deleteMaterial(id) {
-        if (this.plt.is('cordova')) {
+        if (this.plt.is("cordova")) {
             return new Promise(resolve => {
                 // tslint:disable-next-line:max-line-length
-                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["from"])(this.nativeHttp.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=deleteMaterial&id=${id}`, { 'Content-Type': 'application/json' }, {}))
-                    .subscribe(data => {
+                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["from"])(this.nativeHttp.get(`https://jaytarpara.in/mysql.php?callapi=1&process=deleteMaterial&id=${id}`, { "Content-Type": "application/json" }, {})).subscribe(data => {
                     resolve(JSON.parse(data.data));
                 }, error => {
                     resolve({ success: 2, message: this.serverErrorMsg });
@@ -1742,8 +1765,10 @@ let AuthenticationService = class AuthenticationService {
         else {
             return new Promise(resolve => {
                 // tslint:disable-next-line:max-line-length
-                this.http.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=deleteMaterial&id=${id}`)
-                    .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(results => results)).subscribe(data => {
+                this.http
+                    .get(`https://jaytarpara.in/mysql.php?callapi=1&process=deleteMaterial&id=${id}`)
+                    .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(results => results))
+                    .subscribe(data => {
                     resolve(data);
                 }, error => {
                     resolve({ success: 2, message: this.serverErrorMsg });
@@ -1753,13 +1778,12 @@ let AuthenticationService = class AuthenticationService {
     }
     getUsers(results, page, searchKey) {
         if (!searchKey) {
-            searchKey = '';
+            searchKey = "";
         }
-        if (this.plt.is('cordova')) {
+        if (this.plt.is("cordova")) {
             return new Promise(resolve => {
                 // tslint:disable-next-line:max-line-length
-                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["from"])(this.nativeHttp.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getUsers&results=${results}&page=${page}&searchKey=${searchKey}`, { 'Content-Type': 'application/json' }, {}))
-                    .subscribe(data => {
+                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["from"])(this.nativeHttp.get(`https://jaytarpara.in/mysql.php?callapi=1&process=getUsers&results=${results}&page=${page}&searchKey=${searchKey}`, { "Content-Type": "application/json" }, {})).subscribe(data => {
                     resolve(JSON.parse(data.data));
                 }, error => {
                     resolve({ success: 2, message: this.serverErrorMsg });
@@ -1769,8 +1793,10 @@ let AuthenticationService = class AuthenticationService {
         else {
             return new Promise(resolve => {
                 // tslint:disable-next-line:max-line-length
-                this.http.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getUsers&results=${results}&page=${page}&searchKey=${searchKey}`)
-                    .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(results => results)).subscribe(data => {
+                this.http
+                    .get(`https://jaytarpara.in/mysql.php?callapi=1&process=getUsers&results=${results}&page=${page}&searchKey=${searchKey}`)
+                    .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(results => results))
+                    .subscribe(data => {
                     resolve(data);
                 }, error => {
                     resolve({ success: 2, message: this.serverErrorMsg });
@@ -1779,25 +1805,24 @@ let AuthenticationService = class AuthenticationService {
         }
     }
     updateOrderStatus(id, status) {
-        if (status == 'Pending') {
+        if (status == "Pending") {
             status = 0;
         }
-        else if (status == 'Confirmed') {
+        else if (status == "Confirmed") {
             status = 1;
         }
-        else if (status == 'Delivered') {
+        else if (status == "Delivered") {
             status = 2;
         }
-        else if (status == 'Rejected') {
+        else if (status == "Rejected") {
             status = 3;
         }
         // tslint:disable-next-line:max-line-length
-        const apiCall = encodeURI(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=updateOrderStatus&id=${id}&status=${status}`);
-        if (this.plt.is('cordova')) {
+        const apiCall = encodeURI(`https://jaytarpara.in/mysql.php?callapi=1&process=updateOrderStatus&id=${id}&status=${status}`);
+        if (this.plt.is("cordova")) {
             return new Promise(resolve => {
                 // tslint:disable-next-line:max-line-length
-                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["from"])(this.nativeHttp.get(apiCall, { 'Content-Type': 'application/json' }, {}))
-                    .subscribe(data => {
+                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["from"])(this.nativeHttp.get(apiCall, { "Content-Type": "application/json" }, {})).subscribe(data => {
                     resolve(JSON.parse(data.data));
                 }, error => {
                     resolve({ success: 2, message: this.serverErrorMsg });
@@ -1806,8 +1831,10 @@ let AuthenticationService = class AuthenticationService {
         }
         else {
             return new Promise(resolve => {
-                this.http.get(apiCall)
-                    .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(results => results)).subscribe(data => {
+                this.http
+                    .get(apiCall)
+                    .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(results => results))
+                    .subscribe(data => {
                     resolve(data);
                 }, error => {
                     resolve({ success: 2, message: this.serverErrorMsg });
@@ -1816,25 +1843,24 @@ let AuthenticationService = class AuthenticationService {
         }
     }
     updateWhatsappOrderStatus(id, status) {
-        if (status == 'Pending') {
+        if (status == "Pending") {
             status = 0;
         }
-        else if (status == 'Confirmed') {
+        else if (status == "Confirmed") {
             status = 1;
         }
-        else if (status == 'Delivered') {
+        else if (status == "Delivered") {
             status = 2;
         }
-        else if (status == 'Rejected') {
+        else if (status == "Rejected") {
             status = 3;
         }
         // tslint:disable-next-line:max-line-length
-        const apiCall = encodeURI(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=updateWhatsappOrderStatus&id=${id}&status=${status}`);
-        if (this.plt.is('cordova')) {
+        const apiCall = encodeURI(`https://jaytarpara.in/mysql.php?callapi=1&process=updateWhatsappOrderStatus&id=${id}&status=${status}`);
+        if (this.plt.is("cordova")) {
             return new Promise(resolve => {
                 // tslint:disable-next-line:max-line-length
-                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["from"])(this.nativeHttp.get(apiCall, { 'Content-Type': 'application/json' }, {}))
-                    .subscribe(data => {
+                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["from"])(this.nativeHttp.get(apiCall, { "Content-Type": "application/json" }, {})).subscribe(data => {
                     resolve(JSON.parse(data.data));
                 }, error => {
                     resolve({ success: 2, message: this.serverErrorMsg });
@@ -1843,8 +1869,10 @@ let AuthenticationService = class AuthenticationService {
         }
         else {
             return new Promise(resolve => {
-                this.http.get(apiCall)
-                    .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(results => results)).subscribe(data => {
+                this.http
+                    .get(apiCall)
+                    .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(results => results))
+                    .subscribe(data => {
                     resolve(data);
                 }, error => {
                     resolve({ success: 2, message: this.serverErrorMsg });
@@ -1854,19 +1882,18 @@ let AuthenticationService = class AuthenticationService {
     }
     getAllOrders(results, page, searchKey, searchstatus, searchKeyDate) {
         if (!searchKey) {
-            searchKey = '';
+            searchKey = "";
         }
         if (!searchKeyDate) {
-            searchKeyDate = '';
+            searchKeyDate = "";
         }
         if (!searchstatus) {
-            searchKey = 'All';
+            searchKey = "All";
         }
-        if (this.plt.is('cordova')) {
+        if (this.plt.is("cordova")) {
             return new Promise(resolve => {
                 // tslint:disable-next-line:max-line-length
-                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["from"])(this.nativeHttp.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getAllOrders&results=${results}&page=${page}&searchKey=${searchKey}&searchstatus=${searchstatus}&searchKeyDate=${searchKeyDate}`, { 'Content-Type': 'application/json' }, {}))
-                    .subscribe(data => {
+                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["from"])(this.nativeHttp.get(`https://jaytarpara.in/mysql.php?callapi=1&process=getAllOrders&results=${results}&page=${page}&searchKey=${searchKey}&searchstatus=${searchstatus}&searchKeyDate=${searchKeyDate}`, { "Content-Type": "application/json" }, {})).subscribe(data => {
                     resolve(JSON.parse(data.data));
                 }, error => {
                     resolve({ success: 2, message: this.serverErrorMsg });
@@ -1876,8 +1903,10 @@ let AuthenticationService = class AuthenticationService {
         else {
             return new Promise(resolve => {
                 // tslint:disable-next-line:max-line-length
-                this.http.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getAllOrders&results=${results}&page=${page}&searchKey=${searchKey}&searchstatus=${searchstatus}&searchKeyDate=${searchKeyDate}`)
-                    .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(results => results)).subscribe(data => {
+                this.http
+                    .get(`https://jaytarpara.in/mysql.php?callapi=1&process=getAllOrders&results=${results}&page=${page}&searchKey=${searchKey}&searchstatus=${searchstatus}&searchKeyDate=${searchKeyDate}`)
+                    .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(results => results))
+                    .subscribe(data => {
                     resolve(data);
                 }, error => {
                     resolve({ success: 2, message: this.serverErrorMsg });
@@ -1887,19 +1916,18 @@ let AuthenticationService = class AuthenticationService {
     }
     getAllWhatsappOrders(results, page, searchKey, searchstatus, searchKeyDate) {
         if (!searchKey) {
-            searchKey = '';
+            searchKey = "";
         }
         if (!searchKeyDate) {
-            searchKeyDate = '';
+            searchKeyDate = "";
         }
         if (!searchstatus) {
-            searchKey = 'All';
+            searchKey = "All";
         }
-        if (this.plt.is('cordova')) {
+        if (this.plt.is("cordova")) {
             return new Promise(resolve => {
                 // tslint:disable-next-line:max-line-length
-                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["from"])(this.nativeHttp.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getAllWhatsappOrders&results=${results}&page=${page}&searchKey=${searchKey}&searchstatus=${searchstatus}&searchKeyDate=${searchKeyDate}`, { 'Content-Type': 'application/json' }, {}))
-                    .subscribe(data => {
+                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["from"])(this.nativeHttp.get(`https://jaytarpara.in/mysql.php?callapi=1&process=getAllWhatsappOrders&results=${results}&page=${page}&searchKey=${searchKey}&searchstatus=${searchstatus}&searchKeyDate=${searchKeyDate}`, { "Content-Type": "application/json" }, {})).subscribe(data => {
                     resolve(JSON.parse(data.data));
                 }, error => {
                     resolve({ success: 2, message: this.serverErrorMsg });
@@ -1909,8 +1937,10 @@ let AuthenticationService = class AuthenticationService {
         else {
             return new Promise(resolve => {
                 // tslint:disable-next-line:max-line-length
-                this.http.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=getAllWhatsappOrders&results=${results}&page=${page}&searchKey=${searchKey}&searchstatus=${searchstatus}&searchKeyDate=${searchKeyDate}`)
-                    .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(results => results)).subscribe(data => {
+                this.http
+                    .get(`https://jaytarpara.in/mysql.php?callapi=1&process=getAllWhatsappOrders&results=${results}&page=${page}&searchKey=${searchKey}&searchstatus=${searchstatus}&searchKeyDate=${searchKeyDate}`)
+                    .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(results => results))
+                    .subscribe(data => {
                     resolve(data);
                 }, error => {
                     resolve({ success: 2, message: this.serverErrorMsg });
@@ -1919,11 +1949,10 @@ let AuthenticationService = class AuthenticationService {
         }
     }
     validateGST(gst, key) {
-        if (this.plt.is('cordova')) {
+        if (this.plt.is("cordova")) {
             return new Promise(resolve => {
                 // tslint:disable-next-line:max-line-length
-                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["from"])(this.nativeHttp.get(`https://appyflow.in/api/verifyGST?gstNo=${gst}&key_secret=${key}`, { 'Content-Type': 'application/json' }, {}))
-                    .subscribe(data => {
+                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["from"])(this.nativeHttp.get(`https://appyflow.in/api/verifyGST?gstNo=${gst}&key_secret=${key}`, { "Content-Type": "application/json" }, {})).subscribe(data => {
                     resolve(JSON.parse(data.data));
                 }, error => {
                     resolve(error);
@@ -1933,8 +1962,10 @@ let AuthenticationService = class AuthenticationService {
         else {
             return new Promise(resolve => {
                 // tslint:disable-next-line:max-line-length
-                this.http.get(`https://appyflow.in/api/verifyGST?gstNo=${gst}&key_secret=${key}`)
-                    .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(results => results)).subscribe(data => {
+                this.http
+                    .get(`https://appyflow.in/api/verifyGST?gstNo=${gst}&key_secret=${key}`)
+                    .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(results => results))
+                    .subscribe(data => {
                     resolve(data);
                 }, error => {
                     resolve(error);
@@ -1943,11 +1974,10 @@ let AuthenticationService = class AuthenticationService {
         }
     }
     blockUnblockUser(mobile, status) {
-        if (this.plt.is('cordova')) {
+        if (this.plt.is("cordova")) {
             return new Promise(resolve => {
                 // tslint:disable-next-line:max-line-length
-                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["from"])(this.nativeHttp.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=blockUnblockUser&mobile=${mobile}&status=${status}`, { 'Content-Type': 'application/json' }, {}))
-                    .subscribe(data => {
+                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["from"])(this.nativeHttp.get(`https://jaytarpara.in/mysql.php?callapi=1&process=blockUnblockUser&mobile=${mobile}&status=${status}`, { "Content-Type": "application/json" }, {})).subscribe(data => {
                     resolve(JSON.parse(data.data));
                 }, error => {
                     resolve({ success: 2, message: this.serverErrorMsg });
@@ -1957,8 +1987,10 @@ let AuthenticationService = class AuthenticationService {
         else {
             return new Promise(resolve => {
                 // tslint:disable-next-line:max-line-length
-                this.http.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=blockUnblockUser&mobile=${mobile}&status=${status}`)
-                    .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(results => results)).subscribe(data => {
+                this.http
+                    .get(`https://jaytarpara.in/mysql.php?callapi=1&process=blockUnblockUser&mobile=${mobile}&status=${status}`)
+                    .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(results => results))
+                    .subscribe(data => {
                     resolve(data);
                 }, error => {
                     resolve({ success: 2, message: this.serverErrorMsg });
@@ -1967,12 +1999,11 @@ let AuthenticationService = class AuthenticationService {
         }
     }
     checkUserStatus(mobile) {
-        console.log(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=checkUserStatus&mobile=${mobile}`);
-        if (this.plt.is('cordova')) {
+        console.log(`https://jaytarpara.in/mysql.php?callapi=1&process=checkUserStatus&mobile=${mobile}`);
+        if (this.plt.is("cordova")) {
             return new Promise(resolve => {
                 // tslint:disable-next-line:max-line-length
-                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["from"])(this.nativeHttp.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=checkUserStatus&mobile=${mobile}`, { 'Content-Type': 'application/json' }, {}))
-                    .subscribe(data => {
+                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["from"])(this.nativeHttp.get(`https://jaytarpara.in/mysql.php?callapi=1&process=checkUserStatus&mobile=${mobile}`, { "Content-Type": "application/json" }, {})).subscribe(data => {
                     resolve(JSON.parse(data.data));
                 }, error => {
                     resolve({ success: 2, message: this.serverErrorMsg });
@@ -1982,8 +2013,10 @@ let AuthenticationService = class AuthenticationService {
         else {
             return new Promise(resolve => {
                 // tslint:disable-next-line:max-line-length
-                this.http.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=checkUserStatus&mobile=${mobile}`)
-                    .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(results => results)).subscribe(data => {
+                this.http
+                    .get(`https://jaytarpara.in/mysql.php?callapi=1&process=checkUserStatus&mobile=${mobile}`)
+                    .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(results => results))
+                    .subscribe(data => {
                     resolve(data);
                 }, error => {
                     resolve({ success: 2, message: this.serverErrorMsg });
@@ -1992,12 +2025,11 @@ let AuthenticationService = class AuthenticationService {
         }
     }
     checkUserProfileStatus(mobile) {
-        console.log(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=checkUserProfileStatus&mobile=${mobile}`);
-        if (this.plt.is('cordova')) {
+        console.log(`https://jaytarpara.in/mysql.php?callapi=1&process=checkUserProfileStatus&mobile=${mobile}`);
+        if (this.plt.is("cordova")) {
             return new Promise(resolve => {
                 // tslint:disable-next-line:max-line-length
-                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["from"])(this.nativeHttp.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=checkUserProfileStatus&mobile=${mobile}`, { 'Content-Type': 'application/json' }, {}))
-                    .subscribe(data => {
+                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["from"])(this.nativeHttp.get(`https://jaytarpara.in/mysql.php?callapi=1&process=checkUserProfileStatus&mobile=${mobile}`, { "Content-Type": "application/json" }, {})).subscribe(data => {
                     resolve(JSON.parse(data.data));
                 }, error => {
                     resolve({ success: 2, message: this.serverErrorMsg });
@@ -2007,8 +2039,10 @@ let AuthenticationService = class AuthenticationService {
         else {
             return new Promise(resolve => {
                 // tslint:disable-next-line:max-line-length
-                this.http.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=checkUserProfileStatus&mobile=${mobile}`)
-                    .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(results => results)).subscribe(data => {
+                this.http
+                    .get(`https://jaytarpara.in/mysql.php?callapi=1&process=checkUserProfileStatus&mobile=${mobile}`)
+                    .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(results => results))
+                    .subscribe(data => {
                     resolve(data);
                 }, error => {
                     resolve({ success: 2, message: this.serverErrorMsg });
@@ -2017,12 +2051,11 @@ let AuthenticationService = class AuthenticationService {
         }
     }
     addRegistrationID(registrationId) {
-        console.log(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=saveRegistrationID&registrationId=${registrationId}`);
-        if (this.plt.is('cordova')) {
+        console.log(`https://jaytarpara.in/mysql.php?callapi=1&process=saveRegistrationID&registrationId=${registrationId}`);
+        if (this.plt.is("cordova")) {
             return new Promise(resolve => {
                 // tslint:disable-next-line:max-line-length
-                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["from"])(this.nativeHttp.get(`https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=saveRegistrationID&registrationId=${registrationId}`, { 'Content-Type': 'application/json' }, {}))
-                    .subscribe(data => {
+                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["from"])(this.nativeHttp.get(`https://jaytarpara.in/mysql.php?callapi=1&process=saveRegistrationID&registrationId=${registrationId}`, { "Content-Type": "application/json" }, {})).subscribe(data => {
                     resolve(JSON.parse(data.data));
                 }, error => {
                     resolve({ success: 2, message: this.serverErrorMsg });
@@ -2041,7 +2074,7 @@ AuthenticationService.ctorParameters = () => [
 ];
 AuthenticationService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-        providedIn: 'root'
+        providedIn: "root"
     }),
     tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"],
         _ionic_native_http_ngx__WEBPACK_IMPORTED_MODULE_2__["HTTP"],

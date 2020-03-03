@@ -25,6 +25,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { OneSignal } from '@ionic-native/onesignal/ngx';
 import { BackgroundMode } from '@ionic-native/background-mode/ngx';
 import { Push, PushObject, PushOptions } from '@ionic-native/push/ngx';
+import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions/ngx';
 
 firebase.initializeApp({
   apiKey: 'AIzaSyBA6WJFcR_c13T9Q-hIdwXRV5GC59OdPmg',
@@ -74,6 +75,7 @@ BrowserModule,
     OneSignal,
     BackgroundMode,
     Push,
+    NativePageTransitions,
   ],
   bootstrap: [AppComponent]
 })

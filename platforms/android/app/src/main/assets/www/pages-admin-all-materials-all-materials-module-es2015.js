@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header no-border class=\"animated fadeInDown\">\n  <ion-toolbar color='dark' mode=\"ios\">\n    <ion-title>All Materials</ion-title>\n    <ion-buttons slot=\"start\">\n      <ion-menu-button autoHide=\"false\"></ion-menu-button>\n    </ion-buttons>\n    <ion-buttons slot=\"end\">\n      <ion-button (click)=\"ionViewWillEnter(1, $event)\"><ion-icon name=\"refresh\"></ion-icon></ion-button>\n    </ion-buttons>\n  </ion-toolbar>\n  <ion-searchbar mode=\"ios\" debounce=\"700\" placeholder=\"Search Materials\"  [(ngModel)]=\"searchKey\" (ionChange)=\"ionViewWillEnter(1, '')\" showCancelButton=\"always\" clearIcon=false class=\"animated bounceInLeft slow\"></ion-searchbar>\n  <ion-item class=\"animated bounceInLeft slow\">\n      <ion-label>Search by company</ion-label>\n      <ion-select mode=\"ios\" interface=\"action-sheet\" placeholder=\"Select Status\" [selectedText]=\"owner\" [(ngModel)]=\"owner\" (ionChange)=\"ionViewWillEnter(1, '')\">\n        <ion-select-option *ngFor=\"let mowner of materialOwner\" value=\"{{mowner.name}}\">\n          {{mowner.name}}\n        </ion-select-option>\n      </ion-select>\n    </ion-item>\n</ion-header>\n\n<ion-content class=\"ion-padding card-background-page\">\n  <ion-label color=\"danger\" [hidden]=showNoData class=\"ion-text-center\"><h2><b>Materials not available.</b></h2></ion-label>\n  <!-- <ion-button class=\"loginbtn\" [hidden]=showNoData color='dark' expand=\"block\" fill=\"outline\" [routerLink]=\"['/', 'upload-materials']\">PLEASE ADD MATERIALS</ion-button> -->\n\n  <ion-label color=\"danger\" [hidden]=showNoDataForSearch class=\"ion-text-center\"><h2><b>No material found.</b></h2></ion-label>\n\n  <ion-card *ngFor=\"let material of materials; let i = index\" class=\"animated bounceInLeft slow\">\n    <ion-card-content>\n      <ion-row class=\"ion-text-left\">\n        <ion-col col-12>\n          <ion-card-title>{{ material.name }}</ion-card-title>\n          <ion-card-subtitle style=\"font-size: 20px;\">{{ material.material_id }}</ion-card-subtitle>\n        </ion-col>\n      </ion-row>\n      <ion-row (click)=\"openImagePreview(material.image)\">\n        <img src=\"https://bhuminarrowfab.000webhostapp.com/images/materials/{{material.image}}\">\n      </ion-row>\n      <ion-row>\n        <ion-col class=\"ion-text-left\">\n          <div class=\"card-price\" style=\"font-size: 20px;\">&#8377;{{ material.price }}</div>\n        </ion-col>\n      </ion-row>\n      <ion-button class=\"loginbtn\" color='dark' expand=\"block\" fill=\"outline\" [routerLink]=\"['/', 'admin-material-details', material.id]\">MATERIAL DETAIL</ion-button>\n    </ion-card-content>\n  </ion-card>\n\n  <ion-infinite-scroll *ngIf=\"!noMoreData\" (ionInfinite)=\"loadMore($event)\">\n    <ion-infinite-scroll-content loadingSpinner=\"bubbles\" loadingText=\"Loading more materials...\"></ion-infinite-scroll-content>\n  </ion-infinite-scroll>\n</ion-content>\n"
+module.exports = "<ion-header no-border class=\"animated fadeInDown\">\n  <ion-toolbar color='dark' mode=\"ios\">\n    <ion-title>All Materials</ion-title>\n    <ion-buttons slot=\"start\">\n      <ion-menu-button autoHide=\"false\"></ion-menu-button>\n    </ion-buttons>\n    <ion-buttons slot=\"end\">\n      <ion-button (click)=\"ionViewWillEnter(1, $event)\"><ion-icon name=\"refresh\"></ion-icon></ion-button>\n    </ion-buttons>\n  </ion-toolbar>\n  <ion-searchbar mode=\"ios\" debounce=\"700\" placeholder=\"Search Materials\"  [(ngModel)]=\"searchKey\" (ionChange)=\"ionViewWillEnter(1, '')\" showCancelButton=\"always\" clearIcon=false class=\"animated bounceInLeft slow\"></ion-searchbar>\n  <ion-item class=\"animated bounceInLeft slow\">\n    <ion-label>Search by company</ion-label>\n    <ion-select mode=\"ios\" interface=\"action-sheet\" placeholder=\"Select Status\" [selectedText]=\"owner\" [(ngModel)]=\"owner\" (ionChange)=\"ionViewWillEnter(1, '')\">\n      <ion-select-option *ngFor=\"let mowner of materialOwner\" value=\"{{mowner.name}}\">\n        {{mowner.name}}\n      </ion-select-option>\n    </ion-select>\n  </ion-item>\n  <ion-item class=\"animated bounceInLeft slow\">\n    <ion-label>Search by type</ion-label>\n    <ion-select mode=\"ios\" interface=\"action-sheet\" placeholder=\"Select Type\" [selectedText]=\"type\" [(ngModel)]=\"type\" (ionChange)=\"ionViewWillEnter(1, '')\">\n      <ion-select-option *ngFor=\"let mtype of materialType\" value=\"{{mtype.name}}\">\n        {{mtype.name}}\n      </ion-select-option>\n    </ion-select>\n  </ion-item>\n</ion-header>\n\n<ion-content class=\"ion-padding card-background-page\">\n  <ion-label color=\"danger\" [hidden]=showNoData class=\"ion-text-center\"><h2><b>Materials not available.</b></h2></ion-label>\n  <!-- <ion-button class=\"loginbtn\" [hidden]=showNoData color='dark' expand=\"block\" fill=\"outline\" [routerLink]=\"['/', 'upload-materials']\">PLEASE ADD MATERIALS</ion-button> -->\n\n  <ion-label color=\"danger\" [hidden]=showNoDataForSearch class=\"ion-text-center\"><h2><b>No material found.</b></h2></ion-label>\n\n  <ion-card *ngFor=\"let material of materials; let i = index\" class=\"animated bounceInLeft slow\">\n    <ion-card-content>\n      <ion-row class=\"ion-text-left\">\n        <ion-col col-12>\n          <ion-card-title>{{ material.name }}</ion-card-title>\n          <ion-card-subtitle style=\"font-size: 20px;\">{{ material.material_id }}</ion-card-subtitle>\n        </ion-col>\n      </ion-row>\n      <ion-row (click)=\"openImagePreview(material.image)\">\n        <img src=\"https://jaytarpara.in/images/materials/{{material.image}}\">\n      </ion-row>\n      <ion-row>\n        <ion-col class=\"ion-text-left\">\n          <div class=\"card-price\" style=\"font-size: 20px;\">&#8377;{{ material.price }}</div>\n        </ion-col>\n      </ion-row>\n      <ion-button class=\"loginbtn\" color='dark' expand=\"block\" fill=\"outline\" [routerLink]=\"['/', 'admin-material-details', material.id]\">MATERIAL DETAIL</ion-button>\n    </ion-card-content>\n  </ion-card>\n\n  <ion-infinite-scroll *ngIf=\"!noMoreData\" (ionInfinite)=\"loadMore($event)\">\n    <ion-infinite-scroll-content loadingSpinner=\"bubbles\" loadingText=\"Loading more materials...\"></ion-infinite-scroll-content>\n  </ion-infinite-scroll>\n</ion-content>\n"
 
 /***/ }),
 
@@ -87,6 +87,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 /* harmony import */ var _services_authentication_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../../../services/authentication.service */ "./src/app/services/authentication.service.ts");
 /* harmony import */ var _image_modal_image_modal_page__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../../image-modal/image-modal.page */ "./src/app/pages/image-modal/image-modal.page.ts");
+/* harmony import */ var _ionic_native_native_page_transitions_ngx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic-native/native-page-transitions/ngx */ "./node_modules/@ionic-native/native-page-transitions/ngx/index.js");
+
 
 
 
@@ -95,7 +97,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let AllMaterialsPage = class AllMaterialsPage {
-    constructor(fireAuth, router, platform, activatedRoute, auth, toastCtrl, loadingController, alertCtrl, menu, modalController) {
+    constructor(fireAuth, router, platform, activatedRoute, auth, toastCtrl, loadingController, alertCtrl, menu, modalController, nativePageTransitions) {
         this.fireAuth = fireAuth;
         this.router = router;
         this.platform = platform;
@@ -106,6 +108,7 @@ let AllMaterialsPage = class AllMaterialsPage {
         this.alertCtrl = alertCtrl;
         this.menu = menu;
         this.modalController = modalController;
+        this.nativePageTransitions = nativePageTransitions;
         this.materials = [];
         this.page = 1;
         this.results = 5;
@@ -120,6 +123,7 @@ let AllMaterialsPage = class AllMaterialsPage {
         this.noMoreData = 0;
         this.showNoDataForSearch = true;
         this.owner = 'All';
+        this.type = 'All';
         this.materialOwner = [
             {
                 name: 'All',
@@ -134,11 +138,48 @@ let AllMaterialsPage = class AllMaterialsPage {
                 name: '23 Needle',
             },
         ];
+        this.materialType = [
+            {
+                name: 'All',
+            },
+            {
+                name: 'Fancy',
+            },
+            {
+                name: 'Needle Lace',
+            },
+            {
+                name: 'Moti Lace',
+            },
+            {
+                name: 'Crosset',
+            },
+            {
+                name: 'Cut Work',
+            },
+        ];
     }
     ngOnInit() {
         this.menu.enable(true, 'admin');
     }
     ionViewWillEnter(callit, infiniteScroll) {
+        const options = {
+            direction: 'up',
+            duration: 500,
+            slowdownfactor: 3,
+            slidePixels: 20,
+            iosdelay: 100,
+            androiddelay: 150,
+            fixedPixelsTop: 0,
+            fixedPixelsBottom: 60
+        };
+        this.nativePageTransitions.slide(options)
+            .then(() => {
+            console.log('HERE IT IS');
+        })
+            .catch((errr) => {
+            console.log(errr);
+        });
         this.materials = [];
         this.page = 1;
         if (callit) {
@@ -151,6 +192,21 @@ let AllMaterialsPage = class AllMaterialsPage {
             }, 100);
         }
     }
+    // ionViewWillLeave() {
+    //   const options: NativeTransitionOptions = {
+    //      direction: 'up',
+    //      duration: 500,
+    //      slowdownfactor: 3,
+    //      slidePixels: 20,
+    //      iosdelay: 100,
+    //      androiddelay: 150,
+    //      fixedPixelsTop: 0,
+    //      fixedPixelsBottom: 60
+    //   };
+    //   this.nativePageTransitions.slide(options)
+    //     .then()
+    //     .catch();
+    // }
     ionViewDidEnter() {
         this.auth.getAdminAllTotal().then(res => {
             if (res['success']) {
@@ -181,7 +237,8 @@ let AllMaterialsPage = class AllMaterialsPage {
         }
         console.log('searchKey: ' + this.searchKey);
         console.log('owner: ' + this.owner);
-        this.auth.getMaterials(this.results, this.page, this.searchKey, this.owner).then(response => {
+        console.log('type: ' + this.type);
+        this.auth.getMaterials(this.results, this.page, this.searchKey, this.owner, this.type).then(response => {
             console.log(response);
             if (response['success'] == 1) {
                 this.materials = this.materials.concat(response['materials']);
@@ -250,7 +307,8 @@ AllMaterialsPage.ctorParameters = () => [
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["AlertController"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["MenuController"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ModalController"] }
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ModalController"] },
+    { type: _ionic_native_native_page_transitions_ngx__WEBPACK_IMPORTED_MODULE_7__["NativePageTransitions"] }
 ];
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonContent"], { static: false }),
@@ -271,7 +329,8 @@ AllMaterialsPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"],
         _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["AlertController"],
         _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["MenuController"],
-        _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ModalController"]])
+        _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ModalController"],
+        _ionic_native_native_page_transitions_ngx__WEBPACK_IMPORTED_MODULE_7__["NativePageTransitions"]])
 ], AllMaterialsPage);
 
 

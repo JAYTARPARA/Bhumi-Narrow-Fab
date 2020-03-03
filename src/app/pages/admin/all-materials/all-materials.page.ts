@@ -10,6 +10,7 @@ import { MenuController, Platform, ToastController, LoadingController, IonConten
 import { AuthenticationService } from './../../../services/authentication.service';
 
 import { ImageModalPage } from './../../image-modal/image-modal.page';
+import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions/ngx';
 
 @Component({
   selector: 'app-all-materials',
@@ -94,6 +95,7 @@ export class AllMaterialsPage implements OnInit {
     public alertCtrl: AlertController,
     private menu: MenuController,
     public modalController: ModalController,
+    private nativePageTransitions: NativePageTransitions,
   ) {
   }
 
@@ -102,6 +104,12 @@ export class AllMaterialsPage implements OnInit {
   }
 
   ionViewWillEnter(callit?, infiniteScroll?) {
+    this.nativePageTransitions.slide(this.auth.optionsRight)
+      .then()
+      .catch((errr) => {
+        console.log(errr);
+    });
+
     this.materials = [];
     this.page = 1;
     if (callit) {
@@ -113,6 +121,14 @@ export class AllMaterialsPage implements OnInit {
         this.ionViewDidEnter();
       }, 100);
     }
+  }
+
+  ionViewWillLeave() {
+    // this.nativePageTransitions.slide(this.auth.optionsLeft)
+    //   .then()
+    //   .catch((errr) => {
+    //     console.log(errr);
+    // });
   }
 
   ionViewDidEnter() {

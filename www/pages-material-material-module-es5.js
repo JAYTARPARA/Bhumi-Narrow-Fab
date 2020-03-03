@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header no-border class=\"animated fadeInDown\">\n  <ion-toolbar color='dark' mode=\"ios\">\n    <ion-title>All Materials</ion-title>\n    <ion-buttons slot=\"start\">\n        <ion-menu-button autoHide=\"false\"></ion-menu-button>\n      </ion-buttons>\n      <ion-buttons slot=\"end\">\n        <ion-button (click)=\"ionViewWillEnter(1, $event)\"><ion-icon name=\"refresh\"></ion-icon></ion-button>\n      </ion-buttons>\n  </ion-toolbar>\n  <ion-searchbar mode=\"ios\" debounce=\"700\" placeholder=\"Search Materials\"  [(ngModel)]=\"searchKey\" (ionChange)=\"ionViewWillEnter(1, '')\" showCancelButton=\"always\" clearIcon=false class=\"animated bounceInLeft slow\"></ion-searchbar>\n  <ion-item class=\"animated bounceInLeft slow\">\n    <ion-label>Sort by</ion-label>\n    <ion-select mode=\"ios\" interface=\"action-sheet\" placeholder=\"Select Sorting\" [selectedText]=\"sortBy\" [(ngModel)]=\"sortBy\" (ionChange)=\"ionViewWillEnter(1, '')\">\n      <ion-select-option *ngFor=\"let osorting of sortingFilter\" value=\"{{osorting.name}}\">\n        {{osorting.name}}\n      </ion-select-option>\n    </ion-select>\n  </ion-item>\n</ion-header>\n\n<ion-content class=\"ion-padding card-background-page\">\n\n  <ion-label color=\"danger\" [hidden]=showNoData class=\"ion-text-center\"><h2><b>Materials not available. Please check after sometime</b></h2></ion-label>\n\n  <ion-label color=\"danger\" [hidden]=showNoDataForSearch class=\"ion-text-center\"><h2><b>No material found.</b></h2></ion-label>\n\n  <ion-card *ngFor=\"let material of materials; let i = index\" class=\"animated bounceInLeft slow\">\n    <ion-card-content>\n      <ion-row class=\"ion-text-left\">\n        <ion-col col-12>\n          <ion-card-title>{{ material.name }}</ion-card-title>\n          <ion-card-subtitle style=\"font-size: 20px;\">{{ material.material_id }}</ion-card-subtitle>\n        </ion-col>\n      </ion-row>\n      <ion-row>\n        <ion-col>\n          <div class=\"card-color\" style=\"color: black;font-size: 18px;margin-top: -10px;\">Material color: <b>{{ material.color }}</b></div>\n        </ion-col>\n      </ion-row>\n      <ion-row (click)=\"openImagePreview(material.image)\">\n        <img src=\"https://bhuminarrowfab.000webhostapp.com/images/materials/{{material.image}}\">\n      </ion-row>\n      <ion-row>\n        <ion-col>\n          <ion-button color='dark' style=\"float: left;;\" fill=\"outline\" (click)=\"showPrice(material.id)\">TAP ME</ion-button>\n        </ion-col>\n        <ion-col class=\"hide-me material-{{material.id}}\">\n          <div class=\"card-price\" style=\"font-size: 20px;float: right;margin-top: 10px\">&#8377;{{ material.price }}</div>\n        </ion-col>\n      </ion-row>\n      <ion-list>\n        <ion-item>\n          <ion-label>Sample Request for Material</ion-label>\n          <ion-toggle name=\"sample\" color=\"success\" [(ngModel)]=\"sample[i]\"></ion-toggle>\n        </ion-item>\n        <ion-item>\n          <ion-label position=\"floating\">Quantity (Meter)*</ion-label>\n          <ion-input type=\"number\" name=\"quantity\" placeholder=\"Enter quantity (e.g. 1250)\" [(ngModel)]=\"quantity[i]\" (ionChange)=\"calculateTotal(quantity[i], i, material.price)\"></ion-input>\n        </ion-item>\n        <ion-item>\n          <ion-label position=\"floating\">pieces</ion-label>\n          <ion-input type=\"number\" name=\"pieces\" placeholder=\"Enter pieces (e.g. 9)\" [(ngModel)]=\"pieces[i]\"></ion-input>\n        </ion-item>\n        <ion-item>\n          <ion-label color=\"danger\" position=\"stacked\" class=\"totalvallabel\">Total Price</ion-label>\n          <ion-input type=\"text\" name=\"quantity\" [(ngModel)]=\"totalValue[i]\" placeholder=\"0\" class=\"totalval\"></ion-input>\n        </ion-item>\n      </ion-list>\n      <ion-button class=\"loginbtn\" color='dark' expand=\"block\" fill=\"outline\" (click)=\"materialOrder(material.company, material.id, material.price, material.name, material.material_id, material.image, quantity, sample, pieces, i)\">ORDER NOW</ion-button>\n    </ion-card-content>\n  </ion-card>\n\n  <ion-infinite-scroll *ngIf=\"!noMoreData\" (ionInfinite)=\"loadMore($event, 1)\">\n    <ion-infinite-scroll-content loadingSpinner=\"bubbles\" loadingText=\"Loading more materials...\"></ion-infinite-scroll-content>\n  </ion-infinite-scroll>\n</ion-content>\n"
+module.exports = "<ion-header no-border class=\"animated fadeInDown\">\n  <ion-toolbar color='dark' mode=\"ios\">\n    <ion-title>All Materials</ion-title>\n    <ion-buttons slot=\"start\">\n        <ion-menu-button autoHide=\"false\"></ion-menu-button>\n      </ion-buttons>\n      <ion-buttons slot=\"end\">\n        <ion-button (click)=\"ionViewWillEnter(1, $event)\"><ion-icon name=\"refresh\"></ion-icon></ion-button>\n      </ion-buttons>\n  </ion-toolbar>\n  <ion-searchbar mode=\"ios\" debounce=\"700\" placeholder=\"Search Materials\"  [(ngModel)]=\"searchKey\" (ionChange)=\"ionViewWillEnter(1, '')\" showCancelButton=\"always\" clearIcon=false class=\"animated bounceInLeft slow\"></ion-searchbar>\n  <ion-item class=\"animated bounceInLeft slow\">\n    <ion-label>Search by type</ion-label>\n    <ion-select mode=\"ios\" interface=\"action-sheet\" placeholder=\"Select Type\" [selectedText]=\"mtype\" [(ngModel)]=\"mtype\" (ionChange)=\"ionViewWillEnter(1, '')\">\n      <ion-select-option *ngFor=\"let mType of materialType\" value=\"{{mType.name}}\">\n        {{mType.name}}\n      </ion-select-option>\n    </ion-select>\n  </ion-item>\n  <ion-item class=\"animated bounceInLeft slow\">\n    <ion-label>Sort by</ion-label>\n    <ion-select mode=\"ios\" interface=\"action-sheet\" placeholder=\"Select Sorting\" [selectedText]=\"sortBy\" [(ngModel)]=\"sortBy\" (ionChange)=\"ionViewWillEnter(1, '')\">\n      <ion-select-option *ngFor=\"let osorting of sortingFilter\" value=\"{{osorting.name}}\">\n        {{osorting.name}}\n      </ion-select-option>\n    </ion-select>\n  </ion-item>\n</ion-header>\n\n<ion-content class=\"ion-padding card-background-page\">\n\n  <ion-label color=\"danger\" [hidden]=showNoData class=\"ion-text-center\"><h2><b>Materials not available. Please check after sometime</b></h2></ion-label>\n\n  <ion-label color=\"danger\" [hidden]=showNoDataForSearch class=\"ion-text-center\"><h2><b>No material found.</b></h2></ion-label>\n\n  <ion-card *ngFor=\"let material of materials; let i = index\" class=\"animated bounceInLeft slow\">\n    <ion-card-content>\n      <ion-row class=\"ion-text-left\">\n        <ion-col col-12>\n          <ion-card-title>{{ material.name }}</ion-card-title>\n          <ion-card-subtitle style=\"font-size: 20px;\">{{ material.material_id }}</ion-card-subtitle>\n        </ion-col>\n      </ion-row>\n      <ion-row>\n        <ion-col>\n          <div class=\"card-color\" style=\"color: black;font-size: 18px;margin-top: -10px;\">Material color: <b>{{ material.color }}</b></div>\n        </ion-col>\n      </ion-row>\n      <ion-row (click)=\"openImagePreview(material.image)\">\n        <img src=\"https://jaytarpara.in/images/materials/{{material.image}}\">\n      </ion-row>\n      <ion-row>\n        <ion-col>\n          <ion-button color='dark' style=\"float: left;;\" fill=\"outline\" (click)=\"showPrice(material.id)\">TAP ME</ion-button>\n        </ion-col>\n        <ion-col class=\"hide-me material-{{material.id}}\">\n          <div class=\"card-price\" style=\"font-size: 20px;float: right;margin-top: 10px\">&#8377;{{ material.price }}</div>\n        </ion-col>\n      </ion-row>\n      <ion-list>\n        <ion-item>\n          <ion-label>Sample Request for Material</ion-label>\n          <ion-toggle name=\"sample\" color=\"success\" [(ngModel)]=\"sample[i]\"></ion-toggle>\n        </ion-item>\n        <ion-item>\n          <ion-label position=\"floating\">Quantity (Meter)*</ion-label>\n          <ion-input type=\"number\" name=\"quantity\" placeholder=\"Enter quantity (e.g. 1250)\" [(ngModel)]=\"quantity[i]\" (ionChange)=\"calculateTotal(quantity[i], i, material.price)\"></ion-input>\n        </ion-item>\n        <ion-item>\n          <ion-label position=\"floating\">pieces</ion-label>\n          <ion-input type=\"number\" name=\"pieces\" placeholder=\"Enter pieces (e.g. 9)\" [(ngModel)]=\"pieces[i]\"></ion-input>\n        </ion-item>\n        <ion-item>\n          <ion-label color=\"danger\" position=\"stacked\" class=\"totalvallabel\">Total Price</ion-label>\n          <ion-input type=\"text\" name=\"quantity\" [(ngModel)]=\"totalValue[i]\" placeholder=\"0\" class=\"totalval\"></ion-input>\n        </ion-item>\n      </ion-list>\n      <ion-button class=\"loginbtn\" color='dark' expand=\"block\" fill=\"outline\" (click)=\"materialOrder(material.company, material.id, material.price, material.name, material.material_id, material.image, quantity, sample, pieces, i)\">ORDER NOW</ion-button>\n    </ion-card-content>\n  </ion-card>\n\n  <ion-infinite-scroll *ngIf=\"!noMoreData\" (ionInfinite)=\"loadMore($event, 1)\">\n    <ion-infinite-scroll-content loadingSpinner=\"bubbles\" loadingText=\"Loading more materials...\"></ion-infinite-scroll-content>\n  </ion-infinite-scroll>\n</ion-content>\n"
 
 /***/ }),
 
@@ -125,6 +125,7 @@ var MaterialPage = /** @class */ (function () {
         this.noMoreData = 0;
         this.showNoDataForSearch = true;
         this.owner = 'All';
+        this.mtype = 'All';
         this.loadMaterialNow = false;
         this.sortBy = 'Latest Materials';
         this.sortingFilter = [
@@ -142,6 +143,26 @@ var MaterialPage = /** @class */ (function () {
             },
             {
                 name: 'Color: Z to A',
+            },
+        ];
+        this.materialType = [
+            {
+                name: 'All',
+            },
+            {
+                name: 'Fancy',
+            },
+            {
+                name: 'Needle Lace',
+            },
+            {
+                name: 'Moti Lace',
+            },
+            {
+                name: 'Crosset',
+            },
+            {
+                name: 'Cut Work',
             },
         ];
     }
@@ -256,7 +277,7 @@ var MaterialPage = /** @class */ (function () {
         else if (sortingBy == 'Color: Z to A') {
             sortingBy = 'cza';
         }
-        this.auth.getMaterials(this.results, this.page, this.searchKey, this.owner, sortingBy).then(function (response) {
+        this.auth.getMaterials(this.results, this.page, this.searchKey, this.owner, this.mtype, sortingBy).then(function (response) {
             if (response['success'] == 1) {
                 _this.materials = _this.materials.concat(response['materials']);
                 _this.maximumPages = Math.ceil(response['total'] / _this.results);
@@ -323,7 +344,7 @@ var MaterialPage = /** @class */ (function () {
             return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        imageurl = 'https://bhuminarrowfab.000webhostapp.com/images/materials/' + image;
+                        imageurl = 'https://jaytarpara.in/images/materials/' + image;
                         splitprice = price.split('/');
                         minquantity = splitprice[1].split('M')[0];
                         piece = pieces[key];

@@ -1,4 +1,5 @@
-<ion-header no-border class="animated fadeInDown">
+<!-- <ion-header no-border class="animated fadeInDown"> -->
+<ion-header no-border>
   <ion-toolbar color='dark' mode="ios">
     <ion-title>All Materials</ion-title>
     <ion-buttons slot="start">
@@ -8,8 +9,10 @@
       <ion-button (click)="ionViewWillEnter(1, $event)"><ion-icon name="refresh"></ion-icon></ion-button>
     </ion-buttons>
   </ion-toolbar>
-  <ion-searchbar mode="ios" debounce="700" placeholder="Search Materials"  [(ngModel)]="searchKey" (ionChange)="ionViewWillEnter(1, '')" showCancelButton="always" clearIcon=false class="animated bounceInLeft slow"></ion-searchbar>
-  <ion-item class="animated bounceInLeft slow">
+  <!-- <ion-searchbar mode="ios" debounce="700" placeholder="Search Materials"  [(ngModel)]="searchKey" (ionChange)="ionViewWillEnter(1, '')" showCancelButton="always" clearIcon=false class="animated bounceInLeft slow"></ion-searchbar> -->
+  <ion-searchbar mode="ios" debounce="700" placeholder="Search Materials"  [(ngModel)]="searchKey" (ionChange)="ionViewWillEnter(1, '')" showCancelButton="always" clearIcon=false></ion-searchbar>
+  <!-- <ion-item class="animated bounceInLeft slow"> -->
+  <ion-item>
     <ion-label>Search by company</ion-label>
     <ion-select mode="ios" interface="action-sheet" placeholder="Select Status" [selectedText]="owner" [(ngModel)]="owner" (ionChange)="ionViewWillEnter(1, '')">
       <ion-select-option *ngFor="let mowner of materialOwner" value="{{mowner.name}}">
@@ -17,7 +20,8 @@
       </ion-select-option>
     </ion-select>
   </ion-item>
-  <ion-item class="animated bounceInLeft slow">
+  <!-- <ion-item class="animated bounceInLeft slow"> -->
+  <ion-item>
     <ion-label>Search by type</ion-label>
     <ion-select mode="ios" interface="action-sheet" placeholder="Select Type" [selectedText]="type" [(ngModel)]="type" (ionChange)="ionViewWillEnter(1, '')">
       <ion-select-option *ngFor="let mtype of materialType" value="{{mtype.name}}">
@@ -33,7 +37,8 @@
 
   <ion-label color="danger" [hidden]=showNoDataForSearch class="ion-text-center"><h2><b>No material found.</b></h2></ion-label>
 
-  <ion-card *ngFor="let material of materials; let i = index" class="animated bounceInLeft slow">
+  <!-- <ion-card *ngFor="let material of materials; let i = index" class="animated bounceInLeft slow"> -->
+  <ion-card *ngFor="let material of materials; let i = index">
     <ion-card-content>
       <ion-row class="ion-text-left">
         <ion-col col-12>
@@ -42,7 +47,7 @@
         </ion-col>
       </ion-row>
       <ion-row (click)="openImagePreview(material.image)">
-        <img src="http://jaytarpara.in/images/materials/{{material.image}}">
+        <img src="https://jaytarpara.in/images/materials/{{material.image}}">
       </ion-row>
       <ion-row>
         <ion-col class="ion-text-left">

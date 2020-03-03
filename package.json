@@ -27,6 +27,7 @@
     "@ionic/angular": "^4.7.1",
     "@ionic/storage": "^2.2.0",
     "call-number": "^1.0.1",
+    "com.telerik.plugins.nativepagetransitions": "^0.6.5",
     "cordova-plugin-advanced-http": "^2.2.0",
     "cordova-plugin-background-mode": "^0.7.3",
     "cordova-plugin-camera": "^4.1.0",
@@ -110,7 +111,8 @@
       "phonegap-plugin-push": {
         "ANDROID_SUPPORT_V13_VERSION": "27.+",
         "FCM_VERSION": "17.0.+"
-      }
+      },
+      "com.telerik.plugins.nativepagetransitions": {}
     }
   }
 }

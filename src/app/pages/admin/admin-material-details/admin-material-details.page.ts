@@ -4,6 +4,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from './../../../services/authentication.service';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
+import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions/ngx';
 
 @Component({
   selector: 'app-admin-material-details',
@@ -11,7 +12,7 @@ import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-nati
   styleUrls: ['./admin-material-details.page.scss'],
 })
 export class AdminMaterialDetailsPage implements OnInit {
-  // base64Image = 'http://jaytarpara.in/images/materials/';
+  // base64Image = 'https://jaytarpara.in/images/materials/';
   base64Image: any;
   base64ImageUpdate: any;
   name: any;
@@ -59,6 +60,7 @@ export class AdminMaterialDetailsPage implements OnInit {
     public alertCtrl: AlertController,
     public router: Router,
     private menu: MenuController,
+    private nativePageTransitions: NativePageTransitions,
   ) { }
 
   ngOnInit() {
@@ -74,6 +76,22 @@ export class AdminMaterialDetailsPage implements OnInit {
         this.auth.adminTotalUsers = 0;
         this.auth.adminTotalMaterials = 0;
       }
+    });
+  }
+
+  ionViewWillLeave() {
+    this.nativePageTransitions.slide(this.auth.optionsLeft)
+      .then()
+      .catch((errr) => {
+        console.log(errr);
+    });
+  }
+
+  ionViewWillEnter() {
+    this.nativePageTransitions.slide(this.auth.optionsRight)
+      .then()
+      .catch((errr) => {
+        console.log(errr);
     });
   }
 
@@ -97,7 +115,7 @@ export class AdminMaterialDetailsPage implements OnInit {
         this.owner = this.material['company'];
         this.type = this.material['material_type'];
         this.color = this.material['color'];
-        this.base64Image = 'http://jaytarpara.in/images/materials/' + this.material['image'];
+        this.base64Image = 'https://jaytarpara.in/images/materials/' + this.material['image'];
         this.loadingController.dismiss();
       } else if (response['success'] == 2) {
         this.loadingController.dismiss();
@@ -177,7 +195,7 @@ export class AdminMaterialDetailsPage implements OnInit {
 
       if (this.base64ImageUpdate) {
         // tslint:disable-next-line:max-line-length
-        fileTransfer.upload(this.base64ImageUpdate, `http://jaytarpara.in/mysql.php?callapi=1&process=updateMaterial&id=${this.id}&name=${name}&mid=${mid}&color=${color}&mowner=${mowner}&mtype=${mtype}&price=${price}`, options).then(result => {
+        fileTransfer.upload(this.base64ImageUpdate, `https://jaytarpara.in/mysql.php?callapi=1&process=updateMaterial&id=${this.id}&name=${name}&mid=${mid}&color=${color}&mowner=${mowner}&mtype=${mtype}&price=${price}`, options).then(result => {
           this.loadingController.dismiss();
           if (JSON.parse(JSON.parse(JSON.stringify(result.response)))['success'] == 1) {
             this.auth.presentToast(JSON.parse(JSON.parse(JSON.stringify(result.response)))['message'], false, 'bottom', 1000, 'success');

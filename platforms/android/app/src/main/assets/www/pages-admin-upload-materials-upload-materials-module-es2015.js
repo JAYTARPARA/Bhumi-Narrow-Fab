@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header no-border class=\"animated fadeInDown\">\n  <ion-toolbar color='dark' mode=\"ios\">\n    <ion-title>Upload Materials</ion-title>\n    <ion-buttons slot=\"start\">\n        <ion-menu-button autoHide=\"false\"></ion-menu-button>\n      </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content class='ion-padding material-upload'>\n  <form>\n    <ion-row>\n      <ion-col>\n        <ion-item>\n          <ion-label>Material Owner</ion-label>\n          <ion-select mode=\"ios\" interface=\"action-sheet\" placeholder=\"Select Owner\" name=\"owner\" [selectedText]=\"owner\" [(ngModel)]=\"owner\">\n            <ion-select-option *ngFor=\"let mowner of materialOwner\" value=\"{{mowner.name}}\">\n              {{mowner.name}}\n            </ion-select-option>\n          </ion-select>\n        </ion-item>\n      </ion-col>\n    </ion-row>\n\n    <ion-row>\n      <ion-col>\n        <ion-item>\n          <ion-label position=\"stacked\">Material Name: </ion-label>\n          <ion-input type=\"text\" name=\"name\" mode=\"md\" [(ngModel)]=\"name\" placeholder=\"AU9 Material\"></ion-input>\n        </ion-item>\n      </ion-col>\n    </ion-row>\n\n    <ion-row>\n      <ion-col>\n        <ion-item>\n          <ion-label position=\"stacked\">Material ID: </ion-label>\n          <ion-input type=\"text\" name=\"mid\" mode=\"md\" [(ngModel)]=\"mid\" placeholder=\"AU9\" style=\"text-transform: uppercase;\"></ion-input>\n        </ion-item>\n      </ion-col>\n    </ion-row>\n\n    <ion-row>\n      <ion-col>\n        <ion-item>\n          <ion-label position=\"stacked\">Material Color: </ion-label>\n          <ion-input type=\"text\" name=\"color\" mode=\"md\" [(ngModel)]=\"color\" placeholder=\"Blue\" style=\"text-transform: capitalize;\"></ion-input>\n        </ion-item>\n      </ion-col>\n    </ion-row>\n    \n    <ion-row>\n      <ion-col>\n        <ion-item>\n          <ion-label position=\"stacked\">Material Price: </ion-label>\n          <ion-input type=\"text\" name=\"price\" mode=\"md\" [(ngModel)]=\"price\" placeholder=\"125/27\"></ion-input>\n        </ion-item>\n      </ion-col>\n    </ion-row>\n\n    <ion-row>\n      <ion-col>\n        <ion-label position=\"stacked\">Material Image: </ion-label>\n      </ion-col>\n    </ion-row>\n\n    <ion-row>\n      <ion-col>\n        <ion-button fill=\"outline\" color=\"dark\" (click)='AccessCamera()'>\n          <ion-icon name='camera'>Camera</ion-icon>\n        </ion-button>\n      </ion-col>\n\n      <ion-col>\n        <ion-button fill=\"outline\" color=\"dark\" (click)='AccessGallery()'>\n            <ion-icon name='image'>Gallery</ion-icon>\n          </ion-button>\n      </ion-col>\n    </ion-row>\n    <ion-img [src]='base64Image' *ngIf='base64Image'></ion-img>\n    <ion-button color='dark' class=\"uploadbtn\" *ngIf='base64Image' (click)='upload()' expand=\"block\" fill=\"outline\" type=\"submit\">UPLOAD MATERIAL</ion-button>\n  </form>\n</ion-content>\n"
+module.exports = "<ion-header no-border class=\"animated fadeInDown\">\n  <ion-toolbar color='dark' mode=\"ios\">\n    <ion-title>Upload Materials</ion-title>\n    <ion-buttons slot=\"start\">\n        <ion-menu-button autoHide=\"false\"></ion-menu-button>\n      </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content class='ion-padding material-upload'>\n  <form>\n    <ion-row>\n      <ion-col>\n        <ion-item>\n          <ion-label>Material Owner</ion-label>\n          <ion-select mode=\"ios\" interface=\"action-sheet\" placeholder=\"Select Owner\" name=\"owner\" [selectedText]=\"owner\" [(ngModel)]=\"owner\">\n            <ion-select-option *ngFor=\"let mowner of materialOwner\" value=\"{{mowner.name}}\">\n              {{mowner.name}}\n            </ion-select-option>\n          </ion-select>\n        </ion-item>\n      </ion-col>\n    </ion-row>\n\n    <ion-row>\n      <ion-col>\n        <ion-item>\n          <ion-label>Material Type</ion-label>\n          <ion-select mode=\"ios\" interface=\"action-sheet\" placeholder=\"Select Type\" name=\"type\" [selectedText]=\"type\" [(ngModel)]=\"type\">\n            <ion-select-option *ngFor=\"let mtype of materialType\" value=\"{{mtype.name}}\">\n              {{mtype.name}}\n            </ion-select-option>\n          </ion-select>\n        </ion-item>\n      </ion-col>\n    </ion-row>\n\n    <ion-row>\n      <ion-col>\n        <ion-item>\n          <ion-label position=\"stacked\">Material Name: </ion-label>\n          <ion-input type=\"text\" name=\"name\" mode=\"md\" [(ngModel)]=\"name\" placeholder=\"AU9 Material\"></ion-input>\n        </ion-item>\n      </ion-col>\n    </ion-row>\n\n    <ion-row>\n      <ion-col>\n        <ion-item>\n          <ion-label position=\"stacked\">Material ID: </ion-label>\n          <ion-input type=\"text\" name=\"mid\" mode=\"md\" [(ngModel)]=\"mid\" placeholder=\"AU9\" style=\"text-transform: uppercase;\"></ion-input>\n        </ion-item>\n      </ion-col>\n    </ion-row>\n\n    <ion-row>\n      <ion-col>\n        <ion-item>\n          <ion-label position=\"stacked\">Material Color: </ion-label>\n          <ion-input type=\"text\" name=\"color\" mode=\"md\" [(ngModel)]=\"color\" placeholder=\"Blue\" style=\"text-transform: capitalize;\"></ion-input>\n        </ion-item>\n      </ion-col>\n    </ion-row>\n    \n    <ion-row>\n      <ion-col>\n        <ion-item>\n          <ion-label position=\"stacked\">Material Price: </ion-label>\n          <ion-input type=\"text\" name=\"price\" mode=\"md\" [(ngModel)]=\"price\" placeholder=\"125/27\"></ion-input>\n        </ion-item>\n      </ion-col>\n    </ion-row>\n\n    <ion-row>\n      <ion-col>\n        <ion-label position=\"stacked\">Material Image: </ion-label>\n      </ion-col>\n    </ion-row>\n\n    <ion-row>\n      <ion-col>\n        <ion-button fill=\"outline\" color=\"dark\" (click)='AccessCamera()'>\n          <ion-icon name='camera'>Camera</ion-icon>\n        </ion-button>\n      </ion-col>\n\n      <ion-col>\n        <ion-button fill=\"outline\" color=\"dark\" (click)='AccessGallery()'>\n            <ion-icon name='image'>Gallery</ion-icon>\n          </ion-button>\n      </ion-col>\n    </ion-row>\n    <ion-img [src]='base64Image' *ngIf='base64Image'></ion-img>\n    <ion-button color='dark' class=\"uploadbtn\" *ngIf='base64Image' (click)='upload()' expand=\"block\" fill=\"outline\" type=\"submit\">UPLOAD MATERIAL</ion-button>\n  </form>\n</ion-content>\n"
 
 /***/ }),
 
@@ -102,6 +102,7 @@ let UploadMaterialsPage = class UploadMaterialsPage {
         this.loadingController = loadingController;
         this.menu = menu;
         this.owner = 'Bhumi Narrow Fab';
+        this.type = 'Fancy';
         this.materialOwner = [
             {
                 name: 'Bhumi Narrow Fab',
@@ -111,6 +112,23 @@ let UploadMaterialsPage = class UploadMaterialsPage {
             },
             {
                 name: '23 Needle',
+            },
+        ];
+        this.materialType = [
+            {
+                name: 'Fancy',
+            },
+            {
+                name: 'Needle Lace',
+            },
+            {
+                name: 'Moti Lace',
+            },
+            {
+                name: 'Crosset',
+            },
+            {
+                name: 'Cut Work',
             },
         ];
     }
@@ -151,8 +169,9 @@ let UploadMaterialsPage = class UploadMaterialsPage {
         let color = this.color;
         const price = this.price;
         const mowner = this.owner;
+        const mtype = this.type;
         // tslint:disable-next-line:max-line-length
-        if (name == undefined || mid == undefined || color == undefined || price == undefined || mowner == undefined || name == '' || mid == '' || color == '' || price == '' || mowner == '') {
+        if (name == undefined || mid == undefined || mtype == undefined || color == undefined || price == undefined || mowner == undefined || name == '' || mid == '' || mtype == '' || color == '' || price == '' || mowner == '') {
             this.auth.presentToast('Please fill all required fields', false, 'bottom', 1000, 'danger');
         }
         else {
@@ -176,7 +195,7 @@ let UploadMaterialsPage = class UploadMaterialsPage {
                 headers: {}
             };
             // tslint:disable-next-line:max-line-length
-            fileTransfer.upload(this.base64Image, `https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=uploadMaterial&name=${name}&mid=${mid}&color=${color}&price=${price}&mowner=${mowner}`, options).then(result => {
+            fileTransfer.upload(this.base64Image, `https://jaytarpara.in/mysql.php?callapi=1&process=uploadMaterial&name=${name}&mid=${mid}&color=${color}&price=${price}&mowner=${mowner}&material_type=${mtype}`, options).then(result => {
                 this.loadingController.dismiss();
                 if (JSON.parse(JSON.parse(JSON.stringify(result.response)))['success'] == 1) {
                     this.auth.adminTotalMaterials++;

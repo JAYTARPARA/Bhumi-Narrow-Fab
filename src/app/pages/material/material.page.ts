@@ -264,7 +264,7 @@ export class MaterialPage implements OnInit {
   }
 
   async materialOrder(company, id, price, name, material_id, image, quantity, sample, pieces, key) {
-    const imageurl =  'http://jaytarpara.in/images/materials/' + image;
+    const imageurl =  'https://jaytarpara.in/images/materials/' + image;
 
     const splitprice = price.split('/');
     const minquantity = splitprice[1].split('M')[0];

@@ -105,17 +105,17 @@ var ProfilePage = /** @class */ (function () {
         this.toastCtrl = toastCtrl;
         this.loadingController = loadingController;
         this.menu = menu;
-        this.key = '7yZ2AVzT76cie7ralb9YZcLsrjq2';
+        this.key = "7yZ2AVzT76cie7ralb9YZcLsrjq2";
     }
     ProfilePage.prototype.ngOnInit = function () {
         var _this = this;
-        this.menu.enable(true, 'user');
-        this.value = this.activatedRoute.snapshot.paramMap.get('id');
-        this.type = this.activatedRoute.snapshot.paramMap.get('type');
+        this.menu.enable(true, "user");
+        this.value = this.activatedRoute.snapshot.paramMap.get("id");
+        this.type = this.activatedRoute.snapshot.paramMap.get("type");
         this.auth.usermobile = this.value;
         this.auth.getTotalOrders(this.value).then(function (msg) {
-            if (msg['success']) {
-                _this.auth.totalOrders = msg['total'];
+            if (msg["success"]) {
+                _this.auth.totalOrders = msg["total"];
             }
             else {
                 _this.auth.totalOrders = 0;
@@ -129,26 +129,28 @@ var ProfilePage = /** @class */ (function () {
     };
     ProfilePage.prototype.ionViewDidEnter = function () {
         var _this = this;
-        this.loadingController.create({
-            message: 'Loading your profile',
-            mode: 'ios'
-        }).then(function (res) {
+        this.loadingController
+            .create({
+            message: "Loading your profile",
+            mode: "ios"
+        })
+            .then(function (res) {
             res.present();
         });
         this.auth.getUser(this.value, this.type).then(function (response) {
             console.log(response);
             _this.id = _this.value;
-            if (response['success'] == 1) {
-                _this.name = response['name'];
-                _this.address = response['address'];
-                _this.gst = response['gst'];
-                _this.phone = response['mobile'];
-                _this.oldGST = response['gst'];
+            if (response["success"] == 1) {
+                _this.name = response["name"];
+                _this.address = response["address"];
+                _this.gst = response["gst"];
+                _this.phone = response["mobile"];
+                _this.oldGST = response["gst"];
                 _this.loadingController.dismiss();
             }
-            else if (response['success'] == 2) {
+            else if (response["success"] == 2) {
                 _this.loadingController.dismiss();
-                _this.auth.presentToast(response['message'], false, 'bottom', 2500, 'danger');
+                _this.auth.presentToast(response["message"], false, "bottom", 2500, "danger");
             }
         });
         setTimeout(function () {
@@ -160,49 +162,50 @@ var ProfilePage = /** @class */ (function () {
         }, 1500);
     };
     ProfilePage.prototype.saveProfile = function () {
-        var name = this.name == '' ? '' : this.name;
-        var gst = this.gst == '' ? '' : this.gst.toUpperCase();
-        var phone = this.phone == '' ? '' : this.phone;
-        var address = this.address == '' ? '' : this.address;
+        var name = this.name == "" ? "" : this.name;
+        var gst = this.gst == "" ? "" : this.gst.toUpperCase();
+        var phone = this.phone == "" ? "" : this.phone;
+        var address = this.address == "" ? "" : this.address;
         if (name == "" || gst == "" || phone == "" || address == "") {
-            this.auth.presentToast('Please fill all required fields', false, 'bottom', 1000, 'danger');
+            this.auth.presentToast("Please fill all required fields", false, "bottom", 1000, "danger");
         }
         else {
             var regex = new RegExp(/^([0-9]{2}[a-zA-Z]{4}([a-zA-Z]{1}|[0-9]{1})[0-9]{4}[a-zA-Z]{1}([a-zA-Z]|[0-9]){3}){0,15}$/);
-            if (this.oldGST != gst) {
-                if (regex.test(gst)) {
-                    this.saveProfileWithGST(phone, name, gst, address);
-                }
-                else {
-                    this.auth.presentToast('Please enter valid GSTIN', false, 'bottom', 1000, 'danger');
-                }
-            }
-            else {
-                this.saveProfileWithGST(phone, name, gst, address);
-            }
+            this.saveProfileWithGST(phone, name, gst, address);
+            // if (this.oldGST != gst) {
+            // if (regex.test(gst)) {
+            // this.saveProfileWithGST(phone, name, gst, address);
+            // } else {
+            //   this.auth.presentToast('Please enter valid GSTIN', false, 'bottom', 1000, 'danger');
+            // }
+            // } else {
+            //   this.saveProfileWithGST(phone, name, gst, address);
+            // }
         }
     };
     ProfilePage.prototype.saveProfileWithGST = function (phone, name, gst, address) {
         var _this = this;
         this.auth.updateUser(phone, name, gst, address).then(function (response) {
-            _this.loadingController.create({
-                message: 'Saving your data',
-                mode: 'ios'
-            }).then(function (res) {
+            _this.loadingController
+                .create({
+                message: "Saving your data",
+                mode: "ios"
+            })
+                .then(function (res) {
                 console.log(response);
-                if (response['success'] == 1) {
+                if (response["success"] == 1) {
                     setTimeout(function () {
                         _this.loadingController.dismiss();
                     }, 1500);
-                    _this.auth.presentToast(response['message'], false, 'bottom', 1000, 'success');
+                    _this.auth.presentToast(response["message"], false, "bottom", 1000, "success");
                 }
-                else if (response['success'] == 2) {
+                else if (response["success"] == 2) {
                     _this.loadingController.dismiss();
-                    _this.auth.presentToast(response['message'], false, 'bottom', 2500, 'danger');
+                    _this.auth.presentToast(response["message"], false, "bottom", 2500, "danger");
                 }
                 else {
                     _this.loadingController.dismiss();
-                    _this.auth.presentToast(response['message'], false, 'bottom', 1000, 'danger');
+                    _this.auth.presentToast(response["message"], false, "bottom", 1000, "danger");
                 }
                 res.present();
                 res.onDidDismiss().then(function (dis) {
@@ -213,32 +216,35 @@ var ProfilePage = /** @class */ (function () {
     };
     ProfilePage.prototype.checkGST = function (GST, key, phone, name, gst, address) {
         var _this = this;
-        this.loadingController.create({
-            message: 'Checking GSTIN number',
-            mode: 'ios'
-        }).then(function (res) {
+        this.loadingController
+            .create({
+            message: "Checking GSTIN number",
+            mode: "ios"
+        })
+            .then(function (res) {
             res.present();
         });
         this.auth.validateGST(GST, key).then(function (gstResponse) {
             _this.loadingController.dismiss();
-            if (gstResponse['error'] != undefined) {
-                if (_this.platform.is('cordova')) {
-                    gstResponse['error'] = JSON.parse(gstResponse['error']);
+            if (gstResponse["error"] != undefined) {
+                if (_this.platform.is("cordova")) {
+                    gstResponse["error"] = JSON.parse(gstResponse["error"]);
                 }
                 // tslint:disable-next-line:max-line-length
-                if (gstResponse['message'] != undefined && gstResponse['message'].includes('Limit Exceed')) {
-                    _this.key = 'HVEhpveprHeKSIc61xuOHlTd8dG2';
+                if (gstResponse["message"] != undefined &&
+                    gstResponse["message"].includes("Limit Exceed")) {
+                    _this.key = "HVEhpveprHeKSIc61xuOHlTd8dG2";
                     _this.checkGST(_this.gst, _this.key, phone, name, gst, address);
                 }
                 else {
-                    _this.auth.presentToast(gstResponse['error']['message'], false, 'bottom', 1000, 'danger');
+                    _this.auth.presentToast(gstResponse["error"]["message"], false, "bottom", 1000, "danger");
                 }
             }
             else {
-                console.log('Name: ' + gstResponse['taxpayerInfo']['lgnm']);
-                console.log('GSTIN: ' + gstResponse['taxpayerInfo']['gstin']);
-                console.log('Registered: ' + gstResponse['taxpayerInfo']['rgdt']);
-                console.log('Status: ' + gstResponse['taxpayerInfo']['sts']);
+                console.log("Name: " + gstResponse["taxpayerInfo"]["lgnm"]);
+                console.log("GSTIN: " + gstResponse["taxpayerInfo"]["gstin"]);
+                console.log("Registered: " + gstResponse["taxpayerInfo"]["rgdt"]);
+                console.log("Status: " + gstResponse["taxpayerInfo"]["sts"]);
                 _this.saveProfileWithGST(phone, name, gst, address);
             }
         });
@@ -255,7 +261,7 @@ var ProfilePage = /** @class */ (function () {
     ]; };
     ProfilePage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-profile',
+            selector: "app-profile",
             template: __webpack_require__(/*! raw-loader!./profile.page.html */ "./node_modules/raw-loader/index.js!./src/app/pages/profile/profile.page.html"),
             styles: [__webpack_require__(/*! ./profile.page.scss */ "./src/app/pages/profile/profile.page.scss")]
         }),

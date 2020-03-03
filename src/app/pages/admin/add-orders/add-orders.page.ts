@@ -104,10 +104,10 @@ export class AddOrdersPage implements OnInit {
       };
 
       // tslint:disable-next-line:max-line-length
-      console.log(`http://jaytarpara.in/mysql.php?callapi=1&process=addOrder&partyname=${partyname}&partymobile=${partymobile}&partyaddress=${partyaddress}&quantity=${quantity}&pieces=${pieces}&sample=${sample}`);
+      console.log(`https://jaytarpara.in/mysql.php?callapi=1&process=addOrder&partyname=${partyname}&partymobile=${partymobile}&partyaddress=${partyaddress}&quantity=${quantity}&pieces=${pieces}&sample=${sample}`);
 
       // tslint:disable-next-line:max-line-length
-      fileTransfer.upload(this.base64Image, `http://jaytarpara.in/mysql.php?callapi=1&process=addOrder&partyname=${partyname}&partymobile=${partymobile}&partyaddress=${partyaddress}&quantity=${quantity}&pieces=${pieces}&sample=${sample}`, options).then(result => {
+      fileTransfer.upload(this.base64Image, `https://jaytarpara.in/mysql.php?callapi=1&process=addOrder&partyname=${partyname}&partymobile=${partymobile}&partyaddress=${partyaddress}&quantity=${quantity}&pieces=${pieces}&sample=${sample}`, options).then(result => {
         this.loadingController.dismiss();
 
         if (JSON.parse(JSON.parse(JSON.stringify(result.response)))['success'] == 1) {
