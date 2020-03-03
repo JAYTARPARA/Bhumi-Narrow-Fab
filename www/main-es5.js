@@ -1294,6 +1294,14 @@ var AuthenticationService = /** @class */ (function () {
         this.adminTotalMaterials = 0;
         // userProfileDone = true;
         this.serverErrorMsg = "Server issue! Please try after sometime";
+        this.optionsRight = {
+            direction: 'right',
+            duration: 400,
+        };
+        this.optionsLeft = {
+            direction: 'left',
+            duration: 400,
+        };
     }
     AuthenticationService.prototype.presentAlertConfirm = function () {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
