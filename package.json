@@ -28,7 +28,6 @@
     "@ionic/storage": "^2.2.0",
     "call-number": "^1.0.1",
     "cordova-plugin-advanced-http": "^2.2.0",
-    "cordova-plugin-autostart": "^2.3.0",
     "cordova-plugin-background-mode": "^0.7.3",
     "cordova-plugin-camera": "^4.1.0",
     "cordova-plugin-device": "^2.0.2",
@@ -107,7 +106,6 @@
       "cordova-sms-plugin": {},
       "cordova-sqlite-storage": {},
       "onesignal-cordova-plugin": {},
-      "cordova-plugin-autostart": {},
       "cordova-plugin-background-mode": {},
       "phonegap-plugin-push": {
         "ANDROID_SUPPORT_V13_VERSION": "27.+",

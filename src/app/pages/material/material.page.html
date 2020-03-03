@@ -10,6 +10,14 @@
   </ion-toolbar>
   <ion-searchbar mode="ios" debounce="700" placeholder="Search Materials"  [(ngModel)]="searchKey" (ionChange)="ionViewWillEnter(1, '')" showCancelButton="always" clearIcon=false class="animated bounceInLeft slow"></ion-searchbar>
   <ion-item class="animated bounceInLeft slow">
+    <ion-label>Search by type</ion-label>
+    <ion-select mode="ios" interface="action-sheet" placeholder="Select Type" [selectedText]="mtype" [(ngModel)]="mtype" (ionChange)="ionViewWillEnter(1, '')">
+      <ion-select-option *ngFor="let mType of materialType" value="{{mType.name}}">
+        {{mType.name}}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-item class="animated bounceInLeft slow">
     <ion-label>Sort by</ion-label>
     <ion-select mode="ios" interface="action-sheet" placeholder="Select Sorting" [selectedText]="sortBy" [(ngModel)]="sortBy" (ionChange)="ionViewWillEnter(1, '')">
       <ion-select-option *ngFor="let osorting of sortingFilter" value="{{osorting.name}}">
@@ -39,7 +47,7 @@
         </ion-col>
       </ion-row>
       <ion-row (click)="openImagePreview(material.image)">
-        <img src="https://bhuminarrowfab.000webhostapp.com/images/materials/{{material.image}}">
+        <img src="http://jaytarpara.in/images/materials/{{material.image}}">
       </ion-row>
       <ion-row>
         <ion-col>

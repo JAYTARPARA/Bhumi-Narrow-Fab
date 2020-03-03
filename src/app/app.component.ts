@@ -7,7 +7,6 @@ import { MenuController, Platform, LoadingController, AlertController, NavContro
 import { AuthenticationService } from './services/authentication.service';
 import { Storage } from '@ionic/storage';
 import { OneSignal } from '@ionic-native/onesignal/ngx';
-import { Autostart } from '@ionic-native/autostart/ngx';
 import { BackgroundMode } from '@ionic-native/background-mode/ngx';
 import { Push, PushObject, PushOptions } from '@ionic-native/push/ngx';
 
@@ -38,7 +37,6 @@ export class AppComponent {
     private activatedRoute: ActivatedRoute,
     private storage: Storage,
     private oneSignal: OneSignal,
-    private autostart: Autostart,
     private backgroundMode: BackgroundMode,
     public push: Push,
   ) {
@@ -49,17 +47,17 @@ export class AppComponent {
     //   }
     // });
     this.initializeApp();
-    this.storage.get('authentication').then((authentication) => {
-      console.log('Here');
-      if (authentication == null) {
-        this.router.navigate(['/authentication']);
-        return;
-      } else if (authentication == 'wrong') {
-        this.auth.presentToast('You have entered wrong passcode', false, 'bottom', 1500, 'danger');
-        this.router.navigate(['/authentication']);
-        return;
-      }
-    });
+    // this.storage.get('authentication').then((authentication) => {
+    //   console.log('Here');
+    //   if (authentication == null) {
+    //     this.router.navigate(['/authentication']);
+    //     return;
+    //   } else if (authentication == 'wrong') {
+    //     this.auth.presentToast('You have entered wrong passcode', false, 'bottom', 1500, 'danger');
+    //     this.router.navigate(['/authentication']);
+    //     return;
+    //   }
+    // });
     this.fireAuth.auth.onAuthStateChanged(user => {
       if (user) {
         this.auth.usermobile = user.phoneNumber.replace('+91', '');
@@ -97,7 +95,6 @@ export class AppComponent {
       }
       // this.statusBar.styleDefault();
       // this.backgroundMode.enable();
-      this.autostart.enable();
       this.statusBar.backgroundColorByHexString('#222');
       this.splashScreen.hide();
       this.checkUserStatus();

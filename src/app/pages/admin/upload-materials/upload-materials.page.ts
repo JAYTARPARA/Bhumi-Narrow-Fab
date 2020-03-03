@@ -12,13 +12,14 @@ import { File } from '@ionic-native/file';
   styleUrls: ['./upload-materials.page.scss'],
 })
 export class UploadMaterialsPage implements OnInit {
-  // base64Image = 'https://bhuminarrowfab.000webhostapp.com/images/materials/AA1.png';
+  // base64Image = 'http://jaytarpara.in/images/materials/AA1.png';
   base64Image: any;
   name: any;
   mid: any;
   color: any;
   price: any;
   owner = 'Bhumi Narrow Fab';
+  type = 'Fancy';
 
   materialOwner: any[] = [
     {
@@ -29,6 +30,24 @@ export class UploadMaterialsPage implements OnInit {
     },
     {
       name : '23 Needle',
+    },
+  ];
+
+  materialType: any[] = [
+    {
+      name : 'Fancy',
+    },
+    {
+      name : 'Needle Lace',
+    },
+    {
+      name : 'Moti Lace',
+    },
+    {
+      name : 'Crosset',
+    },
+    {
+      name : 'Cut Work',
     },
   ];
 
@@ -83,9 +102,10 @@ export class UploadMaterialsPage implements OnInit {
     let color = this.color;
     const price = this.price;
     const mowner = this.owner;
+    const mtype = this.type;
 
     // tslint:disable-next-line:max-line-length
-    if (name == undefined || mid == undefined || color == undefined || price == undefined || mowner == undefined || name == '' || mid == '' || color == '' || price == '' || mowner == '') {
+    if (name == undefined || mid == undefined || mtype == undefined || color == undefined || price == undefined || mowner == undefined || name == '' || mid == '' || mtype == '' || color == '' || price == '' || mowner == '') {
       this.auth.presentToast('Please fill all required fields', false, 'bottom', 1000, 'danger');
     } else {
       mid = mid.toUpperCase();
@@ -113,7 +133,7 @@ export class UploadMaterialsPage implements OnInit {
       };
 
       // tslint:disable-next-line:max-line-length
-      fileTransfer.upload(this.base64Image, `https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=uploadMaterial&name=${name}&mid=${mid}&color=${color}&price=${price}&mowner=${mowner}`, options).then(result => {
+      fileTransfer.upload(this.base64Image, `http://jaytarpara.in/mysql.php?callapi=1&process=uploadMaterial&name=${name}&mid=${mid}&color=${color}&price=${price}&mowner=${mowner}&material_type=${mtype}`, options).then(result => {
         this.loadingController.dismiss();
 
         if (JSON.parse(JSON.parse(JSON.stringify(result.response)))['success'] == 1) {

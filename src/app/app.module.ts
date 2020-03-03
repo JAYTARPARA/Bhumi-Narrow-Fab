@@ -23,7 +23,6 @@ import { SMS } from '@ionic-native/sms/ngx';
 import { ImageModalPageModule } from './pages/image-modal/image-modal.module';
 import { IonicStorageModule } from '@ionic/storage';
 import { OneSignal } from '@ionic-native/onesignal/ngx';
-import { Autostart } from '@ionic-native/autostart/ngx';
 import { BackgroundMode } from '@ionic-native/background-mode/ngx';
 import { Push, PushObject, PushOptions } from '@ionic-native/push/ngx';
 
@@ -73,7 +72,6 @@ BrowserModule,
     CallNumber,
     SMS,
     OneSignal,
-    Autostart,
     BackgroundMode,
     Push,
   ],

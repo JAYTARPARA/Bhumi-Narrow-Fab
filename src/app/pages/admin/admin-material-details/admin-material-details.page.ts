@@ -11,7 +11,7 @@ import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-nati
   styleUrls: ['./admin-material-details.page.scss'],
 })
 export class AdminMaterialDetailsPage implements OnInit {
-  // base64Image = 'https://bhuminarrowfab.000webhostapp.com/images/materials/';
+  // base64Image = 'http://jaytarpara.in/images/materials/';
   base64Image: any;
   base64ImageUpdate: any;
   name: any;
@@ -21,14 +21,33 @@ export class AdminMaterialDetailsPage implements OnInit {
   material: any;
   id: any;
   owner: any;
+  type: any;
 
   materialOwner: any[] = [
-  {
-    name : 'Bhumi Narrow Fab',
-  },
-  {
-    name : 'Matrushree Lace',
-  },
+    {
+      name : 'Bhumi Narrow Fab',
+    },
+    {
+      name : 'Matrushree Lace',
+    },
+  ];
+
+  materialType: any[] = [
+    {
+      name : 'Fancy',
+    },
+    {
+      name : 'Needle Lace',
+    },
+    {
+      name : 'Moti Lace',
+    },
+    {
+      name : 'Crosset',
+    },
+    {
+      name : 'Cut Work',
+    },
   ];
 
   constructor(
@@ -76,8 +95,9 @@ export class AdminMaterialDetailsPage implements OnInit {
         this.mid = this.material['material_id'];
         this.price = this.material['price'].slice(0, this.material['price'].length - 1);
         this.owner = this.material['company'];
+        this.type = this.material['material_type'];
         this.color = this.material['color'];
-        this.base64Image = 'https://bhuminarrowfab.000webhostapp.com/images/materials/' + this.material['image'];
+        this.base64Image = 'http://jaytarpara.in/images/materials/' + this.material['image'];
         this.loadingController.dismiss();
       } else if (response['success'] == 2) {
         this.loadingController.dismiss();
@@ -125,9 +145,10 @@ export class AdminMaterialDetailsPage implements OnInit {
   let color = this.color;
   const price = this.price;
   const mowner = this.owner;
+  const mtype = this.type;
 
   // tslint:disable-next-line:max-line-length
-  if (name == undefined || mid == undefined || color == undefined || price == undefined || mowner == undefined || name == '' || mid == '' || color == '' || price == '' || mowner == '') {
+  if (name == undefined || mid == undefined || mtype == undefined || color == undefined || price == undefined || mowner == undefined || name == '' || mid == '' || mtype == '' || color == '' || price == '' || mowner == '') {
       this.auth.presentToast('Please fill all required fields', false, 'bottom', 1000, 'danger');
   } else {
       mid = mid.toUpperCase();
@@ -156,7 +177,7 @@ export class AdminMaterialDetailsPage implements OnInit {
 
       if (this.base64ImageUpdate) {
         // tslint:disable-next-line:max-line-length
-        fileTransfer.upload(this.base64ImageUpdate, `https://bhuminarrowfab.000webhostapp.com/mysql.php?callapi=1&process=updateMaterial&id=${this.id}&name=${name}&mid=${mid}&color=${color}&mowner=${mowner}&price=${price}`, options).then(result => {
+        fileTransfer.upload(this.base64ImageUpdate, `http://jaytarpara.in/mysql.php?callapi=1&process=updateMaterial&id=${this.id}&name=${name}&mid=${mid}&color=${color}&mowner=${mowner}&mtype=${mtype}&price=${price}`, options).then(result => {
           this.loadingController.dismiss();
           if (JSON.parse(JSON.parse(JSON.stringify(result.response)))['success'] == 1) {
             this.auth.presentToast(JSON.parse(JSON.parse(JSON.stringify(result.response)))['message'], false, 'bottom', 1000, 'success');
@@ -167,7 +188,7 @@ export class AdminMaterialDetailsPage implements OnInit {
           console.log('error' + JSON.stringify(error));
         });
       } else {
-        this.auth.updateMaterialDetailOnly(this.id, this.name, mid, color, mowner, this.price).then(response => {
+        this.auth.updateMaterialDetailOnly(this.id, this.name, mid, color, mowner, mtype, this.price).then(response => {
           this.loadingController.dismiss();
           if (response['success'] == 1) {
             this.auth.presentToast(response['message'], false, 'bottom', 1000, 'success');

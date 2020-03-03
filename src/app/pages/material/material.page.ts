@@ -47,6 +47,7 @@ export class MaterialPage implements OnInit {
   searchKey: any;
   showNoDataForSearch = true;
   owner = 'All';
+  mtype = 'All';
   loadMaterialNow = false;
   backButtonSubscription: any;
   sortBy = 'Latest Materials';
@@ -66,6 +67,27 @@ export class MaterialPage implements OnInit {
     },
     {
       name : 'Color: Z to A',
+    },
+  ];
+
+  materialType: any[] = [
+    {
+      name : 'All',
+    },
+    {
+      name : 'Fancy',
+    },
+    {
+      name : 'Needle Lace',
+    },
+    {
+      name : 'Moti Lace',
+    },
+    {
+      name : 'Crosset',
+    },
+    {
+      name : 'Cut Work',
     },
   ];
 
@@ -190,7 +212,7 @@ export class MaterialPage implements OnInit {
     } else if (sortingBy == 'Color: Z to A') {
       sortingBy = 'cza';
     }
-    this.auth.getMaterials(this.results, this.page, this.searchKey, this.owner, sortingBy).then(response => {
+    this.auth.getMaterials(this.results, this.page, this.searchKey, this.owner, this.mtype, sortingBy).then(response => {
       if (response['success'] == 1) {
         this.materials = this.materials.concat(response['materials']);
         this.maximumPages = Math.ceil(response['total'] / this.results);
@@ -242,7 +264,7 @@ export class MaterialPage implements OnInit {
   }
 
   async materialOrder(company, id, price, name, material_id, image, quantity, sample, pieces, key) {
-    const imageurl =  'https://bhuminarrowfab.000webhostapp.com/images/materials/' + image;
+    const imageurl =  'http://jaytarpara.in/images/materials/' + image;
 
     const splitprice = price.split('/');
     const minquantity = splitprice[1].split('M')[0];

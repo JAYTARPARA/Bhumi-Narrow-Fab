@@ -712,7 +712,7 @@ let AppComponent = class AppComponent {
             }
             // this.statusBar.styleDefault();
             // this.backgroundMode.enable();
-            this.autostart.enable();
+            // this.autostart.enable();
             this.statusBar.backgroundColorByHexString('#222');
             this.splashScreen.hide();
             this.checkUserStatus();

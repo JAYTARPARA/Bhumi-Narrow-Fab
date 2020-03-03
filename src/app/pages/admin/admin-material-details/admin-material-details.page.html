@@ -28,6 +28,19 @@
     <ion-row>
       <ion-col>
         <ion-item>
+          <ion-label>Material Type</ion-label>
+          <ion-select mode="ios" interface="action-sheet" placeholder="Select Type" name="type" [selectedText]="type" [(ngModel)]="type">
+            <ion-select-option *ngFor="let mtype of materialType" value="{{mtype.name}}">
+              {{mtype.name}}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
           <ion-label position="stacked">Material Name: </ion-label>
           <ion-input type="text" name="name" mode="md" [(ngModel)]="name" placeholder="AU9 Material"></ion-input>
         </ion-item>

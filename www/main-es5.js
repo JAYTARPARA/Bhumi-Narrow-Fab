@@ -723,7 +723,7 @@ var AppComponent = /** @class */ (function () {
             }
             // this.statusBar.styleDefault();
             // this.backgroundMode.enable();
-            _this.autostart.enable();
+            // this.autostart.enable();
             _this.statusBar.backgroundColorByHexString('#222');
             _this.splashScreen.hide();
             _this.checkUserStatus();

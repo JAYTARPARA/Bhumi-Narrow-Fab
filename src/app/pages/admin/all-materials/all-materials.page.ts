@@ -44,6 +44,7 @@ export class AllMaterialsPage implements OnInit {
   searchKey: any;
   showNoDataForSearch = true;
   owner = 'All';
+  type = 'All';
   backButtonSubscription: any;
 
   materialOwner: any[] = [
@@ -58,6 +59,27 @@ export class AllMaterialsPage implements OnInit {
     },
     {
       name : '23 Needle',
+    },
+  ];
+
+  materialType: any[] = [
+    {
+      name : 'All',
+    },
+    {
+      name : 'Fancy',
+    },
+    {
+      name : 'Needle Lace',
+    },
+    {
+      name : 'Moti Lace',
+    },
+    {
+      name : 'Crosset',
+    },
+    {
+      name : 'Cut Work',
     },
   ];
 
@@ -123,7 +145,8 @@ export class AllMaterialsPage implements OnInit {
     }
     console.log('searchKey: ' + this.searchKey);
     console.log('owner: ' + this.owner);
-    this.auth.getMaterials(this.results, this.page, this.searchKey, this.owner).then(response => {
+    console.log('type: ' + this.type);
+    this.auth.getMaterials(this.results, this.page, this.searchKey, this.owner, this.type).then(response => {
       console.log(response);
       if (response['success'] == 1) {
         this.materials = this.materials.concat(response['materials']);

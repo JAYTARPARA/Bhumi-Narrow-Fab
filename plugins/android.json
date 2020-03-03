@@ -56,9 +56,6 @@
     "onesignal-cordova-plugin": {
       "PACKAGE_NAME": "com.bhuminarrowfab.app"
     },
-    "cordova-plugin-autostart": {
-      "PACKAGE_NAME": "com.bhuminarrowfab.app"
-    },
     "cordova-plugin-background-mode": {
       "PACKAGE_NAME": "com.bhuminarrowfab.app"
     },

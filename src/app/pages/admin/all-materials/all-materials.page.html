@@ -10,13 +10,21 @@
   </ion-toolbar>
   <ion-searchbar mode="ios" debounce="700" placeholder="Search Materials"  [(ngModel)]="searchKey" (ionChange)="ionViewWillEnter(1, '')" showCancelButton="always" clearIcon=false class="animated bounceInLeft slow"></ion-searchbar>
   <ion-item class="animated bounceInLeft slow">
-      <ion-label>Search by company</ion-label>
-      <ion-select mode="ios" interface="action-sheet" placeholder="Select Status" [selectedText]="owner" [(ngModel)]="owner" (ionChange)="ionViewWillEnter(1, '')">
-        <ion-select-option *ngFor="let mowner of materialOwner" value="{{mowner.name}}">
-          {{mowner.name}}
-        </ion-select-option>
-      </ion-select>
-    </ion-item>
+    <ion-label>Search by company</ion-label>
+    <ion-select mode="ios" interface="action-sheet" placeholder="Select Status" [selectedText]="owner" [(ngModel)]="owner" (ionChange)="ionViewWillEnter(1, '')">
+      <ion-select-option *ngFor="let mowner of materialOwner" value="{{mowner.name}}">
+        {{mowner.name}}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-item class="animated bounceInLeft slow">
+    <ion-label>Search by type</ion-label>
+    <ion-select mode="ios" interface="action-sheet" placeholder="Select Type" [selectedText]="type" [(ngModel)]="type" (ionChange)="ionViewWillEnter(1, '')">
+      <ion-select-option *ngFor="let mtype of materialType" value="{{mtype.name}}">
+        {{mtype.name}}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
 </ion-header>
 
 <ion-content class="ion-padding card-background-page">
@@ -34,7 +42,7 @@
         </ion-col>
       </ion-row>
       <ion-row (click)="openImagePreview(material.image)">
-        <img src="https://bhuminarrowfab.000webhostapp.com/images/materials/{{material.image}}">
+        <img src="http://jaytarpara.in/images/materials/{{material.image}}">
       </ion-row>
       <ion-row>
         <ion-col class="ion-text-left">
