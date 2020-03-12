@@ -87,6 +87,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 /* harmony import */ var _services_authentication_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../../../services/authentication.service */ "./src/app/services/authentication.service.ts");
 /* harmony import */ var _ionic_native_call_number_ngx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic-native/call-number/ngx */ "./node_modules/@ionic-native/call-number/ngx/index.js");
+/* harmony import */ var _ionic_native_native_page_transitions_ngx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic-native/native-page-transitions/ngx */ "./node_modules/@ionic-native/native-page-transitions/ngx/index.js");
+
 
 
 
@@ -95,7 +97,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let AllUsersPage = class AllUsersPage {
-    constructor(fireAuth, router, platform, activatedRoute, auth, toastCtrl, loadingController, alertCtrl, callNumber, menu) {
+    constructor(fireAuth, router, platform, activatedRoute, auth, toastCtrl, loadingController, alertCtrl, callNumber, menu, nativePageTransitions) {
         this.fireAuth = fireAuth;
         this.router = router;
         this.platform = platform;
@@ -106,6 +108,7 @@ let AllUsersPage = class AllUsersPage {
         this.alertCtrl = alertCtrl;
         this.callNumber = callNumber;
         this.menu = menu;
+        this.nativePageTransitions = nativePageTransitions;
         this.users = [];
         this.page = 1;
         this.results = 5;
@@ -117,6 +120,11 @@ let AllUsersPage = class AllUsersPage {
         this.menu.enable(true, 'admin');
     }
     ionViewWillEnter(callit, infiniteScroll) {
+        this.nativePageTransitions.slide(this.auth.optionsRight)
+            .then()
+            .catch((errr) => {
+            console.log(errr);
+        });
         this.users = [];
         this.page = 1;
         if (callit) {
@@ -275,7 +283,8 @@ AllUsersPage.ctorParameters = () => [
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["AlertController"] },
     { type: _ionic_native_call_number_ngx__WEBPACK_IMPORTED_MODULE_6__["CallNumber"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["MenuController"] }
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["MenuController"] },
+    { type: _ionic_native_native_page_transitions_ngx__WEBPACK_IMPORTED_MODULE_7__["NativePageTransitions"] }
 ];
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonContent"], { static: false }),
@@ -296,7 +305,8 @@ AllUsersPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"],
         _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["AlertController"],
         _ionic_native_call_number_ngx__WEBPACK_IMPORTED_MODULE_6__["CallNumber"],
-        _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["MenuController"]])
+        _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["MenuController"],
+        _ionic_native_native_page_transitions_ngx__WEBPACK_IMPORTED_MODULE_7__["NativePageTransitions"]])
 ], AllUsersPage);
 
 

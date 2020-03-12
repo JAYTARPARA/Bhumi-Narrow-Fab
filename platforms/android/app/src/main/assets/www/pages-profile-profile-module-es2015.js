@@ -86,6 +86,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_fire_auth__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/fire/auth */ "./node_modules/@angular/fire/auth/es2015/index.js");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 /* harmony import */ var _services_authentication_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../../services/authentication.service */ "./src/app/services/authentication.service.ts");
+/* harmony import */ var _ionic_native_native_page_transitions_ngx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic-native/native-page-transitions/ngx */ "./node_modules/@ionic-native/native-page-transitions/ngx/index.js");
+
 
 
 
@@ -93,7 +95,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let ProfilePage = class ProfilePage {
-    constructor(fireAuth, router, platform, activatedRoute, auth, toastCtrl, loadingController, menu) {
+    constructor(fireAuth, router, platform, activatedRoute, auth, toastCtrl, loadingController, menu, nativePageTransitions) {
         this.fireAuth = fireAuth;
         this.router = router;
         this.platform = platform;
@@ -102,6 +104,7 @@ let ProfilePage = class ProfilePage {
         this.toastCtrl = toastCtrl;
         this.loadingController = loadingController;
         this.menu = menu;
+        this.nativePageTransitions = nativePageTransitions;
         this.key = "7yZ2AVzT76cie7ralb9YZcLsrjq2";
     }
     ngOnInit() {
@@ -122,6 +125,11 @@ let ProfilePage = class ProfilePage {
         if (callit) {
             this.ionViewDidEnter();
         }
+        this.nativePageTransitions.slide(this.auth.optionsRight)
+            .then()
+            .catch((errr) => {
+            console.log(errr);
+        });
     }
     ionViewDidEnter() {
         this.loadingController
@@ -251,7 +259,8 @@ ProfilePage.ctorParameters = () => [
     { type: _services_authentication_service__WEBPACK_IMPORTED_MODULE_5__["AuthenticationService"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ToastController"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["MenuController"] }
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["MenuController"] },
+    { type: _ionic_native_native_page_transitions_ngx__WEBPACK_IMPORTED_MODULE_6__["NativePageTransitions"] }
 ];
 ProfilePage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -266,7 +275,8 @@ ProfilePage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         _services_authentication_service__WEBPACK_IMPORTED_MODULE_5__["AuthenticationService"],
         _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ToastController"],
         _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"],
-        _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["MenuController"]])
+        _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["MenuController"],
+        _ionic_native_native_page_transitions_ngx__WEBPACK_IMPORTED_MODULE_6__["NativePageTransitions"]])
 ], ProfilePage);
 
 

@@ -4,6 +4,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { AuthenticationService } from './../../../services/authentication.service';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 import { File } from '@ionic-native/file';
+import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions/ngx';
 
 @Component({
   selector: 'app-add-orders',
@@ -28,10 +29,19 @@ export class AddOrdersPage implements OnInit {
     private transfer: FileTransfer,
     public loadingController: LoadingController,
     private menu: MenuController,
+    private nativePageTransitions: NativePageTransitions,
   ) { }
 
   ngOnInit() {
     this.menu.enable(true, 'admin');
+  }
+
+  ionViewWillEnter() {
+    this.nativePageTransitions.slide(this.auth.optionsRight)
+      .then()
+      .catch((errr) => {
+        console.log(errr);
+    });
   }
 
   AccessCamera() {

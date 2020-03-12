@@ -14,6 +14,8 @@ import {
 
 import { AuthenticationService } from "./../../services/authentication.service";
 
+import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions/ngx';
+
 @Component({
   selector: "app-profile",
   templateUrl: "./profile.page.html",
@@ -42,7 +44,8 @@ export class ProfilePage implements OnInit {
     public auth: AuthenticationService,
     private toastCtrl: ToastController,
     public loadingController: LoadingController,
-    private menu: MenuController
+    private menu: MenuController,
+    private nativePageTransitions: NativePageTransitions,
   ) {}
 
   ngOnInit() {
@@ -64,6 +67,11 @@ export class ProfilePage implements OnInit {
     if (callit) {
       this.ionViewDidEnter();
     }
+    this.nativePageTransitions.slide(this.auth.optionsRight)
+      .then()
+      .catch((errr) => {
+        console.log(errr);
+    });
   }
 
   ionViewDidEnter() {

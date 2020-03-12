@@ -62,15 +62,15 @@ export class AdminOrderDetailsPage implements OnInit {
   ) { }
 
   ionViewWillLeave() {
-    this.nativePageTransitions.flip(this.auth.optionsLeft)
-      .then()
-      .catch((errr) => {
-        console.log(errr);
-    });
+    // this.nativePageTransitions.slide(this.auth.optionsLeft)
+    //   .then()
+    //   .catch((errr) => {
+    //     console.log(errr);
+    // });
   }
 
   ionViewWillEnter() {
-    this.nativePageTransitions.flip(this.auth.optionsRight)
+    this.nativePageTransitions.slide(this.auth.optionsRight)
       .then()
       .catch((errr) => {
         console.log(errr);

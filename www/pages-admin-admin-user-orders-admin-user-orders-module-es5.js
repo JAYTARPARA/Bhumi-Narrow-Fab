@@ -88,13 +88,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 /* harmony import */ var _services_authentication_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../../../services/authentication.service */ "./src/app/services/authentication.service.ts");
+/* harmony import */ var _ionic_native_native_page_transitions_ngx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic-native/native-page-transitions/ngx */ "./node_modules/@ionic-native/native-page-transitions/ngx/index.js");
+
 
 
 
 
 
 var AdminUserOrdersPage = /** @class */ (function () {
-    function AdminUserOrdersPage(router, platform, activatedRoute, auth, toastCtrl, loadingController, navCtrl, menu) {
+    function AdminUserOrdersPage(router, platform, activatedRoute, auth, toastCtrl, loadingController, navCtrl, menu, nativePageTransitions) {
         this.router = router;
         this.platform = platform;
         this.activatedRoute = activatedRoute;
@@ -103,6 +105,7 @@ var AdminUserOrdersPage = /** @class */ (function () {
         this.loadingController = loadingController;
         this.navCtrl = navCtrl;
         this.menu = menu;
+        this.nativePageTransitions = nativePageTransitions;
         this.orders = [];
         this.page = 1;
         this.results = 5;
@@ -133,6 +136,11 @@ var AdminUserOrdersPage = /** @class */ (function () {
     };
     AdminUserOrdersPage.prototype.ionViewWillEnter = function (callit, infiniteScroll) {
         var _this = this;
+        this.nativePageTransitions.slide(this.auth.optionsRight)
+            .then()
+            .catch(function (errr) {
+            console.log(errr);
+        });
         this.orders = [];
         this.page = 1;
         if (callit) {
@@ -240,7 +248,8 @@ var AdminUserOrdersPage = /** @class */ (function () {
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["ToastController"] },
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["LoadingController"] },
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["NavController"] },
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["MenuController"] }
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["MenuController"] },
+        { type: _ionic_native_native_page_transitions_ngx__WEBPACK_IMPORTED_MODULE_5__["NativePageTransitions"] }
     ]; };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_ionic_angular__WEBPACK_IMPORTED_MODULE_3__["IonContent"], { static: false }),
@@ -259,7 +268,8 @@ var AdminUserOrdersPage = /** @class */ (function () {
             _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["ToastController"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["LoadingController"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["NavController"],
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["MenuController"]])
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["MenuController"],
+            _ionic_native_native_page_transitions_ngx__WEBPACK_IMPORTED_MODULE_5__["NativePageTransitions"]])
     ], AdminUserOrdersPage);
     return AdminUserOrdersPage;
 }());

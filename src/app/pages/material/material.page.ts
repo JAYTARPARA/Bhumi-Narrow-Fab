@@ -11,6 +11,8 @@ import { AuthenticationService } from './../../services/authentication.service';
 
 import { ImageModalPage } from './../image-modal/image-modal.page';
 
+import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions/ngx';
+
 @Component({
   selector: 'app-material',
   templateUrl: './material.page.html',
@@ -101,7 +103,8 @@ export class MaterialPage implements OnInit {
     public loadingControllerMaterial: LoadingController,
     public alertCtrl: AlertController,
     private menu: MenuController,
-    public modalController: ModalController
+    public modalController: ModalController,
+    private nativePageTransitions: NativePageTransitions,
   ) { }
 
   ngOnInit() {
@@ -116,6 +119,11 @@ export class MaterialPage implements OnInit {
   }
 
   ionViewWillEnter(callit?, infiniteScroll?) {
+    this.nativePageTransitions.slide(this.auth.optionsRight)
+      .then()
+      .catch((errr) => {
+        console.log(errr);
+    });
     console.log('Sorting: ' + this.sortBy);
     this.materials = [];
     this.page = 1;

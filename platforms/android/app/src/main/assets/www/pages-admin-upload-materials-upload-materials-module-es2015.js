@@ -86,6 +86,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_native_camera_ngx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic-native/camera/ngx */ "./node_modules/@ionic-native/camera/ngx/index.js");
 /* harmony import */ var _services_authentication_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../../../services/authentication.service */ "./src/app/services/authentication.service.ts");
 /* harmony import */ var _ionic_native_file_transfer_ngx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic-native/file-transfer/ngx */ "./node_modules/@ionic-native/file-transfer/ngx/index.js");
+/* harmony import */ var _ionic_native_native_page_transitions_ngx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic-native/native-page-transitions/ngx */ "./node_modules/@ionic-native/native-page-transitions/ngx/index.js");
+
 
 
 
@@ -93,7 +95,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let UploadMaterialsPage = class UploadMaterialsPage {
-    constructor(auth, nav, platform, camera, transfer, loadingController, menu) {
+    constructor(auth, nav, platform, camera, transfer, loadingController, menu, nativePageTransitions) {
         this.auth = auth;
         this.nav = nav;
         this.platform = platform;
@@ -101,6 +103,7 @@ let UploadMaterialsPage = class UploadMaterialsPage {
         this.transfer = transfer;
         this.loadingController = loadingController;
         this.menu = menu;
+        this.nativePageTransitions = nativePageTransitions;
         this.owner = 'Bhumi Narrow Fab';
         this.type = 'Fancy';
         this.materialOwner = [
@@ -134,6 +137,13 @@ let UploadMaterialsPage = class UploadMaterialsPage {
     }
     ngOnInit() {
         this.menu.enable(true, 'admin');
+    }
+    ionViewWillEnter() {
+        this.nativePageTransitions.slide(this.auth.optionsRight)
+            .then()
+            .catch((errr) => {
+            console.log(errr);
+        });
     }
     AccessCamera() {
         this.camera.getPicture({
@@ -218,7 +228,8 @@ UploadMaterialsPage.ctorParameters = () => [
     { type: _ionic_native_camera_ngx__WEBPACK_IMPORTED_MODULE_3__["Camera"] },
     { type: _ionic_native_file_transfer_ngx__WEBPACK_IMPORTED_MODULE_5__["FileTransfer"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["LoadingController"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["MenuController"] }
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["MenuController"] },
+    { type: _ionic_native_native_page_transitions_ngx__WEBPACK_IMPORTED_MODULE_6__["NativePageTransitions"] }
 ];
 UploadMaterialsPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -232,7 +243,8 @@ UploadMaterialsPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         _ionic_native_camera_ngx__WEBPACK_IMPORTED_MODULE_3__["Camera"],
         _ionic_native_file_transfer_ngx__WEBPACK_IMPORTED_MODULE_5__["FileTransfer"],
         _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["LoadingController"],
-        _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["MenuController"]])
+        _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["MenuController"],
+        _ionic_native_native_page_transitions_ngx__WEBPACK_IMPORTED_MODULE_6__["NativePageTransitions"]])
 ], UploadMaterialsPage);
 
 

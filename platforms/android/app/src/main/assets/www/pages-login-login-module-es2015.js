@@ -93,6 +93,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_native_http_ngx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic-native/http/ngx */ "./node_modules/@ionic-native/http/ngx/index.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
 /* harmony import */ var _services_authentication_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./../../services/authentication.service */ "./src/app/services/authentication.service.ts");
+/* harmony import */ var _ionic_native_native_page_transitions_ngx__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @ionic-native/native-page-transitions/ngx */ "./node_modules/@ionic-native/native-page-transitions/ngx/index.js");
 
 
 // tslint:disable-next-line:max-line-length
@@ -103,8 +104,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 let LoginPage = class LoginPage {
-    constructor(navCtrl, alertCtrl, loadingControllerLogin, router, fireAuth, toastCtrl, http, nativeHttp, plt, auth, menu) {
+    constructor(navCtrl, alertCtrl, loadingControllerLogin, router, fireAuth, toastCtrl, http, nativeHttp, plt, auth, menu, nativePageTransitions) {
         this.navCtrl = navCtrl;
         this.alertCtrl = alertCtrl;
         this.loadingControllerLogin = loadingControllerLogin;
@@ -116,6 +118,7 @@ let LoginPage = class LoginPage {
         this.plt = plt;
         this.auth = auth;
         this.menu = menu;
+        this.nativePageTransitions = nativePageTransitions;
         this.code = '';
         this.OTP = '';
         this.showOTPInput = false;
@@ -125,6 +128,13 @@ let LoginPage = class LoginPage {
         this.submitted = false;
         this.continue = false;
         this.showError = false;
+    }
+    ionViewWillEnter() {
+        this.nativePageTransitions.slide(this.auth.optionsRight)
+            .then()
+            .catch((errr) => {
+            console.log(errr);
+        });
     }
     ngOnInit() {
         this.menu.enable(false);
@@ -326,7 +336,8 @@ LoginPage.ctorParameters = () => [
     { type: _ionic_native_http_ngx__WEBPACK_IMPORTED_MODULE_6__["HTTP"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Platform"] },
     { type: _services_authentication_service__WEBPACK_IMPORTED_MODULE_8__["AuthenticationService"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["MenuController"] }
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["MenuController"] },
+    { type: _ionic_native_native_page_transitions_ngx__WEBPACK_IMPORTED_MODULE_9__["NativePageTransitions"] }
 ];
 LoginPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -344,7 +355,8 @@ LoginPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         _ionic_native_http_ngx__WEBPACK_IMPORTED_MODULE_6__["HTTP"],
         _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Platform"],
         _services_authentication_service__WEBPACK_IMPORTED_MODULE_8__["AuthenticationService"],
-        _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["MenuController"]])
+        _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["MenuController"],
+        _ionic_native_native_page_transitions_ngx__WEBPACK_IMPORTED_MODULE_9__["NativePageTransitions"]])
 ], LoginPage);
 
 

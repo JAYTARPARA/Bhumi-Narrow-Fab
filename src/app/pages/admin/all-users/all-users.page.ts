@@ -4,6 +4,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { MenuController, Platform, ToastController, LoadingController, IonContent, AlertController } from '@ionic/angular';
 import { AuthenticationService } from './../../../services/authentication.service';
 import { CallNumber } from '@ionic-native/call-number/ngx';
+import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions/ngx';
 
 @Component({
   selector: 'app-all-users',
@@ -34,6 +35,7 @@ export class AllUsersPage implements OnInit {
     public alertCtrl: AlertController,
     private callNumber: CallNumber,
     private menu: MenuController,
+    private nativePageTransitions: NativePageTransitions,
   ) { }
 
   ngOnInit() {
@@ -41,6 +43,11 @@ export class AllUsersPage implements OnInit {
   }
 
   ionViewWillEnter(callit?, infiniteScroll?) {
+    this.nativePageTransitions.slide(this.auth.optionsRight)
+      .then()
+      .catch((errr) => {
+        console.log(errr);
+    });
     this.users = [];
     this.page = 1;
     if (callit) {

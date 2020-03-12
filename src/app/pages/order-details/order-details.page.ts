@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from './../../services/authentication.service';
 import { MenuController, LoadingController } from '@ionic/angular';
+import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions/ngx';
 
 @Component({
   selector: 'app-order-details',
@@ -32,7 +33,16 @@ export class OrderDetailsPage implements OnInit {
     public auth: AuthenticationService,
     public loadingController: LoadingController,
     private menu: MenuController,
+    private nativePageTransitions: NativePageTransitions,
   ) { }
+
+  ionViewWillEnter() {
+    this.nativePageTransitions.slide(this.auth.optionsRight)
+      .then()
+      .catch((errr) => {
+        console.log(errr);
+    });
+  }
 
   ngOnInit() {
     this.menu.enable(true, 'user');

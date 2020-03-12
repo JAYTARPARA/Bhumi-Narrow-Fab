@@ -4,6 +4,7 @@ import { AuthenticationService } from './../../../services/authentication.servic
 import { MenuController, LoadingController } from '@ionic/angular';
 import { SMS } from '@ionic-native/sms/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions/ngx';
 
 @Component({
   selector: 'app-whatsapp-order-details',
@@ -58,7 +59,16 @@ export class WhatsappOrderDetailsPage implements OnInit {
     private menu: MenuController,
     private sms: SMS,
     private socialSharing: SocialSharing,
+    private nativePageTransitions: NativePageTransitions,
   ) { }
+
+  ionViewWillEnter() {
+    this.nativePageTransitions.slide(this.auth.optionsRight)
+      .then()
+      .catch((errr) => {
+        console.log(errr);
+    });
+  }
 
   ngOnInit() {
     this.menu.enable(true, 'admin');

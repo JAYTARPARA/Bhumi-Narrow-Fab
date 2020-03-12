@@ -90,6 +90,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 /* harmony import */ var _services_authentication_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../../services/authentication.service */ "./src/app/services/authentication.service.ts");
 /* harmony import */ var _image_modal_image_modal_page__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../image-modal/image-modal.page */ "./src/app/pages/image-modal/image-modal.page.ts");
+/* harmony import */ var _ionic_native_native_page_transitions_ngx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic-native/native-page-transitions/ngx */ "./node_modules/@ionic-native/native-page-transitions/ngx/index.js");
 
 
 
@@ -98,8 +99,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 var MaterialPage = /** @class */ (function () {
-    function MaterialPage(fireAuth, router, platform, activatedRoute, auth, toastCtrl, loadingControllerMaterial, alertCtrl, menu, modalController) {
+    function MaterialPage(fireAuth, router, platform, activatedRoute, auth, toastCtrl, loadingControllerMaterial, alertCtrl, menu, modalController, nativePageTransitions) {
         this.fireAuth = fireAuth;
         this.router = router;
         this.platform = platform;
@@ -110,6 +112,7 @@ var MaterialPage = /** @class */ (function () {
         this.alertCtrl = alertCtrl;
         this.menu = menu;
         this.modalController = modalController;
+        this.nativePageTransitions = nativePageTransitions;
         this.materials = [];
         this.page = 1;
         this.results = 5;
@@ -177,6 +180,11 @@ var MaterialPage = /** @class */ (function () {
     };
     MaterialPage.prototype.ionViewWillEnter = function (callit, infiniteScroll) {
         var _this = this;
+        this.nativePageTransitions.slide(this.auth.optionsRight)
+            .then()
+            .catch(function (errr) {
+            console.log(errr);
+        });
         console.log('Sorting: ' + this.sortBy);
         this.materials = [];
         this.page = 1;
@@ -459,7 +467,8 @@ var MaterialPage = /** @class */ (function () {
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"] },
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["AlertController"] },
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["MenuController"] },
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ModalController"] }
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ModalController"] },
+        { type: _ionic_native_native_page_transitions_ngx__WEBPACK_IMPORTED_MODULE_7__["NativePageTransitions"] }
     ]; };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonContent"], { static: false }),
@@ -480,7 +489,8 @@ var MaterialPage = /** @class */ (function () {
             _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["AlertController"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["MenuController"],
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ModalController"]])
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ModalController"],
+            _ionic_native_native_page_transitions_ngx__WEBPACK_IMPORTED_MODULE_7__["NativePageTransitions"]])
     ], MaterialPage);
     return MaterialPage;
 }());

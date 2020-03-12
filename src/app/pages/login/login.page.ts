@@ -9,6 +9,7 @@ import { HttpClient } from '@angular/common/http';
 import { AuthenticationService } from './../../services/authentication.service';
 import { Observable } from 'rxjs';
 import * as $ from 'jquery';
+import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions/ngx';
 
 declare var SMSReceive: any;
 
@@ -50,8 +51,17 @@ export class LoginPage implements OnInit {
     private nativeHttp: HTTP,
     private plt: Platform,
     public auth: AuthenticationService,
-    private menu: MenuController
+    private menu: MenuController,
+    private nativePageTransitions: NativePageTransitions,
   ) { }
+
+  ionViewWillEnter() {
+    this.nativePageTransitions.slide(this.auth.optionsRight)
+      .then()
+      .catch((errr) => {
+        console.log(errr);
+    });
+  }
 
   ngOnInit() {
     this.menu.enable(false);

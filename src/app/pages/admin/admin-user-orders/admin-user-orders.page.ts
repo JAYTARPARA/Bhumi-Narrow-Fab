@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MenuController, Platform, ToastController, LoadingController, NavController, IonContent } from '@ionic/angular';
 import { AuthenticationService } from './../../../services/authentication.service';
+import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions/ngx';
 
 @Component({
   selector: 'app-admin-user-orders',
@@ -50,6 +51,7 @@ export class AdminUserOrdersPage implements OnInit {
     public loadingController: LoadingController,
     private navCtrl: NavController,
     private menu: MenuController,
+    private nativePageTransitions: NativePageTransitions,
   ) { }
 
   ngOnInit() {
@@ -57,6 +59,11 @@ export class AdminUserOrdersPage implements OnInit {
   }
 
   ionViewWillEnter(callit?, infiniteScroll?) {
+    this.nativePageTransitions.slide(this.auth.optionsRight)
+    .then()
+    .catch((errr) => {
+      console.log(errr);
+    });
     this.orders = [];
     this.page = 1;
     if (callit) {

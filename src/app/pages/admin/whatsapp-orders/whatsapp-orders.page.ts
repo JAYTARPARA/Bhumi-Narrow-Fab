@@ -8,6 +8,8 @@ import { MenuController, Platform, ToastController, LoadingController, NavContro
 
 import { AuthenticationService } from './../../../services/authentication.service';
 
+import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions/ngx';
+
 @Component({
   selector: 'app-whatsapp-orders',
   templateUrl: './whatsapp-orders.page.html',
@@ -89,6 +91,7 @@ export class WhatsappOrdersPage implements OnInit {
     public loadingController: LoadingController,
     private navCtrl: NavController,
     private menu: MenuController,
+    private nativePageTransitions: NativePageTransitions,
   ) { }
 
   ngOnInit() {
@@ -98,6 +101,11 @@ export class WhatsappOrdersPage implements OnInit {
   }
 
   ionViewWillEnter(callit?, infiniteScroll?) {
+    this.nativePageTransitions.slide(this.auth.optionsRight)
+      .then()
+      .catch((errr) => {
+        console.log(errr);
+    });
     console.log('Date: ' + this.searchKeyDate);
     this.orders = [];
     this.page = 1;

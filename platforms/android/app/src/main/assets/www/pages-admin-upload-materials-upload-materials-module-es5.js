@@ -89,6 +89,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_native_camera_ngx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic-native/camera/ngx */ "./node_modules/@ionic-native/camera/ngx/index.js");
 /* harmony import */ var _services_authentication_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../../../services/authentication.service */ "./src/app/services/authentication.service.ts");
 /* harmony import */ var _ionic_native_file_transfer_ngx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic-native/file-transfer/ngx */ "./node_modules/@ionic-native/file-transfer/ngx/index.js");
+/* harmony import */ var _ionic_native_native_page_transitions_ngx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic-native/native-page-transitions/ngx */ "./node_modules/@ionic-native/native-page-transitions/ngx/index.js");
+
 
 
 
@@ -96,7 +98,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var UploadMaterialsPage = /** @class */ (function () {
-    function UploadMaterialsPage(auth, nav, platform, camera, transfer, loadingController, menu) {
+    function UploadMaterialsPage(auth, nav, platform, camera, transfer, loadingController, menu, nativePageTransitions) {
         this.auth = auth;
         this.nav = nav;
         this.platform = platform;
@@ -104,6 +106,7 @@ var UploadMaterialsPage = /** @class */ (function () {
         this.transfer = transfer;
         this.loadingController = loadingController;
         this.menu = menu;
+        this.nativePageTransitions = nativePageTransitions;
         this.owner = 'Bhumi Narrow Fab';
         this.type = 'Fancy';
         this.materialOwner = [
@@ -137,6 +140,13 @@ var UploadMaterialsPage = /** @class */ (function () {
     }
     UploadMaterialsPage.prototype.ngOnInit = function () {
         this.menu.enable(true, 'admin');
+    };
+    UploadMaterialsPage.prototype.ionViewWillEnter = function () {
+        this.nativePageTransitions.slide(this.auth.optionsRight)
+            .then()
+            .catch(function (errr) {
+            console.log(errr);
+        });
     };
     UploadMaterialsPage.prototype.AccessCamera = function () {
         var _this = this;
@@ -223,7 +233,8 @@ var UploadMaterialsPage = /** @class */ (function () {
         { type: _ionic_native_camera_ngx__WEBPACK_IMPORTED_MODULE_3__["Camera"] },
         { type: _ionic_native_file_transfer_ngx__WEBPACK_IMPORTED_MODULE_5__["FileTransfer"] },
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["LoadingController"] },
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["MenuController"] }
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["MenuController"] },
+        { type: _ionic_native_native_page_transitions_ngx__WEBPACK_IMPORTED_MODULE_6__["NativePageTransitions"] }
     ]; };
     UploadMaterialsPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -237,7 +248,8 @@ var UploadMaterialsPage = /** @class */ (function () {
             _ionic_native_camera_ngx__WEBPACK_IMPORTED_MODULE_3__["Camera"],
             _ionic_native_file_transfer_ngx__WEBPACK_IMPORTED_MODULE_5__["FileTransfer"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["LoadingController"],
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["MenuController"]])
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["MenuController"],
+            _ionic_native_native_page_transitions_ngx__WEBPACK_IMPORTED_MODULE_6__["NativePageTransitions"]])
     ], UploadMaterialsPage);
     return UploadMaterialsPage;
 }());

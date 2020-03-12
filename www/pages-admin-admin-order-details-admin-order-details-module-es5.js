@@ -128,14 +128,14 @@ var AdminOrderDetailsPage = /** @class */ (function () {
         ];
     }
     AdminOrderDetailsPage.prototype.ionViewWillLeave = function () {
-        this.nativePageTransitions.flip(this.auth.optionsLeft)
-            .then()
-            .catch(function (errr) {
-            console.log(errr);
-        });
+        // this.nativePageTransitions.slide(this.auth.optionsLeft)
+        //   .then()
+        //   .catch((errr) => {
+        //     console.log(errr);
+        // });
     };
     AdminOrderDetailsPage.prototype.ionViewWillEnter = function () {
-        this.nativePageTransitions.flip(this.auth.optionsRight)
+        this.nativePageTransitions.slide(this.auth.optionsRight)
             .then()
             .catch(function (errr) {
             console.log(errr);

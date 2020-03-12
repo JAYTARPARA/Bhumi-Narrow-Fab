@@ -85,17 +85,27 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
 /* harmony import */ var _services_authentication_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../../services/authentication.service */ "./src/app/services/authentication.service.ts");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var _ionic_native_native_page_transitions_ngx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic-native/native-page-transitions/ngx */ "./node_modules/@ionic-native/native-page-transitions/ngx/index.js");
+
 
 
 
 
 
 let OrderDetailsPage = class OrderDetailsPage {
-    constructor(activatedRoute, auth, loadingController, menu) {
+    constructor(activatedRoute, auth, loadingController, menu, nativePageTransitions) {
         this.activatedRoute = activatedRoute;
         this.auth = auth;
         this.loadingController = loadingController;
         this.menu = menu;
+        this.nativePageTransitions = nativePageTransitions;
+    }
+    ionViewWillEnter() {
+        this.nativePageTransitions.slide(this.auth.optionsRight)
+            .then()
+            .catch((errr) => {
+            console.log(errr);
+        });
     }
     ngOnInit() {
         this.menu.enable(true, 'user');
@@ -145,7 +155,8 @@ OrderDetailsPage.ctorParameters = () => [
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"] },
     { type: _services_authentication_service__WEBPACK_IMPORTED_MODULE_3__["AuthenticationService"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["MenuController"] }
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["MenuController"] },
+    { type: _ionic_native_native_page_transitions_ngx__WEBPACK_IMPORTED_MODULE_5__["NativePageTransitions"] }
 ];
 OrderDetailsPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -156,7 +167,8 @@ OrderDetailsPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"],
         _services_authentication_service__WEBPACK_IMPORTED_MODULE_3__["AuthenticationService"],
         _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"],
-        _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["MenuController"]])
+        _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["MenuController"],
+        _ionic_native_native_page_transitions_ngx__WEBPACK_IMPORTED_MODULE_5__["NativePageTransitions"]])
 ], OrderDetailsPage);
 
 

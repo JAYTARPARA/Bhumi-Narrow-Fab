@@ -9,6 +9,8 @@ import { MenuController, Platform, ToastController, LoadingController, NavContro
 
 import { AuthenticationService } from './../../services/authentication.service';
 
+import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions/ngx';
+
 @Component({
   selector: 'app-orders',
   templateUrl: './orders.page.html',
@@ -69,6 +71,7 @@ export class OrdersPage implements OnInit {
     public loadingControllerOrder: LoadingController,
     private navCtrl: NavController,
     private menu: MenuController,
+    private nativePageTransitions: NativePageTransitions,
   ) { }
 
   ngOnInit() {
@@ -79,6 +82,11 @@ export class OrdersPage implements OnInit {
   }
 
   ionViewWillEnter(callit?, infiniteScroll?) {
+    this.nativePageTransitions.slide(this.auth.optionsRight)
+      .then()
+      .catch((errr) => {
+        console.log(errr);
+    });
     this.orders = [];
     this.page = 1;
     if (callit) {

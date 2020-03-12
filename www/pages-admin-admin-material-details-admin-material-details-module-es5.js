@@ -154,11 +154,11 @@ var AdminMaterialDetailsPage = /** @class */ (function () {
         });
     };
     AdminMaterialDetailsPage.prototype.ionViewWillLeave = function () {
-        this.nativePageTransitions.slide(this.auth.optionsLeft)
-            .then()
-            .catch(function (errr) {
-            console.log(errr);
-        });
+        // this.nativePageTransitions.slide(this.auth.optionsLeft)
+        //   .then()
+        //   .catch((errr) => {
+        //     console.log(errr);
+        // });
     };
     AdminMaterialDetailsPage.prototype.ionViewWillEnter = function () {
         this.nativePageTransitions.slide(this.auth.optionsRight)

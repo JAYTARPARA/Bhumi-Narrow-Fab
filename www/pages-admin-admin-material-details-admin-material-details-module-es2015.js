@@ -150,11 +150,11 @@ let AdminMaterialDetailsPage = class AdminMaterialDetailsPage {
         });
     }
     ionViewWillLeave() {
-        this.nativePageTransitions.slide(this.auth.optionsLeft)
-            .then()
-            .catch((errr) => {
-            console.log(errr);
-        });
+        // this.nativePageTransitions.slide(this.auth.optionsLeft)
+        //   .then()
+        //   .catch((errr) => {
+        //     console.log(errr);
+        // });
     }
     ionViewWillEnter() {
         this.nativePageTransitions.slide(this.auth.optionsRight)
