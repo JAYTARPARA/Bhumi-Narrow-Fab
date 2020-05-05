@@ -98,7 +98,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var ProfilePage = /** @class */ (function () {
-    function ProfilePage(fireAuth, router, platform, activatedRoute, auth, toastCtrl, loadingController, menu, nativePageTransitions) {
+    function ProfilePage(fireAuth, router, platform, activatedRoute, auth, toastCtrl, loadingController, menu, nativePageTransitions, nav) {
         this.fireAuth = fireAuth;
         this.router = router;
         this.platform = platform;
@@ -108,6 +108,7 @@ var ProfilePage = /** @class */ (function () {
         this.loadingController = loadingController;
         this.menu = menu;
         this.nativePageTransitions = nativePageTransitions;
+        this.nav = nav;
         this.key = "7yZ2AVzT76cie7ralb9YZcLsrjq2";
     }
     ProfilePage.prototype.ngOnInit = function () {
@@ -129,7 +130,8 @@ var ProfilePage = /** @class */ (function () {
         if (callit) {
             this.ionViewDidEnter();
         }
-        this.nativePageTransitions.slide(this.auth.optionsRight)
+        this.nativePageTransitions
+            .slide(this.auth.optionsRight)
             .then()
             .catch(function (errr) {
             console.log(errr);
@@ -140,7 +142,7 @@ var ProfilePage = /** @class */ (function () {
         this.loadingController
             .create({
             message: "Loading your profile",
-            mode: "ios"
+            mode: "ios",
         })
             .then(function (res) {
             res.present();
@@ -197,7 +199,7 @@ var ProfilePage = /** @class */ (function () {
             _this.loadingController
                 .create({
                 message: "Saving your data",
-                mode: "ios"
+                mode: "ios",
             })
                 .then(function (res) {
                 console.log(response);
@@ -217,7 +219,12 @@ var ProfilePage = /** @class */ (function () {
                 }
                 res.present();
                 res.onDidDismiss().then(function (dis) {
-                    _this.ngOnInit();
+                    if (response["success"] == 1) {
+                        _this.nav.navigateForward("/material/mobile/" + phone);
+                    }
+                    else {
+                        _this.ngOnInit();
+                    }
                 });
             });
         });
@@ -227,7 +234,7 @@ var ProfilePage = /** @class */ (function () {
         this.loadingController
             .create({
             message: "Checking GSTIN number",
-            mode: "ios"
+            mode: "ios",
         })
             .then(function (res) {
             res.present();
@@ -266,7 +273,8 @@ var ProfilePage = /** @class */ (function () {
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ToastController"] },
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"] },
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["MenuController"] },
-        { type: _ionic_native_native_page_transitions_ngx__WEBPACK_IMPORTED_MODULE_6__["NativePageTransitions"] }
+        { type: _ionic_native_native_page_transitions_ngx__WEBPACK_IMPORTED_MODULE_6__["NativePageTransitions"] },
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["NavController"] }
     ]; };
     ProfilePage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -282,7 +290,8 @@ var ProfilePage = /** @class */ (function () {
             _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ToastController"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["MenuController"],
-            _ionic_native_native_page_transitions_ngx__WEBPACK_IMPORTED_MODULE_6__["NativePageTransitions"]])
+            _ionic_native_native_page_transitions_ngx__WEBPACK_IMPORTED_MODULE_6__["NativePageTransitions"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["NavController"]])
     ], ProfilePage);
     return ProfilePage;
 }());

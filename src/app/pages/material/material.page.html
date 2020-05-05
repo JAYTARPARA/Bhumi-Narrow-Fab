@@ -33,6 +33,36 @@
 
   <ion-label color="danger" [hidden]=showNoDataForSearch class="ion-text-center"><h2><b>No material found.</b></h2></ion-label>
 
+  <!-- <div class="category-block"> 
+    <ion-slides [options]="sliderConfig">
+      <ion-slide *ngFor="let material of materials; let i = index">
+        <div>
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title>
+                <ion-card-title>{{ material.name }}</ion-card-title>
+              </ion-card-title>
+              <ion-card-content>
+                <img src="https://jaytarpara.in/images/materials/{{material.image}}" height="300" width="300">
+              </ion-card-content>
+            </ion-card-header>
+          </ion-card>
+        </div>
+      </ion-slide>
+    </ion-slides>
+  </div> -->
+
+  <!-- <ion-slides class="slide-padding" pager="false">
+    <ion-slide *ngFor="let material of materials; let i = index">
+      <div class="container">
+        <img src="https://jaytarpara.in/images/materials/{{material.image}}" height="300">
+          <h2 class="slidetitle">
+            <span class="block">{{ material.name }}</span>
+          </h2>
+      </div>
+    </ion-slide>
+  </ion-slides> -->
+
   <ion-card *ngFor="let material of materials; let i = index" class="animated bounceInLeft slow">
     <ion-card-content>
       <ion-row class="ion-text-left">
@@ -47,7 +77,7 @@
         </ion-col>
       </ion-row>
       <ion-row (click)="openImagePreview(material.image)">
-        <img src="https://jaytarpara.in/images/materials/{{material.image}}">
+        <img src="https://jaytarpara.in/images/materials/{{material.image}}" height="300">
       </ion-row>
       <ion-row>
         <ion-col>

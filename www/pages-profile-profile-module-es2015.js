@@ -95,7 +95,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let ProfilePage = class ProfilePage {
-    constructor(fireAuth, router, platform, activatedRoute, auth, toastCtrl, loadingController, menu, nativePageTransitions) {
+    constructor(fireAuth, router, platform, activatedRoute, auth, toastCtrl, loadingController, menu, nativePageTransitions, nav) {
         this.fireAuth = fireAuth;
         this.router = router;
         this.platform = platform;
@@ -105,6 +105,7 @@ let ProfilePage = class ProfilePage {
         this.loadingController = loadingController;
         this.menu = menu;
         this.nativePageTransitions = nativePageTransitions;
+        this.nav = nav;
         this.key = "7yZ2AVzT76cie7ralb9YZcLsrjq2";
     }
     ngOnInit() {
@@ -112,7 +113,7 @@ let ProfilePage = class ProfilePage {
         this.value = this.activatedRoute.snapshot.paramMap.get("id");
         this.type = this.activatedRoute.snapshot.paramMap.get("type");
         this.auth.usermobile = this.value;
-        this.auth.getTotalOrders(this.value).then(msg => {
+        this.auth.getTotalOrders(this.value).then((msg) => {
             if (msg["success"]) {
                 this.auth.totalOrders = msg["total"];
             }
@@ -125,7 +126,8 @@ let ProfilePage = class ProfilePage {
         if (callit) {
             this.ionViewDidEnter();
         }
-        this.nativePageTransitions.slide(this.auth.optionsRight)
+        this.nativePageTransitions
+            .slide(this.auth.optionsRight)
             .then()
             .catch((errr) => {
             console.log(errr);
@@ -135,12 +137,12 @@ let ProfilePage = class ProfilePage {
         this.loadingController
             .create({
             message: "Loading your profile",
-            mode: "ios"
+            mode: "ios",
         })
-            .then(res => {
+            .then((res) => {
             res.present();
         });
-        this.auth.getUser(this.value, this.type).then(response => {
+        this.auth.getUser(this.value, this.type).then((response) => {
             console.log(response);
             this.id = this.value;
             if (response["success"] == 1) {
@@ -157,7 +159,7 @@ let ProfilePage = class ProfilePage {
             }
         });
         setTimeout(() => {
-            this.loadingController.getTop().then(chk => {
+            this.loadingController.getTop().then((chk) => {
                 if (chk) {
                     this.loadingController.dismiss();
                 }
@@ -187,13 +189,13 @@ let ProfilePage = class ProfilePage {
         }
     }
     saveProfileWithGST(phone, name, gst, address) {
-        this.auth.updateUser(phone, name, gst, address).then(response => {
+        this.auth.updateUser(phone, name, gst, address).then((response) => {
             this.loadingController
                 .create({
                 message: "Saving your data",
-                mode: "ios"
+                mode: "ios",
             })
-                .then(res => {
+                .then((res) => {
                 console.log(response);
                 if (response["success"] == 1) {
                     setTimeout(() => {
@@ -210,8 +212,13 @@ let ProfilePage = class ProfilePage {
                     this.auth.presentToast(response["message"], false, "bottom", 1000, "danger");
                 }
                 res.present();
-                res.onDidDismiss().then(dis => {
-                    this.ngOnInit();
+                res.onDidDismiss().then((dis) => {
+                    if (response["success"] == 1) {
+                        this.nav.navigateForward("/material/mobile/" + phone);
+                    }
+                    else {
+                        this.ngOnInit();
+                    }
                 });
             });
         });
@@ -220,12 +227,12 @@ let ProfilePage = class ProfilePage {
         this.loadingController
             .create({
             message: "Checking GSTIN number",
-            mode: "ios"
+            mode: "ios",
         })
-            .then(res => {
+            .then((res) => {
             res.present();
         });
-        this.auth.validateGST(GST, key).then(gstResponse => {
+        this.auth.validateGST(GST, key).then((gstResponse) => {
             this.loadingController.dismiss();
             if (gstResponse["error"] != undefined) {
                 if (this.platform.is("cordova")) {
@@ -260,7 +267,8 @@ ProfilePage.ctorParameters = () => [
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ToastController"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["MenuController"] },
-    { type: _ionic_native_native_page_transitions_ngx__WEBPACK_IMPORTED_MODULE_6__["NativePageTransitions"] }
+    { type: _ionic_native_native_page_transitions_ngx__WEBPACK_IMPORTED_MODULE_6__["NativePageTransitions"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["NavController"] }
 ];
 ProfilePage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -276,7 +284,8 @@ ProfilePage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ToastController"],
         _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"],
         _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["MenuController"],
-        _ionic_native_native_page_transitions_ngx__WEBPACK_IMPORTED_MODULE_6__["NativePageTransitions"]])
+        _ionic_native_native_page_transitions_ngx__WEBPACK_IMPORTED_MODULE_6__["NativePageTransitions"],
+        _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["NavController"]])
 ], ProfilePage);
 
 

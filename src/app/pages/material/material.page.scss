@@ -14,3 +14,23 @@
 .hide-me {
     display: none;
 }
+
+.container{
+    position: relative;
+    width: 80%;
+    height: 500px;
+}
+
+.slidetitle { 
+   position: absolute; 
+   bottom: 20px;
+   left: 18px;
+   color: white;
+   text-align: left;
+//    font-family: 'Libre Baskerville', serif;
+}
+
+.block{
+   background-color:rgba(0, 0, 0, 0.5);
+   padding: 4px;
+}

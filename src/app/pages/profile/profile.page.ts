@@ -2,24 +2,27 @@ import { Component, OnInit } from "@angular/core";
 
 import * as firebase from "firebase";
 import { Router, ActivatedRoute } from "@angular/router";
-
 import { AngularFireAuth } from "@angular/fire/auth";
 
 import {
   MenuController,
   Platform,
   ToastController,
-  LoadingController
+  LoadingController,
+  NavController,
 } from "@ionic/angular";
 
 import { AuthenticationService } from "./../../services/authentication.service";
 
-import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions/ngx';
+import {
+  NativePageTransitions,
+  NativeTransitionOptions,
+} from "@ionic-native/native-page-transitions/ngx";
 
 @Component({
   selector: "app-profile",
   templateUrl: "./profile.page.html",
-  styleUrls: ["./profile.page.scss"]
+  styleUrls: ["./profile.page.scss"],
 })
 export class ProfilePage implements OnInit {
   phone: any;
@@ -46,6 +49,7 @@ export class ProfilePage implements OnInit {
     public loadingController: LoadingController,
     private menu: MenuController,
     private nativePageTransitions: NativePageTransitions,
+    public nav: NavController
   ) {}
 
   ngOnInit() {
@@ -54,7 +58,7 @@ export class ProfilePage implements OnInit {
     this.type = this.activatedRoute.snapshot.paramMap.get("type");
     this.auth.usermobile = this.value;
 
-    this.auth.getTotalOrders(this.value).then(msg => {
+    this.auth.getTotalOrders(this.value).then((msg) => {
       if (msg["success"]) {
         this.auth.totalOrders = msg["total"];
       } else {
@@ -67,24 +71,25 @@ export class ProfilePage implements OnInit {
     if (callit) {
       this.ionViewDidEnter();
     }
-    this.nativePageTransitions.slide(this.auth.optionsRight)
+    this.nativePageTransitions
+      .slide(this.auth.optionsRight)
       .then()
       .catch((errr) => {
         console.log(errr);
-    });
+      });
   }
 
   ionViewDidEnter() {
     this.loadingController
       .create({
         message: "Loading your profile",
-        mode: "ios"
+        mode: "ios",
       })
-      .then(res => {
+      .then((res) => {
         res.present();
       });
 
-    this.auth.getUser(this.value, this.type).then(response => {
+    this.auth.getUser(this.value, this.type).then((response) => {
       console.log(response);
       this.id = this.value;
       if (response["success"] == 1) {
@@ -106,7 +111,7 @@ export class ProfilePage implements OnInit {
       }
     });
     setTimeout(() => {
-      this.loadingController.getTop().then(chk => {
+      this.loadingController.getTop().then((chk) => {
         if (chk) {
           this.loadingController.dismiss();
         }
@@ -146,13 +151,13 @@ export class ProfilePage implements OnInit {
   }
 
   saveProfileWithGST(phone, name, gst, address) {
-    this.auth.updateUser(phone, name, gst, address).then(response => {
+    this.auth.updateUser(phone, name, gst, address).then((response) => {
       this.loadingController
         .create({
           message: "Saving your data",
-          mode: "ios"
+          mode: "ios",
         })
-        .then(res => {
+        .then((res) => {
           console.log(response);
           if (response["success"] == 1) {
             setTimeout(() => {
@@ -185,8 +190,12 @@ export class ProfilePage implements OnInit {
             );
           }
           res.present();
-          res.onDidDismiss().then(dis => {
-            this.ngOnInit();
+          res.onDidDismiss().then((dis) => {
+            if (response["success"] == 1) {
+              this.nav.navigateForward("/material/mobile/" + phone);
+            } else {
+              this.ngOnInit();
+            }
           });
         });
     });
@@ -196,12 +205,12 @@ export class ProfilePage implements OnInit {
     this.loadingController
       .create({
         message: "Checking GSTIN number",
-        mode: "ios"
+        mode: "ios",
       })
-      .then(res => {
+      .then((res) => {
         res.present();
       });
-    this.auth.validateGST(GST, key).then(gstResponse => {
+    this.auth.validateGST(GST, key).then((gstResponse) => {
       this.loadingController.dismiss();
       if (gstResponse["error"] != undefined) {
         if (this.platform.is("cordova")) {

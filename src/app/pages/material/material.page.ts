@@ -93,6 +93,12 @@ export class MaterialPage implements OnInit {
     },
   ];
 
+  sliderConfig = {
+    slidesPerView: 1.6,
+    spaceBetween: 10,
+    centeredSlides: true
+  };
+
   constructor(
     private fireAuth: AngularFireAuth,
     private router: Router,
