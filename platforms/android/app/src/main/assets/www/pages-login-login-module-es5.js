@@ -184,8 +184,14 @@ var LoginPage = /** @class */ (function () {
     };
     LoginPage.prototype.sendotp = function (phone) {
         var _this = this;
+        var phoneNumber = phone.replace('(+91)', '+91');
+        phoneNumber = phoneNumber.replace(' ', '');
+        phoneNumber = phoneNumber.replace('-', '');
         if (phone == undefined || phone == '') {
             this.auth.presentToast('Please enter mobile number first', false, 'bottom', 1500, 'danger');
+        }
+        else if (phoneNumber != '+918888888888') {
+            this.auth.presentToast('This app is only for admin purpose', false, 'bottom', 1500, 'danger');
         }
         else {
             this.showLoader();

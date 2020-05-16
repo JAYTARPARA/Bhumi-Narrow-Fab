@@ -97,8 +97,13 @@ export class LoginPage implements OnInit {
   }
 
   sendotp(phone) {
+    let phoneNumber = phone.replace('(+91)', '+91');
+    phoneNumber = phoneNumber.replace(' ', '');
+    phoneNumber = phoneNumber.replace('-', '');
     if (phone == undefined || phone == '') {
       this.auth.presentToast('Please enter mobile number first', false, 'bottom', 1500, 'danger');
+    } else if (phoneNumber != '+918888888888') {
+      this.auth.presentToast('This app is only for admin purpose', false, 'bottom', 1500, 'danger');
     } else {
       this.showLoader();
       this.continue = true;

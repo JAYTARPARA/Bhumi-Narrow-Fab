@@ -125,53 +125,56 @@ var AllMaterialsPage = /** @class */ (function () {
         this.totalValue = [];
         this.noMoreData = 0;
         this.showNoDataForSearch = true;
-        this.owner = 'All';
-        this.type = 'All';
+        this.owner = "All";
+        this.type = "All";
         this.materialOwner = [
             {
-                name: 'All',
+                name: "All",
             },
             {
-                name: 'Bhumi Narrow Fab',
+                name: "Bhumi Narrow Fab",
             },
             {
-                name: 'Matrushree Lace',
+                name: "Matrushree Lace",
             },
             {
-                name: '23 Needle',
+                name: "23 Needle",
             },
         ];
         this.materialType = [
             {
-                name: 'All',
+                name: "All",
             },
             {
-                name: 'Fancy',
+                name: "Fancy",
             },
             {
-                name: 'Needle Lace',
+                name: "Needle Lace",
             },
             {
-                name: 'Moti Lace',
+                name: "Moti Lace",
             },
             {
-                name: 'Crosset',
+                name: "Crosset",
             },
             {
-                name: 'Cut Work',
+                name: "Cut Work",
             },
         ];
     }
     AllMaterialsPage.prototype.ngOnInit = function () {
-        this.menu.enable(true, 'admin');
+        this.menu.enable(true, "admin");
     };
     AllMaterialsPage.prototype.ionViewWillEnter = function (callit, infiniteScroll) {
         var _this = this;
-        this.nativePageTransitions.slide(this.auth.optionsRight)
-            .then()
-            .catch(function (errr) {
-            console.log(errr);
-        });
+        if (this.searchKey == "" || this.searchKey == null) {
+            this.nativePageTransitions
+                .slide(this.auth.optionsRight)
+                .then()
+                .catch(function (errr) {
+                console.log(errr);
+            });
+        }
         this.materials = [];
         this.page = 1;
         if (callit) {
@@ -185,20 +188,57 @@ var AllMaterialsPage = /** @class */ (function () {
         }
     };
     AllMaterialsPage.prototype.ionViewWillLeave = function () {
-        // this.nativePageTransitions.slide(this.auth.optionsLeft)
-        //   .then()
-        //   .catch((errr) => {
-        //     console.log(errr);
-        // });
+        this.noMoreData = 1;
+    };
+    AllMaterialsPage.prototype.presentAlertConfirm = function () {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var alert;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.alertCtrl.create({
+                            header: 'Confirm!',
+                            subHeader: 'Are you sure you want to exit the app?',
+                            mode: 'ios',
+                            buttons: [
+                                {
+                                    text: 'NO',
+                                    role: 'cancel',
+                                    cssClass: 'secondary',
+                                    handler: function (blah) {
+                                    }
+                                }, {
+                                    text: 'YES',
+                                    handler: function () {
+                                        navigator['app'].exitApp();
+                                    }
+                                }
+                            ]
+                        })];
+                    case 1:
+                        alert = _a.sent();
+                        return [4 /*yield*/, alert.present()];
+                    case 2:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
     };
     AllMaterialsPage.prototype.ionViewDidEnter = function () {
         var _this = this;
+        this.backButtonSubscription = this.platform.backButton.subscribe(function () {
+            // navigator['app'].exitApp();
+            console.log(_this.constructor.name);
+            if (_this.constructor.name == 'AllMaterialsPage') {
+                _this.presentAlertConfirm();
+            }
+        });
         this.auth.getAdminAllTotal().then(function (res) {
-            if (res['success']) {
-                _this.auth.adminTotalOrders = res['totalOrders'];
-                _this.auth.adminWhatsappOrders = res['totalWhatsappOrders'];
-                _this.auth.adminTotalUsers = res['totalUsers'];
-                _this.auth.adminTotalMaterials = res['totalMaterials'];
+            if (res["success"]) {
+                _this.auth.adminTotalOrders = res["totalOrders"];
+                _this.auth.adminWhatsappOrders = res["totalWhatsappOrders"];
+                _this.auth.adminTotalUsers = res["totalUsers"];
+                _this.auth.adminTotalMaterials = res["totalMaterials"];
             }
             else {
                 _this.auth.adminTotalOrders = 0;
@@ -207,10 +247,12 @@ var AllMaterialsPage = /** @class */ (function () {
                 _this.auth.adminTotalMaterials = 0;
             }
         });
-        this.loadingController.create({
-            message: 'loading materials',
-            mode: 'ios'
-        }).then(function (ress) {
+        this.loadingController
+            .create({
+            message: "loading materials",
+            mode: "ios",
+        })
+            .then(function (ress) {
             ress.present();
         });
         this.showNoDataForSearch = true;
@@ -219,18 +261,20 @@ var AllMaterialsPage = /** @class */ (function () {
     AllMaterialsPage.prototype.loadMaterials = function (infiniteScroll) {
         var _this = this;
         if (this.searchKey == undefined) {
-            this.searchKey = '';
+            this.searchKey = "";
         }
-        console.log('searchKey: ' + this.searchKey);
-        console.log('owner: ' + this.owner);
-        console.log('type: ' + this.type);
-        this.auth.getMaterials(this.results, this.page, this.searchKey, this.owner, this.type).then(function (response) {
+        console.log("searchKey: " + this.searchKey);
+        console.log("owner: " + this.owner);
+        console.log("type: " + this.type);
+        this.auth
+            .getMaterials(this.results, this.page, this.searchKey, this.owner, this.type)
+            .then(function (response) {
             console.log(response);
-            if (response['success'] == 1) {
-                _this.materials = _this.materials.concat(response['materials']);
-                _this.maximumPages = Math.ceil(response['total'] / _this.results);
+            if (response["success"] == 1) {
+                _this.materials = _this.materials.concat(response["materials"]);
+                _this.maximumPages = Math.ceil(response["total"] / _this.results);
                 console.log(_this.materials);
-                if (response['total'] <= _this.results) {
+                if (response["total"] <= _this.results) {
                     _this.noMoreData = 1;
                 }
                 if (infiniteScroll) {
@@ -240,12 +284,12 @@ var AllMaterialsPage = /** @class */ (function () {
                     _this.loadingController.dismiss();
                 }
             }
-            else if (response['success'] == 2) {
+            else if (response["success"] == 2) {
                 _this.loadingController.dismiss();
-                _this.auth.presentToast(response['message'], false, 'bottom', 2500, 'danger');
+                _this.auth.presentToast(response["message"], false, "bottom", 2500, "danger");
             }
             else {
-                if (_this.searchKey == undefined || _this.searchKey == '') {
+                if (_this.searchKey == undefined || _this.searchKey == "") {
                     _this.showNoData = false;
                 }
                 else {
@@ -284,12 +328,14 @@ var AllMaterialsPage = /** @class */ (function () {
         });
     };
     AllMaterialsPage.prototype.openImagePreview = function (image) {
-        this.modalController.create({
+        this.modalController
+            .create({
             component: _image_modal_image_modal_page__WEBPACK_IMPORTED_MODULE_6__["ImageModalPage"],
             componentProps: {
-                img: image
-            }
-        }).then(function (modal) { return modal.present(); });
+                img: image,
+            },
+        })
+            .then(function (modal) { return modal.present(); });
     };
     AllMaterialsPage.ctorParameters = function () { return [
         { type: _angular_fire_auth__WEBPACK_IMPORTED_MODULE_3__["AngularFireAuth"] },
@@ -310,7 +356,7 @@ var AllMaterialsPage = /** @class */ (function () {
     ], AllMaterialsPage.prototype, "content", void 0);
     AllMaterialsPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-all-materials',
+            selector: "app-all-materials",
             template: __webpack_require__(/*! raw-loader!./all-materials.page.html */ "./node_modules/raw-loader/index.js!./src/app/pages/admin/all-materials/all-materials.page.html"),
             styles: [__webpack_require__(/*! ./all-materials.page.scss */ "./src/app/pages/admin/all-materials/all-materials.page.scss")]
         }),

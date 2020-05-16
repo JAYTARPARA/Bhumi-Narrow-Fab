@@ -122,52 +122,55 @@ let AllMaterialsPage = class AllMaterialsPage {
         this.totalValue = [];
         this.noMoreData = 0;
         this.showNoDataForSearch = true;
-        this.owner = 'All';
-        this.type = 'All';
+        this.owner = "All";
+        this.type = "All";
         this.materialOwner = [
             {
-                name: 'All',
+                name: "All",
             },
             {
-                name: 'Bhumi Narrow Fab',
+                name: "Bhumi Narrow Fab",
             },
             {
-                name: 'Matrushree Lace',
+                name: "Matrushree Lace",
             },
             {
-                name: '23 Needle',
+                name: "23 Needle",
             },
         ];
         this.materialType = [
             {
-                name: 'All',
+                name: "All",
             },
             {
-                name: 'Fancy',
+                name: "Fancy",
             },
             {
-                name: 'Needle Lace',
+                name: "Needle Lace",
             },
             {
-                name: 'Moti Lace',
+                name: "Moti Lace",
             },
             {
-                name: 'Crosset',
+                name: "Crosset",
             },
             {
-                name: 'Cut Work',
+                name: "Cut Work",
             },
         ];
     }
     ngOnInit() {
-        this.menu.enable(true, 'admin');
+        this.menu.enable(true, "admin");
     }
     ionViewWillEnter(callit, infiniteScroll) {
-        this.nativePageTransitions.slide(this.auth.optionsRight)
-            .then()
-            .catch((errr) => {
-            console.log(errr);
-        });
+        if (this.searchKey == "" || this.searchKey == null) {
+            this.nativePageTransitions
+                .slide(this.auth.optionsRight)
+                .then()
+                .catch((errr) => {
+                console.log(errr);
+            });
+        }
         this.materials = [];
         this.page = 1;
         if (callit) {
@@ -181,19 +184,46 @@ let AllMaterialsPage = class AllMaterialsPage {
         }
     }
     ionViewWillLeave() {
-        // this.nativePageTransitions.slide(this.auth.optionsLeft)
-        //   .then()
-        //   .catch((errr) => {
-        //     console.log(errr);
-        // });
+        this.noMoreData = 1;
+    }
+    presentAlertConfirm() {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            const alert = yield this.alertCtrl.create({
+                header: 'Confirm!',
+                subHeader: 'Are you sure you want to exit the app?',
+                mode: 'ios',
+                buttons: [
+                    {
+                        text: 'NO',
+                        role: 'cancel',
+                        cssClass: 'secondary',
+                        handler: (blah) => {
+                        }
+                    }, {
+                        text: 'YES',
+                        handler: () => {
+                            navigator['app'].exitApp();
+                        }
+                    }
+                ]
+            });
+            yield alert.present();
+        });
     }
     ionViewDidEnter() {
-        this.auth.getAdminAllTotal().then(res => {
-            if (res['success']) {
-                this.auth.adminTotalOrders = res['totalOrders'];
-                this.auth.adminWhatsappOrders = res['totalWhatsappOrders'];
-                this.auth.adminTotalUsers = res['totalUsers'];
-                this.auth.adminTotalMaterials = res['totalMaterials'];
+        this.backButtonSubscription = this.platform.backButton.subscribe(() => {
+            // navigator['app'].exitApp();
+            console.log(this.constructor.name);
+            if (this.constructor.name == 'AllMaterialsPage') {
+                this.presentAlertConfirm();
+            }
+        });
+        this.auth.getAdminAllTotal().then((res) => {
+            if (res["success"]) {
+                this.auth.adminTotalOrders = res["totalOrders"];
+                this.auth.adminWhatsappOrders = res["totalWhatsappOrders"];
+                this.auth.adminTotalUsers = res["totalUsers"];
+                this.auth.adminTotalMaterials = res["totalMaterials"];
             }
             else {
                 this.auth.adminTotalOrders = 0;
@@ -202,10 +232,12 @@ let AllMaterialsPage = class AllMaterialsPage {
                 this.auth.adminTotalMaterials = 0;
             }
         });
-        this.loadingController.create({
-            message: 'loading materials',
-            mode: 'ios'
-        }).then((ress) => {
+        this.loadingController
+            .create({
+            message: "loading materials",
+            mode: "ios",
+        })
+            .then((ress) => {
             ress.present();
         });
         this.showNoDataForSearch = true;
@@ -213,18 +245,20 @@ let AllMaterialsPage = class AllMaterialsPage {
     }
     loadMaterials(infiniteScroll) {
         if (this.searchKey == undefined) {
-            this.searchKey = '';
+            this.searchKey = "";
         }
-        console.log('searchKey: ' + this.searchKey);
-        console.log('owner: ' + this.owner);
-        console.log('type: ' + this.type);
-        this.auth.getMaterials(this.results, this.page, this.searchKey, this.owner, this.type).then(response => {
+        console.log("searchKey: " + this.searchKey);
+        console.log("owner: " + this.owner);
+        console.log("type: " + this.type);
+        this.auth
+            .getMaterials(this.results, this.page, this.searchKey, this.owner, this.type)
+            .then((response) => {
             console.log(response);
-            if (response['success'] == 1) {
-                this.materials = this.materials.concat(response['materials']);
-                this.maximumPages = Math.ceil(response['total'] / this.results);
+            if (response["success"] == 1) {
+                this.materials = this.materials.concat(response["materials"]);
+                this.maximumPages = Math.ceil(response["total"] / this.results);
                 console.log(this.materials);
-                if (response['total'] <= this.results) {
+                if (response["total"] <= this.results) {
                     this.noMoreData = 1;
                 }
                 if (infiniteScroll) {
@@ -234,12 +268,12 @@ let AllMaterialsPage = class AllMaterialsPage {
                     this.loadingController.dismiss();
                 }
             }
-            else if (response['success'] == 2) {
+            else if (response["success"] == 2) {
                 this.loadingController.dismiss();
-                this.auth.presentToast(response['message'], false, 'bottom', 2500, 'danger');
+                this.auth.presentToast(response["message"], false, "bottom", 2500, "danger");
             }
             else {
-                if (this.searchKey == undefined || this.searchKey == '') {
+                if (this.searchKey == undefined || this.searchKey == "") {
                     this.showNoData = false;
                 }
                 else {
@@ -262,19 +296,21 @@ let AllMaterialsPage = class AllMaterialsPage {
         });
     }
     wait(time) {
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
             setTimeout(() => {
                 resolve();
             }, time);
         });
     }
     openImagePreview(image) {
-        this.modalController.create({
+        this.modalController
+            .create({
             component: _image_modal_image_modal_page__WEBPACK_IMPORTED_MODULE_6__["ImageModalPage"],
             componentProps: {
-                img: image
-            }
-        }).then(modal => modal.present());
+                img: image,
+            },
+        })
+            .then((modal) => modal.present());
     }
 };
 AllMaterialsPage.ctorParameters = () => [
@@ -296,7 +332,7 @@ tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 ], AllMaterialsPage.prototype, "content", void 0);
 AllMaterialsPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-        selector: 'app-all-materials',
+        selector: "app-all-materials",
         template: __webpack_require__(/*! raw-loader!./all-materials.page.html */ "./node_modules/raw-loader/index.js!./src/app/pages/admin/all-materials/all-materials.page.html"),
         styles: [__webpack_require__(/*! ./all-materials.page.scss */ "./src/app/pages/admin/all-materials/all-materials.page.scss")]
     }),

@@ -136,11 +136,11 @@
               "count": 1
             },
             {
-              "xml": "<permission android:name=\"com.bhuminarrowfab.app.permission.RECEIVE_ADM_MESSAGE\" android:protectionLevel=\"signature\" />",
+              "xml": "<permission android:name=\"com.bhuminarrowfab.admin.permission.RECEIVE_ADM_MESSAGE\" android:protectionLevel=\"signature\" />",
               "count": 1
             },
             {
-              "xml": "<uses-permission android:name=\"com.bhuminarrowfab.app.permission.RECEIVE_ADM_MESSAGE\" />",
+              "xml": "<uses-permission android:name=\"com.bhuminarrowfab.admin.permission.RECEIVE_ADM_MESSAGE\" />",
               "count": 1
             },
             {
@@ -176,7 +176,7 @@
               "count": 1
             },
             {
-              "xml": "<receiver android:name=\"com.onesignal.ADMMessageHandler$Receiver\" android:permission=\"com.amazon.device.messaging.permission.SEND\"><intent-filter><action android:name=\"com.amazon.device.messaging.intent.REGISTRATION\" /><action android:name=\"com.amazon.device.messaging.intent.RECEIVE\" /><category android:name=\"com.bhuminarrowfab.app\" /></intent-filter></receiver>",
+              "xml": "<receiver android:name=\"com.onesignal.ADMMessageHandler$Receiver\" android:permission=\"com.amazon.device.messaging.permission.SEND\"><intent-filter><action android:name=\"com.amazon.device.messaging.intent.REGISTRATION\" /><action android:name=\"com.amazon.device.messaging.intent.RECEIVE\" /><category android:name=\"com.bhuminarrowfab.admin\" /></intent-filter></receiver>",
               "count": 1
             },
             {
@@ -269,50 +269,50 @@
     },
     "cordova-plugin-advanced-http": {
       "OKHTTP_VERSION": "3.10.0",
-      "PACKAGE_NAME": "com.bhuminarrowfab.app"
+      "PACKAGE_NAME": "com.bhuminarrowfab.admin"
     },
     "es6-promise-plugin": {
-      "PACKAGE_NAME": "com.bhuminarrowfab.app"
+      "PACKAGE_NAME": "com.bhuminarrowfab.admin"
     },
     "cordova-plugin-x-socialsharing": {
       "ANDROID_SUPPORT_V4_VERSION": "24.1.1+",
-      "PACKAGE_NAME": "com.bhuminarrowfab.app"
+      "PACKAGE_NAME": "com.bhuminarrowfab.admin"
     },
     "cordova-plugin-camera": {
       "ANDROID_SUPPORT_V4_VERSION": "27.+",
-      "PACKAGE_NAME": "com.bhuminarrowfab.app"
+      "PACKAGE_NAME": "com.bhuminarrowfab.admin"
     },
     "cordova-plugin-file-transfer": {
-      "PACKAGE_NAME": "com.bhuminarrowfab.app"
+      "PACKAGE_NAME": "com.bhuminarrowfab.admin"
     },
     "mx.ferreyra.callnumber": {
-      "PACKAGE_NAME": "com.bhuminarrowfab.app"
+      "PACKAGE_NAME": "com.bhuminarrowfab.admin"
     },
     "cordova-sms-plugin": {
-      "PACKAGE_NAME": "com.bhuminarrowfab.app"
+      "PACKAGE_NAME": "com.bhuminarrowfab.admin"
     },
     "cordova-sqlite-storage": {
-      "PACKAGE_NAME": "com.bhuminarrowfab.app"
+      "PACKAGE_NAME": "com.bhuminarrowfab.admin"
     },
     "onesignal-cordova-plugin": {
-      "PACKAGE_NAME": "com.bhuminarrowfab.app"
+      "PACKAGE_NAME": "com.bhuminarrowfab.admin"
     },
     "cordova-plugin-background-mode": {
-      "PACKAGE_NAME": "com.bhuminarrowfab.app"
+      "PACKAGE_NAME": "com.bhuminarrowfab.admin"
     },
     "cordova-support-google-services": {
-      "PACKAGE_NAME": "com.bhuminarrowfab.app"
+      "PACKAGE_NAME": "com.bhuminarrowfab.admin"
     },
     "phonegap-plugin-multidex": {
-      "PACKAGE_NAME": "com.bhuminarrowfab.app"
+      "PACKAGE_NAME": "com.bhuminarrowfab.admin"
     },
     "phonegap-plugin-push": {
       "ANDROID_SUPPORT_V13_VERSION": "27.+",
       "FCM_VERSION": "17.0.+",
-      "PACKAGE_NAME": "com.bhuminarrowfab.app"
+      "PACKAGE_NAME": "com.bhuminarrowfab.admin"
     },
     "com.telerik.plugins.nativepagetransitions": {
-      "PACKAGE_NAME": "com.bhuminarrowfab.app"
+      "PACKAGE_NAME": "com.bhuminarrowfab.admin"
     }
   },
   "dependent_plugins": {},

@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:900635805457:android:c71d697900724054b16eb0",
         "android_client_info": {
-          "package_name": "com.bhuminarrowfab.app"
+          "package_name": "com.bhuminarrowfab.admin"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "900635805457-3oee7cmmiv5n6eprrc2vuekvc1q4n1gq.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.bhuminarrowfab.app",
+            "package_name": "com.bhuminarrowfab.admin",
             "certificate_hash": "067e08954802ced36cdcad3c7402d077d99c9853"
           }
         },

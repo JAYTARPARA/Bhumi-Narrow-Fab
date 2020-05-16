@@ -725,18 +725,17 @@ var AppComponent = /** @class */ (function () {
         });
     };
     AppComponent.prototype.checkUserStatus = function () {
-        var _this = this;
-        setInterval(function () {
-            _this.auth.checkUserStatus(_this.auth.usermobile).then(function (response) {
-                console.log(response);
-                if (response['success'] == 1 && response['status'] == 0) {
-                    _this.auth.presentToast('You are blocked by admin', false, 'bottom', 1500, 'danger');
-                    _this.fireAuth.auth.signOut().then(function () {
-                        _this.router.navigate(['/home']);
-                    });
-                }
-            });
-        }, 5000);
+        // setInterval(() => {
+        //   this.auth.checkUserStatus(this.auth.usermobile).then(response => {
+        //     console.log(response);
+        //     if (response['success'] == 1 && response['status'] == 0) {
+        //       this.auth.presentToast('You are blocked by admin', false, 'bottom', 1500, 'danger');
+        //       this.fireAuth.auth.signOut().then(() => {
+        //         this.router.navigate(['/home']);
+        //       });
+        //     }
+        //   });
+        // }, 5000);
     };
     AppComponent.prototype.exitApp = function () {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {

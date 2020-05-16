@@ -114,58 +114,72 @@ let WhatsappOrdersPage = class WhatsappOrdersPage {
         this.latestResults = 5;
         this.noMoreData = 0;
         this.showNoDataForSearch = true;
-        this.searchstatus = 'All';
+        this.searchstatus = "All";
         this.orderStatus = [
             {
-                name: 'All',
+                name: "All",
             },
             {
-                name: 'Rejected',
+                name: "Rejected",
             },
             {
-                name: 'Pending',
+                name: "Pending",
             },
             {
-                name: 'Confirmed',
+                name: "Confirmed",
             },
             {
-                name: 'Delivered'
-            }
+                name: "Delivered",
+            },
         ];
         this.customPickerOptions = {
-            buttons: [{
-                    text: 'Cancel',
-                    role: 'cancel',
-                    handler: () => { }
-                }, {
-                    text: 'Clear',
+            buttons: [
+                {
+                    text: "Cancel",
+                    role: "cancel",
+                    handler: () => { },
+                },
+                {
+                    text: "Clear",
                     handler: () => {
                         this.searchKeyDate = null;
-                    }
-                }, {
-                    text: 'Search',
+                    },
+                },
+                {
+                    text: "Search",
                     handler: (data) => {
                         console.log(data);
                         const year = data.year.text;
-                        const month = data.month.value < 10 ? '0' + data.month.value.toString() : data.month.value.toString();
+                        const month = data.month.value < 10
+                            ? "0" + data.month.value.toString()
+                            : data.month.value.toString();
                         const day = data.day.text;
-                        this.searchKeyDate = day + '-' + month + '-' + year;
-                    }
-                }]
+                        this.searchKeyDate = day + "-" + month + "-" + year;
+                    },
+                },
+            ],
         };
     }
     ngOnInit() {
         const currentDate = new Date();
-        this.maxDateSelect = currentDate.getFullYear() + '-' + (currentDate.getMonth() + 1) + '-' + currentDate.getDate();
-        this.menu.enable(true, 'admin');
+        this.maxDateSelect =
+            currentDate.getFullYear() +
+                "-" +
+                (currentDate.getMonth() + 1) +
+                "-" +
+                currentDate.getDate();
+        this.menu.enable(true, "admin");
     }
     ionViewWillEnter(callit, infiniteScroll) {
-        this.nativePageTransitions.slide(this.auth.optionsRight)
-            .then()
-            .catch((errr) => {
-            console.log(errr);
-        });
-        console.log('Date: ' + this.searchKeyDate);
+        if (this.searchKey == "" || this.searchKey == null) {
+            this.nativePageTransitions
+                .slide(this.auth.optionsRight)
+                .then()
+                .catch((errr) => {
+                console.log(errr);
+            });
+        }
+        console.log("Date: " + this.searchKeyDate);
         this.orders = [];
         this.page = 1;
         if (callit) {
@@ -178,13 +192,16 @@ let WhatsappOrdersPage = class WhatsappOrdersPage {
             }, 100);
         }
     }
+    ionViewWillLeave() {
+        this.noMoreData = 1;
+    }
     ionViewDidEnter() {
-        this.auth.getAdminAllTotal().then(res => {
-            if (res['success']) {
-                this.auth.adminTotalOrders = res['totalOrders'];
-                this.auth.adminWhatsappOrders = res['totalWhatsappOrders'];
-                this.auth.adminTotalUsers = res['totalUsers'];
-                this.auth.adminTotalMaterials = res['totalMaterials'];
+        this.auth.getAdminAllTotal().then((res) => {
+            if (res["success"]) {
+                this.auth.adminTotalOrders = res["totalOrders"];
+                this.auth.adminWhatsappOrders = res["totalWhatsappOrders"];
+                this.auth.adminTotalUsers = res["totalUsers"];
+                this.auth.adminTotalMaterials = res["totalMaterials"];
             }
             else {
                 this.auth.adminTotalOrders = 0;
@@ -193,23 +210,27 @@ let WhatsappOrdersPage = class WhatsappOrdersPage {
                 this.auth.adminTotalMaterials = 0;
             }
         });
-        this.loadingController.create({
-            message: 'loading orders',
-            mode: 'ios'
-        }).then((ress) => {
+        this.loadingController
+            .create({
+            message: "loading orders",
+            mode: "ios",
+        })
+            .then((ress) => {
             ress.present();
         });
         this.showNoDataForSearch = true;
         this.loadOrders();
     }
     loadOrders(infiniteScroll) {
-        this.auth.getAllWhatsappOrders(this.results, this.page, this.searchKey, this.searchstatus, this.searchKeyDate).then(response => {
+        this.auth
+            .getAllWhatsappOrders(this.results, this.page, this.searchKey, this.searchstatus, this.searchKeyDate)
+            .then((response) => {
             console.log(response);
-            if (response['success'] == 1) {
-                this.orders = this.orders.concat(response['orders']);
-                this.maximumPages = Math.ceil(response['total'] / this.results);
+            if (response["success"] == 1) {
+                this.orders = this.orders.concat(response["orders"]);
+                this.maximumPages = Math.ceil(response["total"] / this.results);
                 console.log(this.orders);
-                if (response['total'] <= this.results) {
+                if (response["total"] <= this.results) {
                     this.noMoreData = 1;
                 }
                 if (infiniteScroll) {
@@ -219,12 +240,12 @@ let WhatsappOrdersPage = class WhatsappOrdersPage {
                     this.loadingController.dismiss();
                 }
             }
-            else if (response['success'] == 2) {
+            else if (response["success"] == 2) {
                 this.loadingController.dismiss();
-                this.auth.presentToast(response['message'], false, 'bottom', 2500, 'danger');
+                this.auth.presentToast(response["message"], false, "bottom", 2500, "danger");
             }
             else {
-                if (this.searchKey == undefined || this.searchKey == '') {
+                if (this.searchKey == undefined || this.searchKey == "") {
                     this.showNoData = false;
                 }
                 else {
@@ -248,7 +269,7 @@ let WhatsappOrdersPage = class WhatsappOrdersPage {
         });
     }
     wait(time) {
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
             setTimeout(() => {
                 resolve();
             }, time);
@@ -273,7 +294,7 @@ tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 ], WhatsappOrdersPage.prototype, "content", void 0);
 WhatsappOrdersPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-        selector: 'app-whatsapp-orders',
+        selector: "app-whatsapp-orders",
         template: __webpack_require__(/*! raw-loader!./whatsapp-orders.page.html */ "./node_modules/raw-loader/index.js!./src/app/pages/admin/whatsapp-orders/whatsapp-orders.page.html"),
         styles: [__webpack_require__(/*! ./whatsapp-orders.page.scss */ "./src/app/pages/admin/whatsapp-orders/whatsapp-orders.page.scss")]
     }),

@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header no-border class=\"animated fadeInDown\">\n    <ion-toolbar color='dark' mode=\"ios\">\n      <ion-title>All Orders</ion-title>\n      <ion-buttons slot=\"start\">\n        <ion-menu-button autoHide=\"false\"></ion-menu-button>\n      </ion-buttons>\n      <ion-buttons slot=\"end\">\n        <ion-button (click)=\"ionViewWillEnter(1, $event)\"><ion-icon name=\"refresh\"></ion-icon></ion-button>\n      </ion-buttons>\n    </ion-toolbar>\n    <ion-searchbar mode=\"ios\" debounce=\"700\" placeholder=\"Search Order\"  [(ngModel)]=\"searchKey\" (ionChange)=\"ionViewWillEnter(1, '')\" showCancelButton=\"always\" clearIcon=false class=\"animated bounceInLeft slow\"></ion-searchbar>\n    <ion-datetime [pickerOptions]=\"customPickerOptions\" displayFormat=\"DD-MM-YYYY\" placeholder=\"Search by date\" [(ngModel)]=\"searchKeyDate\" min=\"2018\" max=\"{{maxDateSelect}}\" class=\"animated bounceInLeft slow\" (ionChange)=\"ionViewWillEnter(1, '')\"></ion-datetime>\n    <ion-item class=\"animated bounceInLeft slow\">\n      <ion-label>Search by order status</ion-label>\n      <ion-select mode=\"ios\" interface=\"action-sheet\" placeholder=\"Select Status\" [selectedText]=\"searchstatus\" [(ngModel)]=\"searchstatus\" (ionChange)=\"ionViewWillEnter(1, '')\">\n        <ion-select-option *ngFor=\"let ostatus of orderStatus\" value=\"{{ostatus.name}}\">\n          {{ostatus.name}}\n        </ion-select-option>\n      </ion-select>\n    </ion-item>\n  </ion-header>\n  \n  <ion-content class=\"ion-padding card-background-page\">\n  \n    <ion-label color=\"danger\" [hidden]=showNoData class=\"ion-text-center\"><h2><b>No Order Found.</b></h2></ion-label>\n  \n    <ion-label color=\"danger\" [hidden]=showNoDataForSearch class=\"ion-text-center\"><h2><b>No order found.</b></h2></ion-label>\n  \n    <ion-card *ngFor=\"let order of orders; let i = index\" class=\"animated bounceInLeft slow\">\n      <ion-card-content>\n        <ion-chip color=\"{{order.color}}\">\n          <ion-icon name=\"{{order.icon}}\"></ion-icon>\n          <ion-label>Order is {{ order.status }}</ion-label>\n        </ion-chip>\n        <ion-row class=\"ion-text-left\">\n          <ion-col col-12>\n            <ion-card-title>{{ order.username }}</ion-card-title>\n            <ion-card-subtitle style=\"font-size: 20px;\">Ordered at: {{ order.created_at }}</ion-card-subtitle>\n            <ion-label color=\"{{order.color}}\">ID: {{ order.order_id }}</ion-label>\n          </ion-col>\n        </ion-row>\n        <ion-row>\n          <img src=\"https://jaytarpara.in/images/materials/{{order.image}}\">\n        </ion-row>\n        <ion-row>\n          <ion-col class=\"ion-text-left\">\n            <div class=\"card-price\" style=\"font-size: 20px;\">Order total: &#8377;{{ order.totalprice }}</div>\n            <div class=\"card-price\" style=\"font-size: 20px;\">Quantity: {{ order.quantity }}</div>\n            <div class=\"card-price\" style=\"font-size: 20px;\">Pieces: {{ order.piece }}</div>\n          </ion-col>\n        </ion-row>\n        <ion-button class=\"loginbtn\" color='dark' expand=\"block\" fill=\"outline\" [routerLink]=\"['/', 'admin-order-details', order.order_id]\">ORDER DETAIL</ion-button>\n      </ion-card-content>\n    </ion-card>\n  \n    <ion-infinite-scroll *ngIf=\"!noMoreData\"  (ionInfinite)=\"loadMore($event)\">\n      <ion-infinite-scroll-content loadingSpinner=\"bubbles\" loadingText=\"Loading more orders...\"></ion-infinite-scroll-content>\n    </ion-infinite-scroll>\n  </ion-content>\n  "
+module.exports = "<ion-header no-border class=\"animated fadeInDown\">\n    <ion-toolbar color='dark' mode=\"ios\">\n      <ion-title>All Orders</ion-title>\n      <ion-buttons slot=\"start\">\n        <ion-menu-button autoHide=\"false\"></ion-menu-button>\n      </ion-buttons>\n      <ion-buttons slot=\"end\">\n        <ion-button (click)=\"ionViewWillEnter(1, $event)\"><ion-icon name=\"refresh\"></ion-icon></ion-button>\n      </ion-buttons>\n    </ion-toolbar>\n    <ion-searchbar mode=\"ios\" debounce=\"700\" placeholder=\"Search Order\"  [(ngModel)]=\"searchKey\" (ionChange)=\"ionViewWillEnter(1, '')\" showCancelButton=\"always\" clearIcon=false class=\"animated bounceInLeft slow\"></ion-searchbar>\n    <ion-datetime [pickerOptions]=\"customPickerOptions\" displayFormat=\"DD-MM-YYYY\" placeholder=\"Search by date\" [(ngModel)]=\"searchKeyDate\" min=\"2018\" [max]=\"today\" class=\"animated bounceInLeft slow\" (ionChange)=\"ionViewWillEnter(1, '')\"></ion-datetime>\n    <ion-item class=\"animated bounceInLeft slow\">\n      <ion-label>Search by order status</ion-label>\n      <ion-select mode=\"ios\" interface=\"action-sheet\" placeholder=\"Select Status\" [selectedText]=\"searchstatus\" [(ngModel)]=\"searchstatus\" (ionChange)=\"ionViewWillEnter(1, '')\">\n        <ion-select-option *ngFor=\"let ostatus of orderStatus\" value=\"{{ostatus.name}}\">\n          {{ostatus.name}}\n        </ion-select-option>\n      </ion-select>\n    </ion-item>\n  </ion-header>\n  \n  <ion-content class=\"ion-padding card-background-page\">\n  \n    <ion-label color=\"danger\" [hidden]=showNoData class=\"ion-text-center\"><h2><b>No Order Found.</b></h2></ion-label>\n  \n    <ion-label color=\"danger\" [hidden]=showNoDataForSearch class=\"ion-text-center\"><h2><b>No order found.</b></h2></ion-label>\n  \n    <ion-card *ngFor=\"let order of orders; let i = index\" class=\"animated bounceInLeft slow\">\n      <ion-card-content>\n        <ion-chip color=\"{{order.color}}\">\n          <ion-icon name=\"{{order.icon}}\"></ion-icon>\n          <ion-label>Order is {{ order.status }}</ion-label>\n        </ion-chip>\n        <ion-row class=\"ion-text-left\">\n          <ion-col col-12>\n            <ion-card-title>{{ order.username }}</ion-card-title>\n            <ion-card-subtitle style=\"font-size: 20px;\">Ordered at: {{ order.created_at }}</ion-card-subtitle>\n            <ion-label color=\"{{order.color}}\">ID: {{ order.order_id }}</ion-label>\n          </ion-col>\n        </ion-row>\n        <ion-row>\n          <img src=\"https://jaytarpara.in/images/materials/{{order.image}}\">\n        </ion-row>\n        <ion-row>\n          <ion-col class=\"ion-text-left\">\n            <div class=\"card-price\" style=\"font-size: 20px;\">Order total: &#8377;{{ order.totalprice }}</div>\n            <div class=\"card-price\" style=\"font-size: 20px;\">Quantity: {{ order.quantity }}</div>\n            <div class=\"card-price\" style=\"font-size: 20px;\">Pieces: {{ order.piece }}</div>\n          </ion-col>\n        </ion-row>\n        <ion-button class=\"loginbtn\" color='dark' expand=\"block\" fill=\"outline\" [routerLink]=\"['/', 'admin-order-details', order.order_id]\">ORDER DETAIL</ion-button>\n      </ion-card-content>\n    </ion-card>\n  \n    <ion-infinite-scroll *ngIf=\"!noMoreData\"  (ionInfinite)=\"loadMore($event)\">\n      <ion-infinite-scroll-content loadingSpinner=\"bubbles\" loadingText=\"Loading more orders...\"></ion-infinite-scroll-content>\n    </ion-infinite-scroll>\n  </ion-content>\n  "
 
 /***/ }),
 
@@ -114,58 +114,72 @@ let AllOrdersPage = class AllOrdersPage {
         this.latestResults = 5;
         this.noMoreData = 0;
         this.showNoDataForSearch = true;
-        this.searchstatus = 'All';
+        this.searchstatus = "All";
         this.orderStatus = [
             {
-                name: 'All',
+                name: "All",
             },
             {
-                name: 'Rejected',
+                name: "Rejected",
             },
             {
-                name: 'Pending',
+                name: "Pending",
             },
             {
-                name: 'Confirmed',
+                name: "Confirmed",
             },
             {
-                name: 'Delivered'
-            }
+                name: "Delivered",
+            },
         ];
         this.customPickerOptions = {
-            buttons: [{
-                    text: 'Cancel',
-                    role: 'cancel',
-                    handler: () => { }
-                }, {
-                    text: 'Clear',
+            buttons: [
+                {
+                    text: "Cancel",
+                    role: "cancel",
+                    handler: () => { },
+                },
+                {
+                    text: "Clear",
                     handler: () => {
                         this.searchKeyDate = null;
-                    }
-                }, {
-                    text: 'Search',
+                    },
+                },
+                {
+                    text: "Search",
                     handler: (data) => {
                         console.log(data);
                         const year = data.year.text;
-                        const month = data.month.value < 10 ? '0' + data.month.value.toString() : data.month.value.toString();
+                        const month = data.month.value < 10
+                            ? "0" + data.month.value.toString()
+                            : data.month.value.toString();
                         const day = data.day.text;
-                        this.searchKeyDate = day + '-' + month + '-' + year;
-                    }
-                }]
+                        this.searchKeyDate = day + "-" + month + "-" + year;
+                    },
+                },
+            ],
         };
     }
     ngOnInit() {
         const currentDate = new Date();
-        this.maxDateSelect = currentDate.getFullYear() + '-' + (currentDate.getMonth() + 1) + '-' + currentDate.getDate();
-        this.menu.enable(true, 'admin');
+        this.maxDateSelect =
+            currentDate.getFullYear() +
+                "-" +
+                (currentDate.getMonth() + 1) +
+                "-" +
+                currentDate.getDate();
+        this.menu.enable(true, "admin");
     }
     ionViewWillEnter(callit, infiniteScroll) {
-        console.log('Date: ' + this.searchKeyDate);
-        this.nativePageTransitions.flip(this.auth.optionsRight)
-            .then()
-            .catch((errr) => {
-            console.log(errr);
-        });
+        console.log("Date: " + this.searchKeyDate);
+        if (this.searchKey == "" || this.searchKey == null) {
+            this.nativePageTransitions
+                .slide(this.auth.optionsRight)
+                .then()
+                .catch((errr) => {
+                console.log(errr);
+            });
+        }
         this.orders = [];
         this.page = 1;
         if (callit) {
@@ -178,13 +192,16 @@ let AllOrdersPage = class AllOrdersPage {
             }, 100);
         }
     }
+    ionViewWillLeave() {
+        this.noMoreData = 1;
+    }
     ionViewDidEnter() {
-        this.auth.getAdminAllTotal().then(res => {
-            if (res['success']) {
-                this.auth.adminTotalOrders = res['totalOrders'];
-                this.auth.adminWhatsappOrders = res['totalWhatsappOrders'];
-                this.auth.adminTotalUsers = res['totalUsers'];
-                this.auth.adminTotalMaterials = res['totalMaterials'];
+        this.auth.getAdminAllTotal().then((res) => {
+            if (res["success"]) {
+                this.auth.adminTotalOrders = res["totalOrders"];
+                this.auth.adminWhatsappOrders = res["totalWhatsappOrders"];
+                this.auth.adminTotalUsers = res["totalUsers"];
+                this.auth.adminTotalMaterials = res["totalMaterials"];
             }
             else {
                 this.auth.adminTotalOrders = 0;
@@ -193,23 +210,27 @@ let AllOrdersPage = class AllOrdersPage {
                 this.auth.adminTotalMaterials = 0;
             }
         });
-        this.loadingController.create({
-            message: 'loading orders',
-            mode: 'ios'
-        }).then((ress) => {
+        this.loadingController
+            .create({
+            message: "loading orders",
+            mode: "ios",
+        })
+            .then((ress) => {
             ress.present();
         });
         this.showNoDataForSearch = true;
         this.loadOrders();
     }
     loadOrders(infiniteScroll) {
-        this.auth.getAllOrders(this.results, this.page, this.searchKey, this.searchstatus, this.searchKeyDate).then(response => {
+        this.auth
+            .getAllOrders(this.results, this.page, this.searchKey, this.searchstatus, this.searchKeyDate)
+            .then((response) => {
             console.log(response);
-            if (response['success'] == 1) {
-                this.orders = this.orders.concat(response['orders']);
-                this.maximumPages = Math.ceil(response['total'] / this.results);
+            if (response["success"] == 1) {
+                this.orders = this.orders.concat(response["orders"]);
+                this.maximumPages = Math.ceil(response["total"] / this.results);
                 console.log(this.orders);
-                if (response['total'] <= this.results) {
+                if (response["total"] <= this.results) {
                     this.noMoreData = 1;
                 }
                 if (infiniteScroll) {
@@ -219,12 +240,12 @@ let AllOrdersPage = class AllOrdersPage {
                     this.loadingController.dismiss();
                 }
             }
-            else if (response['success'] == 2) {
+            else if (response["success"] == 2) {
                 this.loadingController.dismiss();
-                this.auth.presentToast(response['message'], false, 'bottom', 2500, 'danger');
+                this.auth.presentToast(response["message"], false, "bottom", 2500, "danger");
             }
             else {
-                if (this.searchKey == undefined || this.searchKey == '') {
+                if (this.searchKey == undefined || this.searchKey == "") {
                     this.showNoData = false;
                 }
                 else {
@@ -248,7 +269,7 @@ let AllOrdersPage = class AllOrdersPage {
         });
     }
     wait(time) {
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
             setTimeout(() => {
                 resolve();
             }, time);
@@ -273,7 +294,7 @@ tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 ], AllOrdersPage.prototype, "content", void 0);
 AllOrdersPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-        selector: 'app-all-orders',
+        selector: "app-all-orders",
         template: __webpack_require__(/*! raw-loader!./all-orders.page.html */ "./node_modules/raw-loader/index.js!./src/app/pages/admin/all-orders/all-orders.page.html"),
         styles: [__webpack_require__(/*! ./all-orders.page.scss */ "./src/app/pages/admin/all-orders/all-orders.page.scss")]
     }),

@@ -124,11 +124,14 @@ var AllUsersPage = /** @class */ (function () {
     };
     AllUsersPage.prototype.ionViewWillEnter = function (callit, infiniteScroll) {
         var _this = this;
-        this.nativePageTransitions.slide(this.auth.optionsRight)
-            .then()
-            .catch(function (errr) {
-            console.log(errr);
-        });
+        if (this.searchKey == "" || this.searchKey == null) {
+            this.nativePageTransitions
+                .slide(this.auth.optionsRight)
+                .then()
+                .catch(function (errr) {
+                console.log(errr);
+            });
+        }
         this.users = [];
         this.page = 1;
         if (callit) {

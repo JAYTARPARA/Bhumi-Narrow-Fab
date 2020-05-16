@@ -17,7 +17,7 @@
        under the License.
  */
 
-package com.bhuminarrowfab.app;
+package com.bhuminarrowfab.admin;
 
 import android.os.Bundle;
 import org.apache.cordova.*;

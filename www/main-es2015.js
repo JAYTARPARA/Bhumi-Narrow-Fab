@@ -714,17 +714,17 @@ let AppComponent = class AppComponent {
         });
     }
     checkUserStatus() {
-        setInterval(() => {
-            this.auth.checkUserStatus(this.auth.usermobile).then(response => {
-                console.log(response);
-                if (response['success'] == 1 && response['status'] == 0) {
-                    this.auth.presentToast('You are blocked by admin', false, 'bottom', 1500, 'danger');
-                    this.fireAuth.auth.signOut().then(() => {
-                        this.router.navigate(['/home']);
-                    });
-                }
-            });
-        }, 5000);
+        // setInterval(() => {
+        //   this.auth.checkUserStatus(this.auth.usermobile).then(response => {
+        //     console.log(response);
+        //     if (response['success'] == 1 && response['status'] == 0) {
+        //       this.auth.presentToast('You are blocked by admin', false, 'bottom', 1500, 'danger');
+        //       this.fireAuth.auth.signOut().then(() => {
+        //         this.router.navigate(['/home']);
+        //       });
+        //     }
+        //   });
+        // }, 5000);
     }
     exitApp() {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {

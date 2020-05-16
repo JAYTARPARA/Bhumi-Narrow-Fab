@@ -1,21 +1,31 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import * as firebase from 'firebase';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Component, OnInit, ViewChild } from "@angular/core";
+import * as firebase from "firebase";
+import { Router, ActivatedRoute } from "@angular/router";
 
-import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFireAuth } from "@angular/fire/auth";
 
-import { MenuController, Platform, ToastController, LoadingController, NavController, IonContent } from '@ionic/angular';
+import {
+  MenuController,
+  Platform,
+  ToastController,
+  LoadingController,
+  NavController,
+  IonContent,
+} from "@ionic/angular";
 
-import { AuthenticationService } from './../../../services/authentication.service';
-import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions/ngx';
+import { AuthenticationService } from "./../../../services/authentication.service";
+import {
+  NativePageTransitions,
+  NativeTransitionOptions,
+} from "@ionic-native/native-page-transitions/ngx";
 
 @Component({
-  selector: 'app-all-orders',
-  templateUrl: './all-orders.page.html',
-  styleUrls: ['./all-orders.page.scss'],
+  selector: "app-all-orders",
+  templateUrl: "./all-orders.page.html",
+  styleUrls: ["./all-orders.page.scss"],
 })
 export class AllOrdersPage implements OnInit {
-  @ViewChild(IonContent, {static: false}) content: IonContent;
+  @ViewChild(IonContent, { static: false }) content: IonContent;
 
   phone: any;
   uid: any;
@@ -37,47 +47,54 @@ export class AllOrdersPage implements OnInit {
   searchKey: any;
   searchKeyDate: any;
   showNoDataForSearch = true;
-  searchstatus = 'All';
+  searchstatus = "All";
   maxDateSelect: any;
 
   orderStatus: any[] = [
     {
-      name : 'All',
+      name: "All",
     },
     {
-      name : 'Rejected',
+      name: "Rejected",
     },
     {
-      name : 'Pending',
+      name: "Pending",
     },
     {
-      name: 'Confirmed',
+      name: "Confirmed",
     },
     {
-      name: 'Delivered'
-    }
+      name: "Delivered",
+    },
   ];
 
   customPickerOptions = {
-    buttons: [{
-      text: 'Cancel',
-      role: 'cancel',
-      handler: () => {}
-    }, {
-      text: 'Clear',
-      handler: () => {
-        this.searchKeyDate = null;
-      }
-    }, {
-      text: 'Search',
-      handler: (data) => {
-        console.log(data);
-        const year: string = data.year.text;
-        const month: string = data.month.value < 10 ? '0' + data.month.value.toString() : data.month.value.toString();
-        const day: string = data.day.text;
-        this.searchKeyDate = day + '-' + month + '-' + year;
-      }
-    }]
+    buttons: [
+      {
+        text: "Cancel",
+        role: "cancel",
+        handler: () => {},
+      },
+      {
+        text: "Clear",
+        handler: () => {
+          this.searchKeyDate = null;
+        },
+      },
+      {
+        text: "Search",
+        handler: (data) => {
+          console.log(data);
+          const year: string = data.year.text;
+          const month: string =
+            data.month.value < 10
+              ? "0" + data.month.value.toString()
+              : data.month.value.toString();
+          const day: string = data.day.text;
+          this.searchKeyDate = day + "-" + month + "-" + year;
+        },
+      },
+    ],
   };
 
   constructor(
@@ -90,22 +107,30 @@ export class AllOrdersPage implements OnInit {
     public loadingController: LoadingController,
     private navCtrl: NavController,
     private menu: MenuController,
-    private nativePageTransitions: NativePageTransitions,
-    ) { }
+    private nativePageTransitions: NativePageTransitions
+  ) {}
 
-    ngOnInit() {
-      const currentDate = new Date();
-      this.maxDateSelect = currentDate.getFullYear() + '-' + (currentDate.getMonth() + 1) + '-' + currentDate.getDate();
-      this.menu.enable(true, 'admin');
-    }
+  ngOnInit() {
+    const currentDate = new Date();
+    this.maxDateSelect =
+      currentDate.getFullYear() +
+      "-" +
+      (currentDate.getMonth() + 1) +
+      "-" +
+      currentDate.getDate();
+    this.menu.enable(true, "admin");
+  }
 
   ionViewWillEnter(callit?, infiniteScroll?) {
-    console.log('Date: ' + this.searchKeyDate);
-    this.nativePageTransitions.flip(this.auth.optionsRight)
-      .then()
-      .catch((errr) => {
-        console.log(errr);
-    });
+    console.log("Date: " + this.searchKeyDate);
+    if (this.searchKey == "" || this.searchKey == null) {
+      this.nativePageTransitions
+        .slide(this.auth.optionsRight)
+        .then()
+        .catch((errr) => {
+          console.log(errr);
+        });
+    }
     this.orders = [];
     this.page = 1;
     if (callit) {
@@ -119,13 +144,17 @@ export class AllOrdersPage implements OnInit {
     }
   }
 
+  ionViewWillLeave() {
+    this.noMoreData = 1;
+  }
+
   ionViewDidEnter() {
-    this.auth.getAdminAllTotal().then(res => {
-      if (res['success']) {
-        this.auth.adminTotalOrders = res['totalOrders'];
-        this.auth.adminWhatsappOrders = res['totalWhatsappOrders'];
-        this.auth.adminTotalUsers = res['totalUsers'];
-        this.auth.adminTotalMaterials = res['totalMaterials'];
+    this.auth.getAdminAllTotal().then((res) => {
+      if (res["success"]) {
+        this.auth.adminTotalOrders = res["totalOrders"];
+        this.auth.adminWhatsappOrders = res["totalWhatsappOrders"];
+        this.auth.adminTotalUsers = res["totalUsers"];
+        this.auth.adminTotalMaterials = res["totalMaterials"];
       } else {
         this.auth.adminTotalOrders = 0;
         this.auth.adminWhatsappOrders = 0;
@@ -133,43 +162,59 @@ export class AllOrdersPage implements OnInit {
         this.auth.adminTotalMaterials = 0;
       }
     });
-    this.loadingController.create({
-      message: 'loading orders',
-      mode: 'ios'
-    }).then((ress) => {
-      ress.present();
-    });
+    this.loadingController
+      .create({
+        message: "loading orders",
+        mode: "ios",
+      })
+      .then((ress) => {
+        ress.present();
+      });
     this.showNoDataForSearch = true;
     this.loadOrders();
   }
 
   loadOrders(infiniteScroll?) {
-    this.auth.getAllOrders(this.results, this.page, this.searchKey, this.searchstatus, this.searchKeyDate).then(response => {
-      console.log(response);
-      if (response['success'] == 1) {
-        this.orders = this.orders.concat(response['orders']);
-        this.maximumPages = Math.ceil(response['total'] / this.results);
-        console.log(this.orders);
-        if (response['total'] <= this.results ) {
-          this.noMoreData = 1;
-        }
-        if (infiniteScroll) {
-          infiniteScroll.target.complete();
+    this.auth
+      .getAllOrders(
+        this.results,
+        this.page,
+        this.searchKey,
+        this.searchstatus,
+        this.searchKeyDate
+      )
+      .then((response) => {
+        console.log(response);
+        if (response["success"] == 1) {
+          this.orders = this.orders.concat(response["orders"]);
+          this.maximumPages = Math.ceil(response["total"] / this.results);
+          console.log(this.orders);
+          if (response["total"] <= this.results) {
+            this.noMoreData = 1;
+          }
+          if (infiniteScroll) {
+            infiniteScroll.target.complete();
+          } else {
+            this.loadingController.dismiss();
+          }
+        } else if (response["success"] == 2) {
+          this.loadingController.dismiss();
+          this.auth.presentToast(
+            response["message"],
+            false,
+            "bottom",
+            2500,
+            "danger"
+          );
         } else {
+          if (this.searchKey == undefined || this.searchKey == "") {
+            this.showNoData = false;
+          } else {
+            this.showNoDataForSearch = false;
+          }
           this.loadingController.dismiss();
         }
-      } else if (response['success'] == 2) {
-        this.loadingController.dismiss();
-        this.auth.presentToast(response['message'], false, 'bottom', 2500, 'danger');
-      } else {
-        if (this.searchKey == undefined || this.searchKey == '') {
-          this.showNoData = false;
-        } else {
-          this.showNoDataForSearch = false;
-        }
-        this.loadingController.dismiss();
-      }
-    });
+      });
   }
 
   async loadMore(infiniteScroll) {
@@ -187,11 +232,10 @@ export class AllOrdersPage implements OnInit {
   }
 
   wait(time) {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       setTimeout(() => {
         resolve();
       }, time);
     });
   }
-
 }
