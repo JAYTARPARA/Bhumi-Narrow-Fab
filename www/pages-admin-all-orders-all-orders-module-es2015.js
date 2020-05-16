@@ -172,6 +172,9 @@ let AllOrdersPage = class AllOrdersPage {
     }
     ionViewWillEnter(callit, infiniteScroll) {
         console.log("Date: " + this.searchKeyDate);
+        if (this.searchKeyDate == undefined) {
+            this.searchKeyDate = null;
+        }
         if (this.searchKey == "" || this.searchKey == null) {
             this.nativePageTransitions
                 .slide(this.auth.optionsRight)
@@ -194,6 +197,7 @@ let AllOrdersPage = class AllOrdersPage {
     }
     ionViewWillLeave() {
         this.noMoreData = 1;
+        this.searchKey = "";
     }
     ionViewDidEnter() {
         this.auth.getAdminAllTotal().then((res) => {

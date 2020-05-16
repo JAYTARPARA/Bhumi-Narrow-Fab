@@ -199,6 +199,7 @@ var WhatsappOrdersPage = /** @class */ (function () {
     };
     WhatsappOrdersPage.prototype.ionViewWillLeave = function () {
         this.noMoreData = 1;
+        this.searchKey = "";
     };
     WhatsappOrdersPage.prototype.ionViewDidEnter = function () {
         var _this = this;

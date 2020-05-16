@@ -189,50 +189,10 @@ var AllMaterialsPage = /** @class */ (function () {
     };
     AllMaterialsPage.prototype.ionViewWillLeave = function () {
         this.noMoreData = 1;
-    };
-    AllMaterialsPage.prototype.presentAlertConfirm = function () {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
-            var alert;
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.alertCtrl.create({
-                            header: 'Confirm!',
-                            subHeader: 'Are you sure you want to exit the app?',
-                            mode: 'ios',
-                            buttons: [
-                                {
-                                    text: 'NO',
-                                    role: 'cancel',
-                                    cssClass: 'secondary',
-                                    handler: function (blah) {
-                                    }
-                                }, {
-                                    text: 'YES',
-                                    handler: function () {
-                                        navigator['app'].exitApp();
-                                    }
-                                }
-                            ]
-                        })];
-                    case 1:
-                        alert = _a.sent();
-                        return [4 /*yield*/, alert.present()];
-                    case 2:
-                        _a.sent();
-                        return [2 /*return*/];
-                }
-            });
-        });
+        this.searchKey = "";
     };
     AllMaterialsPage.prototype.ionViewDidEnter = function () {
         var _this = this;
-        this.backButtonSubscription = this.platform.backButton.subscribe(function () {
-            // navigator['app'].exitApp();
-            console.log(_this.constructor.name);
-            if (_this.constructor.name == 'AllMaterialsPage') {
-                _this.presentAlertConfirm();
-            }
-        });
         this.auth.getAdminAllTotal().then(function (res) {
             if (res["success"]) {
                 _this.auth.adminTotalOrders = res["totalOrders"];

@@ -138,40 +138,10 @@ export class AllMaterialsPage implements OnInit {
 
   ionViewWillLeave() {
     this.noMoreData = 1;
-  }
-
-  async presentAlertConfirm() {
-    const alert = await this.alertCtrl.create({
-      header: 'Confirm!',
-      subHeader: 'Are you sure you want to exit the app?',
-      mode: 'ios',
-      buttons: [
-        {
-          text: 'NO',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: (blah) => {
-          }
-        }, {
-          text: 'YES',
-          handler: () => {
-            navigator['app'].exitApp();
-          }
-        }
-      ]
-    });
-
-    await alert.present();
+    this.searchKey = "";
   }
 
   ionViewDidEnter() {
-    this.backButtonSubscription = this.platform.backButton.subscribe( () => {
-      // navigator['app'].exitApp();
-      console.log(this.constructor.name);
-      if (this.constructor.name == 'AllMaterialsPage') {
-        this.presentAlertConfirm();
-      }
-  });
     this.auth.getAdminAllTotal().then((res) => {
       if (res["success"]) {
         this.auth.adminTotalOrders = res["totalOrders"];

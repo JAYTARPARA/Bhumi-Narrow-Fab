@@ -147,6 +147,7 @@ export class WhatsappOrdersPage implements OnInit {
 
   ionViewWillLeave() {
     this.noMoreData = 1;
+    this.searchKey = "";
   }
 
   ionViewDidEnter() {

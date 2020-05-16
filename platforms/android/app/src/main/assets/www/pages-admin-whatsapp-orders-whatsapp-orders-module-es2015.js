@@ -194,6 +194,7 @@ let WhatsappOrdersPage = class WhatsappOrdersPage {
     }
     ionViewWillLeave() {
         this.noMoreData = 1;
+        this.searchKey = "";
     }
     ionViewDidEnter() {
         this.auth.getAdminAllTotal().then((res) => {

@@ -177,6 +177,9 @@ var AllOrdersPage = /** @class */ (function () {
     AllOrdersPage.prototype.ionViewWillEnter = function (callit, infiniteScroll) {
         var _this = this;
         console.log("Date: " + this.searchKeyDate);
+        if (this.searchKeyDate == undefined) {
+            this.searchKeyDate = null;
+        }
         if (this.searchKey == "" || this.searchKey == null) {
             this.nativePageTransitions
                 .slide(this.auth.optionsRight)
@@ -199,6 +202,7 @@ var AllOrdersPage = /** @class */ (function () {
     };
     AllOrdersPage.prototype.ionViewWillLeave = function () {
         this.noMoreData = 1;
+        this.searchKey = "";
     };
     AllOrdersPage.prototype.ionViewDidEnter = function () {
         var _this = this;
