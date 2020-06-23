@@ -91,6 +91,12 @@ export class MaterialPage implements OnInit {
     {
       name : 'Cut Work',
     },
+    {
+      name: 'Shum Shumya Lace',
+    },
+    {
+      name: 'Jhalar Lace',
+    },
   ];
 
   sliderConfig = {

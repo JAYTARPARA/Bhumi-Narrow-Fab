@@ -774,13 +774,13 @@ export class AuthenticationService {
     }
   }
 
-  updateMaterialDetailOnly(id, name, mid, color, mowner, mtype, price) {
+  updateMaterialDetailOnly(id, name, mid, color, mowner, mtype, price, sliderOpt) {
     if (this.plt.is("cordova")) {
       return new Promise(resolve => {
         // tslint:disable-next-line:max-line-length
         from(
           this.nativeHttp.get(
-            `https://jaytarpara.in/mysql.php?callapi=1&process=updateMaterialDetailOnly&id=${id}&name=${name}&mid=${mid}&color=${color}&mowner=${mowner}&mtype=${mtype}&price=${price}`,
+            `https://jaytarpara.in/mysql.php?callapi=1&process=updateMaterialDetailOnly&id=${id}&name=${name}&mid=${mid}&color=${color}&mowner=${mowner}&mtype=${mtype}&price=${price}&slider=${sliderOpt}`,
             { "Content-Type": "application/json" },
             {}
           )
@@ -798,7 +798,7 @@ export class AuthenticationService {
         // tslint:disable-next-line:max-line-length
         this.http
           .get(
-            `https://jaytarpara.in/mysql.php?callapi=1&process=updateMaterialDetailOnly&id=${id}&name=${name}&mid=${mid}&color=${color}&mowner=${mowner}&mtype=${mtype}&price=${price}`
+            `https://jaytarpara.in/mysql.php?callapi=1&process=updateMaterialDetailOnly&id=${id}&name=${name}&mid=${mid}&color=${color}&mowner=${mowner}&mtype=${mtype}&price=${price}&slider=${sliderOpt}`
           )
           .pipe(map(results => results))
           .subscribe(

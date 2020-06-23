@@ -1734,11 +1734,11 @@ let AuthenticationService = class AuthenticationService {
             });
         }
     }
-    updateMaterialDetailOnly(id, name, mid, color, mowner, mtype, price) {
+    updateMaterialDetailOnly(id, name, mid, color, mowner, mtype, price, sliderOpt) {
         if (this.plt.is("cordova")) {
             return new Promise(resolve => {
                 // tslint:disable-next-line:max-line-length
-                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["from"])(this.nativeHttp.get(`https://jaytarpara.in/mysql.php?callapi=1&process=updateMaterialDetailOnly&id=${id}&name=${name}&mid=${mid}&color=${color}&mowner=${mowner}&mtype=${mtype}&price=${price}`, { "Content-Type": "application/json" }, {})).subscribe(data => {
+                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["from"])(this.nativeHttp.get(`https://jaytarpara.in/mysql.php?callapi=1&process=updateMaterialDetailOnly&id=${id}&name=${name}&mid=${mid}&color=${color}&mowner=${mowner}&mtype=${mtype}&price=${price}&slider=${sliderOpt}`, { "Content-Type": "application/json" }, {})).subscribe(data => {
                     resolve(JSON.parse(data.data));
                 }, error => {
                     resolve({ success: 2, message: this.serverErrorMsg });
@@ -1749,7 +1749,7 @@ let AuthenticationService = class AuthenticationService {
             return new Promise(resolve => {
                 // tslint:disable-next-line:max-line-length
                 this.http
-                    .get(`https://jaytarpara.in/mysql.php?callapi=1&process=updateMaterialDetailOnly&id=${id}&name=${name}&mid=${mid}&color=${color}&mowner=${mowner}&mtype=${mtype}&price=${price}`)
+                    .get(`https://jaytarpara.in/mysql.php?callapi=1&process=updateMaterialDetailOnly&id=${id}&name=${name}&mid=${mid}&color=${color}&mowner=${mowner}&mtype=${mtype}&price=${price}&slider=${sliderOpt}`)
                     .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(results => results))
                     .subscribe(data => {
                     resolve(data);

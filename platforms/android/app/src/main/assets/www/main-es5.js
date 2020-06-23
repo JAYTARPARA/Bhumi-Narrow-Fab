@@ -1848,12 +1848,12 @@ var AuthenticationService = /** @class */ (function () {
             });
         }
     };
-    AuthenticationService.prototype.updateMaterialDetailOnly = function (id, name, mid, color, mowner, mtype, price) {
+    AuthenticationService.prototype.updateMaterialDetailOnly = function (id, name, mid, color, mowner, mtype, price, sliderOpt) {
         var _this = this;
         if (this.plt.is("cordova")) {
             return new Promise(function (resolve) {
                 // tslint:disable-next-line:max-line-length
-                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["from"])(_this.nativeHttp.get("https://jaytarpara.in/mysql.php?callapi=1&process=updateMaterialDetailOnly&id=" + id + "&name=" + name + "&mid=" + mid + "&color=" + color + "&mowner=" + mowner + "&mtype=" + mtype + "&price=" + price, { "Content-Type": "application/json" }, {})).subscribe(function (data) {
+                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["from"])(_this.nativeHttp.get("https://jaytarpara.in/mysql.php?callapi=1&process=updateMaterialDetailOnly&id=" + id + "&name=" + name + "&mid=" + mid + "&color=" + color + "&mowner=" + mowner + "&mtype=" + mtype + "&price=" + price + "&slider=" + sliderOpt, { "Content-Type": "application/json" }, {})).subscribe(function (data) {
                     resolve(JSON.parse(data.data));
                 }, function (error) {
                     resolve({ success: 2, message: _this.serverErrorMsg });
@@ -1864,7 +1864,7 @@ var AuthenticationService = /** @class */ (function () {
             return new Promise(function (resolve) {
                 // tslint:disable-next-line:max-line-length
                 _this.http
-                    .get("https://jaytarpara.in/mysql.php?callapi=1&process=updateMaterialDetailOnly&id=" + id + "&name=" + name + "&mid=" + mid + "&color=" + color + "&mowner=" + mowner + "&mtype=" + mtype + "&price=" + price)
+                    .get("https://jaytarpara.in/mysql.php?callapi=1&process=updateMaterialDetailOnly&id=" + id + "&name=" + name + "&mid=" + mid + "&color=" + color + "&mowner=" + mowner + "&mtype=" + mtype + "&price=" + price + "&slider=" + sliderOpt)
                     .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function (results) { return results; }))
                     .subscribe(function (data) {
                     resolve(data);

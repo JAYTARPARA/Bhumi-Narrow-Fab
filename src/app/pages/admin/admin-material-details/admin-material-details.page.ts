@@ -23,6 +23,16 @@ export class AdminMaterialDetailsPage implements OnInit {
   id: any;
   owner: any;
   type: any;
+  slider = 'No';
+
+  sliderOpt: any[] = [
+    {
+      name : 'No',
+    },
+    {
+      name : 'Yes',
+    },
+  ];
 
   materialOwner: any[] = [
     {
@@ -48,6 +58,12 @@ export class AdminMaterialDetailsPage implements OnInit {
     },
     {
       name : 'Cut Work',
+    },
+    {
+      name: 'Shum Shumya Lace',
+    },
+    {
+      name: 'Jhalar Lace',
     },
   ];
 
@@ -116,6 +132,11 @@ export class AdminMaterialDetailsPage implements OnInit {
         this.type = this.material['material_type'];
         this.color = this.material['color'];
         this.base64Image = 'https://jaytarpara.in/images/materials/' + this.material['image'];
+        if (this.material['slider'] == 1) {
+          this.slider = 'Yes';
+        } else {
+          this.slider = 'No';
+        }
         this.loadingController.dismiss();
       } else if (response['success'] == 2) {
         this.loadingController.dismiss();
@@ -164,9 +185,10 @@ export class AdminMaterialDetailsPage implements OnInit {
   const price = this.price;
   const mowner = this.owner;
   const mtype = this.type;
+  const slideropt = this.slider;
 
   // tslint:disable-next-line:max-line-length
-  if (name == undefined || mid == undefined || mtype == undefined || color == undefined || price == undefined || mowner == undefined || name == '' || mid == '' || mtype == '' || color == '' || price == '' || mowner == '') {
+  if (name == undefined || mid == undefined || mtype == undefined || color == undefined || price == undefined || mowner == undefined || slideropt == undefined || name == '' || mid == '' || mtype == '' || color == '' || price == '' || mowner == '' || slideropt == '') {
       this.auth.presentToast('Please fill all required fields', false, 'bottom', 1000, 'danger');
   } else {
       mid = mid.toUpperCase();
@@ -195,7 +217,7 @@ export class AdminMaterialDetailsPage implements OnInit {
 
       if (this.base64ImageUpdate) {
         // tslint:disable-next-line:max-line-length
-        fileTransfer.upload(this.base64ImageUpdate, `https://jaytarpara.in/mysql.php?callapi=1&process=updateMaterial&id=${this.id}&name=${name}&mid=${mid}&color=${color}&mowner=${mowner}&mtype=${mtype}&price=${price}`, options).then(result => {
+        fileTransfer.upload(this.base64ImageUpdate, `https://jaytarpara.in/mysql.php?callapi=1&process=updateMaterial&id=${this.id}&name=${name}&mid=${mid}&color=${color}&mowner=${mowner}&mtype=${mtype}&price=${price}&slider=${slideropt}`, options).then(result => {
           this.loadingController.dismiss();
           if (JSON.parse(JSON.parse(JSON.stringify(result.response)))['success'] == 1) {
             this.auth.presentToast(JSON.parse(JSON.parse(JSON.stringify(result.response)))['message'], false, 'bottom', 1000, 'success');
@@ -206,7 +228,7 @@ export class AdminMaterialDetailsPage implements OnInit {
           console.log('error' + JSON.stringify(error));
         });
       } else {
-        this.auth.updateMaterialDetailOnly(this.id, this.name, mid, color, mowner, mtype, this.price).then(response => {
+        this.auth.updateMaterialDetailOnly(this.id, this.name, mid, color, mowner, mtype, this.price, this.slider).then(response => {
           this.loadingController.dismiss();
           if (response['success'] == 1) {
             this.auth.presentToast(response['message'], false, 'bottom', 1000, 'success');

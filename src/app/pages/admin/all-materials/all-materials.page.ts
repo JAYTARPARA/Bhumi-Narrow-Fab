@@ -76,22 +76,25 @@ export class AllMaterialsPage implements OnInit {
 
   materialType: any[] = [
     {
-      name: "All",
+      name : 'Fancy',
     },
     {
-      name: "Fancy",
+      name : 'Needle Lace',
     },
     {
-      name: "Needle Lace",
+      name : 'Moti Lace',
     },
     {
-      name: "Moti Lace",
+      name : 'Crosset',
     },
     {
-      name: "Crosset",
+      name : 'Cut Work',
     },
     {
-      name: "Cut Work",
+      name: 'Shum Shumya Lace',
+    },
+    {
+      name: 'Jhalar Lace',
     },
   ];
 

@@ -20,6 +20,16 @@ export class UploadMaterialsPage implements OnInit {
   price: any;
   owner = 'Bhumi Narrow Fab';
   type = 'Fancy';
+  slider = 'No';
+
+  sliderOpt: any[] = [
+    {
+      name : 'No',
+    },
+    {
+      name : 'Yes',
+    },
+  ];
 
   materialOwner: any[] = [
     {
@@ -48,6 +58,12 @@ export class UploadMaterialsPage implements OnInit {
     },
     {
       name : 'Cut Work',
+    },
+    {
+      name: 'Shum Shumya Lace',
+    },
+    {
+      name: 'Jhalar Lace',
     },
   ];
 
@@ -112,9 +128,10 @@ export class UploadMaterialsPage implements OnInit {
     const price = this.price;
     const mowner = this.owner;
     const mtype = this.type;
+    const slideropt = this.slider;
 
     // tslint:disable-next-line:max-line-length
-    if (name == undefined || mid == undefined || mtype == undefined || color == undefined || price == undefined || mowner == undefined || name == '' || mid == '' || mtype == '' || color == '' || price == '' || mowner == '') {
+    if (name == undefined || mid == undefined || mtype == undefined || color == undefined || price == undefined || mowner == undefined || slideropt == undefined || name == '' || mid == '' || mtype == '' || color == '' || price == '' || mowner == '' || slideropt == '') {
       this.auth.presentToast('Please fill all required fields', false, 'bottom', 1000, 'danger');
     } else {
       mid = mid.toUpperCase();
@@ -142,7 +159,7 @@ export class UploadMaterialsPage implements OnInit {
       };
 
       // tslint:disable-next-line:max-line-length
-      fileTransfer.upload(this.base64Image, `https://jaytarpara.in/mysql.php?callapi=1&process=uploadMaterial&name=${name}&mid=${mid}&color=${color}&price=${price}&mowner=${mowner}&material_type=${mtype}`, options).then(result => {
+      fileTransfer.upload(this.base64Image, `https://jaytarpara.in/mysql.php?callapi=1&process=uploadMaterial&name=${name}&mid=${mid}&color=${color}&price=${price}&mowner=${mowner}&material_type=${mtype}&slider=${slideropt}`, options).then(result => {
         this.loadingController.dismiss();
 
         if (JSON.parse(JSON.parse(JSON.stringify(result.response)))['success'] == 1) {

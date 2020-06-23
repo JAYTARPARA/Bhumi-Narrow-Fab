@@ -73,6 +73,19 @@
 
     <ion-row>
       <ion-col>
+        <ion-item>
+          <ion-label>Slider</ion-label>
+          <ion-select mode="ios" interface="action-sheet" placeholder="Slider" name="slider" [selectedText]="slider" [(ngModel)]="slider">
+            <ion-select-option *ngFor="let slider of sliderOpt" value="{{slider.name}}">
+              {{slider.name}}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
         <ion-label position="stacked">Material Image: </ion-label>
       </ion-col>
     </ion-row>

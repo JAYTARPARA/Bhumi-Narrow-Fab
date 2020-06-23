@@ -164,6 +164,12 @@ let MaterialPage = class MaterialPage {
             {
                 name: 'Cut Work',
             },
+            {
+                name: 'Shum Shumya Lace',
+            },
+            {
+                name: 'Jhalar Lace',
+            },
         ];
         this.sliderConfig = {
             slidesPerView: 1.6,
