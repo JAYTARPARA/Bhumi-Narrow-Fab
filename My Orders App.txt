@@ -1,0 +1,234 @@
+https://bhuminarrowfab.000webhostapp.com
+https://bhuminarrowfab.hostingerapp.com
+https://jaytarpara.in
+
+ionic cordova run android -l
+
+keytool -list -v -keystore %USERPROFILE%/.android/debug.keystore -alias androiddebugkey -storepass android -keypass android
+
+keytool -list -v -keystore C:/Users/Public/debug.keystore -alias androiddebugkey -storepass android -keypass android
+
+SHA1: 06:7E:08:95:48:02:CE:D3:6C:DC:AD:3C:74:02:D0:77:D9:9C:98:53
+
+npm install -g @angular/cli@latest
+
+npm install -g npm@3.10.10
+
+ionic start myorderapp sidemenu --type=angular
+
+npm cache clean --force
+npm install firebase @angular/fire --save
+
+ionic cordova build android
+ionic cordova build android --release -- -- --versionCode=1
+
+cordova build --release android -- --versionCode=1
+
+cordova plugin add https://github.com/dpa99c/cordova-plugin-firebase#GH-1057-April-05-android-build-issue
+
+ionic cordova emulate browser
+
+ionic cordova plugin add cordova-plugin-sms-receive
+
+npm uninstall crypto --save
+
+firebaseConfig: {
+    apiKey: "AIzaSyBA6WJFcR_c13T9Q-hIdwXRV5GC59OdPmg",
+    authDomain: "bhumi-narrow-fab.firebaseapp.com",
+    databaseURL: "https://bhumi-narrow-fab.firebaseio.com",
+    projectId: "bhumi-narrow-fab",
+    storageBucket: "",
+    messagingSenderId: "900635805457",
+    appId: "1:900635805457:web:8431369e0f961389b16eb0",
+    measurementId: "G-R4CP2PPVVY"
+};
+
+cordova plugin add https://github.com/jestcastro/cordova-plugin-firebase.git
+
+cd C:\Users\Public\Android\sdk\platform-tools
+adb tcpip 5555
+adb connect 192.168.1.100:5555
+
+ICON - 1024×1024
+SPLASH - 2732×2732
+
+ionic cordova resources
+
+
+DB - id11152019_bhuminarrowfab
+User - id11152019_bhuminarrowfab
+Pass - bhuminarrowfab
+
+DB - u149947270_bnf
+User - u149947270_bnf
+Pass - 8460224419
+
+
+URL - https://bhuminarrowfab.000webhostapp.com/mysql.php
+
+
+"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+
+host: files.000webhost.com
+user: bhuminarrowfab
+pass: jaystar8460224419
+
+
+/^([0-9]{2}[a-zA-Z]{4}([a-zA-Z]{1}|[0-9]{1})[0-9]{4}[a-zA-Z]{1}([a-zA-Z]|[0-9]){3}){0,15}$/
+
+703 - Shubham Elegance, Near Dabholi Bridge, SInganpore, Surat - 395004
+22AAAAA0000A1Z5
+
+[disabled]="!saveForm.form.valid"
+
+ionic cordova plugin add cordova-plugin-x-socialsharing
+npm install @ionic-native/social-sharing
+
+ionic cordova platform save   | save existing installed platforms to config.xml
+ionic cordova plugin save     | save existing installed plugins to config.xml
+ionic cordova platform --help | view help page for managing Cordova platforms
+ionic cordova plugin --help   | view help page for managing Cordova plugins
+ionic cordova prepare         | install platforms and plugins listed in config.xml
+
+git status
+git add --all (--all can be file path as well)
+git commit -m "Test" ("Test" is a message)
+git push origin master
+
+ionic cordova plugin add cordova-plugin-camera
+npm install @ionic-native/camera
+ionic cordova plugin add cordova-plugin-file-transfer
+npm install @ionic-native/file-transfer
+ionic cordova plugin add cordova-plugin-file
+npm install @ionic-native/file
+
+ionic cordova plugin add cordova-sms-plugin
+npm install @ionic-native/sms
+
+npm install firebase-admin --save
+npm install @google-cloud/firestore
+npm install @google-cloud/storage
+
+npm uninstall firebase-admin
+npm uninstall @google-cloud/firestore
+npm uninstall @google-cloud/storage
+
+ionic cordova plugin add com.telerik.plugins.nativepagetransitions
+npm install @ionic-native/native-page-transitions
+
+
+, error => {
+        resolve({success: 2, message: 'Server Issue! Please try after sometime'});
+      }
+
+ else if (response['success'] == 2) {
+        this.loadingController.dismiss();
+        this.auth.presentToast(response['message'], false, 'bottom', 2500, 'danger');
+      }
+	  
+key_secret: 7yZ2AVzT76cie7ralb9YZcLsrjq2 - WORKING
+
+HVEhpveprHeKSIc61xuOHlTd8dG2 - WORKING
+
+API KEY = "Z2h1eWl0eXV0eTE5MDgzMzQwNzk" - PAID
+
+
+cd C:\Projects\My Ionic Projects\bhuminarrowfab\
+
+setTimeout(() => {
+        this.loadingController.getTop().then( chk => {
+          if (chk) {
+            this.loadingController.dismiss();
+          }
+        });
+      }, 1500);
+	  
+	  (click)="redirectToLogin()"
+	  
+	  
+var admin = require("firebase-admin");
+
+var serviceAccount = require("path/to/serviceAccountKey.json");
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://bhumi-narrow-fab.firebaseio.com"
+});
+
+Party Name (Instead of test material)
+Quantity (Instead of order total)
+Sorting by color, price
+
+
+
+Order ID
+Material Image
+Order At
+Name
+Mobile
+Address
+Quantity
+Pieces
+Sample
+Order Status
+
+9104615152
+
+cd C:\Projects\My Ionic Projects\bhuminarrowfab\
+
+
+keytool -genkey -v -keystore bhuminarrowfab-key.jks -alias bhuminarrowfab -keyalg RSA -keysize 2048 -validity 10000
+
+keytool -genkey -v -keystore bhuminarrowfab-admin-key.jks -alias bhuminarrowfabadmin -keyalg RSA -keysize 2048 -validity 10000
+
+ionic cordova build android --release -- -- --versionCode=36
+
+cordova build --release android -- --versionCode=36
+
+jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore bhuminarrowfab-admin-key.jks platforms\android\app\build\outputs\apk\release\app-release-unsigned.apk bhuminarrowfabadmin
+
+zipalign -v 4 platforms\android\app\build\outputs\apk\release\app-release-unsigned.apk platforms\android\app\build\outputs\apk\release\bhuminarrowfab1.36.apk
+
+jarsigner -verify platforms\android\app\build\outputs\apk\release\app-release-unsigned.apk
+
+<application android:usesCleartextTraffic="true" />
+
+
+https://youtu.be/jLA31jGJ7ck
+
+
+App ID - amzn1.devportal.mobileapp.2da107b8a33e44a2844c37dde32c7f5f
+Release ID - amzn1.devportal.apprelease.ea658517503f4203a1d47cd75aa528e0
+
+Call-based OTP account verification
+
+<uses-permission android:name="android.permission.SEND_SMS" />
+<uses-permission android:name="android.permission.RECEIVE_SMS" />
+
+
+ionic cordova plugin remove cordova-plugin-sms-remove
+
+C:\Projects\My Ionic Projects\bhuminarrowfab\platforms\android\android.json
+LINE 95
+{
+  "xml": "<uses-permission android:name=\"android.permission.RECEIVE_SMS\" />",
+  "count": 1
+},
+
+
+AAAA0bITxxE:APA91bEOMU04JhzlHRXelr7aUmqU3YjwQBdvEW-vqCP_TmpUC2YMy9fsrHxMCMBXoi0F7yfvDIwIGo55A315gxu49IT_W1yyik4QhBRHhdeSnIKPzmM5Lm4WoIUUzg3R_BHmEnCh0aUR
+900635805457
+a1711926-9bb5-45f3-8b9c-c491e036198d
+
+ZDk3NmY1OGItNTM3OC00ZTEzLTg4YzQtYjFhYTA5ODk5MmVj
+
+
+Project Number - 900635805457
+API Key - AIzaSyDyI9DRE7QelHzqE_NMfd4eaPsrT_PDuyw
+AIzaSyBA6WJFcR_c13T9Q-hIdwXRV5GC59OdPmg
+
+npm install --save @ionic-native/push--save
+cordova plugin add phonegap-plugin-push --variable SENDER_ID=<900635805457> --save
+
+
+fWcVHuq5pM8:APA91bE58-b8hYZWR3fW3g5eAGcCE21ka1RyWIRxQqudK6TPtMkon86gmz-ulODUav7itfDk_3LWQKV7VdDXO2og0-f3WTxyTTpgGkwrJRhMHi7IfS-IyNb1N2oY2VxqHI09A7lUGyQw

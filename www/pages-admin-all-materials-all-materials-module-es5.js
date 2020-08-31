@@ -170,6 +170,8 @@ var AllMaterialsPage = /** @class */ (function () {
     };
     AllMaterialsPage.prototype.ionViewWillEnter = function (callit, infiniteScroll) {
         var _this = this;
+        this.noMoreData = 0;
+        this.page = 1;
         if (this.searchKey == "" || this.searchKey == null) {
             this.nativePageTransitions
                 .slide(this.auth.optionsRight)
@@ -192,10 +194,13 @@ var AllMaterialsPage = /** @class */ (function () {
     };
     AllMaterialsPage.prototype.ionViewWillLeave = function () {
         this.noMoreData = 1;
+        this.page = 1;
         this.searchKey = "";
     };
     AllMaterialsPage.prototype.ionViewDidEnter = function () {
         var _this = this;
+        this.noMoreData = 0;
+        this.page = 1;
         this.auth.getAdminAllTotal().then(function (res) {
             if (res["success"]) {
                 _this.auth.adminTotalOrders = res["totalOrders"];
@@ -234,6 +239,9 @@ var AllMaterialsPage = /** @class */ (function () {
             .then(function (response) {
             console.log(response);
             if (response["success"] == 1) {
+                if (_this.page == 1) {
+                    _this.materials = [];
+                }
                 _this.materials = _this.materials.concat(response["materials"]);
                 _this.maximumPages = Math.ceil(response["total"] / _this.results);
                 console.log(_this.materials);

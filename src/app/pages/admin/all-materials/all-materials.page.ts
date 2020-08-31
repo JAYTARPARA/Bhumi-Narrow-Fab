@@ -117,6 +117,8 @@ export class AllMaterialsPage implements OnInit {
   }
 
   ionViewWillEnter(callit?, infiniteScroll?) {
+    this.noMoreData = 0;
+    this.page = 1;
     if (this.searchKey == "" || this.searchKey == null) {
       this.nativePageTransitions
         .slide(this.auth.optionsRight)
@@ -141,10 +143,13 @@ export class AllMaterialsPage implements OnInit {
 
   ionViewWillLeave() {
     this.noMoreData = 1;
+    this.page = 1;
     this.searchKey = "";
   }
 
   ionViewDidEnter() {
+    this.noMoreData = 0;
+    this.page = 1;
     this.auth.getAdminAllTotal().then((res) => {
       if (res["success"]) {
         this.auth.adminTotalOrders = res["totalOrders"];
@@ -188,6 +193,9 @@ export class AllMaterialsPage implements OnInit {
       .then((response) => {
         console.log(response);
         if (response["success"] == 1) {
+          if (this.page == 1) {
+            this.materials = [];
+          }
           this.materials = this.materials.concat(response["materials"]);
           this.maximumPages = Math.ceil(response["total"] / this.results);
           console.log(this.materials);
